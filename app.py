@@ -128,7 +128,7 @@ def get_football_odds_data(sport_key: str, selected_books_str: str) -> str:
     except Exception as e:
         return json.dumps({"error": str(e)})
 
-# --- USER INTERFACE ---
+# --- UI TABS ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
     "🤖 Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
 ])
@@ -169,14 +169,14 @@ with tab_auto:
                     f"   - Only evaluate Home or Away outright winners (exclude draws).\n"
                     f"   - Retail odds must be between 1.45 and 3.20.\n"
                     f"   - Calculated EV % must be >= {min_edge_threshold}%.\n"
-                    "5. Output STRICTLY a valid JSON array of objects. Do not include markdown formatting like ```json or any conversational prose.\n"
+                    "5. Output STRICTLY a valid JSON array of objects. Do not include markdown formatting like ```json or conversational prose.\n"
                     'Format: [{"matchup": "Team A vs Team B", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
                     "If no qualifying bets are found, return exactly: []"
                 )
 
                 try:
                     response = client.models.generate_content(
-                        model="gemini-2.5-flash",
+                        model="gemini-3.6-flash",
                         contents=f"{system_prompt}\n\nLive Odds Data:\n{odds_payload}",
                         config=types.GenerateContentConfig(temperature=0.1)
                     )
@@ -184,7 +184,6 @@ with tab_auto:
                     st.error(f"Gemini API Error: {api_err}")
                     st.stop()
 
-                # Clean markdown wrapper safely without regex breaks
                 raw_text = response.text.strip()
                 if raw_text.startswith("```"):
                     lines = raw_text.splitlines()
@@ -305,7 +304,7 @@ with tab_stocks:
             price = round(stock.fast_info.last_price, 2)
             try:
                 res = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=f"Analyze {ticker_input} at current price ${price} for an intraday plan with entry, target, and stop.",
                 )
                 st.markdown(res.text)
