@@ -51,34 +51,47 @@ def load_portfolio() -> pd.DataFrame:
 def save_portfolio(df: pd.DataFrame):
     df.to_csv(CSV_FILE, index=False)
 
-# --- DYNAMIC LEAGUE DISCOVERY (THE ODDS API) ---
-@st.cache_data(ttl=3600)
-def get_all_active_soccer_leagues(api_key: str):
-    """Fetches all active soccer leagues currently covered by The Odds API (Costs 0 credits)."""
-    if not api_key:
-        return {
-            "Premier League (England)": "soccer_epl",
-            "La Liga (Spain)": "soccer_spain_la_liga",
-            "Serie A (Italy)": "soccer_italy_serie_a",
-            "Ligue 1 (France)": "soccer_france_ligue_one",
-            "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
-            "UEFA Champions League": "soccer_uefa_champs_league",
-        }
-    
-    url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
-    try:
-        res = requests.get(url, timeout=10)
-        if res.status_code == 200:
-            sports = res.json()
-            soccer_leagues = {}
-            for s in sports:
-                if s.get("group") == "Soccer" and s.get("active") and not s.get("has_outrights"):
-                    label = f"{s.get('title')} ({s.get('description', '')})"
-                    soccer_leagues[label] = s.get("key")
-            return soccer_leagues if soccer_leagues else {"Premier League (England)": "soccer_epl"}
-    except Exception:
-        pass
-    return {"Premier League (England)": "soccer_epl"}
+# --- QUANTITATIVE LEAGUE TIERS ---
+MAJOR_LEAGUES = {
+    "Premier League (England)": "soccer_epl",
+    "Championship (England 2nd)": "soccer_england_efl_cup",
+    "La Liga (Spain)": "soccer_spain_la_liga",
+    "Segunda División (Spain 2nd)": "soccer_spain_segunda_division",
+    "Serie A (Italy)": "soccer_italy_serie_a",
+    "Serie B (Italy 2nd)": "soccer_italy_serie_b",
+    "Bundesliga (Germany)": "soccer_germany_bundesliga",
+    "2. Bundesliga (Germany 2nd)": "soccer_germany_bundesliga2",
+    "Ligue 1 (France)": "soccer_france_ligue_one",
+    "Ligue 2 (France 2nd)": "soccer_france_ligue_two",
+    "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
+    "UEFA Champions League": "soccer_uefa_champs_league",
+    "UEFA Europa League": "soccer_uefa_europa_league"
+}
+
+MEDIUM_LEAGUES = {
+    "Eredivisie (Netherlands)": "soccer_netherlands_eredivisie",
+    "Primeira Liga (Portugal)": "soccer_portugal_primeira_liga",
+    "Pro League (Belgium)": "soccer_belgium_first_div",
+    "Süper Lig (Turkey)": "soccer_turkey_super_league",
+    "Premiership (Scotland)": "soccer_spl",
+    "Major League Soccer (USA)": "soccer_usa_mls",
+    "Liga MX (Mexico)": "soccer_mexico_ligamx",
+    "Primera División (Argentina)": "soccer_argentina_primera_division",
+    "J1 League (Japan)": "soccer_japan_j_league",
+    "Copa Libertadores": "soccer_conmebol_copa_libertadores"
+}
+
+MINOR_LEAGUES = {
+    "League One (England 3rd)": "soccer_england_league1",
+    "League Two (England 4th)": "soccer_england_league2",
+    "Bundesliga (Austria)": "soccer_austria_bundesliga",
+    "Super League (Switzerland)": "soccer_switzerland_superleague",
+    "Superliga (Denmark)": "soccer_denmark_superliga",
+    "Ekstraklasa (Poland)": "soccer_poland_ekstraklasa",
+    "Allsvenskan (Sweden)": "soccer_sweden_allsvenskan",
+    "Eliteserien (Norway)": "soccer_norway_eliteserien",
+    "A-League (Australia)": "soccer_australia_aleague"
+}
 
 AVAILABLE_BOOKMAKERS = {
     "Betfair (Exchange/Sportsbook)": "betfair_ex_uk",
@@ -96,6 +109,14 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
     if not odds_api_key:
         simulated = [
             {
+                "matchup": "Arsenal vs Chelsea",
+                "league": "Premier League",
+                "bookmakers": [
+                    {"bookmaker": "Pinnacle", "lines": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50}},
+                    {"bookmaker": "Bet365", "lines": {"Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}}
+                ]
+            },
+            {
                 "matchup": "Flamengo vs Palmeiras",
                 "league": "Brasileirão Série A",
                 "bookmakers": [
@@ -104,11 +125,11 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
                 ]
             },
             {
-                "matchup": "Arsenal vs Chelsea",
-                "league": "Premier League",
+                "matchup": "Ajax vs Feyenoord",
+                "league": "Eredivisie",
                 "bookmakers": [
-                    {"bookmaker": "Pinnacle", "lines": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50}},
-                    {"bookmaker": "Bet365", "lines": {"Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}}
+                    {"bookmaker": "Pinnacle", "lines": {"Ajax": 2.20, "Draw": 3.50, "Feyenoord": 3.20}},
+                    {"bookmaker": "Betfair", "lines": {"Ajax": 2.40, "Draw": 3.40, "Feyenoord": 3.00}}
                 ]
             }
         ]
@@ -150,31 +171,36 @@ tab_auto, tab_portfolio, tab_stocks = st.tabs([
 
 # ----------------- TAB 1: AUTONOMOUS AGENT -----------------
 with tab_auto:
-    st.subheader("Global Autonomous Quantitative Betting Agent")
-    st.markdown("Scans all live football competitions monitored by the API, removes vig against Pinnacle, and commits **$20.00 paper bets** on positive EV edges.")
-
-    active_leagues_map = get_all_active_soccer_leagues(odds_api_key)
+    st.subheader("Tier-Segmented Autonomous Quantitative Scanner")
+    st.markdown("Select a market tier or individual competition to strip vig against Pinnacle and auto-bet qualifying edges.")
 
     col1, col2 = st.columns(2)
-    scan_scope = col1.radio(
-        "Scan Scope",
-        options=["Specific League", "Scan All Available Soccer Leagues"],
-        horizontal=True
+
+    tier_scope = col1.radio(
+        "Market Tier / Scope",
+        options=[
+            "🏆 Major Leagues (Tier 1 & 2nd Divisions)",
+            "🥈 Medium Leagues (Competitive Domestic)",
+            "🥉 Minor Leagues (Lower Divisions & Regional)",
+            "🎯 Single Specific League"
+        ],
+        index=0
     )
 
-    if scan_scope == "Specific League":
-        chosen_league_label = col1.selectbox("Select League", options=list(active_leagues_map.keys()))
-        target_keys = [active_leagues_map[chosen_league_label]]
-        scan_title = chosen_league_label
+    if tier_scope == "🏆 Major Leagues (Tier 1 & 2nd Divisions)":
+        target_keys = list(MAJOR_LEAGUES.values())
+        scan_title = f"Major Leagues ({len(target_keys)} competitions)"
+    elif tier_scope == "🥈 Medium Leagues (Competitive Domestic)":
+        target_keys = list(MEDIUM_LEAGUES.values())
+        scan_title = f"Medium Leagues ({len(target_keys)} competitions)"
+    elif tier_scope == "🥉 Minor Leagues (Lower Divisions & Regional)":
+        target_keys = list(MINOR_LEAGUES.values())
+        scan_title = f"Minor Leagues ({len(target_keys)} competitions)"
     else:
-        max_leagues_to_scan = col1.slider(
-            "Max Active Leagues to Scan (Preserves API credits)",
-            min_value=1,
-            max_value=len(active_leagues_map),
-            value=min(12, len(active_leagues_map))
-        )
-        target_keys = list(active_leagues_map.values())[:max_leagues_to_scan]
-        scan_title = f"{len(target_keys)} Monitored Leagues"
+        all_leagues = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
+        chosen_league = col1.selectbox("Select Competition", options=list(all_leagues.keys()))
+        target_keys = [all_leagues[chosen_league]]
+        scan_title = chosen_league
 
     min_edge_threshold = col2.slider("Minimum +EV Threshold (%)", min_value=1.0, max_value=8.0, value=3.0, step=0.5)
 
@@ -190,7 +216,7 @@ with tab_auto:
         if not chosen_keys:
             st.error("Select at least one bookmaker.")
         else:
-            with st.spinner(f"Scanning market odds across {scan_title}..."):
+            with st.spinner(f"Querying fixtures and calculating +EV opportunities for {scan_title}..."):
                 odds_payload = fetch_odds_for_leagues(target_keys, selected_books_str)
 
                 system_prompt = (
@@ -233,12 +259,12 @@ with tab_auto:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info(f"Scan complete across {scan_title}: No matches offered >= {min_edge_threshold}% EV within odds 1.45–3.20.")
+                    st.info(f"Scan complete across {scan_title}: No fixtures met your parameters (odds 1.45–3.20, EV ≥ {min_edge_threshold}%). No virtual funds committed.")
                 else:
                     df = load_portfolio()
                     logged_count = 0
 
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies) across all scanned fixtures!")
+                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies) across {scan_title}!")
 
                     for bet in accepted_bets:
                         is_duplicate = not df[
@@ -248,7 +274,7 @@ with tab_auto:
                         if not is_duplicate:
                             new_row = {
                                 "ID": len(df) + 1,
-                                "League": bet.get("league", "Football"),
+                                "League": bet.get("league", scan_title),
                                 "Matchup": bet.get("matchup"),
                                 "Pick": bet.get("pick"),
                                 "Bookmaker": bet.get("bookmaker", "Retail Book"),
