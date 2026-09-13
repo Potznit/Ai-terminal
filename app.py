@@ -36,20 +36,52 @@ client = genai.Client(api_key=gemini_key)
 # --- CSV PAPER PORTFOLIO STORAGE ---
 CSV_FILE = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
-FIXED_STAKE = 20.0
+STAKE_PERCENT = 0.10  # 10% Dynamic allocation
+
+COLUMNS = [
+    "ID", "Kickoff_UTC", "League", "Matchup", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
+]
 
 def load_portfolio() -> pd.DataFrame:
     if os.path.exists(CSV_FILE):
         try:
-            return pd.read_csv(CSV_FILE)
+            df = pd.read_csv(CSV_FILE)
+            for col in COLUMNS:
+                if col not in df.columns:
+                    df[col] = "N/A" if col == "Kickoff_UTC" else 0.0
+            return df[COLUMNS]
         except Exception:
             pass
-    return pd.DataFrame(columns=[
-        "ID", "League", "Matchup", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
-    ])
+    return pd.DataFrame(columns=COLUMNS)
 
 def save_portfolio(df: pd.DataFrame):
     df.to_csv(CSV_FILE, index=False)
+
+def get_bankroll_metrics(df: pd.DataFrame):
+    settled_df = df[df["Status"].isin(["WON", "LOST", "PUSH"])]
+    total_realized_pl = settled_df["P_L"].sum() if not settled_df.empty else 0.0
+    pending_stakes = df[df["Status"] == "PENDING"]["Stake"].sum()
+    
+    available_bankroll = STARTING_BANKROLL + total_realized_pl - pending_stakes
+    total_equity = STARTING_BANKROLL + total_realized_pl
+    
+    total_staked_settled = settled_df[settled_df["Status"].isin(["WON", "LOST"])]["Stake"].sum()
+    roi = (total_realized_pl / total_staked_settled * 100) if total_staked_settled > 0 else 0.0
+    
+    win_count = len(settled_df[settled_df["Status"] == "WON"])
+    total_decided = len(settled_df[settled_df["Status"].isin(["WON", "LOST"])])
+    win_rate = (win_count / total_decided * 100) if total_decided > 0 else 0.0
+
+    return {
+        "available_bankroll": max(0.0, available_bankroll),
+        "total_equity": total_equity,
+        "total_pl": total_realized_pl,
+        "roi": roi,
+        "win_rate": win_rate,
+        "win_count": win_count,
+        "total_decided": total_decided,
+        "pending_stakes": pending_stakes
+    }
 
 # --- QUANTITATIVE LEAGUE TIERS ---
 MAJOR_LEAGUES = {
@@ -93,6 +125,8 @@ MINOR_LEAGUES = {
     "A-League (Australia)": "soccer_australia_aleague"
 }
 
+ALL_LEAGUES_MAP = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
+
 AVAILABLE_BOOKMAKERS = {
     "Betfair (Exchange/Sportsbook)": "betfair_ex_uk",
     "Bet365": "bet365",
@@ -110,26 +144,11 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
         simulated = [
             {
                 "matchup": "Arsenal vs Chelsea",
-                "league": "Premier League",
+                "commence_time": "2026-09-19T14:00:00Z",
+                "league": "soccer_epl",
                 "bookmakers": [
                     {"bookmaker": "Pinnacle", "lines": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50}},
                     {"bookmaker": "Bet365", "lines": {"Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}}
-                ]
-            },
-            {
-                "matchup": "Flamengo vs Palmeiras",
-                "league": "Brasileirão Série A",
-                "bookmakers": [
-                    {"bookmaker": "Pinnacle", "lines": {"Flamengo": 2.10, "Draw": 3.25, "Palmeiras": 3.70}},
-                    {"bookmaker": "Betfair", "lines": {"Flamengo": 2.30, "Draw": 3.10, "Palmeiras": 3.40}}
-                ]
-            },
-            {
-                "matchup": "Ajax vs Feyenoord",
-                "league": "Eredivisie",
-                "bookmakers": [
-                    {"bookmaker": "Pinnacle", "lines": {"Ajax": 2.20, "Draw": 3.50, "Feyenoord": 3.20}},
-                    {"bookmaker": "Betfair", "lines": {"Ajax": 2.40, "Draw": 3.40, "Feyenoord": 3.00}}
                 ]
             }
         ]
@@ -151,6 +170,7 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
                 for g in res.json()[:6]:
                     all_matches.append({
                         "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
+                        "commence_time": g.get("commence_time", "Unknown"),
                         "league": key,
                         "bookmakers": [
                             {
@@ -164,6 +184,72 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
             continue
     return json.dumps(all_matches)
 
+# --- SCORE CHECKER ENGINE ---
+def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
+    pending_mask = df["Status"] == "PENDING"
+    if not pending_mask.any() or not api_key:
+        return df, 0
+
+    settled_count = 0
+    unique_leagues = df.loc[pending_mask, "League"].unique()
+    
+    for league in unique_leagues:
+        sport_key = league if league in ALL_LEAGUES_MAP.values() else ALL_LEAGUES_MAP.get(league, "soccer_epl")
+        url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={api_key}&daysFrom=3"
+        try:
+            res = requests.get(url, timeout=10)
+            if res.status_code != 200:
+                continue
+            scores_data = res.json()
+            
+            for item in scores_data:
+                if not item.get("completed"):
+                    continue
+                
+                home = item.get("home_team")
+                away = item.get("away_team")
+                scores = item.get("scores")
+                if not scores or len(scores) < 2:
+                    continue
+                
+                home_score = next((int(s["score"]) for s in scores if s["name"] == home), None)
+                away_score = next((int(s["score"]) for s in scores if s["name"] == away), None)
+                if home_score is None or away_score is None:
+                    continue
+                
+                if home_score > away_score:
+                    winning_team = home
+                elif away_score > home_score:
+                    winning_team = away
+                else:
+                    winning_team = "DRAW"
+
+                for idx in df[pending_mask].index:
+                    m_str = str(df.at[idx, "Matchup"])
+                    if home in m_str and away in m_str:
+                        pick = str(df.at[idx, "Pick"])
+                        stake = float(df.at[idx, "Stake"])
+                        odds = float(df.at[idx, "Odds"])
+                        
+                        if winning_team == "DRAW":
+                            df.at[idx, "Status"] = "LOST"
+                            df.at[idx, "P_L"] = -stake
+                            settled_count += 1
+                        elif pick.strip().lower() in winning_team.lower() or winning_team.lower() in pick.strip().lower():
+                            df.at[idx, "Status"] = "WON"
+                            df.at[idx, "P_L"] = round((odds - 1.0) * stake, 2)
+                            settled_count += 1
+                        else:
+                            df.at[idx, "Status"] = "LOST"
+                            df.at[idx, "P_L"] = -stake
+                            settled_count += 1
+        except Exception:
+            continue
+
+    if settled_count > 0:
+        save_portfolio(df)
+    return df, settled_count
+
 # --- USER INTERFACE ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
     "🤖 Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
@@ -172,7 +258,11 @@ tab_auto, tab_portfolio, tab_stocks = st.tabs([
 # ----------------- TAB 1: AUTONOMOUS AGENT -----------------
 with tab_auto:
     st.subheader("Tier-Segmented Autonomous Quantitative Scanner")
-    st.markdown("Select a market tier or individual competition to strip vig against Pinnacle and auto-bet qualifying edges.")
+    df_current = load_portfolio()
+    metrics = get_bankroll_metrics(df_current)
+    
+    current_dynamic_stake = round(metrics["available_bankroll"] * STAKE_PERCENT, 2)
+    st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Next 10% Stake: **${current_dynamic_stake:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
     col1, col2 = st.columns(2)
 
@@ -197,9 +287,8 @@ with tab_auto:
         target_keys = list(MINOR_LEAGUES.values())
         scan_title = f"Minor Leagues ({len(target_keys)} competitions)"
     else:
-        all_leagues = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
-        chosen_league = col1.selectbox("Select Competition", options=list(all_leagues.keys()))
-        target_keys = [all_leagues[chosen_league]]
+        chosen_league = col1.selectbox("Select Competition", options=list(ALL_LEAGUES_MAP.keys()))
+        target_keys = [ALL_LEAGUES_MAP[chosen_league]]
         scan_title = chosen_league
 
     min_edge_threshold = col2.slider("Minimum +EV Threshold (%)", min_value=1.0, max_value=8.0, value=3.0, step=0.5)
@@ -215,6 +304,8 @@ with tab_auto:
     if st.button("🚀 Run Autonomous Decision & Auto-Bet", type="primary", use_container_width=True):
         if not chosen_keys:
             st.error("Select at least one bookmaker.")
+        elif current_dynamic_stake <= 1.0:
+            st.error("Available bankroll depleted. Settle existing matches before taking new bets.")
         else:
             with st.spinner(f"Querying fixtures and calculating +EV opportunities for {scan_title}..."):
                 odds_payload = fetch_odds_for_leagues(target_keys, selected_books_str)
@@ -230,7 +321,7 @@ with tab_auto:
                     "   - Retail odds must be between 1.45 and 3.20.\n"
                     f"   - Calculated EV % must be >= {min_edge_threshold}%.\n"
                     "5. Output STRICTLY a valid JSON array of objects. Do not include markdown formatting like ```json or conversational text.\n"
-                    'Format: [{"matchup": "Team A vs Team B", "league": "League/Key", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
+                    'Format: [{"matchup": "Team A vs Team B", "kickoff": "YYYY-MM-DD HH:MM", "league": "League/Key", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
                     "If no qualifying bets are found, return exactly: []"
                 )
 
@@ -259,7 +350,7 @@ with tab_auto:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info(f"Scan complete across {scan_title}: No fixtures met your parameters (odds 1.45–3.20, EV ≥ {min_edge_threshold}%). No virtual funds committed.")
+                    st.info(f"Scan complete across {scan_title}: No fixtures met your parameters (odds 1.45–3.20, EV ≥ {min_edge_threshold}%). Bankroll preserved.")
                 else:
                     df = load_portfolio()
                     logged_count = 0
@@ -272,15 +363,26 @@ with tab_auto:
                         ].empty
 
                         if not is_duplicate:
+                            metrics_now = get_bankroll_metrics(df)
+                            calculated_stake = round(metrics_now["available_bankroll"] * STAKE_PERCENT, 2)
+                            if calculated_stake < 1.0:
+                                break
+
+                            kickoff_str = bet.get("kickoff", bet.get("commence_time", "Scheduled"))
+                            # Format ISO timestamps cleanly if present
+                            if "T" in str(kickoff_str):
+                                kickoff_str = kickoff_str.replace("T", " ").replace("Z", " UTC")
+
                             new_row = {
                                 "ID": len(df) + 1,
+                                "Kickoff_UTC": kickoff_str,
                                 "League": bet.get("league", scan_title),
                                 "Matchup": bet.get("matchup"),
                                 "Pick": bet.get("pick"),
                                 "Bookmaker": bet.get("bookmaker", "Retail Book"),
                                 "Odds": float(bet.get("odds", 0.0)),
                                 "EV_Pct": float(bet.get("ev_pct", 0.0)),
-                                "Stake": FIXED_STAKE,
+                                "Stake": calculated_stake,
                                 "Status": "PENDING",
                                 "P_L": 0.0
                             }
@@ -292,8 +394,9 @@ with tab_auto:
                     for bet in accepted_bets:
                         st.markdown(
                             f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}* ({bet.get('league')})  \n"
-                            f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}**  \n"
-                            f"• **Edge:** **+{bet.get('ev_pct')}% EV** | **Stake:** ${FIXED_STAKE:.2f}"
+                            f"• **Kickoff:** `{bet.get('kickoff', 'TBD')}`  \n"
+                            f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}** | **Edge:** **+{bet.get('ev_pct')}% EV**  \n"
+                            f"• **Stake (10%):** ${current_dynamic_stake:.2f}"
                         )
                     st.toast(f"Logged {logged_count} paper bet(s) to portfolio!")
 
@@ -301,42 +404,51 @@ with tab_auto:
 with tab_portfolio:
     st.subheader("📊 Paper Trading Performance Ledger")
     df = load_portfolio()
-
-    settled_df = df[df["Status"].isin(["WON", "LOST"])]
-    total_pl = settled_df["P_L"].sum() if not settled_df.empty else 0.0
-    current_bankroll = STARTING_BANKROLL + total_pl
-    total_staked = settled_df["Stake"].sum() if not settled_df.empty else 0.0
-    roi = (total_pl / total_staked * 100) if total_staked > 0 else 0.0
-    win_count = len(settled_df[settled_df["Status"] == "WON"])
-    total_settled = len(settled_df)
-    win_rate = (win_count / total_settled * 100) if total_settled > 0 else 0.0
+    metrics = get_bankroll_metrics(df)
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Current Bankroll", f"${current_bankroll:.2f}")
-    c2.metric("Total P/L", f"${total_pl:+.2f}")
-    c3.metric("ROI", f"{roi:+.2f}%")
-    c4.metric("Win Rate", f"{win_rate:.1f}% ({win_count}/{total_settled})")
+    c1.metric("Available Bankroll", f"${metrics['available_bankroll']:.2f}", help="Cash remaining to bet (Starting Bankroll + Realized P/L - Active Stakes)")
+    c2.metric("Total Equity", f"${metrics['total_equity']:.2f}", help="Starting Bankroll + Settled P/L")
+    c3.metric("ROI", f"{metrics['roi']:+.2f}%")
+    c4.metric("Win Rate", f"{metrics['win_rate']:.1f}% ({metrics['win_count']}/{metrics['total_decided']})")
+
+    # CONTROLS
+    col_auto, col_reset = st.columns([3, 1])
+    if col_auto.button("⚡ Auto-Check Scores & Grade Results", type="primary", use_container_width=True):
+        with st.spinner("Fetching completed scores from The Odds API..."):
+            df, count = auto_settle_completed_bets(df, odds_api_key)
+            if count > 0:
+                st.success(f"Graded {count} completed match(es)!")
+                st.rerun()
+            else:
+                st.info("No newly completed matches found yet. Check game dates below.")
+
+    if col_reset.button("🗑️ Reset Ledger to $1,000", use_container_width=True):
+        fresh_df = pd.DataFrame(columns=COLUMNS)
+        save_portfolio(fresh_df)
+        st.success("Ledger reset to $0.00 P/L and $1,000.00 bankroll!")
+        st.rerun()
 
     if df.empty:
-        st.info("No paper trades logged yet. Run a scan to initiate your portfolio.")
+        st.info("Ledger is completely empty ($1,000.00 available). Run an autonomous scan to begin forward testing.")
     else:
         st.dataframe(df, use_container_width=True)
 
         pending_bets = df[df["Status"] == "PENDING"]
         if not pending_bets.empty:
             st.divider()
-            st.subheader("⚖️ Grade Completed Match Results")
+            st.subheader("⚖️ Manual Settlement Fallback")
             bet_id_to_settle = st.selectbox(
-                "Select Completed Match to Settle",
+                "Select Match to Manually Settle",
                 options=pending_bets["ID"].tolist(),
-                format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]})"
+                format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]}) — Kickoff: {pending_bets.loc[pending_bets['ID'] == x, 'Kickoff_UTC'].values[0]}"
             )
 
             col_w, col_l, col_p = st.columns(3)
             if col_w.button("✅ Won", use_container_width=True):
                 idx = df[df["ID"] == bet_id_to_settle].index[0]
                 df.at[idx, "Status"] = "WON"
-                df.at[idx, "P_L"] = round((df.at[idx, "Odds"] - 1) * df.at[idx, "Stake"], 2)
+                df.at[idx, "P_L"] = round((df.at[idx, "Odds"] - 1.0) * df.at[idx, "Stake"], 2)
                 save_portfolio(df)
                 st.rerun()
 
