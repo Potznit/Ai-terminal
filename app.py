@@ -1,7 +1,6 @@
 import streamlit as st
 import json
 import os
-import re
 import requests
 import pandas as pd
 import yfinance as yf
@@ -185,5 +184,130 @@ with tab_auto:
                     st.error(f"Gemini API Error: {api_err}")
                     st.stop()
 
+                # Clean markdown wrapper safely without regex breaks
                 raw_text = response.text.strip()
-                cleaned_json = re.sub(r"^
+                if raw_text.startswith("```"):
+                    lines = raw_text.splitlines()
+                    if lines and lines[0].startswith("```"):
+                        lines = lines[1:]
+                    if lines and lines[-1].startswith("```"):
+                        lines = lines[:-1]
+                    raw_text = "\n".join(lines).strip()
+
+                try:
+                    accepted_bets = json.loads(raw_text)
+                except Exception:
+                    accepted_bets = []
+
+                if not accepted_bets:
+                    st.info("Scan complete: No games satisfied your parameters (odds 1.45–3.20 with EV ≥ threshold). No virtual funds committed.")
+                else:
+                    df = load_portfolio()
+                    logged_count = 0
+
+                    st.success(f"Discovered {len(accepted_bets)} eligible +EV setup(s)!")
+
+                    for bet in accepted_bets:
+                        is_duplicate = not df[
+                            (df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")
+                        ].empty
+
+                        if not is_duplicate:
+                            new_row = {
+                                "ID": len(df) + 1,
+                                "League": selected_league_label,
+                                "Matchup": bet.get("matchup"),
+                                "Pick": bet.get("pick"),
+                                "Bookmaker": bet.get("bookmaker", "Retail Book"),
+                                "Odds": float(bet.get("odds", 0.0)),
+                                "EV_Pct": float(bet.get("ev_pct", 0.0)),
+                                "Stake": FIXED_STAKE,
+                                "Status": "PENDING",
+                                "P_L": 0.0
+                            }
+                            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                            logged_count += 1
+
+                    save_portfolio(df)
+
+                    for bet in accepted_bets:
+                        st.markdown(
+                            f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}*  \n"
+                            f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}**  \n"
+                            f"• **Edge:** **+{bet.get('ev_pct')}% EV** | **Stake:** ${FIXED_STAKE:.2f}"
+                        )
+                    st.toast(f"Saved {logged_count} paper bet(s) to portfolio!")
+
+# ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
+with tab_portfolio:
+    st.subheader("📊 Paper Trading Performance Ledger")
+    df = load_portfolio()
+
+    settled_df = df[df["Status"].isin(["WON", "LOST"])]
+    total_pl = settled_df["P_L"].sum() if not settled_df.empty else 0.0
+    current_bankroll = STARTING_BANKROLL + total_pl
+    total_staked = settled_df["Stake"].sum() if not settled_df.empty else 0.0
+    roi = (total_pl / total_staked * 100) if total_staked > 0 else 0.0
+    win_count = len(settled_df[settled_df["Status"] == "WON"])
+    total_settled = len(settled_df)
+    win_rate = (win_count / total_settled * 100) if total_settled > 0 else 0.0
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Current Bankroll", f"${current_bankroll:.2f}")
+    c2.metric("Total P/L", f"${total_pl:+.2f}")
+    c3.metric("ROI", f"{roi:+.2f}%")
+    c4.metric("Win Rate", f"{win_rate:.1f}% ({win_count}/{total_settled})")
+
+    if df.empty:
+        st.info("No paper trades logged yet. Run a scan to initiate your portfolio.")
+    else:
+        st.dataframe(df, use_container_width=True)
+
+        pending_bets = df[df["Status"] == "PENDING"]
+        if not pending_bets.empty:
+            st.divider()
+            st.subheader("⚖️ Grade Completed Match Results")
+            bet_id_to_settle = st.selectbox(
+                "Select Completed Match to Settle",
+                options=pending_bets["ID"].tolist(),
+                format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]})"
+            )
+
+            col_w, col_l, col_p = st.columns(3)
+            if col_w.button("✅ Won", use_container_width=True):
+                idx = df[df["ID"] == bet_id_to_settle].index[0]
+                df.at[idx, "Status"] = "WON"
+                df.at[idx, "P_L"] = round((df.at[idx, "Odds"] - 1) * df.at[idx, "Stake"], 2)
+                save_portfolio(df)
+                st.rerun()
+
+            if col_l.button("❌ Lost", use_container_width=True):
+                idx = df[df["ID"] == bet_id_to_settle].index[0]
+                df.at[idx, "Status"] = "LOST"
+                df.at[idx, "P_L"] = -df.at[idx, "Stake"]
+                save_portfolio(df)
+                st.rerun()
+
+            if col_p.button("🔄 Push / Postponed", use_container_width=True):
+                idx = df[df["ID"] == bet_id_to_settle].index[0]
+                df.at[idx, "Status"] = "PUSH"
+                df.at[idx, "P_L"] = 0.0
+                save_portfolio(df)
+                st.rerun()
+
+# ----------------- TAB 3: STOCK SCANNER -----------------
+with tab_stocks:
+    st.subheader("Intraday Market Scan")
+    ticker_input = st.text_input("Stock Ticker", value="NVDA").upper()
+    if st.button("Scan Ticker", type="primary", use_container_width=True):
+        with st.spinner(f"Pulling data for {ticker_input}..."):
+            stock = yf.Ticker(ticker_input)
+            price = round(stock.fast_info.last_price, 2)
+            try:
+                res = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=f"Analyze {ticker_input} at current price ${price} for an intraday plan with entry, target, and stop.",
+                )
+                st.markdown(res.text)
+            except Exception as e:
+                st.error(f"Error fetching analysis: {e}")
