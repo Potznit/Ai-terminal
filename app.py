@@ -21,7 +21,7 @@ with st.sidebar:
     if not gemini_key:
         gemini_key = st.text_input("Gemini API Key", type="password")
     if not odds_api_key:
-        odds_api_key = st.text_input("The Odds API Key (Optional for Simulation)", type="password")
+        odds_api_key = st.text_input("The Odds API Key", type="password")
     if not telegram_token:
         telegram_token = st.text_input("Telegram Bot Token (Optional)", type="password")
     if not telegram_chat_id:
@@ -51,15 +51,34 @@ def load_portfolio() -> pd.DataFrame:
 def save_portfolio(df: pd.DataFrame):
     df.to_csv(CSV_FILE, index=False)
 
-# --- CONSTANTS & MAPPINGS ---
-FOOTBALL_LEAGUES = {
-    "Premier League (England)": "soccer_epl",
-    "La Liga (Spain)": "soccer_spain_la_liga",
-    "Serie A (Italy)": "soccer_italy_serie_a",
-    "Ligue 1 (France)": "soccer_france_ligue_one",
-    "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
-    "UEFA Champions League": "soccer_uefa_champs_league",
-}
+# --- DYNAMIC LEAGUE DISCOVERY (THE ODDS API) ---
+@st.cache_data(ttl=3600)
+def get_all_active_soccer_leagues(api_key: str):
+    """Fetches all active soccer leagues currently covered by The Odds API (Costs 0 credits)."""
+    if not api_key:
+        return {
+            "Premier League (England)": "soccer_epl",
+            "La Liga (Spain)": "soccer_spain_la_liga",
+            "Serie A (Italy)": "soccer_italy_serie_a",
+            "Ligue 1 (France)": "soccer_france_ligue_one",
+            "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
+            "UEFA Champions League": "soccer_uefa_champs_league",
+        }
+    
+    url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
+    try:
+        res = requests.get(url, timeout=10)
+        if res.status_code == 200:
+            sports = res.json()
+            soccer_leagues = {}
+            for s in sports:
+                if s.get("group") == "Soccer" and s.get("active") and not s.get("has_outrights"):
+                    label = f"{s.get('title')} ({s.get('description', '')})"
+                    soccer_leagues[label] = s.get("key")
+            return soccer_leagues if soccer_leagues else {"Premier League (England)": "soccer_epl"}
+    except Exception:
+        pass
+    return {"Premier League (England)": "soccer_epl"}
 
 AVAILABLE_BOOKMAKERS = {
     "Betfair (Exchange/Sportsbook)": "betfair_ex_uk",
@@ -72,77 +91,92 @@ AVAILABLE_BOOKMAKERS = {
     "Bovada": "bovada",
 }
 
-# --- DIRECT DATA FETCH ---
-def get_football_odds_data(sport_key: str, selected_books_str: str) -> str:
-    """Directly fetches upcoming odds for Gemini analysis."""
+# --- DIRECT DATA FETCH ACROSS LEAGUES ---
+def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
     if not odds_api_key:
-        simulated_feeds = {
-            "soccer_brazil_campeonato": [
-                {
-                    "matchup": "Flamengo vs Palmeiras",
-                    "pinnacle": {"Flamengo": 2.10, "Draw": 3.25, "Palmeiras": 3.70},
-                    "retail": {"bookmaker": "Betfair", "Flamengo": 2.30, "Draw": 3.10, "Palmeiras": 3.40}
-                }
-            ],
-            "soccer_epl": [
-                {
-                    "matchup": "Arsenal vs Chelsea",
-                    "pinnacle": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50},
-                    "retail": {"bookmaker": "Bet365", "Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}
-                },
-                {
-                    "matchup": "Liverpool vs Everton",
-                    "pinnacle": {"Liverpool": 1.35, "Draw": 5.20, "Everton": 8.50},
-                    "retail": {"bookmaker": "Betfair", "Liverpool": 1.38, "Draw": 5.00, "Everton": 8.00}
-                }
-            ]
-        }
-        return json.dumps(simulated_feeds.get(sport_key, simulated_feeds["soccer_brazil_campeonato"]))
-
-    url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds/"
-    params = {
-        "apiKey": odds_api_key,
-        "regions": "eu,uk,us",
-        "markets": "h2h",
-        "oddsFormat": "decimal",
-        "bookmakers": selected_books_str,
-    }
-    try:
-        res = requests.get(url, params=params, timeout=10)
-        if res.status_code != 200:
-            return json.dumps({"error": f"API status {res.status_code}"})
-        games = res.json()[:6]
-        parsed = []
-        for g in games:
-            parsed.append({
-                "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
+        simulated = [
+            {
+                "matchup": "Flamengo vs Palmeiras",
+                "league": "Brasileirão Série A",
                 "bookmakers": [
-                    {
-                        "bookmaker": b.get("title"),
-                        "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
-                    }
-                    for b in g.get("bookmakers", [])
+                    {"bookmaker": "Pinnacle", "lines": {"Flamengo": 2.10, "Draw": 3.25, "Palmeiras": 3.70}},
+                    {"bookmaker": "Betfair", "lines": {"Flamengo": 2.30, "Draw": 3.10, "Palmeiras": 3.40}}
                 ]
-            })
-        return json.dumps(parsed)
-    except Exception as e:
-        return json.dumps({"error": str(e)})
+            },
+            {
+                "matchup": "Arsenal vs Chelsea",
+                "league": "Premier League",
+                "bookmakers": [
+                    {"bookmaker": "Pinnacle", "lines": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50}},
+                    {"bookmaker": "Bet365", "lines": {"Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}}
+                ]
+            }
+        ]
+        return json.dumps(simulated)
 
-# --- UI TABS ---
+    all_matches = []
+    for key in sport_keys:
+        url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
+        params = {
+            "apiKey": odds_api_key,
+            "regions": "eu,uk,us",
+            "markets": "h2h",
+            "oddsFormat": "decimal",
+            "bookmakers": selected_books_str,
+        }
+        try:
+            res = requests.get(url, params=params, timeout=10)
+            if res.status_code == 200:
+                for g in res.json()[:6]:
+                    all_matches.append({
+                        "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
+                        "league": key,
+                        "bookmakers": [
+                            {
+                                "bookmaker": b.get("title"),
+                                "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
+                            }
+                            for b in g.get("bookmakers", [])
+                        ]
+                    })
+        except Exception:
+            continue
+    return json.dumps(all_matches)
+
+# --- USER INTERFACE ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
     "🤖 Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
 ])
 
 # ----------------- TAB 1: AUTONOMOUS AGENT -----------------
 with tab_auto:
-    st.subheader("Autonomous Quantitative Betting Agent")
-    st.markdown("Scans lines, calculates no-vig probabilities against Pinnacle, and automatically commits a **$20.00 paper bet** when an edge appears.")
+    st.subheader("Global Autonomous Quantitative Betting Agent")
+    st.markdown("Scans all live football competitions monitored by the API, removes vig against Pinnacle, and commits **$20.00 paper bets** on positive EV edges.")
+
+    active_leagues_map = get_all_active_soccer_leagues(odds_api_key)
 
     col1, col2 = st.columns(2)
-    selected_league_label = col1.selectbox("Target League", options=list(FOOTBALL_LEAGUES.keys()), index=0)
-    sport_key = FOOTBALL_LEAGUES[selected_league_label]
+    scan_scope = col1.radio(
+        "Scan Scope",
+        options=["Specific League", "Scan All Available Soccer Leagues"],
+        horizontal=True
+    )
 
-    min_edge_threshold = col2.slider("Minimum +EV Threshold (%)", min_value=1.5, max_value=8.0, value=3.5, step=0.5)
+    if scan_scope == "Specific League":
+        chosen_league_label = col1.selectbox("Select League", options=list(active_leagues_map.keys()))
+        target_keys = [active_leagues_map[chosen_league_label]]
+        scan_title = chosen_league_label
+    else:
+        max_leagues_to_scan = col1.slider(
+            "Max Active Leagues to Scan (Preserves API credits)",
+            min_value=1,
+            max_value=len(active_leagues_map),
+            value=min(12, len(active_leagues_map))
+        )
+        target_keys = list(active_leagues_map.values())[:max_leagues_to_scan]
+        scan_title = f"{len(target_keys)} Monitored Leagues"
+
+    min_edge_threshold = col2.slider("Minimum +EV Threshold (%)", min_value=1.0, max_value=8.0, value=3.0, step=0.5)
 
     chosen_labels = st.multiselect(
         "Active Sportsbooks",
@@ -156,21 +190,21 @@ with tab_auto:
         if not chosen_keys:
             st.error("Select at least one bookmaker.")
         else:
-            with st.spinner(f"Pulling odds and calculating +EV opportunities for {selected_league_label}..."):
-                odds_payload = get_football_odds_data(sport_key, selected_books_str)
+            with st.spinner(f"Scanning market odds across {scan_title}..."):
+                odds_payload = fetch_odds_for_leagues(target_keys, selected_books_str)
 
                 system_prompt = (
                     "You are an autonomous quantitative football betting model. Evaluate the provided match odds.\n"
                     "RULES:\n"
-                    "1. Derive true implied win probabilities from Pinnacle by stripping bookmaker margin.\n"
+                    "1. Derive true implied win probabilities from Pinnacle by stripping bookmaker margin (vig).\n"
                     "2. Compare that true probability against retail bookmaker odds.\n"
                     "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
                     "4. CRITERIA:\n"
-                    f"   - Only evaluate Home or Away outright winners (exclude draws).\n"
-                    f"   - Retail odds must be between 1.45 and 3.20.\n"
+                    "   - Only evaluate Home or Away outright winners (exclude draws).\n"
+                    "   - Retail odds must be between 1.45 and 3.20.\n"
                     f"   - Calculated EV % must be >= {min_edge_threshold}%.\n"
-                    "5. Output STRICTLY a valid JSON array of objects. Do not include markdown formatting like ```json or conversational prose.\n"
-                    'Format: [{"matchup": "Team A vs Team B", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
+                    "5. Output STRICTLY a valid JSON array of objects. Do not include markdown formatting like ```json or conversational text.\n"
+                    'Format: [{"matchup": "Team A vs Team B", "league": "League/Key", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
                     "If no qualifying bets are found, return exactly: []"
                 )
 
@@ -199,12 +233,12 @@ with tab_auto:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info("Scan complete: No games satisfied your parameters (odds 1.45–3.20 with EV ≥ threshold). No virtual funds committed.")
+                    st.info(f"Scan complete across {scan_title}: No matches offered >= {min_edge_threshold}% EV within odds 1.45–3.20.")
                 else:
                     df = load_portfolio()
                     logged_count = 0
 
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV setup(s)!")
+                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies) across all scanned fixtures!")
 
                     for bet in accepted_bets:
                         is_duplicate = not df[
@@ -214,7 +248,7 @@ with tab_auto:
                         if not is_duplicate:
                             new_row = {
                                 "ID": len(df) + 1,
-                                "League": selected_league_label,
+                                "League": bet.get("league", "Football"),
                                 "Matchup": bet.get("matchup"),
                                 "Pick": bet.get("pick"),
                                 "Bookmaker": bet.get("bookmaker", "Retail Book"),
@@ -231,11 +265,11 @@ with tab_auto:
 
                     for bet in accepted_bets:
                         st.markdown(
-                            f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}*  \n"
+                            f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}* ({bet.get('league')})  \n"
                             f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}**  \n"
                             f"• **Edge:** **+{bet.get('ev_pct')}% EV** | **Stake:** ${FIXED_STAKE:.2f}"
                         )
-                    st.toast(f"Saved {logged_count} paper bet(s) to portfolio!")
+                    st.toast(f"Logged {logged_count} paper bet(s) to portfolio!")
 
 # ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
 with tab_portfolio:
