@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+import re
 import requests
 import pandas as pd
 import yfinance as yf
@@ -72,11 +73,10 @@ AVAILABLE_BOOKMAKERS = {
     "Bovada": "bovada",
 }
 
-# --- TOOL: FETCH FOOTBALL ODDS ---
-def scan_sports_odds(sport_key: str, selected_books_str: str) -> str:
-    """Fetches upcoming football odds for the specified league and bookmakers."""
+# --- DIRECT DATA FETCH (NO TOOL CALLING CONFLICT) ---
+def get_football_odds_data(sport_key: str, selected_books_str: str) -> str:
+    """Directly fetches upcoming odds for Gemini analysis."""
     if not odds_api_key:
-        # High-fidelity realistic benchmark sample feed across selected leagues
         simulated_feeds = {
             "soccer_brazil_campeonato": [
                 {
@@ -108,24 +108,26 @@ def scan_sports_odds(sport_key: str, selected_books_str: str) -> str:
         "oddsFormat": "decimal",
         "bookmakers": selected_books_str,
     }
-    res = requests.get(url, params=params, timeout=10)
-    if res.status_code != 200:
-        return json.dumps({"error": f"Odds API error {res.status_code}"})
-    
-    games = res.json()[:6]
-    parsed = []
-    for g in games:
-        parsed.append({
-            "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
-            "bookmakers": [
-                {
-                    "bookmaker": b.get("title"),
-                    "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
-                }
-                for b in g.get("bookmakers", [])
-            ]
-        })
-    return json.dumps(parsed)
+    try:
+        res = requests.get(url, params=params, timeout=10)
+        if res.status_code != 200:
+            return json.dumps({"error": f"API status {res.status_code}"})
+        games = res.json()[:6]
+        parsed = []
+        for g in games:
+            parsed.append({
+                "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
+                "bookmakers": [
+                    {
+                        "bookmaker": b.get("title"),
+                        "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
+                    }
+                    for b in g.get("bookmakers", [])
+                ]
+            })
+        return json.dumps(parsed)
+    except Exception as e:
+        return json.dumps({"error": str(e)})
 
 # --- USER INTERFACE ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
@@ -135,7 +137,7 @@ tab_auto, tab_portfolio, tab_stocks = st.tabs([
 # ----------------- TAB 1: AUTONOMOUS AGENT -----------------
 with tab_auto:
     st.subheader("Autonomous Quantitative Betting Agent")
-    st.markdown("The bot analyzes market odds, strips bookmaker margins against Pinnacle, and automatically commits a **$20.00 paper bet** whenever it discovers an edge.")
+    st.markdown("Scans lines, calculates no-vig probabilities against Pinnacle, and automatically commits a **$20.00 paper bet** when an edge appears.")
 
     col1, col2 = st.columns(2)
     selected_league_label = col1.selectbox("Target League", options=list(FOOTBALL_LEAGUES.keys()), index=0)
@@ -155,53 +157,48 @@ with tab_auto:
         if not chosen_keys:
             st.error("Select at least one bookmaker.")
         else:
-            with st.spinner("Analyzing fixture lines and computing no-vig probabilities..."):
-                config = types.GenerateContentConfig(
-                    system_instruction=(
-                        "You are an autonomous quantitative football betting model. Your goal is to evaluate 1X2 moneyline odds and place virtual bets.\n"
-                        "STRICT EVALUATION RULES:\n"
-                        "1. Derive fair true probability from Pinnacle odds by removing the vigorish (margin).\n"
-                        "2. Compare this fair probability against retail lines (e.g. Betfair, Bet365).\n"
-                        "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
-                        "4. FILTER RESTRICTIONS:\n"
-                        f"   - Only evaluate Home or Away outright winners (do NOT bet on Draws).\n"
-                        f"   - Retail odds must be between 1.45 and 3.20.\n"
-                        f"   - EV % must be >= {min_edge_threshold}%.\n"
-                        "5. OUTPUT REQUIREMENT: Output a valid JSON array of accepted bets. If no bets qualify, return an empty array [].\n"
-                        "JSON Schema per bet: "
-                        '{"matchup": "Home vs Away", "pick": "Team Name", "bookmaker": "Retail Book", "odds": 2.15, "ev_pct": 4.2}'
-                    ),
-                    response_mime_type="application/json",
-                    tools=[scan_sports_odds],
-                    temperature=0.1,
-                )
+            with st.spinner(f"Pulling odds and calculating +EV opportunities for {selected_league_label}..."):
+                odds_payload = get_football_odds_data(sport_key, selected_books_str)
 
-                prompt = (
-                    f"Scan {selected_league_label} ({sport_key}) across bookmakers: {selected_books_str}. "
-                    f"Return all bets meeting the criteria as JSON."
+                system_prompt = (
+                    "You are an autonomous quantitative football betting model. Evaluate the provided match odds.\n"
+                    "RULES:\n"
+                    "1. Derive true implied win probabilities from Pinnacle by stripping bookmaker margin.\n"
+                    "2. Compare that true probability against retail bookmaker odds.\n"
+                    "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
+                    "4. CRITERIA:\n"
+                    f"   - Only evaluate Home or Away outright winners (exclude draws).\n"
+                    f"   - Retail odds must be between 1.45 and 3.20.\n"
+                    f"   - Calculated EV % must be >= {min_edge_threshold}%.\n"
+                    "5. Output STRICTLY a valid JSON array of objects. Do not include markdown ticks like ```json or any conversational prose.\n"
+                    'Format: [{"matchup": "Team A vs Team B", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
+                    "If no qualifying bets are found, return exactly: []"
                 )
 
                 response = client.models.generate_content(
                     model="gemini-3.6-flash",
-                    contents=prompt,
-                    config=config,
+                    contents=f"{system_prompt}\n\nLive Odds Data:\n{odds_payload}",
+                    config=types.GenerateContentConfig(temperature=0.1)
                 )
 
+                # Robust JSON parser
+                raw_text = response.text.strip()
+                cleaned_json = re.sub(r"^```json\s*|^```\s*|```$", "", raw_text, flags=re.MULTILINE).strip()
+
                 try:
-                    accepted_bets = json.loads(response.text)
+                    accepted_bets = json.loads(cleaned_json)
                 except Exception:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info("Scan complete: No games satisfied your mathematical parameters (odds 1.45–3.20 with EV ≥ threshold). No money risked.")
+                    st.info("Scan complete: No games satisfied your parameters (odds 1.45–3.20 with EV ≥ threshold). No virtual funds committed.")
                 else:
                     df = load_portfolio()
                     logged_count = 0
-                    
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies)!")
+
+                    st.success(f"Discovered {len(accepted_bets)} eligible +EV setup(s)!")
 
                     for bet in accepted_bets:
-                        # Prevent duplicate logging of same matchup and pick
                         is_duplicate = not df[
                             (df["Matchup"] == bet["matchup"]) & (df["Pick"] == bet["pick"]) & (df["Status"] == "PENDING")
                         ].empty
@@ -224,14 +221,13 @@ with tab_auto:
 
                     save_portfolio(df)
 
-                    # Display actionable summary card
                     for bet in accepted_bets:
                         st.markdown(
                             f"🎯 **Auto-Placed Bet:** **{bet['pick']}** to win in *{bet['matchup']}*  \n"
                             f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet['odds']}**  \n"
-                            f"• **Calculated Edge:** **+{bet['ev_pct']}% EV** | **Stake:** ${FIXED_STAKE:.2f}"
+                            f"• **Edge:** **+{bet['ev_pct']}% EV** | **Stake:** ${FIXED_STAKE:.2f}"
                         )
-                    st.toast(f"Logged {logged_count} new paper bet(s) to portfolio!")
+                    st.toast(f"Saved {logged_count} paper bet(s) to portfolio!")
 
 # ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
 with tab_portfolio:
@@ -254,17 +250,16 @@ with tab_portfolio:
     c4.metric("Win Rate", f"{win_rate:.1f}% ({win_count}/{total_settled})")
 
     if df.empty:
-        st.info("The ledger is empty. Go to the Autonomous Scanner and run your first evaluation.")
+        st.info("No paper trades logged yet. Run a scan to initiate your portfolio.")
     else:
         st.dataframe(df, use_container_width=True)
 
-        # Settlement Engine
         pending_bets = df[df["Status"] == "PENDING"]
         if not pending_bets.empty:
             st.divider()
             st.subheader("⚖️ Grade Completed Match Results")
             bet_id_to_settle = st.selectbox(
-                "Select Completed Match to Grade",
+                "Select Completed Match to Settle",
                 options=pending_bets["ID"].tolist(),
                 format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]})"
             )
@@ -291,15 +286,16 @@ with tab_portfolio:
                 save_portfolio(df)
                 st.rerun()
 
-# ----------------- TAB 3: TRADING -----------------
+# ----------------- TAB 3: STOCK SCANNER -----------------
 with tab_stocks:
     st.subheader("Intraday Market Scan")
     ticker_input = st.text_input("Stock Ticker", value="NVDA").upper()
     if st.button("Scan Ticker", type="primary", use_container_width=True):
-        stock = yf.Ticker(ticker_input)
-        price = round(stock.fast_info.last_price, 2)
-        res = client.models.generate_content(
-            model="gemini-3.6-flash",
-            contents=f"Analyze {ticker_input} at ${price} for an intraday plan with entry, target, and stop.",
-        )
-        st.markdown(res.text)
+        with st.spinner(f"Pulling data for {ticker_input}..."):
+            stock = yf.Ticker(ticker_input)
+            price = round(stock.fast_info.last_price, 2)
+            res = client.models.generate_content(
+                model="gemini-3.6-flash",
+                contents=f"Analyze {ticker_input} at current price ${price} for an intraday plan with entry, target, and stop.",
+            )
+            st.markdown(res.text)
