@@ -1,101 +1,117 @@
-import streamlit as st
-import json
-import yfinance as yf
-from google import genai
-from google.genai import types
+# --- BOOKMAKER MAPPING ---
+# Display Name -> The Odds API bookmaker key
+AVAILABLE_BOOKMAKERS = {
+    "Betfair (Exchange/Sportsbook)": "betfair_ex_uk",
+    "Bet365": "bet365",
+    "Pinnacle (Sharp Benchmark)": "pinnacle",
+    "DraftKings": "draftkings",
+    "FanDuel": "fanduel",
+    "BetMGM": "betmgm",
+    "William Hill": "williamhill",
+    "Bovada": "bovada",
+}
 
-st.set_page_config(page_title="AI Edge Terminal", page_icon="⚡", layout="centered")
+# --- TOOL UPDATE: ACCEPTS SELECTED BOOKMAKERS ---
+def scan_sports_odds(sport_key: str, selected_books_str: str) -> str:
+    """Fetches odds specifically filtered by the selected bookmakers."""
+    if not odds_api_key:
+        return json.dumps([
+            {
+                "matchup": "Arsenal vs Chelsea",
+                "simulated_notice": "No live Odds API key provided.",
+                "odds_comparison": {
+                    "Pinnacle (Benchmark)": {"Arsenal": 1.75, "Draw": 3.80, "Chelsea": 4.90},
+                    "Betfair": {"Arsenal": 1.92, "Draw": 3.65, "Chelsea": 4.20}
+                }
+            }
+        ])
 
-st.title("⚡ AI Market & Sports Terminal")
-
-# Retrieve API key securely from Streamlit Secrets or input box
-api_key = st.secrets.get("GEMINI_API_KEY", "")
-if not api_key:
-    api_key = st.sidebar.text_input("Gemini API Key", type="password")
-
-if not api_key:
-    st.warning("Please provide your Gemini API key in the sidebar to begin.")
-    st.stop()
-
-client = genai.Client(api_key=api_key)
-
-# ----------------- TOOLS -----------------
-def fetch_market_indicators(ticker: str) -> str:
-    """Fetches real-time price and 5-day range for an equity ticker."""
-    stock = yf.Ticker(ticker)
-    fast = stock.fast_info
-    hist = stock.history(period="5d", interval="1d")
-    
-    current_price = fast.last_price
-    prev_close = fast.previous_close
-    day_change_pct = ((current_price - prev_close) / prev_close) * 100
-    
-    data = {
-        "ticker": ticker.upper(),
-        "current_price": round(current_price, 2),
-        "day_change_percent": f"{round(day_change_pct, 2)}%",
-        "5d_high": round(float(hist['High'].max()), 2),
-        "5d_low": round(float(hist['Low'].min()), 2),
+    url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds/"
+    params = {
+        "apiKey": odds_api_key,
+        "regions": "eu,uk,us",
+        "markets": "h2h",
+        "oddsFormat": "decimal",
+        "bookmakers": selected_books_str,  # <-- Filters only the chosen platforms
     }
-    return json.dumps(data)
-
-def fetch_sports_early_goal_stats(home_team: str, away_team: str) -> str:
-    """Fetches early-possession and first-to-score rates for two clubs."""
-    stats = {
-        "matchup": f"{home_team} vs {away_team}",
-        "home_first_goal_rate_last_10": 0.80,
-        "away_first_goal_rate_last_10": 0.30,
-        "home_avg_minute_scored": 21,
-        "away_avg_minute_conceded": 26,
-        "opening_15min_xg": 0.42,
-    }
-    return json.dumps(stats)
-
-# ----------------- TABS UI -----------------
-tab_stocks, tab_sports = st.tabs(["📈 Day Trading", "⚽ Sports Stats"])
-
-# --- Tab 1: Trading ---
-with tab_stocks:
-    st.subheader("Intraday Market Scan")
-    ticker = st.text_input("Stock Ticker", value="NVDA").upper()
     
-    if st.button("Scan Ticker", type="primary", use_container_width=True):
-        with st.spinner(f"Pulling live data and analyzing {ticker}..."):
-            config = types.GenerateContentConfig(
-                system_instruction=(
-                    "You are an analytical decision agent. "
-                    "Evaluate price position relative to the 5-day range and provide a specific intraday setup with entry, target, and stop-loss."
-                ),
-                tools=[fetch_market_indicators],
-                temperature=0.2,
-            )
-            response = client.models.generate_content(
-                model="gemini-3.6-flash",
-                contents=f"Analyze {ticker} live price metrics and assess current risk/reward.",
-                config=config,
-            )
-            st.markdown(response.text)
+    res = requests.get(url, params=params, timeout=10)
+    if res.status_code != 200:
+        return json.dumps({"error": f"API returned status {res.status_code}"})
+    
+    games = res.json()[:4]
+    parsed_matches = []
+    for g in games:
+        parsed_matches.append({
+            "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
+            "start_time": g.get("commence_time"),
+            "bookmaker_lines": [
+                {
+                    "bookmaker": b.get("title"),
+                    "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
+                }
+                for b in g.get("bookmakers", [])
+            ]
+        })
+    return json.dumps(parsed_matches)
 
-# --- Tab 2: Sports ---
+# --- UI SECTION ---
 with tab_sports:
-    st.subheader("First Team to Score Predictor")
-    c1, c2 = st.columns(2)
-    home = c1.text_input("Home Team", value="Arsenal")
-    away = c2.text_input("Away Team", value="Chelsea")
+    st.subheader("Expected Value (+EV) Sports Scanner")
     
-    if st.button("Analyze Matchup Edge", use_container_width=True):
-        with st.spinner(f"Evaluating {home} vs {away}..."):
-            config = types.GenerateContentConfig(
-                system_instruction=(
-                    "You are a sports betting quantitative agent. "
-                    "Analyze early possession and scoring rates to evaluate if there is mathematical edge on the 'First Team to Score' market."
-                ),
-                tools=[fetch_sports_early_goal_stats],
-                temperature=0.2,
-            )
-            response = client.models.generate_content(
-                model="gemini-3.6-flash",
-                contents=f"Evaluate if {home} has an edge to score first against {away}.",
-                config=config,
-            )
-            st.markdown(response.text)
+    col_sport, col_edge = st.columns(2)
+    sport = col_sport.selectbox(
+        "League",
+        ["soccer_epl", "soccer_spain_la_liga", "soccer_uefa_champs_league", "basketball_nba"],
+        index=0
+    )
+    min_edge = col_edge.slider("Minimum Edge (+EV %)", 1.0, 10.0, 3.0, step=0.5)
+
+    # Multi-select button/dropdown for betting companies
+    chosen_labels = st.multiselect(
+        "Select Sportsbooks to Monitor",
+        options=list(AVAILABLE_BOOKMAKERS.keys()),
+        default=["Betfair (Exchange/Sportsbook)", "Pinnacle (Sharp Benchmark)", "Bet365"]
+    )
+    
+    # Map friendly names back to API keys
+    chosen_keys = [AVAILABLE_BOOKMAKERS[label] for label in chosen_labels]
+    selected_books_str = ",".join(chosen_keys)
+
+    notify = st.checkbox("Send Alert to Telegram", value=True)
+
+    if st.button("Run +EV Scan", type="primary", use_container_width=True):
+        if not chosen_keys:
+            st.error("Please select at least one bookmaker.")
+        else:
+            with st.spinner("Fetching lines from selected bookmakers..."):
+                config = types.GenerateContentConfig(
+                    system_instruction=(
+                        "You are a quantitative betting model. Use Pinnacle as the fair-price benchmark to derive true probability, "
+                        "then check the other user-selected bookmakers (e.g. Betfair) to find discrepancies where the payout offers positive Expected Value (+EV).\n"
+                        "Format response with:\n"
+                        "- Matchup\n"
+                        "- Value Bet (Team)\n"
+                        "- Bookmaker Offering the Line\n"
+                        "- Fair Odds vs Bookmaker Odds\n"
+                        "- Calculated EV %"
+                    ),
+                    tools=[scan_sports_odds],
+                    temperature=0.1,
+                )
+                
+                prompt = (
+                    f"Scan {sport} using only these bookmakers: {selected_books_str}. "
+                    f"Return only bets offering at least {min_edge}% +EV."
+                )
+                
+                analysis = client.models.generate_content(
+                    model="gemini-3.6-flash",
+                    contents=prompt,
+                    config=config,
+                )
+                
+                st.markdown(analysis.text)
+                
+                if notify and telegram_token:
+                    send_telegram_alert(f"🚨 *+EV Alert:*\n\n{analysis.text}")
