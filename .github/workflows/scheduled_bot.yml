@@ -1,0 +1,43 @@
+name: Quantitative Betting Autonomous Scheduler
+
+on:
+  schedule:
+    # Runs every 4 hours automatically
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  run-quant-bot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas requests google-genai
+
+      - name: Execute background worker
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          TELEGRAM_BOT_TOKEN: "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE"
+          TELEGRAM_CHAT_ID: "6565714528"
+        run: |
+          python worker.py
+
+      - name: Commit and push updated ledger
+        run: |
+          git config --global user.name "Quant Bot Worker"
+          git config --global user.email "bot@quantterminal.internal"
+          git add paper_trades.csv
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update portfolio ledger [skip ci]"
+          git push
