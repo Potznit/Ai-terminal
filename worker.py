@@ -13,28 +13,11 @@ telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "6565714528")
 
 CSV_FILE = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
-MIN_EDGE_THRESHOLD = 2.5
+MIN_EDGE_THRESHOLD = 1.5
 
 COLUMNS = [
     "ID", "Kickoff_UTC", "League", "Matchup", "Market", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
 ]
-
-EXPANDED_LEAGUES = {
-    "Premier League": "soccer_epl",
-    "Championship (ENG 2nd)": "soccer_england_league1",
-    "La Liga": "soccer_spain_la_liga",
-    "Segunda División": "soccer_spain_segunda_division",
-    "Serie A": "soccer_italy_serie_a",
-    "Serie B": "soccer_italy_serie_b",
-    "Bundesliga": "soccer_germany_bundesliga",
-    "2. Bundesliga": "soccer_germany_bundesliga2",
-    "Ligue 1": "soccer_france_ligue_one",
-    "Champions League": "soccer_uefa_champs_league",
-    "Europa League": "soccer_uefa_europa_league",
-    "Eredivisie": "soccer_netherlands_eredivisie",
-    "Primeira Liga": "soccer_portugal_primeira_liga",
-    "Brasileirão Série A": "soccer_brazil_campeonato"
-}
 
 def send_telegram_alert(message_html: str):
     if not telegram_token or not telegram_chat_id:
@@ -99,6 +82,17 @@ def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -
     stake = round(bankroll * fraction, 2)
     return max(1.0, stake)
 
+def get_active_soccer_leagues():
+    """Dynamically fetches all active soccer competitions globally (0 credits)."""
+    url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
+    try:
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200:
+            return [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
+    except Exception:
+        pass
+    return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga"]
+
 def auto_settle(df):
     pending_mask = df["Status"] == "PENDING"
     if not pending_mask.any() or not odds_api_key:
@@ -108,8 +102,7 @@ def auto_settle(df):
     settled_details = []
     unique_leagues = df.loc[pending_mask, "League"].unique()
 
-    for league in unique_leagues:
-        sport_key = EXPANDED_LEAGUES.get(league, league)
+    for sport_key in unique_leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={odds_api_key}&daysFrom=3"
         try:
             res = requests.get(url, timeout=10)
@@ -186,10 +179,11 @@ def run_scanner(df):
     if metrics["available"] < 10.0 or not odds_api_key or not gemini_key:
         return df
 
+    active_leagues = get_active_soccer_leagues()
     all_matches = []
     selected_books = "betfair_ex_uk,pinnacle,bet365"
 
-    for sport_key in EXPANDED_LEAGUES.values():
+    for sport_key in active_leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/odds/"
         params = {
             "apiKey": odds_api_key,
@@ -201,7 +195,7 @@ def run_scanner(df):
         try:
             r = requests.get(url, params=params, timeout=10)
             if r.status_code == 200:
-                for g in r.json()[:4]:
+                for g in r.json()[:6]:
                     bookmakers_data = []
                     for b in g.get("bookmakers", []):
                         markets_dict = {}
@@ -234,14 +228,15 @@ def run_scanner(df):
         "MARKETS INCLUDED: 'h2h' (Match Winner), 'totals' (Over/Under Goals), 'spreads' (Handicap).\n"
         "RULES:\n"
         "1. Identify Pinnacle lines for each market, calculate market vig, and derive true no-vig probabilities.\n"
-        "2. Compare that true probability against retail bookmakers (Betfair, Bet365).\n"
-        "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
-        f"4. SELECTION CRITERIA:\n"
+        "2. If Pinnacle does not quote the match, skip it.\n"
+        "3. Compare that true probability against retail bookmakers (Betfair, Bet365).\n"
+        "4. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
+        f"5. SELECTION CRITERIA:\n"
         f"   - Minimum EV % >= {MIN_EDGE_THRESHOLD}%.\n"
         "   - Decimal odds must be between 1.40 and 3.80.\n"
         "   - Exclude match winner Draw (only Home/Away, Totals Over/Under, or Team Spreads).\n"
-        "5. Return strictly a clean JSON array of objects without Markdown formatting:\n"
-        '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":4.8}]\n'
+        "6. Return strictly a clean JSON array of objects without Markdown formatting:\n"
+        '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"soccer_epl","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":2.1}]\n'
         "If no bets qualify, return exactly: []"
     )
 
@@ -276,7 +271,7 @@ def run_scanner(df):
             new_row = {
                 "ID": len(df) + 1,
                 "Kickoff_UTC": k_str,
-                "League": bet.get("league", "Major League"),
+                "League": bet.get("league", "Global Soccer"),
                 "Matchup": bet.get("matchup"),
                 "Market": bet.get("market", "h2h"),
                 "Pick": bet.get("pick"),
