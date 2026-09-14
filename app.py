@@ -3,13 +3,12 @@ import json
 import os
 import requests
 import pandas as pd
-import numpy as np
 import yfinance as yf
 from google import genai
 from google.genai import types
 
 st.set_page_config(page_title="Autonomous AI Betting Terminal", page_icon="⚡", layout="wide")
-st.title("⚡ Autonomous AI Market & Football Terminal")
+st.title("⚡ Autonomous AI Global Betting Terminal")
 
 # --- SECRETS & CONFIGURATION ---
 gemini_key = st.secrets.get("GEMINI_API_KEY", "")
@@ -24,46 +23,6 @@ MIN_EDGE_THRESHOLD = 1.5
 COLUMNS = [
     "ID", "Kickoff_UTC", "League", "Matchup", "Market", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
 ]
-
-# --- LEAGUE TIERS ---
-MAJOR_LEAGUES = {
-    "Premier League (ENG)": "soccer_epl",
-    "Championship (ENG 2nd)": "soccer_england_league1",
-    "La Liga (ESP)": "soccer_spain_la_liga",
-    "Segunda División (ESP 2nd)": "soccer_spain_segunda_division",
-    "Serie A (ITA)": "soccer_italy_serie_a",
-    "Serie B (ITA 2nd)": "soccer_italy_serie_b",
-    "Bundesliga (GER)": "soccer_germany_bundesliga",
-    "2. Bundesliga (GER 2nd)": "soccer_germany_bundesliga2",
-    "Ligue 1 (FRA)": "soccer_france_ligue_one",
-    "Champions League": "soccer_uefa_champs_league",
-    "Brasileirão Série A": "soccer_brazil_campeonato"
-}
-
-MEDIUM_LEAGUES = {
-    "Eredivisie (NED)": "soccer_netherlands_eredivisie",
-    "Primeira Liga (POR)": "soccer_portugal_primeira_liga",
-    "Pro League (BEL)": "soccer_belgium_first_div",
-    "Süper Lig (TUR)": "soccer_turkey_super_league",
-    "Premiership (SCO)": "soccer_spl",
-    "Major League Soccer (USA)": "soccer_usa_mls",
-    "Liga MX (MEX)": "soccer_mexico_ligamx",
-    "Primera División (ARG)": "soccer_argentina_primera_division",
-    "Copa Libertadores": "soccer_conmebol_copa_libertadores"
-}
-
-MINOR_LEAGUES = {
-    "League Two (ENG 4th)": "soccer_england_league2",
-    "Bundesliga (AUT)": "soccer_austria_bundesliga",
-    "Super League (SUI)": "soccer_switzerland_superleague",
-    "Superliga (DEN)": "soccer_denmark_superliga",
-    "Ekstraklasa (POL)": "soccer_poland_ekstraklasa",
-    "Allsvenskan (SWE)": "soccer_sweden_allsvenskan",
-    "Eliteserien (NOR)": "soccer_norway_eliteserien",
-    "A-League (AUS)": "soccer_australia_aleague"
-}
-
-ALL_LEAGUES_MAP = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
 
 def send_telegram_alert(message_html: str):
     token = st.session_state.get("tg_token", telegram_token).strip()
@@ -161,32 +120,26 @@ def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -
     return max(1.0, stake)
 
 def build_odds_bracket_matrix(df: pd.DataFrame) -> pd.DataFrame:
-    """Segments settled bets into odds brackets to audit mathematical consistency."""
     settled = df[df["Status"].isin(["WON", "LOST", "PUSH"])].copy()
-    
     brackets = [
         ("Conservative (1.40 - 1.75)", 1.40, 1.75),
         ("Balanced (1.76 - 2.20)", 1.76, 2.20),
         ("Mild Underdogs (2.21 - 2.80)", 2.21, 2.80),
         ("Bold / Longshots (2.81 - 3.80)", 2.81, 3.80)
     ]
-    
     rows = []
     for label, low, high in brackets:
         b_df = settled[(settled["Odds"] >= low) & (settled["Odds"] <= high)]
         decided = b_df[b_df["Status"].isin(["WON", "LOST"])]
-        
         total_bets = len(b_df)
         total_decided = len(decided)
         won_count = len(decided[decided["Status"] == "WON"])
-        
         win_rate = (won_count / total_decided * 100) if total_decided > 0 else 0.0
         expected_win_rate = ((1.0 / b_df["Odds"]).mean() * 100) if total_bets > 0 else 0.0
         avg_ev = b_df["EV_Pct"].mean() if total_bets > 0 else 0.0
         pl = b_df["P_L"].sum() if total_bets > 0 else 0.0
         total_staked = decided["Stake"].sum() if total_decided > 0 else 0.0
         roi = (pl / total_staked * 100) if total_staked > 0 else 0.0
-        
         rows.append({
             "Bracket": label,
             "Bets": total_bets,
@@ -199,10 +152,22 @@ def build_odds_bracket_matrix(df: pd.DataFrame) -> pd.DataFrame:
         })
     return pd.DataFrame(rows)
 
-def fetch_all_markets_odds(sport_keys: list) -> str:
+def get_all_active_soccer_leagues() -> list:
+    """Dynamically fetches all active soccer leagues worldwide (0 credit cost)."""
+    url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
+    try:
+        r = requests.get(url, timeout=10)
+        if r.status_code == 200:
+            return [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
+    except Exception:
+        pass
+    return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga", "soccer_portugal_primeira_liga"]
+
+def fetch_global_multi_market_odds(leagues: list) -> tuple:
     all_matches = []
     selected_books = "pinnacle,betfair_ex_uk,bet365"
-    for key in sport_keys:
+    leagues_scanned = 0
+    for key in leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
             "apiKey": odds_api_key,
@@ -214,7 +179,10 @@ def fetch_all_markets_odds(sport_keys: list) -> str:
         try:
             res = requests.get(url, params=params, timeout=10)
             if res.status_code == 200:
-                for g in res.json()[:6]:
+                data = res.json()
+                if data:
+                    leagues_scanned += 1
+                for g in data[:6]:
                     bookmakers_data = []
                     for b in g.get("bookmakers", []):
                         markets_dict = {}
@@ -237,7 +205,7 @@ def fetch_all_markets_odds(sport_keys: list) -> str:
                     })
         except Exception:
             continue
-    return json.dumps(all_matches)
+    return json.dumps(all_matches), leagues_scanned
 
 def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     pending_mask = df["Status"] == "PENDING"
@@ -248,8 +216,7 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     settled_details = []
     unique_leagues = df.loc[pending_mask, "League"].unique()
 
-    for league in unique_leagues:
-        sport_key = ALL_LEAGUES_MAP.get(league, league)
+    for sport_key in unique_leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={api_key}&daysFrom=3"
         try:
             res = requests.get(url, timeout=10)
@@ -326,66 +293,47 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
 
 # --- UI TABS ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
-    "🤖 Multi-Market Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
+    "🤖 Global Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
 ])
 
 # ----------------- TAB 1: SCANNER -----------------
 with tab_auto:
-    st.subheader("Autonomous Quantitative Football Scanner")
+    st.subheader("Global Quantitative Football Scanner (All Leagues & All Markets)")
     df_current = load_portfolio()
     metrics = get_bankroll_metrics(df_current)
 
     st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Total Equity: **${metrics['total_equity']:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
-    tier_scope = st.radio(
-        "Select League Scope",
-        options=[
-            "🏆 Major Leagues (EPL, La Liga, Serie A, Bundesliga, Ligue 1, UCL, Brasileirão)",
-            "🥈 Medium Leagues (Eredivisie, Primeira Liga, MLS, Liga MX, Süper Lig)",
-            "🥉 Minor Leagues (Regional & Lower Divisions)"
-        ],
-        index=0
-    )
-
-    if "Major Leagues" in tier_scope:
-        target_keys = list(MAJOR_LEAGUES.values())
-        scope_title = "Major Leagues"
-    elif "Medium Leagues" in tier_scope:
-        target_keys = list(MEDIUM_LEAGUES.values())
-        scope_title = "Medium Leagues"
-    else:
-        target_keys = list(MINOR_LEAGUES.values())
-        scope_title = "Minor Leagues"
-
-    st.markdown("---")
-
-    if st.button(f"🚀 Scan All Markets (Winner, Totals, Spreads) for {scope_title}", type="primary", use_container_width=True):
+    # Single button triggering full automated discovery
+    if st.button("🚀 Scan All In-Season Leagues Globally (Winner, Totals, Spreads)", type="primary", use_container_width=True):
         if metrics["available_bankroll"] < 10.0:
             st.error("Bankroll depleted. Settle existing matches before taking new bets.")
         else:
-            with st.spinner(f"Querying {scope_title} for H2H, Over/Under Goals, and Spreads (EV >= {MIN_EDGE_THRESHOLD}%)..."):
-                odds_payload = fetch_all_markets_odds(target_keys)
+            with st.spinner("Discovering active leagues worldwide and fetching multi-market odds lines..."):
+                active_leagues = get_all_active_soccer_leagues()
+                odds_payload, count_scanned = fetch_global_multi_market_odds(active_leagues)
 
                 system_prompt = (
-                    "You are an autonomous quantitative football betting model evaluating multiple betting markets simultaneously.\n"
+                    "You are an autonomous quantitative football betting model evaluating global soccer odds across multiple betting markets simultaneously.\n"
                     "MARKETS PROVIDED: 'h2h' (Match Winner), 'totals' (Over/Under Goals), 'spreads' (Handicap).\n"
                     "MATHEMATICAL INSTRUCTIONS:\n"
-                    "1. For each market, use Pinnacle lines as the sharp benchmark to remove bookmaker margin (vig) and find true implied probabilities.\n"
-                    "2. Compare true probability against retail bookmaker lines (Betfair, Bet365).\n"
-                    "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
-                    "4. CRITERIA:\n"
+                    "1. For each match and market, locate Pinnacle lines as the sharp market-maker benchmark and derive true no-vig probabilities.\n"
+                    "2. If Pinnacle does not quote the match, skip it.\n"
+                    "3. Compare true probability against retail bookmakers (Betfair, Bet365).\n"
+                    "4. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
+                    "5. CRITERIA:\n"
                     f"   - Calculated EV % must be >= {MIN_EDGE_THRESHOLD}%.\n"
                     "   - Retail odds must be between 1.40 and 3.80.\n"
                     "   - Exclude match winner Draw (evaluate Home/Away winner, Over/Under goals, or Team Spreads).\n"
-                    "5. Output STRICTLY a valid JSON array of objects without Markdown code fences:\n"
-                    '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":2.1}]\n'
+                    "6. Output STRICTLY a valid JSON array of objects without Markdown code fences:\n"
+                    '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"soccer_epl","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":2.1}]\n'
                     "If no bets qualify, return exactly: []"
                 )
 
                 try:
                     response = client.models.generate_content(
                         model="gemini-3.6-flash",
-                        contents=f"{system_prompt}\n\nLive Multi-Market Odds Data:\n{odds_payload}"
+                        contents=f"{system_prompt}\n\nLive Global Odds Data:\n{odds_payload}"
                     )
                 except Exception as api_err:
                     st.error(f"Gemini API Error: {api_err}")
@@ -407,11 +355,11 @@ with tab_auto:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info(f"Scan complete across {scope_title}: No positive-EV discrepancies found (>= {MIN_EDGE_THRESHOLD}% EV).")
+                    st.info(f"Scan complete across {count_scanned} active leagues: No discrepancies meeting >= {MIN_EDGE_THRESHOLD}% EV found.")
                 else:
                     df = load_portfolio()
                     logged = 0
-                    st.success(f"Discovered {len(accepted_bets)} eligible position(s)!")
+                    st.success(f"Discovered {len(accepted_bets)} eligible position(s) across {count_scanned} global leagues!")
 
                     for bet in accepted_bets:
                         dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
@@ -427,7 +375,7 @@ with tab_auto:
                             new_row = {
                                 "ID": len(df) + 1,
                                 "Kickoff_UTC": k_str,
-                                "League": bet.get("league", scope_title),
+                                "League": bet.get("league", "Global Soccer"),
                                 "Matchup": bet.get("matchup"),
                                 "Market": bet.get("market", "h2h"),
                                 "Pick": bet.get("pick"),
