@@ -16,37 +16,26 @@ odds_api_key = st.secrets.get("ODDS_API_KEY", "")
 telegram_token = st.secrets.get("TELEGRAM_BOT_TOKEN", "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE")
 telegram_chat_id = st.secrets.get("TELEGRAM_CHAT_ID", "6565714528")
 
-# --- CSV PAPER PORTFOLIO STORAGE ---
 CSV_FILE = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
-STAKE_PERCENT = 0.10
 
 COLUMNS = [
-    "ID", "Kickoff_UTC", "League", "Matchup", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
+    "ID", "Kickoff_UTC", "League", "Matchup", "Market", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
 ]
 
-# --- TELEGRAM DISPATCH HELPER ---
 def send_telegram_alert(message_html: str):
-    """Sends formatted HTML alerts directly to Telegram and returns (success, detail_string)."""
     token = st.session_state.get("tg_token", telegram_token).strip()
     chat_id = str(st.session_state.get("tg_chat_id", telegram_chat_id)).strip()
-    
     if not token or not chat_id:
         return False, "Token or Chat ID is empty."
-        
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {
-        "chat_id": chat_id,
-        "text": message_html,
-        "parse_mode": "HTML"
-    }
+    payload = {"chat_id": chat_id, "text": message_html, "parse_mode": "HTML"}
     try:
         r = requests.post(url, json=payload, timeout=8)
         data = r.json()
         if r.status_code == 200 and data.get("ok"):
             return True, "Delivered"
-        else:
-            return False, f"Telegram Error ({r.status_code}): {data.get('description', r.text)}"
+        return False, f"Telegram Error ({r.status_code}): {data.get('description', r.text)}"
     except Exception as e:
         return False, f"Connection exception: {str(e)}"
 
@@ -80,7 +69,12 @@ def load_portfolio() -> pd.DataFrame:
             df = pd.read_csv(CSV_FILE)
             for col in COLUMNS:
                 if col not in df.columns:
-                    df[col] = "N/A" if col == "Kickoff_UTC" else 0.0
+                    if col == "Market":
+                        df[col] = "h2h"
+                    elif col == "Kickoff_UTC":
+                        df[col] = "N/A"
+                    else:
+                        df[col] = 0.0
             return df[COLUMNS]
         except Exception:
             pass
@@ -93,13 +87,10 @@ def get_bankroll_metrics(df: pd.DataFrame):
     settled_df = df[df["Status"].isin(["WON", "LOST", "PUSH"])]
     total_realized_pl = settled_df["P_L"].sum() if not settled_df.empty else 0.0
     pending_stakes = df[df["Status"] == "PENDING"]["Stake"].sum()
-    
     available_bankroll = STARTING_BANKROLL + total_realized_pl - pending_stakes
     total_equity = STARTING_BANKROLL + total_realized_pl
-    
     total_staked_settled = settled_df[settled_df["Status"].isin(["WON", "LOST"])]["Stake"].sum()
     roi = (total_realized_pl / total_staked_settled * 100) if total_staked_settled > 0 else 0.0
-    
     win_count = len(settled_df[settled_df["Status"] == "WON"])
     total_decided = len(settled_df[settled_df["Status"].isin(["WON", "LOST"])])
     win_rate = (win_count / total_decided * 100) if total_decided > 0 else 0.0
@@ -115,9 +106,21 @@ def get_bankroll_metrics(df: pd.DataFrame):
         "pending_stakes": pending_stakes
     }
 
-MAJOR_LEAGUES = {
+def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -> float:
+    if bankroll <= 1.0 or decimal_odds <= 1.01:
+        return 0.0
+    b = decimal_odds - 1.0
+    true_p = (1.0 + (ev_pct / 100.0)) / decimal_odds
+    q = 1.0 - true_p
+    full_kelly = (b * true_p - q) / b
+    quarter_kelly = max(0.0, full_kelly * 0.25)
+    fraction = min(max(quarter_kelly, 0.01), 0.05)
+    stake = round(bankroll * fraction, 2)
+    return max(1.0, stake)
+
+ALL_LEAGUES_MAP = {
     "Premier League (England)": "soccer_epl",
-    "Championship (England 2nd)": "soccer_england_efl_cup",
+    "Championship (England 2nd)": "soccer_england_league1",
     "La Liga (Spain)": "soccer_spain_la_liga",
     "Segunda División (Spain 2nd)": "soccer_spain_segunda_division",
     "Serie A (Italy)": "soccer_italy_serie_a",
@@ -125,90 +128,57 @@ MAJOR_LEAGUES = {
     "Bundesliga (Germany)": "soccer_germany_bundesliga",
     "2. Bundesliga (Germany 2nd)": "soccer_germany_bundesliga2",
     "Ligue 1 (France)": "soccer_france_ligue_one",
-    "Ligue 2 (France 2nd)": "soccer_france_ligue_two",
     "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
     "UEFA Champions League": "soccer_uefa_champs_league",
-    "UEFA Europa League": "soccer_uefa_europa_league"
-}
-
-MEDIUM_LEAGUES = {
+    "UEFA Europa League": "soccer_uefa_europa_league",
     "Eredivisie (Netherlands)": "soccer_netherlands_eredivisie",
     "Primeira Liga (Portugal)": "soccer_portugal_primeira_liga",
-    "Pro League (Belgium)": "soccer_belgium_first_div",
-    "Süper Lig (Turkey)": "soccer_turkey_super_league",
-    "Premiership (Scotland)": "soccer_spl",
-    "Major League Soccer (USA)": "soccer_usa_mls",
-    "Liga MX (Mexico)": "soccer_mexico_ligamx",
-    "Primera División (Argentina)": "soccer_argentina_primera_division",
-    "J1 League (Japan)": "soccer_japan_j_league",
-    "Copa Libertadores": "soccer_conmebol_copa_libertadores"
+    "Major League Soccer (USA)": "soccer_usa_mls"
 }
-
-MINOR_LEAGUES = {
-    "League One (England 3rd)": "soccer_england_league1",
-    "League Two (England 4th)": "soccer_england_league2",
-    "Bundesliga (Austria)": "soccer_austria_bundesliga",
-    "Super League (Switzerland)": "soccer_switzerland_superleague",
-    "Superliga (Denmark)": "soccer_denmark_superliga",
-    "Ekstraklasa (Poland)": "soccer_poland_ekstraklasa",
-    "Allsvenskan (Sweden)": "soccer_sweden_allsvenskan",
-    "Eliteserien (Norway)": "soccer_norway_eliteserien",
-    "A-League (Australia)": "soccer_australia_aleague"
-}
-
-ALL_LEAGUES_MAP = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
 
 AVAILABLE_BOOKMAKERS = {
-    "Betfair (Exchange/Sportsbook)": "betfair_ex_uk",
+    "Betfair": "betfair_ex_uk",
     "Bet365": "bet365",
     "Pinnacle (Sharp Benchmark)": "pinnacle",
     "DraftKings": "draftkings",
     "FanDuel": "fanduel",
-    "BetMGM": "betmgm",
-    "William Hill": "williamhill",
-    "Bovada": "bovada",
+    "William Hill": "williamhill"
 }
 
-def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
-    if not odds_api_key:
-        simulated = [
-            {
-                "matchup": "Arsenal vs Chelsea",
-                "commence_time": "2026-09-19T14:00:00Z",
-                "league": "soccer_epl",
-                "bookmakers": [
-                    {"bookmaker": "Pinnacle", "lines": {"Arsenal": 1.80, "Draw": 3.70, "Chelsea": 4.50}},
-                    {"bookmaker": "Bet365", "lines": {"Arsenal": 1.95, "Draw": 3.50, "Chelsea": 4.20}}
-                ]
-            }
-        ]
-        return json.dumps(simulated)
-
+def fetch_multi_market_odds(sport_keys: list, selected_books_str: str, chosen_markets_str: str) -> str:
     all_matches = []
     for key in sport_keys:
         url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
             "apiKey": odds_api_key,
             "regions": "eu,uk,us",
-            "markets": "h2h",
+            "markets": chosen_markets_str,
             "oddsFormat": "decimal",
             "bookmakers": selected_books_str,
         }
         try:
             res = requests.get(url, params=params, timeout=10)
             if res.status_code == 200:
-                for g in res.json()[:6]:
+                for g in res.json()[:5]:
+                    bookmakers_data = []
+                    for b in g.get("bookmakers", []):
+                        markets_dict = {}
+                        for mkt in b.get("markets", []):
+                            m_key = mkt.get("key")
+                            outcomes = {}
+                            for o in mkt.get("outcomes", []):
+                                name = o.get("name")
+                                point = o.get("point")
+                                label = f"{name} {point}" if point is not None else name
+                                outcomes[label] = o.get("price")
+                            markets_dict[m_key] = outcomes
+                        bookmakers_data.append({"bookmaker": b.get("title"), "markets": markets_dict})
+
                     all_matches.append({
                         "matchup": f"{g.get('home_team')} vs {g.get('away_team')}",
                         "commence_time": g.get("commence_time", "Unknown"),
                         "league": key,
-                        "bookmakers": [
-                            {
-                                "bookmaker": b.get("title"),
-                                "lines": {o.get("name"): o.get("price") for o in b.get("markets", [{}])[0].get("outcomes", [])}
-                            }
-                            for b in g.get("bookmakers", [])
-                        ]
+                        "bookmakers": bookmakers_data
                     })
         except Exception:
             continue
@@ -222,61 +192,76 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     settled_count = 0
     settled_details = []
     unique_leagues = df.loc[pending_mask, "League"].unique()
-    
+
     for league in unique_leagues:
-        sport_key = league if league in ALL_LEAGUES_MAP.values() else ALL_LEAGUES_MAP.get(league, "soccer_epl")
+        sport_key = ALL_LEAGUES_MAP.get(league, league)
         url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={api_key}&daysFrom=3"
         try:
             res = requests.get(url, timeout=10)
             if res.status_code != 200:
                 continue
-            scores_data = res.json()
-            
-            for item in scores_data:
+            for item in res.json():
                 if not item.get("completed"):
                     continue
-                
                 home = item.get("home_team")
                 away = item.get("away_team")
                 scores = item.get("scores")
                 if not scores or len(scores) < 2:
                     continue
-                
                 home_score = next((int(s["score"]) for s in scores if s["name"] == home), None)
                 away_score = next((int(s["score"]) for s in scores if s["name"] == away), None)
                 if home_score is None or away_score is None:
                     continue
-                
-                if home_score > away_score:
-                    winning_team = home
-                elif away_score > home_score:
-                    winning_team = away
-                else:
-                    winning_team = "DRAW"
+
+                total_goals = home_score + away_score
+                h2h_winner = home if home_score > away_score else (away if away_score > home_score else "DRAW")
 
                 for idx in df[pending_mask].index:
                     m_str = str(df.at[idx, "Matchup"])
                     if home in m_str and away in m_str:
-                        pick = str(df.at[idx, "Pick"])
+                        pick = str(df.at[idx, "Pick"]).strip()
                         stake = float(df.at[idx, "Stake"])
                         odds = float(df.at[idx, "Odds"])
-                        
-                        if winning_team == "DRAW":
-                            df.at[idx, "Status"] = "LOST"
-                            df.at[idx, "P_L"] = -stake
-                            outcome = "LOST ❌"
-                        elif pick.strip().lower() in winning_team.lower() or winning_team.lower() in pick.strip().lower():
-                            df.at[idx, "Status"] = "WON"
-                            p_gain = round((odds - 1.0) * stake, 2)
-                            df.at[idx, "P_L"] = p_gain
-                            outcome = f"WON ✅ (+${p_gain:.2f})"
+                        market = str(df.at[idx, "Market"]).lower()
+                        status = "LOST"
+                        gain = -stake
+
+                        if market == "totals":
+                            parts = pick.split()
+                            if len(parts) >= 2:
+                                direction = parts[0].lower()
+                                line = float(parts[1])
+                                if total_goals == line:
+                                    status = "PUSH"
+                                    gain = 0.0
+                                elif (direction == "over" and total_goals > line) or (direction == "under" and total_goals < line):
+                                    status = "WON"
+                                    gain = round((odds - 1.0) * stake, 2)
+                        elif market == "spreads":
+                            parts = pick.rsplit(" ", 1)
+                            if len(parts) == 2:
+                                team_name = parts[0]
+                                handicap = float(parts[1])
+                                is_home = home.lower() in team_name.lower()
+                                diff = (home_score - away_score) if is_home else (away_score - home_score)
+                                if diff + handicap > 0:
+                                    status = "WON"
+                                    gain = round((odds - 1.0) * stake, 2)
+                                elif diff + handicap == 0:
+                                    status = "PUSH"
+                                    gain = 0.0
                         else:
-                            df.at[idx, "Status"] = "LOST"
-                            df.at[idx, "P_L"] = -stake
-                            outcome = "LOST ❌"
-                            
+                            if h2h_winner == "DRAW":
+                                status = "LOST"
+                            elif pick.lower() in h2h_winner.lower() or h2h_winner.lower() in pick.lower():
+                                status = "WON"
+                                gain = round((odds - 1.0) * stake, 2)
+
+                        df.at[idx, "Status"] = status
+                        df.at[idx, "P_L"] = gain
+                        tag = f"WON ✅ (+${gain:.2f})" if status == "WON" else ("PUSH 🔄" if status == "PUSH" else "LOST ❌")
+                        settled_details.append(f"• [{market.upper()}] <b>{pick}</b> ({m_str}): {tag}")
                         settled_count += 1
-                        settled_details.append(f"• <b>{pick}</b> ({m_str}): {outcome}")
         except Exception:
             continue
 
@@ -286,242 +271,166 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
 
 # --- UI TABS ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
-    "🤖 Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
+    "🤖 Multi-Market Autonomous Scanner", "📊 Paper Portfolio & Audit", "📈 Day Trading"
 ])
 
-# ----------------- TAB 1: AUTONOMOUS AGENT -----------------
+# ----------------- TAB 1: SCANNER -----------------
 with tab_auto:
-    st.subheader("Tier-Segmented Autonomous Quantitative Scanner")
+    st.subheader("Multi-Market Quantitative Scanner (+EV Over/Under, Spreads & H2H)")
     df_current = load_portfolio()
     metrics = get_bankroll_metrics(df_current)
-    
-    current_dynamic_stake = round(metrics["available_bankroll"] * STAKE_PERCENT, 2)
-    st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Next 10% Stake: **${current_dynamic_stake:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
-    col1, col2 = st.columns(2)
+    st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Total Equity: **${metrics['total_equity']:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
-    tier_scope = col1.radio(
-        "Market Tier / Scope",
-        options=[
-            "🏆 Major Leagues (Tier 1 & 2nd Divisions)",
-            "🥈 Medium Leagues (Competitive Domestic)",
-            "🥉 Minor Leagues (Lower Divisions & Regional)",
-            "🎯 Single Specific League"
-        ],
-        index=0
+    c_mkt, c_edge = st.columns(2)
+    selected_markets = c_mkt.multiselect(
+        "Active Betting Markets",
+        options=["h2h (Match Winner)", "totals (Over/Under Goals)", "spreads (Handicaps)"],
+        default=["h2h (Match Winner)", "totals (Over/Under Goals)", "spreads (Handicaps)"]
     )
+    markets_api_param = ",".join([m.split()[0] for m in selected_markets])
 
-    if tier_scope == "🏆 Major Leagues (Tier 1 & 2nd Divisions)":
-        target_keys = list(MAJOR_LEAGUES.values())
-        scan_title = f"Major Leagues ({len(target_keys)} competitions)"
-    elif tier_scope == "🥈 Medium Leagues (Competitive Domestic)":
-        target_keys = list(MEDIUM_LEAGUES.values())
-        scan_title = f"Medium Leagues ({len(target_keys)} competitions)"
-    elif tier_scope == "🥉 Minor Leagues (Lower Divisions & Regional)":
-        target_keys = list(MINOR_LEAGUES.values())
-        scan_title = f"Minor Leagues ({len(target_keys)} competitions)"
-    else:
-        chosen_league = col1.selectbox("Select Competition", options=list(ALL_LEAGUES_MAP.keys()))
-        target_keys = [ALL_LEAGUES_MAP[chosen_league]]
-        scan_title = chosen_league
+    min_edge = c_edge.slider("Minimum +EV Edge (%)", min_value=1.5, max_value=8.0, value=2.5, step=0.5)
 
-    min_edge_threshold = col2.slider("Minimum +EV Threshold (%)", min_value=1.0, max_value=8.0, value=3.0, step=0.5)
+    c_lg, c_bk = st.columns(2)
+    selected_leagues = c_lg.multiselect("Active Competitions", options=list(ALL_LEAGUES_MAP.keys()), default=list(ALL_LEAGUES_MAP.keys())[:7])
+    chosen_keys = [ALL_LEAGUES_MAP[l] for l in selected_leagues]
 
-    chosen_labels = st.multiselect(
-        "Active Sportsbooks",
-        options=list(AVAILABLE_BOOKMAKERS.keys()),
-        default=["Betfair (Exchange/Sportsbook)", "Pinnacle (Sharp Benchmark)", "Bet365"]
-    )
-    chosen_keys = [AVAILABLE_BOOKMAKERS[label] for label in chosen_labels]
-    selected_books_str = ",".join(chosen_keys)
+    selected_books = c_bk.multiselect("Bookmakers", options=list(AVAILABLE_BOOKMAKERS.keys()), default=["Betfair", "Pinnacle (Sharp Benchmark)", "Bet365"])
+    books_api_param = ",".join([AVAILABLE_BOOKMAKERS[b] for b in selected_books])
 
-    if st.button("🚀 Run Autonomous Decision & Auto-Bet", type="primary", use_container_width=True):
-        if not chosen_keys:
-            st.error("Select at least one bookmaker.")
-        elif current_dynamic_stake <= 1.0:
-            st.error("Available bankroll depleted. Settle existing matches before taking new bets.")
+    if st.button("🚀 Execute Multi-Market Scan & Place Bets", type="primary", use_container_width=True):
+        if not chosen_keys or not selected_markets or not selected_books:
+            st.error("Please configure at least one league, market, and bookmaker.")
+        elif metrics["available_bankroll"] < 10.0:
+            st.error("Bankroll depleted. Wait for existing positions to settle.")
         else:
-            with st.spinner(f"Querying fixtures and calculating +EV opportunities for {scan_title}..."):
-                odds_payload = fetch_odds_for_leagues(target_keys, selected_books_str)
+            with st.spinner("Fetching odds lines across Match Winner, Totals, and Spreads..."):
+                odds_payload = fetch_multi_market_odds(chosen_keys, books_api_param, markets_api_param)
 
-                system_prompt = (
-                    "You are an autonomous quantitative football betting model. Evaluate the provided match odds.\n"
+                prompt = (
+                    "You are an autonomous quantitative sports betting model evaluating multi-market football odds.\n"
+                    "MARKETS INCLUDED: 'h2h' (Match Winner), 'totals' (Over/Under Goals), 'spreads' (Handicap).\n"
                     "RULES:\n"
-                    "1. Derive true implied win probabilities from Pinnacle by stripping bookmaker margin (vig).\n"
-                    "2. Compare that true probability against retail bookmaker odds.\n"
+                    "1. Identify Pinnacle lines for each market, calculate market vig, and derive true no-vig probabilities.\n"
+                    "2. Compare that true probability against retail bookmakers (Betfair, Bet365).\n"
                     "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
-                    "4. CRITERIA:\n"
-                    "   - Only evaluate Home or Away outright winners (exclude draws).\n"
-                    "   - Retail odds must be between 1.45 and 3.20.\n"
-                    f"   - Calculated EV % must be >= {min_edge_threshold}%.\n"
-                    "5. Output STRICTLY a valid JSON array of objects without Markdown formatting or prose.\n"
-                    'Format: [{"matchup": "Team A vs Team B", "kickoff": "YYYY-MM-DD HH:MM", "league": "League/Key", "pick": "Team A", "bookmaker": "Betfair", "odds": 2.30, "ev_pct": 5.2}]\n'
-                    "If no qualifying bets are found, return exactly: []"
+                    f"4. CRITERIA:\n"
+                    f"   - Minimum EV % >= {min_edge}%.\n"
+                    "   - Retail odds must be between 1.40 and 3.80.\n"
+                    "   - Exclude match winner Draw (only Home/Away, Totals Over/Under, or Team Spreads).\n"
+                    "5. Return strictly a clean JSON array of objects without Markdown formatting:\n"
+                    '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":4.8}]\n'
+                    "If no qualifying bets found, return exactly: []"
                 )
 
                 try:
                     response = client.models.generate_content(
                         model="gemini-2.5-flash",
-                        contents=f"{system_prompt}\n\nLive Odds Data:\n{odds_payload}",
+                        contents=f"{prompt}\n\nData:\n{odds_payload}",
                         config=types.GenerateContentConfig(temperature=0.1)
                     )
                 except Exception as api_err:
                     st.error(f"Gemini API Error: {api_err}")
                     st.stop()
 
-                raw_text = response.text.strip()
+                clean_text = response.text.strip()
                 fence = chr(96) * 3
-                if raw_text.startswith(fence):
-                    raw_text = raw_text.lstrip(fence)
-                    if raw_text.startswith("json"):
-                        raw_text = raw_text[4:]
-                if raw_text.endswith(fence):
-                    raw_text = raw_text.rstrip(fence)
-                raw_text = raw_text.strip()
-
+                if clean_text.startswith(fence):
+                    clean_text = clean_text.lstrip(fence)
+                    if clean_text.startswith("json"):
+                        clean_text = clean_text[4:]
+                if clean_text.endswith(fence):
+                    clean_text = clean_text.rstrip(fence)
                 try:
-                    accepted_bets = json.loads(raw_text)
+                    accepted_bets = json.loads(clean_text.strip())
                 except Exception:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info(f"Scan complete across {scan_title}: No fixtures met your parameters (odds 1.45–3.20, EV ≥ {min_edge_threshold}%). Bankroll preserved.")
+                    st.info("Scan complete: No fixtures met the criteria across active markets.")
                 else:
                     df = load_portfolio()
-                    logged_count = 0
-
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies) across {scan_title}!")
+                    logged = 0
+                    st.success(f"Discovered {len(accepted_bets)} eligible +EV trade(s)!")
 
                     for bet in accepted_bets:
-                        is_duplicate = not df[
-                            (df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")
-                        ].empty
-
-                        if not is_duplicate:
-                            metrics_now = get_bankroll_metrics(df)
-                            calculated_stake = round(metrics_now["available_bankroll"] * STAKE_PERCENT, 2)
-                            if calculated_stake < 1.0:
+                        dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
+                        if not dup:
+                            curr_b = get_bankroll_metrics(df)["available_bankroll"]
+                            b_odds = float(bet.get("odds", 0.0))
+                            b_ev = float(bet.get("ev_pct", 0.0))
+                            stake = calculate_kelly_stake(curr_b, b_odds, b_ev)
+                            if stake < 1.0:
                                 break
 
-                            kickoff_str = bet.get("kickoff", bet.get("commence_time", "Scheduled"))
-                            if "T" in str(kickoff_str):
-                                kickoff_str = kickoff_str.replace("T", " ").replace("Z", " UTC")
-
+                            k_str = str(bet.get("kickoff", "Scheduled")).replace("T", " ").replace("Z", " UTC")
                             new_row = {
                                 "ID": len(df) + 1,
-                                "Kickoff_UTC": kickoff_str,
-                                "League": bet.get("league", scan_title),
+                                "Kickoff_UTC": k_str,
+                                "League": bet.get("league", "League"),
                                 "Matchup": bet.get("matchup"),
+                                "Market": bet.get("market", "h2h"),
                                 "Pick": bet.get("pick"),
                                 "Bookmaker": bet.get("bookmaker", "Retail Book"),
-                                "Odds": float(bet.get("odds", 0.0)),
-                                "EV_Pct": float(bet.get("ev_pct", 0.0)),
-                                "Stake": calculated_stake,
+                                "Odds": b_odds,
+                                "EV_Pct": b_ev,
+                                "Stake": stake,
                                 "Status": "PENDING",
                                 "P_L": 0.0
                             }
                             df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-                            logged_count += 1
+                            logged += 1
 
-                            tg_body = (
-                                f"🎯 <b>NEW +EV BET COMMITTED</b>\n\n"
+                            tg_msg = (
+                                f"🎯 <b>NEW +EV TRADE COMMITTED</b>\n\n"
                                 f"⚽ <b>Match:</b> {bet.get('matchup')}\n"
-                                f"🏆 <b>League:</b> {bet.get('league', scan_title)}\n"
+                                f"📊 <b>Market:</b> {bet.get('market', 'H2H').upper()}\n"
                                 f"✅ <b>Pick:</b> <code>{bet.get('pick')}</code>\n"
-                                f"📊 <b>Odds:</b> {bet.get('odds')} ({bet.get('bookmaker', 'Retail')})\n"
-                                f"📈 <b>Edge:</b> +{bet.get('ev_pct')}% EV\n"
-                                f"💵 <b>Stake (10%):</b> ${calculated_stake:.2f}\n"
-                                f"⏰ <b>Kickoff:</b> {kickoff_str}"
+                                f"📈 <b>Odds:</b> {b_odds} ({bet.get('bookmaker')})\n"
+                                f"🔥 <b>Edge:</b> +{b_ev}% EV\n"
+                                f"💵 <b>Quarter-Kelly Stake:</b> ${stake:.2f}\n"
+                                f"⏰ <b>Kickoff:</b> {k_str}"
                             )
-                            send_telegram_alert(tg_body)
+                            send_telegram_alert(tg_msg)
 
                     save_portfolio(df)
-
-                    for bet in accepted_bets:
-                        st.markdown(
-                            f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}* ({bet.get('league')})  \n"
-                            f"• **Kickoff:** `{bet.get('kickoff', 'TBD')}`  \n"
-                            f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}** | **Edge:** **+{bet.get('ev_pct')}% EV**  \n"
-                            f"• **Stake (10%):** ${current_dynamic_stake:.2f}"
-                        )
-                    st.toast(f"Logged {logged_count} paper bet(s) to portfolio and notified Telegram!")
+                    st.rerun()
 
 # ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
 with tab_portfolio:
-    st.subheader("📊 Paper Trading Performance Ledger")
+    st.subheader("📊 Paper Trading Performance Ledger & Equity Curve")
     df = load_portfolio()
     metrics = get_bankroll_metrics(df)
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Available Bankroll", f"${metrics['available_bankroll']:.2f}", help="Cash remaining to bet (Starting Bankroll + Realized P/L - Active Stakes)")
-    c2.metric("Total Equity", f"${metrics['total_equity']:.2f}", help="Starting Bankroll + Settled P/L")
+    c1.metric("Available Bankroll", f"${metrics['available_bankroll']:.2f}")
+    c2.metric("Total Equity", f"${metrics['total_equity']:.2f}")
     c3.metric("ROI", f"{metrics['roi']:+.2f}%")
     c4.metric("Win Rate", f"{metrics['win_rate']:.1f}% ({metrics['win_count']}/{metrics['total_decided']})")
 
+    settled_history = df[df["Status"].isin(["WON", "LOST", "PUSH"])].copy()
+    if not settled_history.empty:
+        settled_history["Cumulative_Equity"] = STARTING_BANKROLL + settled_history["P_L"].cumsum()
+        st.line_chart(settled_history["Cumulative_Equity"], use_container_width=True)
+
     col_auto, col_reset = st.columns([3, 1])
-    if col_auto.button("⚡ Auto-Check Scores & Grade Results", type="primary", use_container_width=True):
-        with st.spinner("Fetching completed scores from The Odds API..."):
+    if col_auto.button("⚡ Auto-Check Scores & Grade All Markets", type="primary", use_container_width=True):
+        with st.spinner("Fetching latest fixture scores..."):
             df, count, details = auto_settle_completed_bets(df, odds_api_key)
             if count > 0:
-                updated_metrics = get_bankroll_metrics(df)
-                st.success(f"Graded {count} completed match(es)!")
-                
-                details_text = "\n".join(details)
-                tg_settle_body = (
-                    f"⚖️ <b>MATCH SETTLEMENT REPORT</b>\n\n"
-                    f"Settled: {count} match(es)\n"
-                    f"{details_text}\n\n"
-                    f"💼 <b>Total Equity:</b> ${updated_metrics['total_equity']:.2f}\n"
-                    f"📈 <b>Net Realized P/L:</b> ${updated_metrics['total_pl']:+.2f}\n"
-                    f"🎯 <b>Win Rate:</b> {updated_metrics['win_rate']:.1f}% ({updated_metrics['win_count']}/{updated_metrics['total_decided']})"
-                )
-                send_telegram_alert(tg_settle_body)
+                st.success(f"Graded {count} completed position(s)!")
                 st.rerun()
             else:
-                st.info("No newly completed matches found yet. Check game dates below.")
+                st.info("No newly settled matches found.")
 
     if col_reset.button("🗑️ Reset Ledger to $1,000", use_container_width=True):
         fresh_df = pd.DataFrame(columns=COLUMNS)
         save_portfolio(fresh_df)
-        st.success("Ledger reset to $0.00 P/L and $1,000.00 bankroll!")
+        st.success("Ledger reset successfully!")
         st.rerun()
 
-    if df.empty:
-        st.info("Ledger is completely empty ($1,000.00 available). Run an autonomous scan to begin forward testing.")
-    else:
-        st.dataframe(df, use_container_width=True)
-
-        pending_bets = df[df["Status"] == "PENDING"]
-        if not pending_bets.empty:
-            st.divider()
-            st.subheader("⚖️ Manual Settlement Fallback")
-            bet_id_to_settle = st.selectbox(
-                "Select Match to Manually Settle",
-                options=pending_bets["ID"].tolist(),
-                format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]}) — Kickoff: {pending_bets.loc[pending_bets['ID'] == x, 'Kickoff_UTC'].values[0]}"
-            )
-
-            col_w, col_l, col_p = st.columns(3)
-            if col_w.button("✅ Won", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "WON"
-                df.at[idx, "P_L"] = round((df.at[idx, "Odds"] - 1.0) * df.at[idx, "Stake"], 2)
-                save_portfolio(df)
-                st.rerun()
-
-            if col_l.button("❌ Lost", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "LOST"
-                df.at[idx, "P_L"] = -df.at[idx, "Stake"]
-                save_portfolio(df)
-                st.rerun()
-
-            if col_p.button("🔄 Push / Postponed", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "PUSH"
-                df.at[idx, "P_L"] = 0.0
-                save_portfolio(df)
-                st.rerun()
+    st.dataframe(df, use_container_width=True)
 
 # ----------------- TAB 3: STOCK SCANNER -----------------
 with tab_stocks:
