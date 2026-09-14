@@ -3,6 +3,7 @@ import json
 import os
 import requests
 import pandas as pd
+import numpy as np
 import yfinance as yf
 from google import genai
 from google.genai import types
@@ -18,6 +19,7 @@ telegram_chat_id = st.secrets.get("TELEGRAM_CHAT_ID", "6565714528")
 
 CSV_FILE = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
+MIN_EDGE_THRESHOLD = 1.5
 
 COLUMNS = [
     "ID", "Kickoff_UTC", "League", "Matchup", "Market", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
@@ -158,6 +160,45 @@ def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -
     stake = round(bankroll * fraction, 2)
     return max(1.0, stake)
 
+def build_odds_bracket_matrix(df: pd.DataFrame) -> pd.DataFrame:
+    """Segments settled bets into odds brackets to audit mathematical consistency."""
+    settled = df[df["Status"].isin(["WON", "LOST", "PUSH"])].copy()
+    
+    brackets = [
+        ("Conservative (1.40 - 1.75)", 1.40, 1.75),
+        ("Balanced (1.76 - 2.20)", 1.76, 2.20),
+        ("Mild Underdogs (2.21 - 2.80)", 2.21, 2.80),
+        ("Bold / Longshots (2.81 - 3.80)", 2.81, 3.80)
+    ]
+    
+    rows = []
+    for label, low, high in brackets:
+        b_df = settled[(settled["Odds"] >= low) & (settled["Odds"] <= high)]
+        decided = b_df[b_df["Status"].isin(["WON", "LOST"])]
+        
+        total_bets = len(b_df)
+        total_decided = len(decided)
+        won_count = len(decided[decided["Status"] == "WON"])
+        
+        win_rate = (won_count / total_decided * 100) if total_decided > 0 else 0.0
+        expected_win_rate = ((1.0 / b_df["Odds"]).mean() * 100) if total_bets > 0 else 0.0
+        avg_ev = b_df["EV_Pct"].mean() if total_bets > 0 else 0.0
+        pl = b_df["P_L"].sum() if total_bets > 0 else 0.0
+        total_staked = decided["Stake"].sum() if total_decided > 0 else 0.0
+        roi = (pl / total_staked * 100) if total_staked > 0 else 0.0
+        
+        rows.append({
+            "Bracket": label,
+            "Bets": total_bets,
+            "Record (W-L)": f"{won_count}-{total_decided - won_count}",
+            "Actual Win Rate": f"{win_rate:.1f}%",
+            "Expected Win Rate": f"{expected_win_rate:.1f}%",
+            "Avg EV Edge": f"+{avg_ev:.2f}%",
+            "Realized P/L": f"${pl:+.2f}",
+            "ROI": f"{roi:+.2f}%"
+        })
+    return pd.DataFrame(rows)
+
 def fetch_all_markets_odds(sport_keys: list) -> str:
     all_matches = []
     selected_books = "pinnacle,betfair_ex_uk,bet365"
@@ -173,7 +214,7 @@ def fetch_all_markets_odds(sport_keys: list) -> str:
         try:
             res = requests.get(url, params=params, timeout=10)
             if res.status_code == 200:
-                for g in res.json()[:5]:
+                for g in res.json()[:6]:
                     bookmakers_data = []
                     for b in g.get("bookmakers", []):
                         markets_dict = {}
@@ -296,7 +337,6 @@ with tab_auto:
 
     st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Total Equity: **${metrics['total_equity']:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
-    # Scope Selection (Only 3 clean groups)
     tier_scope = st.radio(
         "Select League Scope",
         options=[
@@ -319,12 +359,11 @@ with tab_auto:
 
     st.markdown("---")
 
-    # Single Action Button to Scan All Available Markets
     if st.button(f"🚀 Scan All Markets (Winner, Totals, Spreads) for {scope_title}", type="primary", use_container_width=True):
         if metrics["available_bankroll"] < 10.0:
             st.error("Bankroll depleted. Settle existing matches before taking new bets.")
         else:
-            with st.spinner(f"Querying {scope_title} for H2H, Over/Under Goals, and Handicap discrepancies..."):
+            with st.spinner(f"Querying {scope_title} for H2H, Over/Under Goals, and Spreads (EV >= {MIN_EDGE_THRESHOLD}%)..."):
                 odds_payload = fetch_all_markets_odds(target_keys)
 
                 system_prompt = (
@@ -335,11 +374,11 @@ with tab_auto:
                     "2. Compare true probability against retail bookmaker lines (Betfair, Bet365).\n"
                     "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
                     "4. CRITERIA:\n"
-                    "   - Calculated EV % must be >= 2.5%.\n"
+                    f"   - Calculated EV % must be >= {MIN_EDGE_THRESHOLD}%.\n"
                     "   - Retail odds must be between 1.40 and 3.80.\n"
                     "   - Exclude match winner Draw (evaluate Home/Away winner, Over/Under goals, or Team Spreads).\n"
                     "5. Output STRICTLY a valid JSON array of objects without Markdown code fences:\n"
-                    '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":4.8}]\n'
+                    '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":2.1}]\n'
                     "If no bets qualify, return exactly: []"
                 )
 
@@ -368,11 +407,11 @@ with tab_auto:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info(f"Scan complete across {scope_title}: No positive-EV discrepancies found across Winner, Totals, or Spreads.")
+                    st.info(f"Scan complete across {scope_title}: No positive-EV discrepancies found (>= {MIN_EDGE_THRESHOLD}% EV).")
                 else:
                     df = load_portfolio()
                     logged = 0
-                    st.success(f"Discovered {len(accepted_bets)} eligible multi-market position(s)!")
+                    st.success(f"Discovered {len(accepted_bets)} eligible position(s)!")
 
                     for bet in accepted_bets:
                         dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
@@ -434,6 +473,14 @@ with tab_portfolio:
         settled_history["Cumulative_Equity"] = STARTING_BANKROLL + settled_history["P_L"].cumsum()
         st.line_chart(settled_history["Cumulative_Equity"], use_container_width=True)
 
+    # --- ODDS CALIBRATION AUDIT TABLE ---
+    st.divider()
+    st.markdown("### 🎯 Odds Range Calibration Audit")
+    st.caption("Segments settled bets by risk profile to verify mathematical consistency across conservative vs. bold odds brackets.")
+    bracket_matrix = build_odds_bracket_matrix(df)
+    st.dataframe(bracket_matrix, use_container_width=True, hide_index=True)
+
+    st.divider()
     col_auto, col_reset = st.columns([3, 1])
     if col_auto.button("⚡ Auto-Check Scores & Grade All Markets", type="primary", use_container_width=True):
         with st.spinner("Fetching latest fixture scores..."):
@@ -450,6 +497,7 @@ with tab_portfolio:
         st.success("Ledger reset successfully!")
         st.rerun()
 
+    st.markdown("### 📋 Trade Execution Ledger")
     st.dataframe(df, use_container_width=True)
 
 # ----------------- TAB 3: STOCK SCANNER -----------------
