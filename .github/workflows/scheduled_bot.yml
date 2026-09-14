@@ -1,43 +1,44 @@
-name: Quantitative Betting Autonomous Scheduler
+name: Automated +EV Betting Scanner
 
 on:
   schedule:
-    # Runs every 4 hours automatically
-    - cron: '0 */4 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+    # Runs every hour at minute 0 (24 times a day)
+    - cron: '0 * * * *'
+  workflow_dispatch: # Allows manual trigger anytime from GitHub Actions tab
+
+permissions:
+  contents: write
 
 jobs:
-  run-quant-bot:
+  run-scanner:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
-          pip install pandas requests google-genai
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Execute background worker
+      - name: Run autonomous worker
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          TELEGRAM_BOT_TOKEN: "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE"
-          TELEGRAM_CHAT_ID: "6565714528"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python worker.py
 
-      - name: Commit and push updated ledger
+      - name: Commit and push updated portfolio ledger
         run: |
-          git config --global user.name "Quant Bot Worker"
-          git config --global user.email "bot@quantterminal.internal"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add paper_trades.csv
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update portfolio ledger [skip ci]"
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update portfolio ledger [skip ci]" && git push)
