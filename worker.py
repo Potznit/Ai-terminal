@@ -221,6 +221,7 @@ def run_scanner(df):
     return df
 
 if __name__ == "__main__":
+    send_telegram_alert("🤖 <b>[SCHEDULER TEST]</b> GitHub Actions background worker is active and connected!")
     df = load_portfolio()
     df, settled_count, details = auto_settle(df)
     if settled_count > 0:
