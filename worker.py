@@ -29,13 +29,15 @@ COLUMNS = [
 
 def send_telegram_alert(message_html: str):
     if not telegram_token or not telegram_chat_id:
+        print("Telegram token or Chat ID is missing!")
         return
     url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
     payload = {"chat_id": telegram_chat_id, "text": message_html, "parse_mode": "HTML"}
     try:
-        requests.post(url, json=payload, timeout=10)
-    except Exception:
-        pass
+        r = requests.post(url, json=payload, timeout=10)
+        print(f"Telegram dispatch status: {r.status_code}")
+    except Exception as e:
+        print(f"Telegram exception: {e}")
 
 def load_portfolio():
     if os.path.exists(CSV_FILE):
@@ -93,13 +95,17 @@ def calculate_kelly_stake(bankroll: float, odds: float, ev_pct: float, max_pct: 
     return max(1.0, round(bankroll * frac, 2))
 
 def get_active_soccer_leagues():
+    print("Fetching active soccer competitions globally...")
     url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
     try:
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
-            return [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
-    except Exception:
-        pass
+            leagues = [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
+            if leagues:
+                print(f"Found {len(leagues)} active leagues.")
+                return leagues
+    except Exception as e:
+        print(f"Error fetching sports list: {e}")
     return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga"]
 
 def auto_settle(df):
@@ -185,6 +191,7 @@ def auto_settle(df):
 
 def run_scanner(df):
     if not odds_api_key or not gemini_key:
+        print("API keys missing from environment. Exiting.")
         return df
 
     active_leagues = get_active_soccer_leagues()
@@ -192,6 +199,7 @@ def run_scanner(df):
     buckets = {"EARLY_BIRD": [], "CORE_EV": [], "LATE_STEAM": []}
     scanned_leagues = set()
 
+    print(f"Beginning multi-market odds queries for {len(active_leagues)} leagues...")
     for key in active_leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
@@ -219,8 +227,6 @@ def run_scanner(df):
                     continue
 
                 hours = (kickoff - now).total_seconds() / 3600.0
-                
-                # Exclude ongoing matches or games starting in less than 15 minutes
                 if hours < 0.25 or hours > 144:
                     continue
 
@@ -248,6 +254,7 @@ def run_scanner(df):
         except Exception:
             continue
 
+    print(f"Partitioned matches: Early={len(buckets['EARLY_BIRD'])}, Core={len(buckets['CORE_EV'])}, Late={len(buckets['LATE_STEAM'])}")
     client = genai.Client(api_key=gemini_key)
     system_prompt = (
         "You are an autonomous quantitative sports betting model evaluating pre-match football odds across multiple markets (h2h, totals, spreads).\n"
