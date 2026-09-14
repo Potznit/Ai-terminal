@@ -88,7 +88,6 @@ def get_bankroll_metrics(df):
     }
 
 def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -> float:
-    """Calculates Quarter-Kelly stake bounded between 1.0% and 5.0% of available bankroll."""
     if bankroll <= 1.0 or decimal_odds <= 1.01:
         return 0.0
     b = decimal_odds - 1.0
@@ -248,9 +247,8 @@ def run_scanner(df):
 
     try:
         res = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=f"{prompt}\n\nData:\n{json.dumps(all_matches)}",
-            config=types.GenerateContentConfig(temperature=0.1)
+            model="gemini-3.6-flash",
+            contents=f"{prompt}\n\nData:\n{json.dumps(all_matches)}"
         )
         clean_text = res.text.strip()
         fence = chr(96) * 3
