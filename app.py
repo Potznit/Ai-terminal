@@ -27,12 +27,14 @@ COLUMNS = [
 
 # --- TELEGRAM DISPATCH HELPER ---
 def send_telegram_alert(message_html: str):
-    """Sends formatted HTML alerts directly to Telegram."""
-    token = telegram_token or st.session_state.get("tg_token", "")
-    chat_id = telegram_chat_id or st.session_state.get("tg_chat_id", "")
+    """Sends formatted HTML alerts directly to Telegram and returns (success, detail_string)."""
+    token = st.session_state.get("tg_token", telegram_token).strip()
+    chat_id = str(st.session_state.get("tg_chat_id", telegram_chat_id)).strip()
+    
     if not token or not chat_id:
-        return False
-    url = f"[https://api.telegram.org/bot](https://api.telegram.org/bot){token}/sendMessage"
+        return False, "Token or Chat ID is empty."
+        
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = {
         "chat_id": chat_id,
         "text": message_html,
@@ -40,9 +42,13 @@ def send_telegram_alert(message_html: str):
     }
     try:
         r = requests.post(url, json=payload, timeout=8)
-        return r.status_code == 200
-    except Exception:
-        return False
+        data = r.json()
+        if r.status_code == 200 and data.get("ok"):
+            return True, "Delivered"
+        else:
+            return False, f"Telegram Error ({r.status_code}): {data.get('description', r.text)}"
+    except Exception as e:
+        return False, f"Connection exception: {str(e)}"
 
 with st.sidebar:
     st.header("⚙️ Settings & Credentials")
@@ -56,11 +62,11 @@ with st.sidebar:
 
     st.markdown("---")
     if st.button("🔔 Send Test Telegram Ping", use_container_width=True):
-        success = send_telegram_alert("⚡ <b>AI Betting Terminal:</b> Telegram webhook connection verified successfully!")
+        success, detail = send_telegram_alert("⚡ <b>AI Betting Terminal:</b> Telegram webhook connection verified successfully!")
         if success:
             st.success("Test ping sent to your Telegram!")
         else:
-            st.error("Failed. Verify your Bot Token and Chat ID.")
+            st.error(f"Failed: {detail}")
 
 if not gemini_key:
     st.warning("Please configure your Gemini API Key in Streamlit Secrets or sidebar to proceed.")
@@ -180,7 +186,7 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
 
     all_matches = []
     for key in sport_keys:
-        url = f"[https://api.the-odds-api.com/v4/sports/](https://api.the-odds-api.com/v4/sports/){key}/odds/"
+        url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
             "apiKey": odds_api_key,
             "regions": "eu,uk,us",
@@ -219,7 +225,7 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     
     for league in unique_leagues:
         sport_key = league if league in ALL_LEAGUES_MAP.values() else ALL_LEAGUES_MAP.get(league, "soccer_epl")
-        url = f"[https://api.the-odds-api.com/v4/sports/](https://api.the-odds-api.com/v4/sports/){sport_key}/scores/?apiKey={api_key}&daysFrom=3"
+        url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={api_key}&daysFrom=3"
         try:
             res = requests.get(url, timeout=10)
             if res.status_code != 200:
@@ -363,7 +369,6 @@ with tab_auto:
                     st.error(f"Gemini API Error: {api_err}")
                     st.stop()
 
-                # Cleanly parse JSON without raw backtick string literals
                 raw_text = response.text.strip()
                 fence = chr(96) * 3
                 if raw_text.startswith(fence):
