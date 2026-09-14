@@ -360,4 +360,12 @@ with tab_auto:
                         config=types.GenerateContentConfig(temperature=0.1)
                     )
                 except Exception as api_err:
-                    st.error(f"Gemini API Error
+                    st.error(f"Gemini API Error: {api_err}")
+                    st.stop()
+
+                raw_text = response.text.strip()
+                if raw_text.startswith("```"):
+                    lines = raw_text.splitlines()
+                    if lines and lines[0].startswith("```"):
+                        lines = lines[1:]
+                    if lines and lines[-1].startswith("
