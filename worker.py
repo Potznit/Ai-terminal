@@ -25,7 +25,7 @@ def send_telegram_alert(message_html: str):
     url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
     payload = {"chat_id": telegram_chat_id, "text": message_html, "parse_mode": "HTML"}
     try:
-        requests.post(url, json=payload, timeout=8)
+        requests.post(url, json=payload, timeout=10)
     except Exception:
         pass
 
@@ -83,15 +83,20 @@ def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -
     return max(1.0, stake)
 
 def get_active_soccer_leagues():
-    """Dynamically fetches all active soccer competitions globally (0 credits)."""
+    """Dynamically fetches all active soccer competitions worldwide."""
     url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
     try:
         r = requests.get(url, timeout=10)
         if r.status_code == 200:
-            return [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
+            leagues = [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
+            if leagues:
+                return leagues
     except Exception:
         pass
-    return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga"]
+    return [
+        "soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", 
+        "soccer_germany_bundesliga", "soccer_france_ligue_one", "soccer_portugal_primeira_liga"
+    ]
 
 def auto_settle(df):
     pending_mask = df["Status"] == "PENDING"
@@ -122,11 +127,11 @@ def auto_settle(df):
                     continue
 
                 total_goals = home_s + away_s
-                h2h_winner = home if home_s > away_s else (away if away_s > home_s else "DRAW")
+                h2h_winner = home if home_score > away_score else (away if away_score > home_score else "DRAW")
 
                 for idx in df[pending_mask].index:
                     m = str(df.at[idx, "Matchup"])
-                    if home in m and away in m:
+                    if home.lower() in m.lower() and away.lower() in m.lower():
                         pick = str(df.at[idx, "Pick"]).strip()
                         stake = float(df.at[idx, "Stake"])
                         odds = float(df.at[idx, "Odds"])
@@ -181,6 +186,7 @@ def run_scanner(df):
 
     active_leagues = get_active_soccer_leagues()
     all_matches = []
+    scanned_league_names = []
     selected_books = "betfair_ex_uk,pinnacle,bet365"
 
     for sport_key in active_leagues:
@@ -195,7 +201,10 @@ def run_scanner(df):
         try:
             r = requests.get(url, params=params, timeout=10)
             if r.status_code == 200:
-                for g in r.json()[:6]:
+                fixtures = r.json()
+                if fixtures:
+                    scanned_league_names.append(sport_key.replace("soccer_", ""))
+                for g in fixtures[:6]:
                     bookmakers_data = []
                     for b in g.get("bookmakers", []):
                         markets_dict = {}
@@ -219,7 +228,13 @@ def run_scanner(df):
         except Exception:
             continue
 
+    total_scanned_count = len(scanned_league_names)
+    total_matches_count = len(all_matches)
+
     if not all_matches:
+        send_telegram_alert(
+            f"📡 <b>SCAN REPORT:</b> Checked {total_scanned_count} leagues. No upcoming matches currently quoted by Pinnacle."
+        )
         return df
 
     client = genai.Client(api_key=gemini_key)
@@ -257,9 +272,20 @@ def run_scanner(df):
     except Exception:
         picks = []
 
+    new_trades_count = 0
     for bet in picks:
-        dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
-        if not dup:
+        # Robust deduplication: check if pick is already logged and PENDING
+        matchup_clean = str(bet.get("matchup", "")).strip().lower()
+        pick_clean = str(bet.get("pick", "")).strip().lower()
+
+        existing_pending = df[df["Status"] == "PENDING"]
+        is_duplicate = False
+        for _, row in existing_pending.iterrows():
+            if str(row["Matchup"]).strip().lower() == matchup_clean and str(row["Pick"]).strip().lower() == pick_clean:
+                is_duplicate = True
+                break
+
+        if not is_duplicate:
             current_bankroll = get_bankroll_metrics(df)["available"]
             odds_val = float(bet.get("odds", 0.0))
             ev_val = float(bet.get("ev_pct", 0.0))
@@ -283,10 +309,12 @@ def run_scanner(df):
                 "P_L": 0.0
             }
             df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+            new_trades_count += 1
+
             tg_msg = (
-                f"🎯 <b>[AUTO +EV] {bet.get('market', 'H2H').upper()} DETECTED</b>\n\n"
+                f"🎯 <b>NEW +EV POSITION COMMITTED</b>\n\n"
                 f"⚽ <b>Match:</b> {bet.get('matchup')}\n"
-                f"📊 <b>Market:</b> {bet.get('market', 'H2H')}\n"
+                f"📊 <b>Market:</b> {bet.get('market', 'H2H').upper()}\n"
                 f"✅ <b>Pick:</b> <code>{bet.get('pick')}</code>\n"
                 f"📈 <b>Odds:</b> {odds_val} ({bet.get('bookmaker')})\n"
                 f"🔥 <b>Edge:</b> +{ev_val}% EV\n"
@@ -294,6 +322,18 @@ def run_scanner(df):
                 f"⏰ <b>Kickoff:</b> {k_str}"
             )
             send_telegram_alert(tg_msg)
+
+    # Send scan summary report to Telegram
+    sample_leagues = ", ".join(scanned_league_names[:5])
+    summary_msg = (
+        f"📡 <b>HOURLY GLOBAL SCAN AUDIT</b>\n\n"
+        f"🌍 <b>Leagues Checked:</b> {total_scanned_count} ({sample_leagues}...)\n"
+        f"⚽ <b>Fixtures Evaluated:</b> {total_matches_count} matches\n"
+        f"🎯 <b>Markets:</b> Match Winner, Over/Under Goals, Spreads\n"
+        f"⚡ <b>New Qualified Positions:</b> {new_trades_count}"
+    )
+    send_telegram_alert(summary_msg)
+
     return df
 
 if __name__ == "__main__":
