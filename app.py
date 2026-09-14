@@ -153,7 +153,6 @@ def build_odds_bracket_matrix(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 def get_all_active_soccer_leagues() -> list:
-    """Dynamically fetches all active soccer leagues worldwide (0 credit cost)."""
     url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
     try:
         r = requests.get(url, timeout=10)
@@ -161,12 +160,12 @@ def get_all_active_soccer_leagues() -> list:
             return [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
     except Exception:
         pass
-    return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga", "soccer_portugal_primeira_liga"]
+    return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga"]
 
-def fetch_global_multi_market_odds(leagues: list) -> tuple:
+def fetch_global_multi_market_odds(leagues: list):
     all_matches = []
+    scanned_league_names = []
     selected_books = "pinnacle,betfair_ex_uk,bet365"
-    leagues_scanned = 0
     for key in leagues:
         url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
@@ -179,10 +178,10 @@ def fetch_global_multi_market_odds(leagues: list) -> tuple:
         try:
             res = requests.get(url, params=params, timeout=10)
             if res.status_code == 200:
-                data = res.json()
-                if data:
-                    leagues_scanned += 1
-                for g in data[:6]:
+                fixtures = res.json()
+                if fixtures:
+                    scanned_league_names.append(key.replace("soccer_", ""))
+                for g in fixtures[:6]:
                     bookmakers_data = []
                     for b in g.get("bookmakers", []):
                         markets_dict = {}
@@ -205,7 +204,7 @@ def fetch_global_multi_market_odds(leagues: list) -> tuple:
                     })
         except Exception:
             continue
-    return json.dumps(all_matches), leagues_scanned
+    return json.dumps(all_matches), scanned_league_names, len(all_matches)
 
 def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     pending_mask = df["Status"] == "PENDING"
@@ -240,7 +239,7 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
 
                 for idx in df[pending_mask].index:
                     m_str = str(df.at[idx, "Matchup"])
-                    if home in m_str and away in m_str:
+                    if home.lower() in m_str.lower() and away.lower() in m_str.lower():
                         pick = str(df.at[idx, "Pick"]).strip()
                         stake = float(df.at[idx, "Stake"])
                         odds = float(df.at[idx, "Odds"])
@@ -302,16 +301,24 @@ with tab_auto:
     df_current = load_portfolio()
     metrics = get_bankroll_metrics(df_current)
 
-    st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Total Equity: **${metrics['total_equity']:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
+    st.markdown(
+        f"""
+        <div style="background-color: #1e293b; padding: 12px 18px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #334155;">
+            💰 <b>Available Bankroll:</b> ${metrics['available_bankroll']:.2f} &nbsp;|&nbsp; 
+            💼 <b>Total Equity:</b> ${metrics['total_equity']:.2f} &nbsp;|&nbsp; 
+            ⏳ <b>Active at Risk:</b> ${metrics['pending_stakes']:.2f}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    # Single button triggering full automated discovery
     if st.button("🚀 Scan All In-Season Leagues Globally (Winner, Totals, Spreads)", type="primary", use_container_width=True):
         if metrics["available_bankroll"] < 10.0:
             st.error("Bankroll depleted. Settle existing matches before taking new bets.")
         else:
             with st.spinner("Discovering active leagues worldwide and fetching multi-market odds lines..."):
                 active_leagues = get_all_active_soccer_leagues()
-                odds_payload, count_scanned = fetch_global_multi_market_odds(active_leagues)
+                odds_payload, scanned_names, total_matches = fetch_global_multi_market_odds(active_leagues)
 
                 system_prompt = (
                     "You are an autonomous quantitative football betting model evaluating global soccer odds across multiple betting markets simultaneously.\n"
@@ -354,55 +361,73 @@ with tab_auto:
                 except Exception:
                     accepted_bets = []
 
-                if not accepted_bets:
-                    st.info(f"Scan complete across {count_scanned} active leagues: No discrepancies meeting >= {MIN_EDGE_THRESHOLD}% EV found.")
-                else:
-                    df = load_portfolio()
-                    logged = 0
-                    st.success(f"Discovered {len(accepted_bets)} eligible position(s) across {count_scanned} global leagues!")
+                df = load_portfolio()
+                logged = 0
 
-                    for bet in accepted_bets:
-                        dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
-                        if not dup:
-                            curr_b = get_bankroll_metrics(df)["available_bankroll"]
-                            b_odds = float(bet.get("odds", 0.0))
-                            b_ev = float(bet.get("ev_pct", 0.0))
-                            stake = calculate_kelly_stake(curr_b, b_odds, b_ev)
-                            if stake < 1.0:
-                                break
+                for bet in accepted_bets:
+                    m_clean = str(bet.get("matchup", "")).strip().lower()
+                    p_clean = str(bet.get("pick", "")).strip().lower()
+                    existing_pending = df[df["Status"] == "PENDING"]
+                    is_dup = any(
+                        str(r["Matchup"]).strip().lower() == m_clean and str(r["Pick"]).strip().lower() == p_clean 
+                        for _, r in existing_pending.iterrows()
+                    )
 
-                            k_str = str(bet.get("kickoff", "Scheduled")).replace("T", " ").replace("Z", " UTC")
-                            new_row = {
-                                "ID": len(df) + 1,
-                                "Kickoff_UTC": k_str,
-                                "League": bet.get("league", "Global Soccer"),
-                                "Matchup": bet.get("matchup"),
-                                "Market": bet.get("market", "h2h"),
-                                "Pick": bet.get("pick"),
-                                "Bookmaker": bet.get("bookmaker", "Retail Book"),
-                                "Odds": b_odds,
-                                "EV_Pct": b_ev,
-                                "Stake": stake,
-                                "Status": "PENDING",
-                                "P_L": 0.0
-                            }
-                            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-                            logged += 1
+                    if not is_dup:
+                        curr_b = get_bankroll_metrics(df)["available_bankroll"]
+                        b_odds = float(bet.get("odds", 0.0))
+                        b_ev = float(bet.get("ev_pct", 0.0))
+                        stake = calculate_kelly_stake(curr_b, b_odds, b_ev)
+                        if stake < 1.0:
+                            continue
 
-                            tg_msg = (
-                                f"🎯 <b>NEW +EV TRADE COMMITTED</b>\n\n"
-                                f"⚽ <b>Match:</b> {bet.get('matchup')}\n"
-                                f"📊 <b>Market:</b> {bet.get('market', 'H2H').upper()}\n"
-                                f"✅ <b>Pick:</b> <code>{bet.get('pick')}</code>\n"
-                                f"📈 <b>Odds:</b> {b_odds} ({bet.get('bookmaker')})\n"
-                                f"🔥 <b>Edge:</b> +{b_ev}% EV\n"
-                                f"💵 <b>Quarter-Kelly Stake:</b> ${stake:.2f}\n"
-                                f"⏰ <b>Kickoff:</b> {k_str}"
-                            )
-                            send_telegram_alert(tg_msg)
+                        k_str = str(bet.get("kickoff", "Scheduled")).replace("T", " ").replace("Z", " UTC")
+                        new_row = {
+                            "ID": len(df) + 1,
+                            "Kickoff_UTC": k_str,
+                            "League": bet.get("league", "Global Soccer"),
+                            "Matchup": bet.get("matchup"),
+                            "Market": bet.get("market", "h2h"),
+                            "Pick": bet.get("pick"),
+                            "Bookmaker": bet.get("bookmaker", "Retail Book"),
+                            "Odds": b_odds,
+                            "EV_Pct": b_ev,
+                            "Stake": stake,
+                            "Status": "PENDING",
+                            "P_L": 0.0
+                        }
+                        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                        logged += 1
 
+                        tg_msg = (
+                            f"🎯 <b>NEW +EV TRADE COMMITTED</b>\n\n"
+                            f"⚽ <b>Match:</b> {bet.get('matchup')}\n"
+                            f"📊 <b>Market:</b> {bet.get('market', 'H2H').upper()}\n"
+                            f"✅ <b>Pick:</b> <code>{bet.get('pick')}</code>\n"
+                            f"📈 <b>Odds:</b> {b_odds} ({bet.get('bookmaker')})\n"
+                            f"🔥 <b>Edge:</b> +{b_ev}% EV\n"
+                            f"💵 <b>Quarter-Kelly Stake:</b> ${stake:.2f}\n"
+                            f"⏰ <b>Kickoff:</b> {k_str}"
+                        )
+                        send_telegram_alert(tg_msg)
+
+                # Send explicit scan audit directly to Telegram on every manual scan
+                sample_leagues = ", ".join(scanned_names[:5])
+                scan_audit_tg = (
+                    f"📡 <b>MANUAL SCAN AUDIT REPORT</b>\n\n"
+                    f"🌍 <b>Leagues Checked:</b> {len(scanned_names)} ({sample_leagues}...)\n"
+                    f"⚽ <b>Fixtures Evaluated:</b> {total_matches} matches\n"
+                    f"🎯 <b>Markets:</b> Match Winner, Over/Under Goals, Spreads\n"
+                    f"⚡ <b>New Qualified Trades:</b> {logged}"
+                )
+                send_telegram_alert(scan_audit_tg)
+
+                if logged > 0:
                     save_portfolio(df)
+                    st.success(f"Discovered and logged {logged} new position(s) across {len(scanned_names)} active leagues!")
                     st.rerun()
+                else:
+                    st.info(f"Scan complete across {len(scanned_names)} active leagues ({total_matches} fixtures checked). No edges $\\ge {MIN_EDGE_THRESHOLD}\\%$ EV were unhedged right now. Audit sent to Telegram.")
 
 # ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
 with tab_portfolio:
