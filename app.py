@@ -23,6 +23,46 @@ COLUMNS = [
     "ID", "Kickoff_UTC", "League", "Matchup", "Market", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
 ]
 
+# --- LEAGUE TIERS ---
+MAJOR_LEAGUES = {
+    "Premier League (ENG)": "soccer_epl",
+    "Championship (ENG 2nd)": "soccer_england_league1",
+    "La Liga (ESP)": "soccer_spain_la_liga",
+    "Segunda División (ESP 2nd)": "soccer_spain_segunda_division",
+    "Serie A (ITA)": "soccer_italy_serie_a",
+    "Serie B (ITA 2nd)": "soccer_italy_serie_b",
+    "Bundesliga (GER)": "soccer_germany_bundesliga",
+    "2. Bundesliga (GER 2nd)": "soccer_germany_bundesliga2",
+    "Ligue 1 (FRA)": "soccer_france_ligue_one",
+    "Champions League": "soccer_uefa_champs_league",
+    "Brasileirão Série A": "soccer_brazil_campeonato"
+}
+
+MEDIUM_LEAGUES = {
+    "Eredivisie (NED)": "soccer_netherlands_eredivisie",
+    "Primeira Liga (POR)": "soccer_portugal_primeira_liga",
+    "Pro League (BEL)": "soccer_belgium_first_div",
+    "Süper Lig (TUR)": "soccer_turkey_super_league",
+    "Premiership (SCO)": "soccer_spl",
+    "Major League Soccer (USA)": "soccer_usa_mls",
+    "Liga MX (MEX)": "soccer_mexico_ligamx",
+    "Primera División (ARG)": "soccer_argentina_primera_division",
+    "Copa Libertadores": "soccer_conmebol_copa_libertadores"
+}
+
+MINOR_LEAGUES = {
+    "League Two (ENG 4th)": "soccer_england_league2",
+    "Bundesliga (AUT)": "soccer_austria_bundesliga",
+    "Super League (SUI)": "soccer_switzerland_superleague",
+    "Superliga (DEN)": "soccer_denmark_superliga",
+    "Ekstraklasa (POL)": "soccer_poland_ekstraklasa",
+    "Allsvenskan (SWE)": "soccer_sweden_allsvenskan",
+    "Eliteserien (NOR)": "soccer_norway_eliteserien",
+    "A-League (AUS)": "soccer_australia_aleague"
+}
+
+ALL_LEAGUES_MAP = {**MAJOR_LEAGUES, **MEDIUM_LEAGUES, **MINOR_LEAGUES}
+
 def send_telegram_alert(message_html: str):
     token = st.session_state.get("tg_token", telegram_token).strip()
     chat_id = str(st.session_state.get("tg_chat_id", telegram_chat_id)).strip()
@@ -118,43 +158,17 @@ def calculate_kelly_stake(bankroll: float, decimal_odds: float, ev_pct: float) -
     stake = round(bankroll * fraction, 2)
     return max(1.0, stake)
 
-ALL_LEAGUES_MAP = {
-    "Premier League (England)": "soccer_epl",
-    "Championship (England 2nd)": "soccer_england_league1",
-    "La Liga (Spain)": "soccer_spain_la_liga",
-    "Segunda División (Spain 2nd)": "soccer_spain_segunda_division",
-    "Serie A (Italy)": "soccer_italy_serie_a",
-    "Serie B (Italy 2nd)": "soccer_italy_serie_b",
-    "Bundesliga (Germany)": "soccer_germany_bundesliga",
-    "2. Bundesliga (Germany 2nd)": "soccer_germany_bundesliga2",
-    "Ligue 1 (France)": "soccer_france_ligue_one",
-    "Brasileirão Série A (Brazil)": "soccer_brazil_campeonato",
-    "UEFA Champions League": "soccer_uefa_champs_league",
-    "UEFA Europa League": "soccer_uefa_europa_league",
-    "Eredivisie (Netherlands)": "soccer_netherlands_eredivisie",
-    "Primeira Liga (Portugal)": "soccer_portugal_primeira_liga",
-    "Major League Soccer (USA)": "soccer_usa_mls"
-}
-
-AVAILABLE_BOOKMAKERS = {
-    "Betfair": "betfair_ex_uk",
-    "Bet365": "bet365",
-    "Pinnacle (Sharp Benchmark)": "pinnacle",
-    "DraftKings": "draftkings",
-    "FanDuel": "fanduel",
-    "William Hill": "williamhill"
-}
-
-def fetch_multi_market_odds(sport_keys: list, selected_books_str: str, chosen_markets_str: str) -> str:
+def fetch_all_markets_odds(sport_keys: list) -> str:
     all_matches = []
+    selected_books = "pinnacle,betfair_ex_uk,bet365"
     for key in sport_keys:
         url = f"https://api.the-odds-api.com/v4/sports/{key}/odds/"
         params = {
             "apiKey": odds_api_key,
             "regions": "eu,uk,us",
-            "markets": chosen_markets_str,
+            "markets": "h2h,totals,spreads",
             "oddsFormat": "decimal",
-            "bookmakers": selected_books_str,
+            "bookmakers": selected_books,
         }
         try:
             res = requests.get(url, params=params, timeout=10)
@@ -276,59 +290,63 @@ tab_auto, tab_portfolio, tab_stocks = st.tabs([
 
 # ----------------- TAB 1: SCANNER -----------------
 with tab_auto:
-    st.subheader("Multi-Market Quantitative Scanner (+EV Over/Under, Spreads & H2H)")
+    st.subheader("Autonomous Quantitative Football Scanner")
     df_current = load_portfolio()
     metrics = get_bankroll_metrics(df_current)
 
     st.info(f"💰 Available Bankroll: **${metrics['available_bankroll']:.2f}** | Total Equity: **${metrics['total_equity']:.2f}** | Active at Risk: **${metrics['pending_stakes']:.2f}**")
 
-    c_mkt, c_edge = st.columns(2)
-    selected_markets = c_mkt.multiselect(
-        "Active Betting Markets",
-        options=["h2h (Match Winner)", "totals (Over/Under Goals)", "spreads (Handicaps)"],
-        default=["h2h (Match Winner)", "totals (Over/Under Goals)", "spreads (Handicaps)"]
+    # Scope Selection (Only 3 clean groups)
+    tier_scope = st.radio(
+        "Select League Scope",
+        options=[
+            "🏆 Major Leagues (EPL, La Liga, Serie A, Bundesliga, Ligue 1, UCL, Brasileirão)",
+            "🥈 Medium Leagues (Eredivisie, Primeira Liga, MLS, Liga MX, Süper Lig)",
+            "🥉 Minor Leagues (Regional & Lower Divisions)"
+        ],
+        index=0
     )
-    markets_api_param = ",".join([m.split()[0] for m in selected_markets])
 
-    min_edge = c_edge.slider("Minimum +EV Edge (%)", min_value=1.5, max_value=8.0, value=2.5, step=0.5)
+    if "Major Leagues" in tier_scope:
+        target_keys = list(MAJOR_LEAGUES.values())
+        scope_title = "Major Leagues"
+    elif "Medium Leagues" in tier_scope:
+        target_keys = list(MEDIUM_LEAGUES.values())
+        scope_title = "Medium Leagues"
+    else:
+        target_keys = list(MINOR_LEAGUES.values())
+        scope_title = "Minor Leagues"
 
-    c_lg, c_bk = st.columns(2)
-    selected_leagues = c_lg.multiselect("Active Competitions", options=list(ALL_LEAGUES_MAP.keys()), default=list(ALL_LEAGUES_MAP.keys())[:7])
-    chosen_keys = [ALL_LEAGUES_MAP[l] for l in selected_leagues]
+    st.markdown("---")
 
-    selected_books = c_bk.multiselect("Bookmakers", options=list(AVAILABLE_BOOKMAKERS.keys()), default=["Betfair", "Pinnacle (Sharp Benchmark)", "Bet365"])
-    books_api_param = ",".join([AVAILABLE_BOOKMAKERS[b] for b in selected_books])
-
-    if st.button("🚀 Execute Multi-Market Scan & Place Bets", type="primary", use_container_width=True):
-        if not chosen_keys or not selected_markets or not selected_books:
-            st.error("Please configure at least one league, market, and bookmaker.")
-        elif metrics["available_bankroll"] < 10.0:
-            st.error("Bankroll depleted. Wait for existing positions to settle.")
+    # Single Action Button to Scan All Available Markets
+    if st.button(f"🚀 Scan All Markets (Winner, Totals, Spreads) for {scope_title}", type="primary", use_container_width=True):
+        if metrics["available_bankroll"] < 10.0:
+            st.error("Bankroll depleted. Settle existing matches before taking new bets.")
         else:
-            with st.spinner("Fetching odds lines across Match Winner, Totals, and Spreads..."):
-                odds_payload = fetch_multi_market_odds(chosen_keys, books_api_param, markets_api_param)
+            with st.spinner(f"Querying {scope_title} for H2H, Over/Under Goals, and Handicap discrepancies..."):
+                odds_payload = fetch_all_markets_odds(target_keys)
 
-                prompt = (
-                    "You are an autonomous quantitative sports betting model evaluating multi-market football odds.\n"
-                    "MARKETS INCLUDED: 'h2h' (Match Winner), 'totals' (Over/Under Goals), 'spreads' (Handicap).\n"
-                    "RULES:\n"
-                    "1. Identify Pinnacle lines for each market, calculate market vig, and derive true no-vig probabilities.\n"
-                    "2. Compare that true probability against retail bookmakers (Betfair, Bet365).\n"
+                system_prompt = (
+                    "You are an autonomous quantitative football betting model evaluating multiple betting markets simultaneously.\n"
+                    "MARKETS PROVIDED: 'h2h' (Match Winner), 'totals' (Over/Under Goals), 'spreads' (Handicap).\n"
+                    "MATHEMATICAL INSTRUCTIONS:\n"
+                    "1. For each market, use Pinnacle lines as the sharp benchmark to remove bookmaker margin (vig) and find true implied probabilities.\n"
+                    "2. Compare true probability against retail bookmaker lines (Betfair, Bet365).\n"
                     "3. Formula: EV % = (True Probability * Retail Decimal Odds) - 1.\n"
-                    f"4. CRITERIA:\n"
-                    f"   - Minimum EV % >= {min_edge}%.\n"
+                    "4. CRITERIA:\n"
+                    "   - Calculated EV % must be >= 2.5%.\n"
                     "   - Retail odds must be between 1.40 and 3.80.\n"
-                    "   - Exclude match winner Draw (only Home/Away, Totals Over/Under, or Team Spreads).\n"
-                    "5. Return strictly a clean JSON array of objects without Markdown formatting:\n"
+                    "   - Exclude match winner Draw (evaluate Home/Away winner, Over/Under goals, or Team Spreads).\n"
+                    "5. Output STRICTLY a valid JSON array of objects without Markdown code fences:\n"
                     '[{"matchup":"Team A vs Team B","kickoff":"YYYY-MM-DD HH:MM","league":"EPL","market":"totals","pick":"Over 2.5","bookmaker":"Bet365","odds":1.95,"ev_pct":4.8}]\n'
-                    "If no qualifying bets found, return exactly: []"
+                    "If no bets qualify, return exactly: []"
                 )
 
                 try:
                     response = client.models.generate_content(
-                        model="gemini-2.5-flash",
-                        contents=f"{prompt}\n\nData:\n{odds_payload}",
-                        config=types.GenerateContentConfig(temperature=0.1)
+                        model="gemini-3.6-flash",
+                        contents=f"{system_prompt}\n\nLive Multi-Market Odds Data:\n{odds_payload}"
                     )
                 except Exception as api_err:
                     st.error(f"Gemini API Error: {api_err}")
@@ -342,17 +360,19 @@ with tab_auto:
                         clean_text = clean_text[4:]
                 if clean_text.endswith(fence):
                     clean_text = clean_text.rstrip(fence)
+                clean_text = clean_text.strip()
+
                 try:
-                    accepted_bets = json.loads(clean_text.strip())
+                    accepted_bets = json.loads(clean_text)
                 except Exception:
                     accepted_bets = []
 
                 if not accepted_bets:
-                    st.info("Scan complete: No fixtures met the criteria across active markets.")
+                    st.info(f"Scan complete across {scope_title}: No positive-EV discrepancies found across Winner, Totals, or Spreads.")
                 else:
                     df = load_portfolio()
                     logged = 0
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV trade(s)!")
+                    st.success(f"Discovered {len(accepted_bets)} eligible multi-market position(s)!")
 
                     for bet in accepted_bets:
                         dup = not df[(df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")].empty
@@ -368,7 +388,7 @@ with tab_auto:
                             new_row = {
                                 "ID": len(df) + 1,
                                 "Kickoff_UTC": k_str,
-                                "League": bet.get("league", "League"),
+                                "League": bet.get("league", scope_title),
                                 "Matchup": bet.get("matchup"),
                                 "Market": bet.get("market", "h2h"),
                                 "Pick": bet.get("pick"),
@@ -442,7 +462,7 @@ with tab_stocks:
             price = round(stock.fast_info.last_price, 2)
             try:
                 res = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-3.6-flash",
                     contents=f"Analyze {ticker_input} at current price ${price} for an intraday plan with entry, target, and stop.",
                 )
                 st.markdown(res.text)
