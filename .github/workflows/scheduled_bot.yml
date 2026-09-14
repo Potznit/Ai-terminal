@@ -2,7 +2,7 @@ name: Automated +EV Betting Scanner
 
 on:
   schedule:
-    # Runs automatically at minute 15 of every hour
+    # Runs autonomously at minute 15 of every hour
     - cron: '15 * * * *'
   workflow_dispatch:
 
