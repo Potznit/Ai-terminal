@@ -6,11 +6,11 @@ from datetime import datetime, timezone
 from google import genai
 from google.genai import types
 
-# --- CREDENTIALS FROM ENVIRONMENT ---
-gemini_key = os.environ.get("GEMINI_API_KEY", "")
-odds_api_key = os.environ.get("ODDS_API_KEY", "")
-telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE")
-telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "6565714528")
+# --- CREDENTIALS (ENVIRONMENT FIRST, DIRECT FALLBACK SECOND) ---
+gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+odds_api_key = os.environ.get("ODDS_API_KEY", "5c8f0f5baeab51e7afd921518c966db1").strip()
+telegram_token = os.environ.get("TELEGRAM_BOT_TOKEN", "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE").strip()
+telegram_chat_id = os.environ.get("TELEGRAM_CHAT_ID", "6565714528").strip()
 
 CSV_FILE = "paper_trades.csv"
 STARTING_BANKROLL_PER_MODEL = 1000.0
@@ -95,15 +95,18 @@ def calculate_kelly_stake(bankroll: float, odds: float, ev_pct: float, max_pct: 
     return max(1.0, round(bankroll * frac, 2))
 
 def get_active_soccer_leagues():
-    print("Fetching active soccer competitions globally...")
+    print(f"Fetching active soccer competitions globally (Key length: {len(odds_api_key)})...")
     url = f"https://api.the-odds-api.com/v4/sports/?apiKey={odds_api_key}"
     try:
         r = requests.get(url, timeout=10)
+        print(f"Sports endpoint response status: {r.status_code}")
         if r.status_code == 200:
             leagues = [s["key"] for s in r.json() if s.get("key", "").startswith("soccer_") and s.get("active", False)]
             if leagues:
                 print(f"Found {len(leagues)} active leagues.")
                 return leagues
+        else:
+            print(f"API response error: {r.text}")
     except Exception as e:
         print(f"Error fetching sports list: {e}")
     return ["soccer_epl", "soccer_spain_la_liga", "soccer_italy_serie_a", "soccer_germany_bundesliga"]
@@ -191,7 +194,7 @@ def auto_settle(df):
 
 def run_scanner(df):
     if not odds_api_key or not gemini_key:
-        print("API keys missing from environment. Exiting.")
+        print(f"Credentials missing. Odds API Key Present: {bool(odds_api_key)}, Gemini Key Present: {bool(gemini_key)}. Exiting.")
         return df
 
     active_leagues = get_active_soccer_leagues()
@@ -278,7 +281,7 @@ def run_scanner(df):
 
         try:
             res = client.models.generate_content(
-                model="gemini-3.6-flash",
+                model="gemini-2.5-flash",
                 contents=f"{system_prompt}\n\nTarget Model: {m_tag}\nFixtures:\n{json.dumps(matches)}"
             )
             clean = res.text.strip()
