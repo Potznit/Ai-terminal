@@ -1,11 +1,8 @@
 name: Automated +EV Betting Scanner
 
-    on:
+on:
   schedule:
-    # Runs every 10 minutes for testing
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
-
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 permissions:
