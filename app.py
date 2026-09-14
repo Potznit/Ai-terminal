@@ -13,8 +13,36 @@ st.title("⚡ Autonomous AI Market & Football Terminal")
 # --- SECRETS & CONFIGURATION ---
 gemini_key = st.secrets.get("GEMINI_API_KEY", "")
 odds_api_key = st.secrets.get("ODDS_API_KEY", "")
-telegram_token = st.secrets.get("TELEGRAM_BOT_TOKEN", "")
-telegram_chat_id = st.secrets.get("TELEGRAM_CHAT_ID", "")
+telegram_token = st.secrets.get("TELEGRAM_BOT_TOKEN", "8956869998:AAH9SEXc6qID3Ie1JDx3mffb8pHLVWxMgoE")
+telegram_chat_id = st.secrets.get("TELEGRAM_CHAT_ID", "6565714528")
+
+# --- CSV PAPER PORTFOLIO STORAGE ---
+CSV_FILE = "paper_trades.csv"
+STARTING_BANKROLL = 1000.0
+STAKE_PERCENT = 0.10
+
+COLUMNS = [
+    "ID", "Kickoff_UTC", "League", "Matchup", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
+]
+
+# --- TELEGRAM DISPATCH HELPER ---
+def send_telegram_alert(message_html: str):
+    """Sends formatted HTML alerts directly to Telegram."""
+    token = telegram_token or st.session_state.get("tg_token", "")
+    chat_id = telegram_chat_id or st.session_state.get("tg_chat_id", "")
+    if not token or not chat_id:
+        return False
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": message_html,
+        "parse_mode": "HTML"
+    }
+    try:
+        r = requests.post(url, json=payload, timeout=8)
+        return r.status_code == 200
+    except Exception:
+        return False
 
 with st.sidebar:
     st.header("⚙️ Settings & Credentials")
@@ -22,25 +50,23 @@ with st.sidebar:
         gemini_key = st.text_input("Gemini API Key", type="password")
     if not odds_api_key:
         odds_api_key = st.text_input("The Odds API Key", type="password")
-    if not telegram_token:
-        telegram_token = st.text_input("Telegram Bot Token (Optional)", type="password")
-    if not telegram_chat_id:
-        telegram_chat_id = st.text_input("Telegram Chat ID (Optional)")
+    
+    st.session_state["tg_token"] = st.text_input("Telegram Bot Token", value=telegram_token, type="password")
+    st.session_state["tg_chat_id"] = st.text_input("Telegram Chat ID", value=telegram_chat_id)
+
+    st.markdown("---")
+    if st.button("🔔 Send Test Telegram Ping", use_container_width=True):
+        success = send_telegram_alert("⚡ <b>AI Betting Terminal:</b> Telegram webhook connection verified successfully!")
+        if success:
+            st.success("Test ping sent to your Telegram!")
+        else:
+            st.error("Failed. Verify your Bot Token and Chat ID.")
 
 if not gemini_key:
-    st.warning("Please configure your Gemini API Key in Streamlit Secrets to proceed.")
+    st.warning("Please configure your Gemini API Key in Streamlit Secrets or sidebar to proceed.")
     st.stop()
 
 client = genai.Client(api_key=gemini_key)
-
-# --- CSV PAPER PORTFOLIO STORAGE ---
-CSV_FILE = "paper_trades.csv"
-STARTING_BANKROLL = 1000.0
-STAKE_PERCENT = 0.10  # 10% Dynamic allocation
-
-COLUMNS = [
-    "ID", "Kickoff_UTC", "League", "Matchup", "Pick", "Bookmaker", "Odds", "EV_Pct", "Stake", "Status", "P_L"
-]
 
 def load_portfolio() -> pd.DataFrame:
     if os.path.exists(CSV_FILE):
@@ -83,7 +109,6 @@ def get_bankroll_metrics(df: pd.DataFrame):
         "pending_stakes": pending_stakes
     }
 
-# --- QUANTITATIVE LEAGUE TIERS ---
 MAJOR_LEAGUES = {
     "Premier League (England)": "soccer_epl",
     "Championship (England 2nd)": "soccer_england_efl_cup",
@@ -138,7 +163,6 @@ AVAILABLE_BOOKMAKERS = {
     "Bovada": "bovada",
 }
 
-# --- DIRECT DATA FETCH ACROSS LEAGUES ---
 def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
     if not odds_api_key:
         simulated = [
@@ -184,13 +208,13 @@ def fetch_odds_for_leagues(sport_keys: list, selected_books_str: str) -> str:
             continue
     return json.dumps(all_matches)
 
-# --- SCORE CHECKER ENGINE ---
 def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
     pending_mask = df["Status"] == "PENDING"
     if not pending_mask.any() or not api_key:
-        return df, 0
+        return df, 0, []
 
     settled_count = 0
+    settled_details = []
     unique_leagues = df.loc[pending_mask, "League"].unique()
     
     for league in unique_leagues:
@@ -234,21 +258,25 @@ def auto_settle_completed_bets(df: pd.DataFrame, api_key: str):
                         if winning_team == "DRAW":
                             df.at[idx, "Status"] = "LOST"
                             df.at[idx, "P_L"] = -stake
-                            settled_count += 1
+                            outcome = "LOST ❌"
                         elif pick.strip().lower() in winning_team.lower() or winning_team.lower() in pick.strip().lower():
                             df.at[idx, "Status"] = "WON"
-                            df.at[idx, "P_L"] = round((odds - 1.0) * stake, 2)
-                            settled_count += 1
+                            p_gain = round((odds - 1.0) * stake, 2)
+                            df.at[idx, "P_L"] = p_gain
+                            outcome = f"WON ✅ (+${p_gain:.2f})"
                         else:
                             df.at[idx, "Status"] = "LOST"
                             df.at[idx, "P_L"] = -stake
-                            settled_count += 1
+                            outcome = "LOST ❌"
+                            
+                        settled_count += 1
+                        settled_details.append(f"• <b>{pick}</b> ({m_str}): {outcome}")
         except Exception:
             continue
 
     if settled_count > 0:
         save_portfolio(df)
-    return df, settled_count
+    return df, settled_count, settled_details
 
 # --- USER INTERFACE ---
 tab_auto, tab_portfolio, tab_stocks = st.tabs([
@@ -340,145 +368,4 @@ with tab_auto:
                     lines = raw_text.splitlines()
                     if lines and lines[0].startswith("```"):
                         lines = lines[1:]
-                    if lines and lines[-1].startswith("```"):
-                        lines = lines[:-1]
-                    raw_text = "\n".join(lines).strip()
-
-                try:
-                    accepted_bets = json.loads(raw_text)
-                except Exception:
-                    accepted_bets = []
-
-                if not accepted_bets:
-                    st.info(f"Scan complete across {scan_title}: No fixtures met your parameters (odds 1.45–3.20, EV ≥ {min_edge_threshold}%). Bankroll preserved.")
-                else:
-                    df = load_portfolio()
-                    logged_count = 0
-
-                    st.success(f"Discovered {len(accepted_bets)} eligible +EV opportunity(ies) across {scan_title}!")
-
-                    for bet in accepted_bets:
-                        is_duplicate = not df[
-                            (df["Matchup"] == bet.get("matchup")) & (df["Pick"] == bet.get("pick")) & (df["Status"] == "PENDING")
-                        ].empty
-
-                        if not is_duplicate:
-                            metrics_now = get_bankroll_metrics(df)
-                            calculated_stake = round(metrics_now["available_bankroll"] * STAKE_PERCENT, 2)
-                            if calculated_stake < 1.0:
-                                break
-
-                            kickoff_str = bet.get("kickoff", bet.get("commence_time", "Scheduled"))
-                            # Format ISO timestamps cleanly if present
-                            if "T" in str(kickoff_str):
-                                kickoff_str = kickoff_str.replace("T", " ").replace("Z", " UTC")
-
-                            new_row = {
-                                "ID": len(df) + 1,
-                                "Kickoff_UTC": kickoff_str,
-                                "League": bet.get("league", scan_title),
-                                "Matchup": bet.get("matchup"),
-                                "Pick": bet.get("pick"),
-                                "Bookmaker": bet.get("bookmaker", "Retail Book"),
-                                "Odds": float(bet.get("odds", 0.0)),
-                                "EV_Pct": float(bet.get("ev_pct", 0.0)),
-                                "Stake": calculated_stake,
-                                "Status": "PENDING",
-                                "P_L": 0.0
-                            }
-                            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-                            logged_count += 1
-
-                    save_portfolio(df)
-
-                    for bet in accepted_bets:
-                        st.markdown(
-                            f"🎯 **Auto-Placed Bet:** **{bet.get('pick')}** to win in *{bet.get('matchup')}* ({bet.get('league')})  \n"
-                            f"• **Kickoff:** `{bet.get('kickoff', 'TBD')}`  \n"
-                            f"• **Book:** {bet.get('bookmaker', 'Retail')} @ **{bet.get('odds')}** | **Edge:** **+{bet.get('ev_pct')}% EV**  \n"
-                            f"• **Stake (10%):** ${current_dynamic_stake:.2f}"
-                        )
-                    st.toast(f"Logged {logged_count} paper bet(s) to portfolio!")
-
-# ----------------- TAB 2: PORTFOLIO & AUDIT -----------------
-with tab_portfolio:
-    st.subheader("📊 Paper Trading Performance Ledger")
-    df = load_portfolio()
-    metrics = get_bankroll_metrics(df)
-
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Available Bankroll", f"${metrics['available_bankroll']:.2f}", help="Cash remaining to bet (Starting Bankroll + Realized P/L - Active Stakes)")
-    c2.metric("Total Equity", f"${metrics['total_equity']:.2f}", help="Starting Bankroll + Settled P/L")
-    c3.metric("ROI", f"{metrics['roi']:+.2f}%")
-    c4.metric("Win Rate", f"{metrics['win_rate']:.1f}% ({metrics['win_count']}/{metrics['total_decided']})")
-
-    # CONTROLS
-    col_auto, col_reset = st.columns([3, 1])
-    if col_auto.button("⚡ Auto-Check Scores & Grade Results", type="primary", use_container_width=True):
-        with st.spinner("Fetching completed scores from The Odds API..."):
-            df, count = auto_settle_completed_bets(df, odds_api_key)
-            if count > 0:
-                st.success(f"Graded {count} completed match(es)!")
-                st.rerun()
-            else:
-                st.info("No newly completed matches found yet. Check game dates below.")
-
-    if col_reset.button("🗑️ Reset Ledger to $1,000", use_container_width=True):
-        fresh_df = pd.DataFrame(columns=COLUMNS)
-        save_portfolio(fresh_df)
-        st.success("Ledger reset to $0.00 P/L and $1,000.00 bankroll!")
-        st.rerun()
-
-    if df.empty:
-        st.info("Ledger is completely empty ($1,000.00 available). Run an autonomous scan to begin forward testing.")
-    else:
-        st.dataframe(df, use_container_width=True)
-
-        pending_bets = df[df["Status"] == "PENDING"]
-        if not pending_bets.empty:
-            st.divider()
-            st.subheader("⚖️ Manual Settlement Fallback")
-            bet_id_to_settle = st.selectbox(
-                "Select Match to Manually Settle",
-                options=pending_bets["ID"].tolist(),
-                format_func=lambda x: f"Bet #{x}: {pending_bets.loc[pending_bets['ID'] == x, 'Pick'].values[0]} ({pending_bets.loc[pending_bets['ID'] == x, 'Matchup'].values[0]}) — Kickoff: {pending_bets.loc[pending_bets['ID'] == x, 'Kickoff_UTC'].values[0]}"
-            )
-
-            col_w, col_l, col_p = st.columns(3)
-            if col_w.button("✅ Won", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "WON"
-                df.at[idx, "P_L"] = round((df.at[idx, "Odds"] - 1.0) * df.at[idx, "Stake"], 2)
-                save_portfolio(df)
-                st.rerun()
-
-            if col_l.button("❌ Lost", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "LOST"
-                df.at[idx, "P_L"] = -df.at[idx, "Stake"]
-                save_portfolio(df)
-                st.rerun()
-
-            if col_p.button("🔄 Push / Postponed", use_container_width=True):
-                idx = df[df["ID"] == bet_id_to_settle].index[0]
-                df.at[idx, "Status"] = "PUSH"
-                df.at[idx, "P_L"] = 0.0
-                save_portfolio(df)
-                st.rerun()
-
-# ----------------- TAB 3: STOCK SCANNER -----------------
-with tab_stocks:
-    st.subheader("Intraday Market Scan")
-    ticker_input = st.text_input("Stock Ticker", value="NVDA").upper()
-    if st.button("Scan Ticker", type="primary", use_container_width=True):
-        with st.spinner(f"Pulling data for {ticker_input}..."):
-            stock = yf.Ticker(ticker_input)
-            price = round(stock.fast_info.last_price, 2)
-            try:
-                res = client.models.generate_content(
-                    model="gemini-3.6-flash",
-                    contents=f"Analyze {ticker_input} at current price ${price} for an intraday plan with entry, target, and stop.",
-                )
-                st.markdown(res.text)
-            except Exception as e:
-                st.error(f"Error fetching analysis: {e}")
+                    if lines and lines[-1].startswith("
