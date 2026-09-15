@@ -12,40 +12,56 @@ logger = logging.getLogger("QuantWorker")
 
 CSV_PATH = "paper_trades.csv"
 
-# Columns strictly formatted to match Streamlit's schema
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
     "Market", "Pick", "Bookmaker", "Odds", "Edge_Pct", 
     "Stake", "Status", "P_L"
 ]
 
+def load_latest_csv_from_github():
+    """Pulls existing ledger from GitHub on container startup to prevent duplicate loops."""
+    token = os.environ.get("GITHUB_TOKEN")
+    repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
+    if not token:
+        return
+
+    url = f"https://api.github.com/repos/{repo}/contents/{CSV_PATH}"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json"
+    }
+
+    try:
+        res = requests.get(url, headers=headers, timeout=10)
+        if res.status_code == 200:
+            content_b64 = res.json().get("content", "")
+            csv_content = base64.b64decode(content_b64).decode("utf-8")
+            with open(CSV_PATH, "w") as f:
+                f.write(csv_content)
+            logger.info("Successfully synced latest paper_trades.csv from GitHub.")
+        else:
+            logger.info("No remote CSV found on GitHub. Initializing local ledger.")
+    except Exception as e:
+        logger.error(f"Error fetching CSV from GitHub: {e}")
+
 def ensure_ledger_initialized():
-    """Initializes or resets paper_trades.csv with proper Streamlit schema."""
+    """Initializes CSV locally if not already pulled."""
+    load_latest_csv_from_github()
     if not os.path.exists(CSV_PATH):
         df = pd.DataFrame(columns=SCHEMA_COLUMNS)
         df.to_csv(CSV_PATH, index=False)
-        logger.info("Initialized fresh paper_trades.csv with Streamlit schema.")
-    else:
-        try:
-            df = pd.read_csv(CSV_PATH)
-            # Check if columns are missing or lowercase
-            if not all(col in df.columns for col in ["ID", "Model_Tag", "Pick", "Matchup"]):
-                logger.warning("Detected mismatched or legacy CSV schema. Re-formatting...")
-                df = pd.DataFrame(columns=SCHEMA_COLUMNS)
-                df.to_csv(CSV_PATH, index=False)
-        except Exception as e:
-            logger.error(f"Error validating CSV schema: {e}")
+        logger.info("Created fresh paper_trades.csv ledger.")
 
 ensure_ledger_initialized()
 
 def sync_csv_to_github():
-    """Commits paper_trades.csv to GitHub once per audit loop to avoid build storms."""
+    """Pushes paper_trades.csv to GitHub with [skip ci] to prevent Railway build storms."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
     if not token or not os.path.exists(CSV_PATH):
         return
 
-    url = f"https://api.github.com/repos/{repo}/contents/paper_trades.csv"
+    url = f"https://api.github.com/repos/{repo}/contents/{CSV_PATH}"
     headers = {
         "Authorization": f"Bearer {token}",
         "Accept": "application/vnd.github+json"
@@ -61,7 +77,7 @@ def sync_csv_to_github():
             sha = get_res.json().get("sha")
 
         payload = {
-            "message": "Automated paper_trades sync [skip ci]",
+            "message": "Automated paper_trades sync [skip ci] [skip railway]",
             "content": content_b64
         }
         if sha:
@@ -75,28 +91,34 @@ def sync_csv_to_github():
     except Exception as e:
         logger.error(f"GitHub sync failed: {e}")
 
-def has_existing_bet(matchup: str, pick: str, model_tag: str) -> bool:
-    """Checks whether this specific trade has already been registered."""
+def has_existing_bet(matchup: str, model_tag: str) -> bool:
+    """Strict duplicate check: blocks same match from firing repeatedly under the same model."""
     if not os.path.exists(CSV_PATH):
         return False
     try:
         df = pd.read_csv(CSV_PATH)
         if df.empty or "Matchup" not in df.columns:
             return False
-        existing = df[(df["Matchup"] == matchup) & (df["Pick"] == pick) & (df["Model_Tag"] == model_tag)]
+        
+        # Clean whitespace and case
+        m_clean = matchup.strip().lower()
+        tag_clean = model_tag.strip().upper()
+        
+        match_series = df["Matchup"].astype(str).str.strip().str.lower()
+        tag_series = df["Model_Tag"].astype(str).str.strip().str.upper()
+
+        existing = df[(match_series == m_clean) & (tag_series == tag_clean)]
         return not existing.empty
     except Exception as e:
         logger.error(f"Error checking existing bets: {e}")
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
-    """Queries Gemini-3.8-flash via Interactions API with a generateContent fallback."""
     headers = {
         "x-goog-api-key": api_key,
         "Content-Type": "application/json"
     }
 
-    # Primary: Interactions API
     try:
         interaction_url = "https://generativelanguage.googleapis.com/v1beta/interactions"
         payload = {
@@ -117,7 +139,6 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
     except Exception as e:
         logger.debug(f"Interactions API bypassed: {e}")
 
-    # Fallback: generateContent
     try:
         generate_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
         payload = {
@@ -134,11 +155,16 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
     return None
 
 def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag="LATE_STEAM", bankroll=1000.0) -> bool:
-    """Evaluates edge, logs into CSV with exact Streamlit column names, and fires Telegram alert."""
+    matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
+
+    # Check deduplication FIRST before pinging AI or Telegram
+    if has_existing_bet(matchup, model_tag):
+        logger.info(f"Skipping duplicate trade for {matchup} under {model_tag}.")
+        return False
+
     api_key = os.environ.get("GEMINI_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
-    matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
     prompt = f"""
     You are an elite sports quantitative analyst.
@@ -161,9 +187,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     }}
     """
 
-    data = None
-    if api_key:
-        data = query_gemini_ai(prompt, api_key)
+    data = query_gemini_ai(prompt, api_key) if api_key else None
 
     if not data:
         sharp = live_odds.get("pinnacle", 2.10)
@@ -172,7 +196,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         data = {
             "is_valid_ev": calculated_edge > 0,
             "edge_pct": calculated_edge,
-            "recommended_pick": f"{fixture_data['favorite']} Over / Draw No Bet",
+            "recommended_pick": f"{fixture_data['favorite']} Draw No Bet",
             "odds": retail,
             "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Pinnacle baseline {sharp}.",
             "kelly_stake_pct": 0.015
@@ -182,14 +206,8 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         return False
 
     pick = data.get("recommended_pick")
-
-    if has_existing_bet(matchup, pick, model_tag):
-        logger.info(f"Skipping duplicate trade for {matchup} [{pick}] under {model_tag}.")
-        return False
-
     stake_amount = round(bankroll * data.get("kelly_stake_pct", 0.015), 2)
 
-    # EXACT Column names expected by Streamlit app.py
     new_trade = {
         "ID": str(uuid.uuid4())[:8],
         "Model_Tag": model_tag,
@@ -210,12 +228,11 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         df = pd.read_csv(CSV_PATH) if os.path.exists(CSV_PATH) else pd.DataFrame(columns=SCHEMA_COLUMNS)
         df = pd.concat([df, pd.DataFrame([new_trade])], ignore_index=True)
         df.to_csv(CSV_PATH, index=False)
-        logger.info(f"Logged [{model_tag}] paper bet: ${stake_amount} on {pick} ({matchup})")
+        logger.info(f"Logged [{model_tag}] bet: ${stake_amount} on {pick} ({matchup})")
     except Exception as e:
-        logger.error(f"Failed to record trade to CSV: {e}")
+        logger.error(f"Failed to save bet: {e}")
         return False
 
-    # Send Telegram Card
     card_message = (
         f"🚨 <b>[{model_tag}] VALUE DISCREPANCY</b>\n\n"
         f"⚽ <b>{matchup}</b>\n"
@@ -231,15 +248,17 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
 
     if bot_token and chat_id:
         try:
-            tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            requests.post(tg_url, json={"chat_id": chat_id, "text": card_message, "parse_mode": "HTML"}, timeout=10)
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                json={"chat_id": chat_id, "text": card_message, "parse_mode": "HTML"},
+                timeout=10
+            )
         except Exception as e:
-            logger.error(f"Telegram dispatch failed: {e}")
+            logger.error(f"Telegram alert failed: {e}")
 
     return True
 
 def fetch_live_matches():
-    """Pulls current fixtures from The Odds API."""
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         return []
@@ -275,14 +294,13 @@ def main():
             live_odds = {"pinnacle": 2.10, "bookmaker": "Bet365", "retail_odds": 2.35}
             pre_match_odds = {"favorite_prob": 62}
 
-            # Distribute opportunities across the 3 Streamlit leaderboard models
             assigned_tag = "LATE_STEAM" if idx % 3 == 0 else ("CORE_EV" if idx % 3 == 1 else "EARLY_BIRD")
 
             logged = evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag=assigned_tag, bankroll=bankroll)
             if logged:
                 new_bets_logged = True
 
-    # Sync to GitHub only once at the end of the entire loop
+    # Sync once to GitHub only if actual new bets were logged
     if new_bets_logged:
         sync_csv_to_github()
 
