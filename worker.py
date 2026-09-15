@@ -20,7 +20,6 @@ SCHEMA_COLUMNS = [
 ]
 
 def load_latest_csv_from_github():
-    """Pulls existing ledger from GitHub on container startup to prevent duplicate loops."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
     if not token:
@@ -39,14 +38,13 @@ def load_latest_csv_from_github():
             csv_content = base64.b64decode(content_b64).decode("utf-8")
             with open(CSV_PATH, "w") as f:
                 f.write(csv_content)
-            logger.info("Synced latest paper_trades.csv from GitHub.")
+            logger.info("Successfully synced latest paper_trades.csv from GitHub.")
         else:
             logger.info("No remote CSV found on GitHub. Initializing local ledger.")
     except Exception as e:
         logger.error(f"Error fetching CSV from GitHub: {e}")
 
 def ensure_ledger_initialized():
-    """Initializes CSV locally if not present."""
     load_latest_csv_from_github()
     if not os.path.exists(CSV_PATH):
         df = pd.DataFrame(columns=SCHEMA_COLUMNS)
@@ -56,7 +54,6 @@ def ensure_ledger_initialized():
 ensure_ledger_initialized()
 
 def sync_csv_to_github():
-    """Pushes paper_trades.csv to GitHub with [skip ci] to prevent Railway rebuild storms."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
     if not token or not os.path.exists(CSV_PATH):
@@ -93,7 +90,6 @@ def sync_csv_to_github():
         logger.error(f"GitHub sync failed: {e}")
 
 def has_existing_bet(matchup: str, model_tag: str) -> bool:
-    """Blocks identical match from firing repeatedly under the same model tag."""
     if not os.path.exists(CSV_PATH):
         return False
     try:
@@ -114,45 +110,26 @@ def has_existing_bet(matchup: str, model_tag: str) -> bool:
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
-    headers = {
-        "x-goog-api-key": api_key,
-        "Content-Type": "application/json"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "temperature": 0.2,
+            "responseMimeType": "application/json"
+        }
     }
 
-    # Primary: Interactions API
     try:
-        interaction_url = "https://generativelanguage.googleapis.com/v1beta/interactions"
-        payload = {
-            "model": "gemini-3.8-flash",
-            "input": prompt,
-            "generation_config": {"temperature": 0.2}
-        }
-        res = requests.post(interaction_url, json=payload, headers=headers, timeout=12)
+        res = requests.post(url, json=payload, headers=headers, timeout=12)
         if res.status_code == 200:
             data = res.json()
-            for step in data.get("steps", []):
-                if step.get("type") == "model_output":
-                    for c in step.get("content", []):
-                        if c.get("type") == "text":
-                            return json.loads(c.get("text", "").replace("```json", "").replace("```", "").strip())
-            if "output_text" in data:
-                return json.loads(data["output_text"].replace("```json", "").replace("```", "").strip())
+            raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
+            return json.loads(raw_text.strip())
+        else:
+            logger.error(f"Gemini API returned status {res.status_code}: {res.text}")
     except Exception as e:
-        logger.debug(f"Interactions API probe bypassed: {e}")
-
-    # Fallback: generateContent
-    try:
-        generate_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.2, "responseMimeType": "application/json"}
-        }
-        res = requests.post(generate_url, json=payload, headers=headers, timeout=12)
-        if res.status_code == 200:
-            raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
-            return json.loads(raw_text.replace("```json", "").replace("```", "").strip())
-    except Exception as e:
-        logger.debug(f"generateContent bypassed: {e}")
+        logger.error(f"Gemini query exception: {e}")
 
     return None
 
@@ -173,7 +150,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     Model Horizon: {model_tag}
     Match: {matchup}
     State: {fixture_data.get('score')}
-    Target Side: {fixture_data['target_pick']}
+    Target Pick: {fixture_data['target_pick']}
     Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle')}
     Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
 
@@ -215,7 +192,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         "Kickoff_UTC": fixture_data.get("kickoff"),
         "League": fixture_data.get("league", "Global Soccer"),
         "Matchup": matchup,
-        "Market": "Halftime In-Play" if "Halftime" in fixture_data.get("score", "") else "Pre-Match +EV",
+        "Market": "Halftime In-Play" if "Halftime" in str(fixture_data.get('score', '')) else "Pre-Match +EV",
         "Pick": pick,
         "Bookmaker": live_odds.get("bookmaker", "Retail Book"),
         "Odds": float(data.get("odds")),
@@ -234,7 +211,6 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         logger.error(f"Failed to record bet: {e}")
         return False
 
-    # Dispatch Telegram Alert
     card_message = (
         f"🚨 <b>[{model_tag}] VALUE DISCREPANCY</b>\n\n"
         f"⚽ <b>{matchup}</b>\n"
@@ -262,7 +238,6 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     return True
 
 def auto_settle():
-    """Settles pending bets against finished matches via The Odds API scores endpoint."""
     api_key = os.environ.get("ODDS_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
@@ -371,10 +346,8 @@ def fetch_soccer_odds():
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # 1. First settle finished matches
     auto_settle()
 
-    # 2. Pull real live & upcoming soccer odds
     bankroll = 1000.0
     matches = fetch_soccer_odds()
     logger.info(f"Loaded {len(matches)} real fixtures to evaluate.")
@@ -390,11 +363,9 @@ def main():
         commence_time = datetime.fromisoformat(commence_time_str.replace("Z", "+00:00"))
         minutes_since_kickoff = (now - commence_time).total_seconds() / 60
 
-        # Check in-play halftime vs pre-match horizons
         is_halftime = 45 <= minutes_since_kickoff <= 65
         is_future = minutes_since_kickoff < 0
 
-        # Discard games that are in second half or past completed
         if not is_halftime and not is_future:
             continue
 
@@ -402,7 +373,6 @@ def main():
         if "pinnacle" not in bookmakers:
             continue
 
-        # Extract Pinnacle sharp baseline
         pinnacle_odds = {}
         for m in bookmakers["pinnacle"].get("markets", []):
             if m["key"] == "h2h":
@@ -411,7 +381,6 @@ def main():
         if not pinnacle_odds:
             continue
 
-        # Assign Model Tag and State Label based on real timing
         hours_to_kickoff = -minutes_since_kickoff / 60
         if is_halftime:
             assigned_tag = "LATE_STEAM"
@@ -426,7 +395,6 @@ def main():
             assigned_tag = "LATE_STEAM"
             state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
 
-        # Scan retail books for +EV discrepancies vs Pinnacle
         for b_key, b_data in bookmakers.items():
             if b_key == "pinnacle":
                 continue
@@ -440,7 +408,6 @@ def main():
                         if sharp_price and retail_price > sharp_price:
                             edge = round(((retail_price / sharp_price) - 1.0) * 100, 1)
                             
-                            # Log bets meeting minimum threshold (>= 3.0% edge)
                             if edge >= 3.0:
                                 fixture_data = {
                                     "home": game.get("home_team"),
@@ -465,11 +432,13 @@ def main():
                                 if logged:
                                     new_bets_logged = True
 
-    # Sync to GitHub if any new bets were recorded
     if new_bets_logged:
         sync_csv_to_github()
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
+
+run_live_scan = main
+run_prematch_scan = main
 
 if __name__ == "__main__":
     logger.info("Starting Quant Worker Daemon...")
@@ -486,7 +455,6 @@ if __name__ == "__main__":
         except Exception as e:
             logger.error(f"Failed to send startup alert: {e}")
 
-    # Polling loop: runs every 5 minutes
     while True:
         try:
             main()
