@@ -50,7 +50,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.0-flash",
             contents=prompt
         )
         cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
