@@ -3,4 +3,4 @@ yfinance
 requests>=2.31.0
 pandas>=2.1.0
 APScheduler>=3.10.0
-google-generativeai
+google-genai
