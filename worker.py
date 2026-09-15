@@ -383,7 +383,7 @@ def main():
 
         hours_to_kickoff = -minutes_since_kickoff / 60
         if is_halftime:
-            assigned_tag = "LATE_STEAM"
+            assigned_tag = "HALFTIME_LIVE"
             state_label = "Halftime (In-Play)"
         elif hours_to_kickoff > 48:
             assigned_tag = "EARLY_BIRD"
