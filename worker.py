@@ -3,6 +3,7 @@ import json
 import logging
 import base64
 import uuid
+import time
 from datetime import datetime, timezone
 import pandas as pd
 import requests
@@ -195,7 +196,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         data = {
             "is_valid_ev": calculated_edge > 0,
             "edge_pct": calculated_edge,
-            "recommended_pick": f"{fixture_data['favorite']} Draw No Bet",
+            "recommended_pick": f"{fixture_data['favorite']} Over / Draw No Bet",
             "odds": retail,
             "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Pinnacle baseline {sharp}.",
             "kelly_stake_pct": 0.015
@@ -369,10 +370,10 @@ def fetch_live_matches():
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # 1. Check and settle finished fixtures first
+    # 1. Settle completed bets first
     auto_settle()
 
-    # 2. Scan for new betting opportunities
+    # 2. Fetch active games and run models
     bankroll = 1000.0
     matches = fetch_live_matches()
     logger.info(f"Found {len(matches)} fixtures to scan.")
@@ -394,14 +395,13 @@ def main():
             live_odds = {"pinnacle": 2.10, "bookmaker": "Bet365", "retail_odds": 2.35}
             pre_match_odds = {"favorite_prob": 62}
 
-            # Distribute opportunities across the Streamlit models
             assigned_tag = "LATE_STEAM" if idx % 3 == 0 else ("CORE_EV" if idx % 3 == 1 else "EARLY_BIRD")
 
             logged = evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag=assigned_tag, bankroll=bankroll)
             if logged:
                 new_bets_logged = True
 
-    # 3. Sync to GitHub once if any new bets were recorded
+    # 3. Sync to GitHub once if new bets were recorded
     if new_bets_logged:
         sync_csv_to_github()
 
@@ -411,4 +411,27 @@ run_live_scan = main
 run_prematch_scan = main
 
 if __name__ == "__main__":
-    main()
+    logger.info("Starting Quant Worker Daemon...")
+
+    # Startup verification alert to confirm Telegram connection
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if bot_token and chat_id:
+        try:
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Worker Daemon Online</b>: Starting 5-minute automated polling loop.", "parse_mode": "HTML"},
+                timeout=10
+            )
+        except Exception as e:
+            logger.error(f"Failed to send online notification: {e}")
+
+    # Continuous polling loop (runs every 300 seconds / 5 minutes)
+    while True:
+        try:
+            main()
+        except Exception as e:
+            logger.error(f"Error during scan loop: {e}")
+        
+        logger.info("Sleeping for 300 seconds before next scan cycle...")
+        time.sleep(300)
