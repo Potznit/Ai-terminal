@@ -165,4 +165,4 @@ auto_settle = lambda: print("Checking settlement rules against finished scores..
 
 if __name__ == "__main__":
     main()
-
+# v1.0.1 - entry point ready
