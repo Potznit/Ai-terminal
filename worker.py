@@ -4,7 +4,7 @@ import logging
 from datetime import datetime, timezone
 import pandas as pd
 import requests
-import google.generativeai as genai
+from google import genai
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("QuantWorker")
@@ -25,8 +25,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
         logger.warning("GEMINI_API_KEY not configured. Skipping LLM tactical verification.")
         return
 
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    client = genai.Client(api_key=api_key)
 
     prompt = f"""
     You are an elite live in-play sports quantitative trader.
@@ -50,7 +49,10 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
     """
 
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
         cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
         data = json.loads(cleaned_text)
     except Exception as e:
