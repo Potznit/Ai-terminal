@@ -26,7 +26,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
         return
 
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-2.5-flash")
+    model = genai.GenerativeModel("gemini-1.5-flash")
 
     prompt = f"""
     You are an elite live in-play sports quantitative trader.
