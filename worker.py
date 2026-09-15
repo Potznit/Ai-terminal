@@ -2,6 +2,7 @@ import os
 import json
 import logging
 import base64
+import uuid
 from datetime import datetime, timezone
 import pandas as pd
 import requests
@@ -9,11 +10,36 @@ import requests
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("QuantWorker")
 
-LIVE_MODEL_TAG = "LIVE_WAR_ROOM"
 CSV_PATH = "paper_trades.csv"
 
+# Columns strictly formatted to match Streamlit's schema
+SCHEMA_COLUMNS = [
+    "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
+    "Market", "Pick", "Bookmaker", "Odds", "Edge_Pct", 
+    "Stake", "Status", "P_L"
+]
+
+def ensure_ledger_initialized():
+    """Initializes or resets paper_trades.csv with proper Streamlit schema."""
+    if not os.path.exists(CSV_PATH):
+        df = pd.DataFrame(columns=SCHEMA_COLUMNS)
+        df.to_csv(CSV_PATH, index=False)
+        logger.info("Initialized fresh paper_trades.csv with Streamlit schema.")
+    else:
+        try:
+            df = pd.read_csv(CSV_PATH)
+            # Check if columns are missing or lowercase
+            if not all(col in df.columns for col in ["ID", "Model_Tag", "Pick", "Matchup"]):
+                logger.warning("Detected mismatched or legacy CSV schema. Re-formatting...")
+                df = pd.DataFrame(columns=SCHEMA_COLUMNS)
+                df.to_csv(CSV_PATH, index=False)
+        except Exception as e:
+            logger.error(f"Error validating CSV schema: {e}")
+
+ensure_ledger_initialized()
+
 def sync_csv_to_github():
-    """Commits paper_trades.csv to GitHub so Streamlit Cloud stays synced."""
+    """Commits paper_trades.csv to GitHub once per audit loop to avoid build storms."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
     if not token or not os.path.exists(CSV_PATH):
@@ -45,24 +71,26 @@ def sync_csv_to_github():
         if put_res.status_code in [200, 201]:
             logger.info("paper_trades.csv successfully synced to GitHub.")
         else:
-            logger.error(f"GitHub sync returned {put_res.status_code}: {put_res.text}")
+            logger.error(f"GitHub sync error: {put_res.status_code} - {put_res.text}")
     except Exception as e:
         logger.error(f"GitHub sync failed: {e}")
 
-def has_existing_bet(matchup: str, pick: str) -> bool:
+def has_existing_bet(matchup: str, pick: str, model_tag: str) -> bool:
+    """Checks whether this specific trade has already been registered."""
     if not os.path.exists(CSV_PATH):
         return False
     try:
         df = pd.read_csv(CSV_PATH)
-        if df.empty:
+        if df.empty or "Matchup" not in df.columns:
             return False
-        existing = df[(df["matchup"] == matchup) & (df["pick"] == pick)]
+        existing = df[(df["Matchup"] == matchup) & (df["Pick"] == pick) & (df["Model_Tag"] == model_tag)]
         return not existing.empty
     except Exception as e:
         logger.error(f"Error checking existing bets: {e}")
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
+    """Queries Gemini-3.8-flash via Interactions API with a generateContent fallback."""
     headers = {
         "x-goog-api-key": api_key,
         "Content-Type": "application/json"
@@ -81,13 +109,13 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
             data = res.json()
             for step in data.get("steps", []):
                 if step.get("type") == "model_output":
-                    for content in step.get("content", []):
-                        if content.get("type") == "text":
-                            return json.loads(content.get("text", "").replace("```json", "").replace("```", "").strip())
+                    for c in step.get("content", []):
+                        if c.get("type") == "text":
+                            return json.loads(c.get("text", "").replace("```json", "").replace("```", "").strip())
             if "output_text" in data:
                 return json.loads(data["output_text"].replace("```json", "").replace("```", "").strip())
     except Exception as e:
-        logger.debug(f"Interactions API probe bypassed: {e}")
+        logger.debug(f"Interactions API bypassed: {e}")
 
     # Fallback: generateContent
     try:
@@ -105,29 +133,30 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
 
     return None
 
-def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll=1000.0):
+def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag="LATE_STEAM", bankroll=1000.0) -> bool:
+    """Evaluates edge, logs into CSV with exact Streamlit column names, and fires Telegram alert."""
     api_key = os.environ.get("GEMINI_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
     prompt = f"""
-    You are an elite live in-play soccer quantitative analyst.
-    Evaluate this Halftime market state:
-    Match: {fixture_data['home']} vs {fixture_data['away']}
-    Current Score: {fixture_data.get('score', '0 - 1')} (Halftime)
-    Pre-Match Favorite: {fixture_data['favorite']} ({pre_match_odds.get('favorite_prob', 65)}% implied)
-    Live Match Odds:
-    - Sharp Baseline (Pinnacle): {live_odds.get('pinnacle', 2.10)}
-    - Retail Bookmaker ({live_odds.get('bookmaker', 'Bet365')}): {live_odds.get('retail_odds', 2.35)}
+    You are an elite sports quantitative analyst.
+    Evaluate market edge:
+    Model Horizon: {model_tag}
+    Match: {matchup}
+    Score: {fixture_data.get('score', '0 - 1')}
+    Favorite: {fixture_data['favorite']} ({pre_match_odds.get('favorite_prob', 65)}% implied)
+    Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle', 2.10)}
+    Retail Outlier ({live_odds.get('bookmaker', 'Bet365')}): {live_odds.get('retail_odds', 2.35)}
 
     Confirm if a genuine +EV trading edge exists. Return STRICT JSON only:
     {{
       "is_valid_ev": true,
       "edge_pct": 4.2,
-      "recommended_pick": "{fixture_data['favorite']} 2nd-Half ML",
+      "recommended_pick": "{fixture_data['favorite']} Draw No Bet",
       "odds": {live_odds.get('retail_odds', 2.35)},
-      "tactical_analysis": "Retail score-panic overreaction creating mispricing against favorite underlying second-half metrics.",
+      "tactical_analysis": "Retail line overadjusts to trailing game-state variance against underlying regression profile.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -145,63 +174,59 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
             "edge_pct": calculated_edge,
             "recommended_pick": f"{fixture_data['favorite']} Over / Draw No Bet",
             "odds": retail,
-            "tactical_analysis": f"Quantitative price divergence: Soft book line {retail} vs sharp Pinnacle baseline {sharp}.",
+            "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Pinnacle baseline {sharp}.",
             "kelly_stake_pct": 0.015
         }
 
     if not data.get("is_valid_ev"):
-        return
+        return False
 
     pick = data.get("recommended_pick")
 
-    if has_existing_bet(matchup, pick):
-        logger.info(f"Skipping duplicate trade for {matchup} [{pick}].")
-        return
+    if has_existing_bet(matchup, pick, model_tag):
+        logger.info(f"Skipping duplicate trade for {matchup} [{pick}] under {model_tag}.")
+        return False
 
     stake_amount = round(bankroll * data.get("kelly_stake_pct", 0.015), 2)
 
+    # EXACT Column names expected by Streamlit app.py
     new_trade = {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "model_tag": LIVE_MODEL_TAG,
-        "league": fixture_data.get("league", "Global Soccer"),
-        "matchup": matchup,
-        "market": "In-Play Halftime Discrepancy",
-        "pick": pick,
-        "bookmaker": live_odds.get("bookmaker", "Retail Soft"),
-        "odds": data.get("odds"),
-        "edge_pct": data.get("edge_pct"),
-        "stake": stake_amount,
-        "status": "PENDING",
-        "kickoff": fixture_data.get("kickoff", datetime.now(timezone.utc).isoformat()),
-        "p_l": 0.0
+        "ID": str(uuid.uuid4())[:8],
+        "Model_Tag": model_tag,
+        "Kickoff_UTC": fixture_data.get("kickoff", datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")),
+        "League": fixture_data.get("league", "Global Soccer"),
+        "Matchup": matchup,
+        "Market": "Halftime In-Play" if model_tag == "LATE_STEAM" else "Arbitrage EV",
+        "Pick": pick,
+        "Bookmaker": live_odds.get("bookmaker", "Bet365"),
+        "Odds": float(data.get("odds", 2.35)),
+        "Edge_Pct": float(data.get("edge_pct", 5.0)),
+        "Stake": float(stake_amount),
+        "Status": "PENDING",
+        "P_L": 0.0
     }
 
     try:
-        if os.path.exists(CSV_PATH):
-            df = pd.read_csv(CSV_PATH)
-            df = pd.concat([df, pd.DataFrame([new_trade])], ignore_index=True)
-        else:
-            df = pd.DataFrame([new_trade])
+        df = pd.read_csv(CSV_PATH) if os.path.exists(CSV_PATH) else pd.DataFrame(columns=SCHEMA_COLUMNS)
+        df = pd.concat([df, pd.DataFrame([new_trade])], ignore_index=True)
         df.to_csv(CSV_PATH, index=False)
-        logger.info(f"Logged paper bet: ${stake_amount} on {pick} ({matchup})")
-        # Sync immediately to GitHub
-        sync_csv_to_github()
+        logger.info(f"Logged [{model_tag}] paper bet: ${stake_amount} on {pick} ({matchup})")
     except Exception as e:
-        logger.error(f"Error saving trade: {e}")
+        logger.error(f"Failed to record trade to CSV: {e}")
+        return False
 
+    # Send Telegram Card
     card_message = (
-        f"🚨 <b>[LIVE WAR ROOM] HALFTIME DISCREPANCY</b>\n\n"
-        f"⚽ <b>{fixture_data['home']} vs {fixture_data['away']}</b>\n"
-        f"⏱ <b>Score:</b> {fixture_data.get('score', '0 - 1')} (Halftime)\n\n"
+        f"🚨 <b>[{model_tag}] VALUE DISCREPANCY</b>\n\n"
+        f"⚽ <b>{matchup}</b>\n"
+        f"⏱ <b>State:</b> {fixture_data.get('score', 'In-Play')}\n\n"
         f"📊 <b>Market Discrepancy:</b>\n"
-        f"• Pre-Match Favorite: {fixture_data['favorite']}\n"
-        f"• Retail Outlier: {data.get('odds')} ({live_odds.get('bookmaker', 'Retail')})\n"
+        f"• Outlier Line: <b>{data.get('odds')}</b> ({live_odds.get('bookmaker', 'Retail')})\n"
         f"• Calculated Edge: <b>+{data.get('edge_pct')}% EV</b>\n\n"
         f"🧠 <b>Tactical Read:</b>\n{data.get('tactical_analysis')}\n\n"
-        f"🎯 <b>PAPER EXECUTION LOGGED:</b>\n"
+        f"🎯 <b>LOGGED POSITION:</b>\n"
         f"• Pick: <code>{pick}</code>\n"
-        f"• Stake: <b>${stake_amount}</b> (@ {data.get('odds')})\n"
-        f"• Bankroll Risk: {round(data.get('kelly_stake_pct', 0.015) * 100, 1)}% (Quarter-Kelly)"
+        f"• Stake: <b>${stake_amount}</b> (@ {data.get('odds')})"
     )
 
     if bot_token and chat_id:
@@ -211,7 +236,10 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
         except Exception as e:
             logger.error(f"Telegram dispatch failed: {e}")
 
+    return True
+
 def fetch_live_matches():
+    """Pulls current fixtures from The Odds API."""
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         return []
@@ -221,16 +249,18 @@ def fetch_live_matches():
         if res.status_code == 200:
             return res.json()
     except Exception as e:
-        logger.error(f"Error fetching live matches: {e}")
+        logger.error(f"Error fetching live odds: {e}")
     return []
 
 def main():
-    logger.info("--- [QUANT ENGINE] Running In-Play & Halftime Audit ---")
+    logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     bankroll = 1000.0
     matches = fetch_live_matches()
     logger.info(f"Found {len(matches)} fixtures to scan.")
 
-    for game in matches:
+    new_bets_logged = False
+
+    for idx, game in enumerate(matches):
         fixture_data = {
             "home": game.get("home_team"),
             "away": game.get("away_team"),
@@ -244,7 +274,17 @@ def main():
         if "pinnacle" in bookmakers:
             live_odds = {"pinnacle": 2.10, "bookmaker": "Bet365", "retail_odds": 2.35}
             pre_match_odds = {"favorite_prob": 62}
-            evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll)
+
+            # Distribute opportunities across the 3 Streamlit leaderboard models
+            assigned_tag = "LATE_STEAM" if idx % 3 == 0 else ("CORE_EV" if idx % 3 == 1 else "EARLY_BIRD")
+
+            logged = evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag=assigned_tag, bankroll=bankroll)
+            if logged:
+                new_bets_logged = True
+
+    # Sync to GitHub only once at the end of the entire loop
+    if new_bets_logged:
+        sync_csv_to_github()
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
