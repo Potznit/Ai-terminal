@@ -13,16 +13,50 @@ CSV_PATH = "paper_trades.csv"
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
     """
-    Sends request to Gemini using standard x-goog-api-key header format
-    and logs the exact HTTP status and error body for debugging.
+    Queries Google's endpoint using the modern Interactions API format
+    with gemini-3.8-flash, with automatic fallback for older schema compatibility.
     """
-    models_to_try = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
-    
     headers = {
         "x-goog-api-key": api_key,
         "Content-Type": "application/json"
     }
-    payload = {
+
+    # 1. Primary: Google Interactions API (Default for newer paid accounts)
+    interaction_url = "https://generativelanguage.googleapis.com/v1beta/interactions"
+    interaction_payload = {
+        "model": "gemini-3.8-flash",
+        "input": prompt,
+        "generation_config": {
+            "temperature": 0.2
+        }
+    }
+
+    try:
+        res = requests.post(interaction_url, json=interaction_payload, headers=headers, timeout=12)
+        logger.info(f"Interactions API probe status: {res.status_code}")
+        if res.status_code == 200:
+            data = res.json()
+            # Extract output text from interactions schema
+            steps = data.get("steps", [])
+            for step in steps:
+                if step.get("type") == "model_output":
+                    for content in step.get("content", []):
+                        if content.get("type") == "text":
+                            raw_text = content.get("text", "")
+                            cleaned = raw_text.replace("```json", "").replace("```", "").strip()
+                            return json.loads(cleaned)
+            # Alternative format in newer SDK representations
+            if "output_text" in data:
+                cleaned = data["output_text"].replace("```json", "").replace("```", "").strip()
+                return json.loads(cleaned)
+        else:
+            logger.warning(f"Interactions API response: {res.text}")
+    except Exception as e:
+        logger.error(f"Interactions probe failed: {e}")
+
+    # 2. Secondary fallback: generateContent with current model identifier
+    generate_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
+    generate_payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
             "temperature": 0.2,
@@ -30,21 +64,18 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
         }
     }
 
-    for m in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent"
-        try:
-            res = requests.post(url, json=payload, headers=headers, timeout=10)
-            logger.info(f"Gemini probe [{m}] HTTP Status: {res.status_code}")
-            if res.status_code == 200:
-                result = res.json()
-                raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
-                cleaned = raw_text.replace("```json", "").replace("```", "").strip()
-                return json.loads(cleaned)
-            else:
-                logger.error(f"Gemini probe [{m}] Error Body: {res.text}")
-        except Exception as e:
-            logger.error(f"Gemini request exception on {m}: {e}")
-            continue
+    try:
+        res = requests.post(generate_url, json=generate_payload, headers=headers, timeout=12)
+        logger.info(f"generateContent probe status: {res.status_code}")
+        if res.status_code == 200:
+            result = res.json()
+            raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
+            cleaned = raw_text.replace("```json", "").replace("```", "").strip()
+            return json.loads(cleaned)
+        else:
+            logger.error(f"generateContent error: {res.text}")
+    except Exception as e:
+        logger.error(f"generateContent probe failed: {e}")
 
     return None
 
@@ -82,7 +113,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
     if api_key:
         data = query_gemini_ai(prompt, api_key)
 
-    # Fallback to local quant model if API key has network/tier limits
+    # Built-in fallback if external API is unreachable
     if not data:
         sharp = live_odds.get("pinnacle", 2.10)
         retail = live_odds.get("retail_odds", 2.35)
@@ -211,7 +242,6 @@ def main():
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
-# Compatibility aliases for APScheduler in main.py
 run_live_scan = main
 run_prematch_scan = main
 
