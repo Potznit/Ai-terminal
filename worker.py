@@ -11,68 +11,78 @@ logger = logging.getLogger("QuantWorker")
 LIVE_MODEL_TAG = "LIVE_WAR_ROOM"
 CSV_PATH = "paper_trades.csv"
 
-def query_gemini_smart(prompt: str, api_key: str) -> dict:
+def query_gemini_ai(prompt: str, api_key: str) -> dict:
     """
-    Attempts to query Gemini across known compatible endpoints.
-    Falls back gracefully if key format is Vertex/Enterprise restricted.
+    Sends request to Gemini using standard x-goog-api-key header format
+    compatible with new AQ. and legacy AIza keys.
     """
-    candidate_endpoints = [
-        f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}",
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}",
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
-    ]
-
+    # Test models supported on the REST gateway
+    models = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    
+    headers = {
+        "x-goog-api-key": api_key,
+        "Content-Type": "application/json"
+    }
+    
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {
-            "temperature": 0.2
+            "temperature": 0.2,
+            "responseMimeType": "application/json"
         }
     }
 
-    for url in candidate_endpoints:
+    for m in models:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent"
         try:
-            res = requests.post(url, json=payload, timeout=12)
+            res = requests.post(url, json=payload, headers=headers, timeout=12)
             if res.status_code == 200:
                 result = res.json()
                 raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
                 cleaned = raw_text.replace("```json", "").replace("```", "").strip()
                 return json.loads(cleaned)
-        except Exception:
+            else:
+                logger.debug(f"Model {m} returned status {res.status_code}")
+        except Exception as e:
+            logger.debug(f"Request failed for {m}: {e}")
             continue
 
     return None
 
 def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll=1000.0):
+    """
+    Verifies edge with Gemini, logs trade, and dispatches Telegram alert.
+    """
     api_key = os.environ.get("GEMINI_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     prompt = f"""
-    You are an elite live sports quantitative trader.
+    You are an elite live in-play soccer quantitative analyst.
     Evaluate this Halftime market state:
     Match: {fixture_data['home']} vs {fixture_data['away']}
     Current Score: {fixture_data.get('score', '0 - 1')} (Halftime)
-    Pre-Match Implied Probability for {fixture_data['favorite']}: {pre_match_odds.get('favorite_prob', 65)}%
-    Live 2nd-Half / Match Odds:
-    - Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle', 2.10)}
-    - Target Retail Book ({live_odds.get('bookmaker', 'Bet365')}): {live_odds.get('retail_odds', 2.35)}
+    Pre-Match Favorite: {fixture_data['favorite']} ({pre_match_odds.get('favorite_prob', 65)}% implied)
+    Live Match Odds:
+    - Sharp Baseline (Pinnacle): {live_odds.get('pinnacle', 2.10)}
+    - Retail Bookmaker ({live_odds.get('bookmaker', 'Bet365')}): {live_odds.get('retail_odds', 2.35)}
 
-    Determine if a true +EV discrepancy exists. Return STRICT JSON only:
+    Confirm if a genuine +EV trading edge exists. Return STRICT JSON only:
     {{
       "is_valid_ev": true,
       "edge_pct": 4.2,
       "recommended_pick": "{fixture_data['favorite']} 2nd-Half ML",
       "odds": {live_odds.get('retail_odds', 2.35)},
-      "tactical_analysis": "Retail score-panic overreaction vs dominant underlying possession and shot pressure.",
+      "tactical_analysis": "Retail score-panic overreaction creating mispricing against favorite underlying second-half metrics.",
       "kelly_stake_pct": 0.015
     }}
     """
 
     data = None
     if api_key:
-        data = query_gemini_smart(prompt, api_key)
+        data = query_gemini_ai(prompt, api_key)
 
-    # Built-in Quantitative Fallback if LLM endpoint fails
+    # Fallback to local quant model if API key has network/tier limits
     if not data:
         sharp = live_odds.get("pinnacle", 2.10)
         retail = live_odds.get("retail_odds", 2.35)
@@ -83,7 +93,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
             "edge_pct": calculated_edge,
             "recommended_pick": f"{fixture_data['favorite']} Over/Draw No Bet",
             "odds": retail,
-            "tactical_analysis": f"Quantitative edge identified: Retail line {retail} deviates from Pinnacle baseline {sharp}.",
+            "tactical_analysis": f"Quantitative price divergence: Soft book line {retail} vs sharp Pinnacle baseline {sharp}.",
             "kelly_stake_pct": 0.015
         }
 
@@ -142,7 +152,7 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
             if res.status_code == 200:
                 logger.info("Live War Room Telegram alert dispatched successfully.")
             else:
-                logger.error(f"Telegram returned error {res.status_code}: {res.text}")
+                logger.error(f"Telegram error {res.status_code}: {res.text}")
         except Exception as e:
             logger.error(f"Telegram dispatch failed: {e}")
 
@@ -191,6 +201,7 @@ def main():
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
+# Compatibility aliases for main.py
 run_live_scan = main
 run_prematch_scan = main
 
