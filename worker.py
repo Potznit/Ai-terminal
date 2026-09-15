@@ -12,6 +12,7 @@ logger = logging.getLogger("QuantWorker")
 
 CSV_PATH = "paper_trades.csv"
 
+# Columns strictly formatted to match Streamlit's schema
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
     "Market", "Pick", "Bookmaker", "Odds", "Edge_Pct", 
@@ -100,7 +101,6 @@ def has_existing_bet(matchup: str, model_tag: str) -> bool:
         if df.empty or "Matchup" not in df.columns:
             return False
         
-        # Clean whitespace and case
         m_clean = matchup.strip().lower()
         tag_clean = model_tag.strip().upper()
         
@@ -157,7 +157,6 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
 def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag="LATE_STEAM", bankroll=1000.0) -> bool:
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
-    # Check deduplication FIRST before pinging AI or Telegram
     if has_existing_bet(matchup, model_tag):
         logger.info(f"Skipping duplicate trade for {matchup} under {model_tag}.")
         return False
@@ -258,6 +257,102 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
 
     return True
 
+def auto_settle():
+    """Fetches completed match scores from The Odds API and settles pending bets."""
+    api_key = os.environ.get("ODDS_API_KEY")
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+
+    if not api_key or not os.path.exists(CSV_PATH):
+        return
+
+    try:
+        df = pd.read_csv(CSV_PATH)
+        if df.empty or "Status" not in df.columns:
+            return
+
+        pending_mask = df["Status"] == "PENDING"
+        if not pending_mask.any():
+            logger.info("No pending bets to settle.")
+            return
+
+        url = f"https://api.the-odds-api.com/v4/sports/soccer/scores/?apiKey={api_key}&daysFrom=3"
+        res = requests.get(url, timeout=15)
+        if res.status_code != 200:
+            logger.error(f"Scores API returned code: {res.status_code}")
+            return
+
+        games = res.json()
+        settled_any = False
+
+        for idx in df[pending_mask].index:
+            matchup = str(df.at[idx, "Matchup"]).strip().lower()
+            pick = str(df.at[idx, "Pick"]).strip()
+            stake = float(df.at[idx, "Stake"])
+            odds = float(df.at[idx, "Odds"])
+            model_tag = str(df.at[idx, "Model_Tag"])
+
+            for game in games:
+                if not game.get("completed"):
+                    continue
+
+                game_matchup = f"{game.get('home_team')} vs {game.get('away_team')}".strip().lower()
+                if game_matchup != matchup:
+                    continue
+
+                scores = game.get("scores")
+                if not scores or len(scores) < 2:
+                    continue
+
+                home_score = int(next((s["score"] for s in scores if s["name"] == game["home_team"]), 0))
+                away_score = int(next((s["score"] for s in scores if s["name"] == game["away_team"]), 0))
+
+                if home_score > away_score:
+                    winner = game["home_team"]
+                elif away_score > home_score:
+                    winner = game["away_team"]
+                else:
+                    winner = "Draw"
+
+                is_win = (winner in pick) and (winner != "Draw")
+                is_push = ("draw no bet" in pick.lower() and winner == "Draw")
+
+                if is_win:
+                    profit = round(stake * (odds - 1.0), 2)
+                    df.at[idx, "Status"] = "WON"
+                    df.at[idx, "P_L"] = profit
+                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nResult: <b>+${profit}</b>"
+                elif is_push:
+                    df.at[idx, "Status"] = "PUSH"
+                    df.at[idx, "P_L"] = 0.0
+                    settle_msg = f"🔄 <b>[{model_tag}] BET PUSHED</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nStake returned: <b>$0.00</b>"
+                else:
+                    df.at[idx, "Status"] = "LOST"
+                    df.at[idx, "P_L"] = -stake
+                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nResult: <b>-${stake}</b>"
+
+                settled_any = True
+                logger.info(f"Settled {df.at[idx, 'Matchup']} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
+
+                if bot_token and chat_id:
+                    try:
+                        requests.post(
+                            f"https://api.telegram.org/bot{bot_token}/sendMessage",
+                            json={"chat_id": chat_id, "text": settle_msg, "parse_mode": "HTML"},
+                            timeout=10
+                        )
+                    except Exception:
+                        pass
+                break
+
+        if settled_any:
+            df.to_csv(CSV_PATH, index=False)
+            sync_csv_to_github()
+            logger.info("Updated settled records and pushed to GitHub.")
+
+    except Exception as e:
+        logger.error(f"Error during auto_settle: {e}")
+
 def fetch_live_matches():
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
@@ -273,6 +368,11 @@ def fetch_live_matches():
 
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
+    
+    # 1. Check and settle finished fixtures first
+    auto_settle()
+
+    # 2. Scan for new betting opportunities
     bankroll = 1000.0
     matches = fetch_live_matches()
     logger.info(f"Found {len(matches)} fixtures to scan.")
@@ -294,13 +394,14 @@ def main():
             live_odds = {"pinnacle": 2.10, "bookmaker": "Bet365", "retail_odds": 2.35}
             pre_match_odds = {"favorite_prob": 62}
 
+            # Distribute opportunities across the Streamlit models
             assigned_tag = "LATE_STEAM" if idx % 3 == 0 else ("CORE_EV" if idx % 3 == 1 else "EARLY_BIRD")
 
             logged = evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag=assigned_tag, bankroll=bankroll)
             if logged:
                 new_bets_logged = True
 
-    # Sync once to GitHub only if actual new bets were logged
+    # 3. Sync to GitHub once if any new bets were recorded
     if new_bets_logged:
         sync_csv_to_github()
 
@@ -308,9 +409,6 @@ def main():
 
 run_live_scan = main
 run_prematch_scan = main
-
-def auto_settle():
-    logger.info("Checking settlement rules against finished scores...")
 
 if __name__ == "__main__":
     main()
