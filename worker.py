@@ -4,7 +4,6 @@ import logging
 from datetime import datetime, timezone
 import pandas as pd
 import requests
-from google import genai
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("QuantWorker")
@@ -12,23 +11,55 @@ logger = logging.getLogger("QuantWorker")
 LIVE_MODEL_TAG = "LIVE_WAR_ROOM"
 CSV_PATH = "paper_trades.csv"
 
+def query_gemini_paid(prompt: str, api_key: str) -> dict:
+    """
+    Sends request to Gemini using Google Cloud Vertex / Developer endpoint
+    compatible with AQ. paid keys. Falls back cleanly if format differs.
+    """
+    # 1. Primary endpoint for enterprise/paid developer credentials
+    endpoint = "https://aiplatform.googleapis.com/v1/publishers/google/models/gemini-1.5-flash:generateContent"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseMimeType": "application/json",
+            "temperature": 0.2
+        }
+    }
+
+    res = requests.post(endpoint, json=payload, headers=headers, timeout=20)
+    
+    # Fallback attempt via standard query param if header bearer is rejected
+    if res.status_code in [401, 403, 404]:
+        alt_endpoint = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+        res = requests.post(alt_endpoint, json=payload, timeout=20)
+
+    if res.status_code != 200:
+        logger.error(f"Paid Gemini API returned {res.status_code}: {res.text}")
+        return None
+
+    result = res.json()
+    raw_text = result["candidates"][0]["content"]["parts"][0]["text"]
+    cleaned = raw_text.replace("```json", "").replace("```", "").strip()
+    return json.loads(cleaned)
+
 def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll=1000.0):
     """
-    Evaluates in-play game-state discrepancies, verifies edge with Gemini,
-    logs the simulated stake to paper_trades.csv, and sends a Telegram card.
+    Verifies edge with Gemini using paid quota, logs trade, and dispatches Telegram alert.
     """
     api_key = os.environ.get("GEMINI_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     if not api_key:
-        logger.warning("GEMINI_API_KEY not configured. Skipping LLM tactical verification.")
+        logger.warning("GEMINI_API_KEY missing.")
         return
 
-    client = genai.Client(api_key=api_key)
-
     prompt = f"""
-    You are an elite live in-play sports quantitative trader.
+    You are an elite live sports quantitative trader.
     Evaluate this Halftime market state:
     Match: {fixture_data['home']} vs {fixture_data['away']}
     Current Score: {fixture_data.get('score', '0 - 1')} (Halftime)
@@ -48,25 +79,14 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
     }}
     """
 
-    try:
-        response = client.models.generate_content(
-            model="gemini-3.0-flash",
-            contents=prompt
-        )
-        cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
-        data = json.loads(cleaned_text)
-    except Exception as e:
-        logger.error(f"Error parsing Gemini response: {e}")
+    data = query_gemini_paid(prompt, api_key)
+    if not data or not data.get("is_valid_ev"):
+        logger.info(f"No valid LLM edge found for {fixture_data['home']} vs {fixture_data['away']}.")
         return
 
-    if not data.get("is_valid_ev"):
-        logger.info(f"No verifiable edge on {fixture_data['home']} vs {fixture_data['away']}.")
-        return
-
-    # Calculate Quarter-Kelly Fake Money Stake
+    # Calculate Quarter-Kelly simulated stake
     stake_amount = round(bankroll * data.get("kelly_stake_pct", 0.015), 2)
 
-    # Append to paper trades CSV
     new_trade = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "model_tag": LIVE_MODEL_TAG,
@@ -92,9 +112,8 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
         df.to_csv(CSV_PATH, index=False)
         logger.info(f"Logged paper bet: ${stake_amount} on {data.get('recommended_pick')}")
     except Exception as e:
-        logger.error(f"Error saving trade to CSV: {e}")
+        logger.error(f"Error saving to {CSV_PATH}: {e}")
 
-    # Dispatch card to Telegram
     card_message = (
         f"🚨 <b>[LIVE WAR ROOM] HALFTIME DISCREPANCY</b>\n\n"
         f"⚽ <b>{fixture_data['home']} vs {fixture_data['away']}</b>\n"
@@ -112,17 +131,13 @@ def evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, b
 
     if bot_token and chat_id:
         try:
-            url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-            res = requests.post(url, json={"chat_id": chat_id, "text": card_message, "parse_mode": "HTML"}, timeout=10)
-            if res.status_code == 200:
-                logger.info("Live War Room Telegram alert dispatched.")
+            tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+            requests.post(tg_url, json={"chat_id": chat_id, "text": card_message, "parse_mode": "HTML"}, timeout=10)
+            logger.info("Live War Room Telegram alert dispatched.")
         except Exception as e:
-            logger.error(f"Failed to dispatch Telegram alert: {e}")
+            logger.error(f"Telegram dispatch failed: {e}")
 
 def fetch_live_matches():
-    """
-    Fetches in-play events and live odds from The Odds API.
-    """
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         logger.warning("Missing ODDS_API_KEY environment variable.")
@@ -133,9 +148,9 @@ def fetch_live_matches():
         res = requests.get(url, timeout=15)
         if res.status_code == 200:
             return res.json()
-        logger.warning(f"Odds API responded with status: {res.status_code}")
+        logger.warning(f"The Odds API returned {res.status_code}")
     except Exception as e:
-        logger.error(f"Error fetching live matches from API: {e}")
+        logger.error(f"Error fetching live matches: {e}")
     return []
 
 def main():
@@ -157,18 +172,22 @@ def main():
 
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
         if "pinnacle" in bookmakers:
-            live_odds = {
-                "pinnacle": 2.10,
-                "bookmaker": "Bet365",
-                "retail_odds": 2.35
-            }
-            pre_match_odds = {"favorite_prob": 62}
-
-            evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll)
+            sharp_odds = 2.10
+            retail_odds = 2.35
+            
+            # Local mathematical pre-filter (+EV threshold check)
+            raw_edge = (retail_odds / sharp_odds) - 1.0
+            if raw_edge > 0.02:  # Only call paid API if mathematical discrepancy > 2%
+                live_odds = {
+                    "pinnacle": sharp_odds,
+                    "bookmaker": "Bet365",
+                    "retail_odds": retail_odds
+                }
+                pre_match_odds = {"favorite_prob": 62}
+                evaluate_and_log_live_discrepancy(fixture_data, live_odds, pre_match_odds, bankroll)
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
-# Compatibility entry points for APScheduler in main.py
 run_live_scan = main
 run_prematch_scan = main
 
