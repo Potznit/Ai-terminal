@@ -13,7 +13,6 @@ logger = logging.getLogger("QuantWorker")
 
 CSV_PATH = "paper_trades.csv"
 
-# Columns strictly formatted to match Streamlit's schema
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
     "Market", "Pick", "Bookmaker", "Odds", "Edge_Pct", 
@@ -40,14 +39,14 @@ def load_latest_csv_from_github():
             csv_content = base64.b64decode(content_b64).decode("utf-8")
             with open(CSV_PATH, "w") as f:
                 f.write(csv_content)
-            logger.info("Successfully synced latest paper_trades.csv from GitHub.")
+            logger.info("Synced latest paper_trades.csv from GitHub.")
         else:
             logger.info("No remote CSV found on GitHub. Initializing local ledger.")
     except Exception as e:
         logger.error(f"Error fetching CSV from GitHub: {e}")
 
 def ensure_ledger_initialized():
-    """Initializes CSV locally if not already pulled."""
+    """Initializes CSV locally if not present."""
     load_latest_csv_from_github()
     if not os.path.exists(CSV_PATH):
         df = pd.DataFrame(columns=SCHEMA_COLUMNS)
@@ -57,7 +56,7 @@ def ensure_ledger_initialized():
 ensure_ledger_initialized()
 
 def sync_csv_to_github():
-    """Pushes paper_trades.csv to GitHub with [skip ci] to prevent Railway build storms."""
+    """Pushes paper_trades.csv to GitHub with [skip ci] to prevent Railway rebuild storms."""
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
     if not token or not os.path.exists(CSV_PATH):
@@ -94,7 +93,7 @@ def sync_csv_to_github():
         logger.error(f"GitHub sync failed: {e}")
 
 def has_existing_bet(matchup: str, model_tag: str) -> bool:
-    """Strict duplicate check: blocks same match from firing repeatedly under the same model."""
+    """Blocks identical match from firing repeatedly under the same model tag."""
     if not os.path.exists(CSV_PATH):
         return False
     try:
@@ -120,6 +119,7 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
         "Content-Type": "application/json"
     }
 
+    # Primary: Interactions API
     try:
         interaction_url = "https://generativelanguage.googleapis.com/v1beta/interactions"
         payload = {
@@ -138,8 +138,9 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
             if "output_text" in data:
                 return json.loads(data["output_text"].replace("```json", "").replace("```", "").strip())
     except Exception as e:
-        logger.debug(f"Interactions API bypassed: {e}")
+        logger.debug(f"Interactions API probe bypassed: {e}")
 
+    # Fallback: generateContent
     try:
         generate_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
         payload = {
@@ -155,7 +156,7 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
 
     return None
 
-def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag="LATE_STEAM", bankroll=1000.0) -> bool:
+def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag, bankroll=1000.0) -> bool:
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
     if has_existing_bet(matchup, model_tag):
@@ -171,18 +172,18 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     Evaluate market edge:
     Model Horizon: {model_tag}
     Match: {matchup}
-    Score: {fixture_data.get('score', '0 - 1')}
-    Favorite: {fixture_data['favorite']} ({pre_match_odds.get('favorite_prob', 65)}% implied)
-    Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle', 2.10)}
-    Retail Outlier ({live_odds.get('bookmaker', 'Bet365')}): {live_odds.get('retail_odds', 2.35)}
+    State: {fixture_data.get('score')}
+    Target Side: {fixture_data['target_pick']}
+    Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle')}
+    Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
 
-    Confirm if a genuine +EV trading edge exists. Return STRICT JSON only:
+    Confirm if a genuine positive expectancy (+EV) edge exists. Return STRICT JSON only:
     {{
       "is_valid_ev": true,
-      "edge_pct": 4.2,
-      "recommended_pick": "{fixture_data['favorite']} Draw No Bet",
-      "odds": {live_odds.get('retail_odds', 2.35)},
-      "tactical_analysis": "Retail line overadjusts to trailing game-state variance against underlying regression profile.",
+      "edge_pct": {fixture_data.get('raw_edge')},
+      "recommended_pick": "{fixture_data['target_pick']}",
+      "odds": {live_odds.get('retail_odds')},
+      "tactical_analysis": "Retail bookmaker lagged line creates actionable disparity against sharp consensus.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -190,13 +191,13 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     data = query_gemini_ai(prompt, api_key) if api_key else None
 
     if not data:
-        sharp = live_odds.get("pinnacle", 2.10)
-        retail = live_odds.get("retail_odds", 2.35)
+        sharp = live_odds.get("pinnacle")
+        retail = live_odds.get("retail_odds")
         calculated_edge = round(((retail / sharp) - 1.0) * 100, 1)
         data = {
-            "is_valid_ev": calculated_edge > 0,
+            "is_valid_ev": calculated_edge >= 3.0,
             "edge_pct": calculated_edge,
-            "recommended_pick": f"{fixture_data['favorite']} Over / Draw No Bet",
+            "recommended_pick": fixture_data["target_pick"],
             "odds": retail,
             "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Pinnacle baseline {sharp}.",
             "kelly_stake_pct": 0.015
@@ -211,14 +212,14 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     new_trade = {
         "ID": str(uuid.uuid4())[:8],
         "Model_Tag": model_tag,
-        "Kickoff_UTC": fixture_data.get("kickoff", datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")),
+        "Kickoff_UTC": fixture_data.get("kickoff"),
         "League": fixture_data.get("league", "Global Soccer"),
         "Matchup": matchup,
-        "Market": "Halftime In-Play" if model_tag == "LATE_STEAM" else "Arbitrage EV",
+        "Market": "Halftime In-Play" if "Halftime" in fixture_data.get("score", "") else "Pre-Match +EV",
         "Pick": pick,
-        "Bookmaker": live_odds.get("bookmaker", "Bet365"),
-        "Odds": float(data.get("odds", 2.35)),
-        "Edge_Pct": float(data.get("edge_pct", 5.0)),
+        "Bookmaker": live_odds.get("bookmaker", "Retail Book"),
+        "Odds": float(data.get("odds")),
+        "Edge_Pct": float(data.get("edge_pct")),
         "Stake": float(stake_amount),
         "Status": "PENDING",
         "P_L": 0.0
@@ -230,15 +231,17 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         df.to_csv(CSV_PATH, index=False)
         logger.info(f"Logged [{model_tag}] bet: ${stake_amount} on {pick} ({matchup})")
     except Exception as e:
-        logger.error(f"Failed to save bet: {e}")
+        logger.error(f"Failed to record bet: {e}")
         return False
 
+    # Dispatch Telegram Alert
     card_message = (
         f"🚨 <b>[{model_tag}] VALUE DISCREPANCY</b>\n\n"
         f"⚽ <b>{matchup}</b>\n"
-        f"⏱ <b>State:</b> {fixture_data.get('score', 'In-Play')}\n\n"
+        f"⏱ <b>State:</b> {fixture_data.get('score')}\n\n"
         f"📊 <b>Market Discrepancy:</b>\n"
-        f"• Outlier Line: <b>{data.get('odds')}</b> ({live_odds.get('bookmaker', 'Retail')})\n"
+        f"• Retail Outlier: <b>{data.get('odds')}</b> ({live_odds.get('bookmaker')})\n"
+        f"• Sharp Baseline: <b>{live_odds.get('pinnacle')}</b> (Pinnacle)\n"
         f"• Calculated Edge: <b>+{data.get('edge_pct')}% EV</b>\n\n"
         f"🧠 <b>Tactical Read:</b>\n{data.get('tactical_analysis')}\n\n"
         f"🎯 <b>LOGGED POSITION:</b>\n"
@@ -254,12 +257,12 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
                 timeout=10
             )
         except Exception as e:
-            logger.error(f"Telegram alert failed: {e}")
+            logger.error(f"Telegram dispatch failed: {e}")
 
     return True
 
 def auto_settle():
-    """Fetches completed match scores from The Odds API and settles pending bets."""
+    """Settles pending bets against finished matches via The Odds API scores endpoint."""
     api_key = os.environ.get("ODDS_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
@@ -274,13 +277,11 @@ def auto_settle():
 
         pending_mask = df["Status"] == "PENDING"
         if not pending_mask.any():
-            logger.info("No pending bets to settle.")
             return
 
         url = f"https://api.the-odds-api.com/v4/sports/soccer/scores/?apiKey={api_key}&daysFrom=3"
         res = requests.get(url, timeout=15)
         if res.status_code != 200:
-            logger.error(f"Scores API returned code: {res.status_code}")
             return
 
         games = res.json()
@@ -315,14 +316,14 @@ def auto_settle():
                 else:
                     winner = "Draw"
 
-                is_win = (winner in pick) and (winner != "Draw")
-                is_push = ("draw no bet" in pick.lower() and winner == "Draw")
+                is_win = (winner.lower() in pick.lower()) and (winner != "Draw")
+                is_push = ("draw" in pick.lower() and winner == "Draw") or ("draw no bet" in pick.lower() and winner == "Draw")
 
                 if is_win:
                     profit = round(stake * (odds - 1.0), 2)
                     df.at[idx, "Status"] = "WON"
                     df.at[idx, "P_L"] = profit
-                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nResult: <b>+${profit}</b>"
+                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nProfit: <b>+${profit}</b>"
                 elif is_push:
                     df.at[idx, "Status"] = "PUSH"
                     df.at[idx, "P_L"] = 0.0
@@ -330,7 +331,7 @@ def auto_settle():
                 else:
                     df.at[idx, "Status"] = "LOST"
                     df.at[idx, "P_L"] = -stake
-                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nResult: <b>-${stake}</b>"
+                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nLoss: <b>-${stake}</b>"
 
                 settled_any = True
                 logger.info(f"Settled {df.at[idx, 'Matchup']} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
@@ -349,12 +350,12 @@ def auto_settle():
         if settled_any:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info("Updated settled records and pushed to GitHub.")
+            logger.info("Settled trades saved and synced to GitHub.")
 
     except Exception as e:
         logger.error(f"Error during auto_settle: {e}")
 
-def fetch_live_matches():
+def fetch_soccer_odds():
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         return []
@@ -364,74 +365,133 @@ def fetch_live_matches():
         if res.status_code == 200:
             return res.json()
     except Exception as e:
-        logger.error(f"Error fetching live odds: {e}")
+        logger.error(f"Error fetching odds: {e}")
     return []
 
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # 1. Settle completed bets first
+    # 1. First settle finished matches
     auto_settle()
 
-    # 2. Fetch active games and run models
+    # 2. Pull real live & upcoming soccer odds
     bankroll = 1000.0
-    matches = fetch_live_matches()
-    logger.info(f"Found {len(matches)} fixtures to scan.")
+    matches = fetch_soccer_odds()
+    logger.info(f"Loaded {len(matches)} real fixtures to evaluate.")
 
+    now = datetime.now(timezone.utc)
     new_bets_logged = False
 
-    for idx, game in enumerate(matches):
-        fixture_data = {
-            "home": game.get("home_team"),
-            "away": game.get("away_team"),
-            "favorite": game.get("home_team"),
-            "score": "0 - 1",
-            "league": game.get("sport_title", "Global Soccer"),
-            "kickoff": game.get("commence_time")
-        }
+    for game in matches:
+        commence_time_str = game.get("commence_time")
+        if not commence_time_str:
+            continue
+
+        commence_time = datetime.fromisoformat(commence_time_str.replace("Z", "+00:00"))
+        minutes_since_kickoff = (now - commence_time).total_seconds() / 60
+
+        # Check in-play halftime vs pre-match horizons
+        is_halftime = 45 <= minutes_since_kickoff <= 65
+        is_future = minutes_since_kickoff < 0
+
+        # Discard games that are in second half or past completed
+        if not is_halftime and not is_future:
+            continue
 
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
-        if "pinnacle" in bookmakers:
-            live_odds = {"pinnacle": 2.10, "bookmaker": "Bet365", "retail_odds": 2.35}
-            pre_match_odds = {"favorite_prob": 62}
+        if "pinnacle" not in bookmakers:
+            continue
 
-            assigned_tag = "LATE_STEAM" if idx % 3 == 0 else ("CORE_EV" if idx % 3 == 1 else "EARLY_BIRD")
+        # Extract Pinnacle sharp baseline
+        pinnacle_odds = {}
+        for m in bookmakers["pinnacle"].get("markets", []):
+            if m["key"] == "h2h":
+                pinnacle_odds = {o["name"]: o["price"] for o in m["outcomes"]}
 
-            logged = evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag=assigned_tag, bankroll=bankroll)
-            if logged:
-                new_bets_logged = True
+        if not pinnacle_odds:
+            continue
 
-    # 3. Sync to GitHub once if new bets were recorded
+        # Assign Model Tag and State Label based on real timing
+        hours_to_kickoff = -minutes_since_kickoff / 60
+        if is_halftime:
+            assigned_tag = "LATE_STEAM"
+            state_label = "Halftime (In-Play)"
+        elif hours_to_kickoff > 48:
+            assigned_tag = "EARLY_BIRD"
+            state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
+        elif hours_to_kickoff > 12:
+            assigned_tag = "CORE_EV"
+            state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
+        else:
+            assigned_tag = "LATE_STEAM"
+            state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
+
+        # Scan retail books for +EV discrepancies vs Pinnacle
+        for b_key, b_data in bookmakers.items():
+            if b_key == "pinnacle":
+                continue
+            for m in b_data.get("markets", []):
+                if m["key"] == "h2h":
+                    for outcome in m["outcomes"]:
+                        target_side = outcome["name"]
+                        retail_price = outcome["price"]
+                        sharp_price = pinnacle_odds.get(target_side)
+
+                        if sharp_price and retail_price > sharp_price:
+                            edge = round(((retail_price / sharp_price) - 1.0) * 100, 1)
+                            
+                            # Log bets meeting minimum threshold (>= 3.0% edge)
+                            if edge >= 3.0:
+                                fixture_data = {
+                                    "home": game.get("home_team"),
+                                    "away": game.get("away_team"),
+                                    "target_pick": target_side,
+                                    "raw_edge": edge,
+                                    "score": state_label,
+                                    "league": game.get("sport_title", "Global Soccer"),
+                                    "kickoff": commence_time_str
+                                }
+                                live_odds = {
+                                    "pinnacle": sharp_price,
+                                    "bookmaker": b_data.get("title", b_key),
+                                    "retail_odds": retail_price
+                                }
+                                pre_match_odds = {"favorite_prob": round((1.0 / sharp_price) * 100)}
+
+                                logged = evaluate_and_log_discrepancy(
+                                    fixture_data, live_odds, pre_match_odds, 
+                                    model_tag=assigned_tag, bankroll=bankroll
+                                )
+                                if logged:
+                                    new_bets_logged = True
+
+    # Sync to GitHub if any new bets were recorded
     if new_bets_logged:
         sync_csv_to_github()
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
-run_live_scan = main
-run_prematch_scan = main
-
 if __name__ == "__main__":
     logger.info("Starting Quant Worker Daemon...")
 
-    # Startup verification alert to confirm Telegram connection
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     if bot_token and chat_id:
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Worker Daemon Online</b>: Starting 5-minute automated polling loop.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Real match scanning and auto-settlement loop activated.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception as e:
-            logger.error(f"Failed to send online notification: {e}")
+            logger.error(f"Failed to send startup alert: {e}")
 
-    # Continuous polling loop (runs every 300 seconds / 5 minutes)
+    # Polling loop: runs every 5 minutes
     while True:
         try:
             main()
         except Exception as e:
-            logger.error(f"Error during scan loop: {e}")
-        
-        logger.info("Sleeping for 300 seconds before next scan cycle...")
+            logger.error(f"Error during scan cycle: {e}")
+
+        logger.info("Sleeping 300s until next cycle...")
         time.sleep(300)
