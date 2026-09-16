@@ -20,6 +20,9 @@ SCHEMA_COLUMNS = [
     "Stake", "Status", "P_L"
 ]
 
+# Track which models have already warned about depleted bank this cycle
+depleted_logged_this_cycle = set()
+
 def load_latest_csv_from_github():
     token = os.environ.get("GITHUB_TOKEN")
     repo = os.environ.get("GITHUB_REPO", "Potznit/Ai-terminal")
@@ -88,7 +91,6 @@ def sync_csv_to_github():
         logger.error(f"GitHub sync failed: {e}")
 
 def get_model_available_bank(model_tag: str, starting_capital: float = STARTING_BANKROLL) -> float:
-    """Calculates available liquid cash in the bank = Starting Capital + Settled P/L - Active Staked"""
     if not os.path.exists(CSV_PATH):
         return starting_capital
     try:
@@ -107,8 +109,7 @@ def get_model_available_bank(model_tag: str, starting_capital: float = STARTING_
         active_staked = float(pending["Stake"].sum()) if not pending.empty else 0.0
 
         total_equity = starting_capital + net_settled_pl
-        available_cash = total_equity - active_staked
-        return available_cash
+        return total_equity - active_staked
     except Exception:
         return starting_capital
 
@@ -153,14 +154,16 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
     return None
 
 def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag, bankroll=1000.0) -> bool:
+    global depleted_logged_this_cycle
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
-    # Strict Bank Check: Model cannot bet more than it has in the bank
     available_in_bank = get_model_available_bank(model_tag, bankroll)
     target_stake = 15.00
 
     if available_in_bank < target_stake:
-        logger.info(f"[{model_tag}] Out of liquid bank funds (Available: ${available_in_bank:.2f}). Waiting for settlements.")
+        if model_tag not in depleted_logged_this_cycle:
+            logger.info(f"[{model_tag}] Bank depleted (Available: ${available_in_bank:.2f}). Pausing trades until settlements.")
+            depleted_logged_this_cycle.add(model_tag)
         return False
 
     if has_existing_bet(matchup, model_tag):
@@ -423,6 +426,9 @@ def fetch_soccer_odds():
     return all_odds
 
 def main():
+    global depleted_logged_this_cycle
+    depleted_logged_this_cycle = set()
+
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
     auto_settle()
@@ -450,7 +456,7 @@ def main():
 
         hours_to_kickoff = -minutes_since_kickoff / 60
 
-        # Lookahead cap: 6 days (144h)
+        # Enforce 6-day lookahead limit (144h)
         if hours_to_kickoff > 144:
             continue
 
@@ -530,7 +536,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Strict Bank Reserve checks active.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Bank management active.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
