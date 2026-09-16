@@ -54,7 +54,7 @@ fa249604,EARLY_BIRD,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham Unite
 4b329e04,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,LeoVegas (SE),3.05,3.4,15.0,PENDING,0.0
 8cf3c967,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Portsmouth,Casumo,2.14,3.9,15.0,PENDING,0.0
 bf908349,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Derby County,LeoVegas (SE),4.5,4.7,15.0,PENDING,0.0
-11798c46,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Lincoln City,Smarkets,2.92,3.5,15.0,PENDING,0.0
+11798c46,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Lincoln City,Smarkets,2.92,3.5,15.0,WON,28.8
 4666067d,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.0,15.0,PENDING,0.0
 8d97ff0f,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Wrexham AFC,LeoVegas (SE),3.1,5.1,15.0,PENDING,0.0
 9ccae913,EARLY_BIRD,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betsson,4.67,4.2,15.0,PENDING,0.0
@@ -63,14 +63,14 @@ cb82efa9,CORE_EV,2026-09-16T18:45:00Z,EFL Cup,Everton vs Wolverhampton Wanderers
 7f12b297,CORE_EV,2026-09-16T18:45:00Z,EFL Cup,Fleetwood Town vs Sheffield United,Pre-Match +EV,Fleetwood Town,Betfair,5.5,9.3,15.0,PENDING,0.0
 e32c91bc,CORE_EV,2026-09-16T19:00:00Z,EFL Cup,Coventry City vs Aston Villa,Pre-Match +EV,Coventry City,Betfair,3.4,7.6,15.0,PENDING,0.0
 5c81cb02,CORE_EV,2026-09-16T19:00:00Z,EFL Cup,Manchester United vs Brighton and Hove Albion,Pre-Match +EV,Brighton and Hove Albion,Betfair,4.1,9.0,15.0,PENDING,0.0
-e20efaae,CORE_EV,2026-09-17T18:30:00Z,EFL Cup,Manchester City vs Norwich City,Pre-Match +EV,Norwich City,Betfair,20.0,23.5,15.0,PENDING,0.0
+e20efaae,CORE_EV,2026-09-17T18:30:00Z,EFL Cup,Manchester City vs Norwich City,Pre-Match +EV,Norwich City,Betfair,20.0,23.5,15.0,LOST,-15.0
 e1640eb7,CORE_EV,2026-09-17T19:00:00Z,League 1,Wimbledon vs Milton Keynes Dons,Pre-Match +EV,Wimbledon,Unibet (UK),3.0,4.5,15.0,PENDING,0.0
 2c3c342b,EARLY_BIRD,2026-09-19T11:30:00Z,League 1,Barnsley vs Leicester City,Pre-Match +EV,Barnsley,Unibet (SE),3.45,5.8,15.0,PENDING,0.0
 25e8eab2,EARLY_BIRD,2026-09-19T11:30:00Z,League 1,Burton Albion vs Mansfield Town,Pre-Match +EV,Draw,Betfred (UK),3.5,4.5,15.0,PENDING,0.0
 c60b0e3c,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Blackpool vs Plymouth Argyle,Pre-Match +EV,Blackpool,Betfair,2.76,4.9,15.0,PENDING,0.0
 a1ddb859,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Luton vs Bradford City,Pre-Match +EV,Luton,Betfair,2.14,4.9,15.0,PENDING,0.0
 c6d52612,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Bromley FC vs Huddersfield Town,Pre-Match +EV,Huddersfield Town,Unibet (NL),1.65,4.4,15.0,PENDING,0.0
-86f384cc,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Oxford United vs Cambridge United,Pre-Match +EV,Cambridge United,Unibet (NL),3.4,5.3,15.0,PENDING,0.0
+86f384cc,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Oxford United vs Cambridge United,Pre-Match +EV,Cambridge United,Unibet (NL),3.4,5.3,15.0,LOST,-15.0
 ccd5f469,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Peterborough United vs Doncaster Rovers,Pre-Match +EV,Peterborough United,Unibet (SE),2.4,4.3,15.0,PENDING,0.0
 0d248859,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Leyton Orient vs Stevenage,Pre-Match +EV,Stevenage,LiveScore Bet,3.25,4.8,15.0,PENDING,0.0
 23538462,EARLY_BIRD,2026-09-19T14:00:00Z,League 1,Reading vs Notts County,Pre-Match +EV,Reading,Unibet (NL),1.85,5.1,15.0,PENDING,0.0
