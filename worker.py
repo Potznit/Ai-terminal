@@ -254,35 +254,55 @@ def auto_settle():
         if not pending_mask.any():
             return
 
-        url = f"https://api.the-odds-api.com/v4/sports/soccer/scores/?apiKey={api_key}&daysFrom=3"
+        # Query the universal upcoming sport endpoint with daysFrom=3 for completed events
+        url = f"https://api.the-odds-api.com/v4/sports/upcoming/scores/?apiKey={api_key}&daysFrom=3"
         res = requests.get(url, timeout=15)
         if res.status_code != 200:
+            logger.error(f"Scores API error {res.status_code}: {res.text}")
             return
 
         games = res.json()
         settled_any = False
 
         for idx in df[pending_mask].index:
-            matchup = str(df.at[idx, "Matchup"]).strip().lower()
+            raw_matchup = str(df.at[idx, "Matchup"]).strip()
             pick = str(df.at[idx, "Pick"]).strip()
             stake = float(df.at[idx, "Stake"])
             odds = float(df.at[idx, "Odds"])
             model_tag = str(df.at[idx, "Model_Tag"])
 
+            # Split matchup to get both teams
+            if " vs " in raw_matchup:
+                team_a, team_b = [t.strip().lower() for t in raw_matchup.split(" vs ", 1)]
+            else:
+                continue
+
             for game in games:
                 if not game.get("completed"):
                     continue
 
-                game_matchup = f"{game.get('home_team')} vs {game.get('away_team')}".strip().lower()
-                if game_matchup != matchup:
+                g_home = str(game.get("home_team", "")).lower()
+                g_away = str(game.get("away_team", "")).lower()
+
+                # Robust matching: check if both teams match either side
+                match_found = (team_a in g_home or g_home in team_a) and (team_b in g_away or g_away in team_b)
+                if not match_found:
                     continue
 
                 scores = game.get("scores")
                 if not scores or len(scores) < 2:
                     continue
 
-                home_score = int(next((s["score"] for s in scores if s["name"] == game["home_team"]), 0))
-                away_score = int(next((s["score"] for s in scores if s["name"] == game["away_team"]), 0))
+                home_score = None
+                away_score = None
+                for s in scores:
+                    if s.get("name") == game.get("home_team"):
+                        home_score = int(s.get("score", 0))
+                    elif s.get("name") == game.get("away_team"):
+                        away_score = int(s.get("score", 0))
+
+                if home_score is None or away_score is None:
+                    continue
 
                 if home_score > away_score:
                     winner = game["home_team"]
@@ -291,25 +311,26 @@ def auto_settle():
                 else:
                     winner = "Draw"
 
-                is_win = (winner.lower() in pick.lower()) and (winner != "Draw")
-                is_push = ("draw" in pick.lower() and winner == "Draw") or ("draw no bet" in pick.lower() and winner == "Draw")
+                is_draw_pick = "draw" in pick.lower()
+                is_win = (winner.lower() in pick.lower()) and not (winner == "Draw" and not is_draw_pick)
+                is_push = ("draw no bet" in pick.lower() and winner == "Draw")
 
                 if is_win:
                     profit = round(stake * (odds - 1.0), 2)
                     df.at[idx, "Status"] = "WON"
                     df.at[idx, "P_L"] = profit
-                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nProfit: <b>+${profit}</b>"
+                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nProfit: <b>+${profit}</b>"
                 elif is_push:
                     df.at[idx, "Status"] = "PUSH"
                     df.at[idx, "P_L"] = 0.0
-                    settle_msg = f"🔄 <b>[{model_tag}] BET PUSHED</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nStake returned: <b>$0.00</b>"
+                    settle_msg = f"🔄 <b>[{model_tag}] BET PUSHED</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nStake returned: <b>$0.00</b>"
                 else:
                     df.at[idx, "Status"] = "LOST"
                     df.at[idx, "P_L"] = -stake
-                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {df.at[idx, 'Matchup']}\nScore: {home_score} - {away_score}\nLoss: <b>-${stake}</b>"
+                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nLoss: <b>-${stake}</b>"
 
                 settled_any = True
-                logger.info(f"Settled {df.at[idx, 'Matchup']} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
+                logger.info(f"Settled {raw_matchup} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
 
                 if bot_token and chat_id:
                     try:
@@ -318,14 +339,14 @@ def auto_settle():
                             json={"chat_id": chat_id, "text": settle_msg, "parse_mode": "HTML"},
                             timeout=10
                         )
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        logger.error(f"Failed to send settlement Telegram message: {e}")
                 break
 
         if settled_any:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info("Settled trades saved and synced to GitHub.")
+            logger.info("Settled trades saved and pushed to GitHub.")
 
     except Exception as e:
         logger.error(f"Error during auto_settle: {e}")
@@ -346,6 +367,7 @@ def fetch_soccer_odds():
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
+    # Run auto_settle on every cycle
     auto_settle()
 
     bankroll = 1000.0
