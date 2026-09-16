@@ -163,3 +163,10 @@ ed5410f3,HALFTIME_LIVE,2026-09-16T16:45:00Z,UEFA Europa League,FC Ararat-Armenia
 a292ec69,CORE_EV,2026-09-18T19:00:00Z,EPL,Brentford vs Chelsea,Pre-Match +EV,Brentford,Unibet (SE),2.9,5.1,15.0,PENDING,0.0
 e9d1c976,CORE_EV,2026-09-18T19:00:00Z,La Liga - Spain,Espanyol vs Elche CF,Pre-Match +EV,Draw,Betfred (UK),3.75,7.8,15.0,PENDING,0.0
 a89c459e,CORE_EV,2026-09-18T19:00:00Z,Championship,Bristol City vs Watford,Pre-Match +EV,Bristol City,LeoVegas (SE),1.92,3.8,15.0,PENDING,0.0
+8f6f94f6,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Halftime In-Play,Benfica,Suprabets,1.88,5.6,15.0,PENDING,0.0
+955a2522,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Halftime In-Play,Sunderland,LeoVegas,1.8,8.4,15.0,PENDING,0.0
+8665df1d,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Halftime In-Play,Anderlecht,Suprabets,23.0,19.0,15.0,PENDING,0.0
+ff3eb669,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Halftime In-Play,NK Celje,Matchbook,150.0,25.0,15.0,PENDING,0.0
+d8e523ac,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Halftime In-Play,Dinamo Zagreb,Suprabets,2.4,13.2,15.0,PENDING,0.0
+9edb0c2b,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Halftime In-Play,Jagiellonia Białystok,Suprabets,9.5,135.7,15.0,PENDING,0.0
+6b137b75,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Halftime In-Play,Rennes,Betfair,1.94,16.2,15.0,PENDING,0.0
