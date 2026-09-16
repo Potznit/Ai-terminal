@@ -39,8 +39,6 @@ def load_latest_csv_from_github():
             with open(CSV_PATH, "w") as f:
                 f.write(csv_content)
             logger.info("Successfully synced latest paper_trades.csv from GitHub.")
-        else:
-            logger.info("No remote CSV found on GitHub. Initializing local ledger.")
     except Exception as e:
         logger.error(f"Error fetching CSV from GitHub: {e}")
 
@@ -49,7 +47,6 @@ def ensure_ledger_initialized():
     if not os.path.exists(CSV_PATH):
         df = pd.DataFrame(columns=SCHEMA_COLUMNS)
         df.to_csv(CSV_PATH, index=False)
-        logger.info("Created fresh paper_trades.csv ledger.")
 
 ensure_ledger_initialized()
 
@@ -106,7 +103,6 @@ def has_existing_bet(matchup: str, model_tag: str) -> bool:
         existing = df[(match_series == m_clean) & (tag_series == tag_clean)]
         return not existing.empty
     except Exception as e:
-        logger.error(f"Error checking existing bets: {e}")
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
@@ -123,13 +119,10 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
     try:
         res = requests.post(url, json=payload, headers=headers, timeout=12)
         if res.status_code == 200:
-            data = res.json()
-            raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
+            raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
             return json.loads(raw_text.strip())
-        else:
-            logger.error(f"Gemini API returned status {res.status_code}: {res.text}")
     except Exception as e:
-        logger.error(f"Gemini query exception: {e}")
+        logger.error(f"Gemini API exception: {e}")
 
     return None
 
@@ -137,7 +130,6 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
 
     if has_existing_bet(matchup, model_tag):
-        logger.info(f"Skipping duplicate trade for {matchup} under {model_tag}.")
         return False
 
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -160,7 +152,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Retail bookmaker lagged line creates actionable disparity against sharp consensus.",
+      "tactical_analysis": "Soft line divergence creates positive expectancy against sharp closing line.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -254,14 +246,38 @@ def auto_settle():
         if not pending_mask.any():
             return
 
-        # Query the universal upcoming sport endpoint with daysFrom=3 for completed events
-        url = f"https://api.the-odds-api.com/v4/sports/upcoming/scores/?apiKey={api_key}&daysFrom=3"
-        res = requests.get(url, timeout=15)
-        if res.status_code != 200:
-            logger.error(f"Scores API error {res.status_code}: {res.text}")
+        # 1. Discover all active soccer sport keys
+        sports_url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
+        sports_res = requests.get(sports_url, timeout=10)
+        
+        soccer_keys = []
+        if sports_res.status_code == 200:
+            for s in sports_res.json():
+                k = s.get("key", "")
+                if k.startswith("soccer_"):
+                    soccer_keys.append(k)
+
+        # Include upcoming as a fallback
+        soccer_keys = list(set(["upcoming"] + soccer_keys))
+        logger.info(f"[auto_settle] Scanning {len(soccer_keys)} leagues for completed match results...")
+
+        # 2. Gather completed games across all soccer leagues
+        completed_games = []
+        for skey in soccer_keys:
+            sc_url = f"https://api.the-odds-api.com/v4/sports/{skey}/scores/?apiKey={api_key}&daysFrom=3"
+            res = requests.get(sc_url, timeout=10)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, list):
+                    for g in data:
+                        if g.get("completed") and g.get("scores"):
+                            completed_games.append(g)
+            time.sleep(0.1)
+
+        logger.info(f"[auto_settle] Total completed match results discovered: {len(completed_games)}")
+        if not completed_games:
             return
 
-        games = res.json()
         settled_any = False
 
         for idx in df[pending_mask].index:
@@ -271,21 +287,20 @@ def auto_settle():
             odds = float(df.at[idx, "Odds"])
             model_tag = str(df.at[idx, "Model_Tag"])
 
-            # Split matchup to get both teams
-            if " vs " in raw_matchup:
-                team_a, team_b = [t.strip().lower() for t in raw_matchup.split(" vs ", 1)]
-            else:
+            if " vs " not in raw_matchup:
                 continue
 
-            for game in games:
-                if not game.get("completed"):
-                    continue
+            t_a, t_b = [t.strip().lower() for t in raw_matchup.split(" vs ", 1)]
 
+            for game in completed_games:
                 g_home = str(game.get("home_team", "")).lower()
                 g_away = str(game.get("away_team", "")).lower()
 
-                # Robust matching: check if both teams match either side
-                match_found = (team_a in g_home or g_home in team_a) and (team_b in g_away or g_away in team_b)
+                # Robust partial match for team names
+                match_found = (
+                    (t_a in g_home or g_home in t_a or any(w in g_home for w in t_a.split() if len(w) > 3)) and
+                    (t_b in g_away or g_away in t_b or any(w in g_away for w in t_b.split() if len(w) > 3))
+                )
                 if not match_found:
                     continue
 
@@ -319,15 +334,15 @@ def auto_settle():
                     profit = round(stake * (odds - 1.0), 2)
                     df.at[idx, "Status"] = "WON"
                     df.at[idx, "P_L"] = profit
-                    settle_msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nProfit: <b>+${profit}</b>"
+                    msg = f"✅ <b>[{model_tag}] BET WON</b>\n\n⚽ {raw_matchup}\nFinal: <b>{home_score} - {away_score}</b>\nProfit: <b>+${profit}</b>"
                 elif is_push:
                     df.at[idx, "Status"] = "PUSH"
                     df.at[idx, "P_L"] = 0.0
-                    settle_msg = f"🔄 <b>[{model_tag}] BET PUSHED</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nStake returned: <b>$0.00</b>"
+                    msg = f"🔄 <b>[{model_tag}] BET PUSHED</b>\n\n⚽ {raw_matchup}\nFinal: <b>{home_score} - {away_score}</b>"
                 else:
                     df.at[idx, "Status"] = "LOST"
                     df.at[idx, "P_L"] = -stake
-                    settle_msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {raw_matchup}\nFinal Score: <b>{home_score} - {away_score}</b>\nLoss: <b>-${stake}</b>"
+                    msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {raw_matchup}\nFinal: <b>{home_score} - {away_score}</b>\nLoss: <b>-${stake}</b>"
 
                 settled_any = True
                 logger.info(f"Settled {raw_matchup} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
@@ -336,43 +351,58 @@ def auto_settle():
                     try:
                         requests.post(
                             f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                            json={"chat_id": chat_id, "text": settle_msg, "parse_mode": "HTML"},
+                            json={"chat_id": chat_id, "text": msg, "parse_mode": "HTML"},
                             timeout=10
                         )
-                    except Exception as e:
-                        logger.error(f"Failed to send settlement Telegram message: {e}")
+                    except Exception:
+                        pass
                 break
 
         if settled_any:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info("Settled trades saved and pushed to GitHub.")
+            logger.info("Updated settled records pushed to GitHub.")
 
     except Exception as e:
-        logger.error(f"Error during auto_settle: {e}")
+        logger.error(f"Settlement error: {e}")
 
 def fetch_soccer_odds():
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         return []
-    url = f"https://api.the-odds-api.com/v4/sports/soccer/odds/?apiKey={api_key}&regions=eu,uk&markets=h2h&oddsFormat=decimal"
-    try:
-        res = requests.get(url, timeout=15)
-        if res.status_code == 200:
-            return res.json()
-    except Exception as e:
-        logger.error(f"Error fetching odds: {e}")
-    return []
+    
+    # Query active soccer sports dynamically
+    sports_url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
+    sports_res = requests.get(sports_url, timeout=10)
+    
+    soccer_keys = []
+    if sports_res.status_code == 200:
+        for s in sports_res.json():
+            k = s.get("key", "")
+            if k.startswith("soccer_"):
+                soccer_keys.append(k)
+
+    all_odds = []
+    for skey in soccer_keys:
+        url = f"https://api.the-odds-api.com/v4/sports/{skey}/odds/?apiKey={api_key}&regions=eu,uk&markets=h2h&oddsFormat=decimal"
+        try:
+            res = requests.get(url, timeout=12)
+            if res.status_code == 200:
+                all_odds.extend(res.json())
+        except Exception:
+            pass
+        time.sleep(0.1)
+
+    return all_odds
 
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # Run auto_settle on every cycle
     auto_settle()
 
     bankroll = 1000.0
     matches = fetch_soccer_odds()
-    logger.info(f"Loaded {len(matches)} real fixtures to evaluate.")
+    logger.info(f"Loaded {len(matches)} fixtures across all soccer leagues.")
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
@@ -459,9 +489,6 @@ def main():
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
-run_live_scan = main
-run_prematch_scan = main
-
 if __name__ == "__main__":
     logger.info("Starting Quant Worker Daemon...")
 
@@ -471,11 +498,11 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Real match scanning and auto-settlement loop activated.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Multi-league score settlement resolver activated.", "parse_mode": "HTML"},
                 timeout=10
             )
-        except Exception as e:
-            logger.error(f"Failed to send startup alert: {e}")
+        except Exception:
+            pass
 
     while True:
         try:
@@ -483,5 +510,4 @@ if __name__ == "__main__":
         except Exception as e:
             logger.error(f"Error during scan cycle: {e}")
 
-        logger.info("Sleeping 300s until next cycle...")
         time.sleep(300)
