@@ -93,7 +93,7 @@ bb2ef88a,CORE_EV,2026-09-17T17:45:00Z,Premier League - Russia,FC Dynamo Makhachk
 b89ef84f,CORE_EV,2026-09-16T17:00:00Z,La Liga - Spain,Atlético Madrid vs CA Osasuna,Pre-Match +EV,CA Osasuna,Nordic Bet,8.8,4.9,15.0,LOST,-15.0
 41c8e954,CORE_EV,2026-09-16T17:00:00Z,La Liga - Spain,Deportivo La Coruña vs Sevilla,Pre-Match +EV,Draw,1xBet,3.21,6.3,15.0,LOST,-15.0
 b9f7b9da,CORE_EV,2026-09-16T19:30:00Z,La Liga - Spain,Levante vs Athletic Bilbao,Pre-Match +EV,Athletic Bilbao,1xBet,2.19,3.8,15.0,PENDING,0.0
-fd5f1b94,CORE_EV,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,36.0,39.3,15.0,PENDING,0.0
+fd5f1b94,CORE_EV,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,36.0,39.3,15.0,LOST,-15.0
 48cfae6c,CORE_EV,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Pre-Match +EV,Draw,1xBet,3.86,4.6,15.0,PENDING,0.0
 d2e26d39,CORE_EV,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,Pre-Match +EV,Málaga,1xBet,3.77,4.1,15.0,PENDING,0.0
 d0df2759,CORE_EV,2026-09-16T17:00:00Z,Allsvenskan - Sweden,AIK vs Mjällby AIF,Pre-Match +EV,AIK,Unibet (SE),2.38,7.2,15.0,PENDING,0.0
@@ -101,13 +101,13 @@ f0303afa,CORE_EV,2026-09-16T17:00:00Z,Swiss Superleague,FC Lugano vs FC St Galle
 510cf658,CORE_EV,2026-09-16T17:00:00Z,Swiss Superleague,FC Thun vs Servette,Pre-Match +EV,Draw,Smarkets,3.95,4.8,15.0,PENDING,0.0
 9da16e96,CORE_EV,2026-09-16T16:45:00Z,UEFA Europa League,Omonoia FC vs Celta Vigo,Pre-Match +EV,Omonoia FC,Smarkets,4.3,6.4,15.0,WON,49.5
 6bb27ad7,CORE_EV,2026-09-16T16:45:00Z,UEFA Europa League,FC Ararat-Armenia vs Sparta Prague,Pre-Match +EV,FC Ararat-Armenia,Smarkets,5.6,10.2,15.0,LOST,-15.0
-c46c7311,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Pre-Match +EV,Benfica,Smarkets,3.45,3.3,15.0,PENDING,0.0
-1159fdfc,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Pre-Match +EV,AZ Alkmaar,Betano (UK),5.75,3.6,15.0,PENDING,0.0
-53b9e5c4,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Pre-Match +EV,Lyon,Betfair,2.42,3.9,15.0,PENDING,0.0
-f76bfafd,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Pre-Match +EV,NK Celje,Smarkets,23.98,24.9,15.0,PENDING,0.0
-99369afb,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Pre-Match +EV,Dinamo Zagreb,Smarkets,1.97,4.8,15.0,PENDING,0.0
-d25ba571,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Pre-Match +EV,Jagiellonia Białystok,Smarkets,9.4,14.5,15.0,PENDING,0.0
-9de9e79a,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Pre-Match +EV,Rennes,Betfair,1.96,3.2,15.0,PENDING,0.0
+c46c7311,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Pre-Match +EV,Benfica,Smarkets,3.45,3.3,15.0,WON,36.75
+1159fdfc,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Pre-Match +EV,AZ Alkmaar,Betano (UK),5.75,3.6,15.0,LOST,-15.0
+53b9e5c4,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Pre-Match +EV,Lyon,Betfair,2.42,3.9,15.0,WON,21.3
+f76bfafd,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Pre-Match +EV,NK Celje,Smarkets,23.98,24.9,15.0,LOST,-15.0
+99369afb,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Pre-Match +EV,Dinamo Zagreb,Smarkets,1.97,4.8,15.0,LOST,-15.0
+d25ba571,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Pre-Match +EV,Jagiellonia Białystok,Smarkets,9.4,14.5,15.0,LOST,-15.0
+9de9e79a,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Pre-Match +EV,Rennes,Betfair,1.96,3.2,15.0,LOST,-15.0
 c4b564e3,CORE_EV,2026-09-17T16:45:00Z,UEFA Europa League,OFI Crete vs TSG Hoffenheim,Pre-Match +EV,OFI Crete,Smarkets,8.0,6.5,15.0,PENDING,0.0
 33efd24d,CORE_EV,2026-09-17T16:45:00Z,UEFA Europa League,PFC Levski Sofia vs Salzburg,Pre-Match +EV,PFC Levski Sofia,Smarkets,3.2,6.3,15.0,PENDING,0.0
 fc136bb6,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Pre-Match +EV,Besiktas JK,Smarkets,1.83,5.2,15.0,PENDING,0.0
@@ -138,15 +138,15 @@ ab68e0bd,LATE_STEAM,2026-09-16T18:45:00Z,EFL Cup,Everton vs Wolverhampton Wander
 bd1dc151,LATE_STEAM,2026-09-16T18:45:00Z,EFL Cup,Fleetwood Town vs Sheffield United,Pre-Match +EV,Fleetwood Town,Betfair,5.2,3.4,15.0,PENDING,0.0
 f562dea5,LATE_STEAM,2026-09-16T19:00:00Z,EFL Cup,Coventry City vs Aston Villa,Pre-Match +EV,Aston Villa,Betfair,2.24,3.2,15.0,PENDING,0.0
 b533fbf6,LATE_STEAM,2026-09-16T19:00:00Z,EFL Cup,Manchester United vs Brighton and Hove Albion,Pre-Match +EV,Brighton and Hove Albion,Betfair,4.2,8.2,15.0,PENDING,0.0
-94712d6e,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Pre-Match +EV,AC Milan,Smarkets,2.38,3.0,15.0,PENDING,0.0
-9dc85215,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Pre-Match +EV,AZ Alkmaar,1xBet,6.4,5.8,15.0,PENDING,0.0
-065af182,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Pre-Match +EV,Lyon,Betfair,2.4,5.7,15.0,PENDING,0.0
-b46f2dcb,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Pre-Match +EV,NK Celje,Smarkets,25.97,18.5,15.0,PENDING,0.0
-47a4efea,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Pre-Match +EV,Dinamo Zagreb,Smarkets,1.94,4.9,15.0,PENDING,0.0
-23edc77d,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Pre-Match +EV,Jagiellonia Białystok,Smarkets,9.2,11.2,15.0,PENDING,0.0
-3bac8ffe,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Pre-Match +EV,Rennes,Betfair,1.94,3.2,15.0,PENDING,0.0
+94712d6e,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Pre-Match +EV,AC Milan,Smarkets,2.38,3.0,15.0,LOST,-15.0
+9dc85215,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Pre-Match +EV,AZ Alkmaar,1xBet,6.4,5.8,15.0,LOST,-15.0
+065af182,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Pre-Match +EV,Lyon,Betfair,2.4,5.7,15.0,WON,21.0
+b46f2dcb,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Pre-Match +EV,NK Celje,Smarkets,25.97,18.5,15.0,LOST,-15.0
+47a4efea,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Pre-Match +EV,Dinamo Zagreb,Smarkets,1.94,4.9,15.0,LOST,-15.0
+23edc77d,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Pre-Match +EV,Jagiellonia Białystok,Smarkets,9.2,11.2,15.0,LOST,-15.0
+3bac8ffe,LATE_STEAM,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Pre-Match +EV,Rennes,Betfair,1.94,3.2,15.0,LOST,-15.0
 a4b7a2aa,LATE_STEAM,2026-09-16T19:30:00Z,La Liga - Spain,Levante vs Athletic Bilbao,Pre-Match +EV,Levante,Betfair,3.45,3.3,15.0,PENDING,0.0
-efbe44d9,LATE_STEAM,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,37.0,31.7,15.0,PENDING,0.0
+efbe44d9,LATE_STEAM,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,37.0,31.7,15.0,LOST,-15.0
 9fa6b552,LATE_STEAM,2026-09-16T22:00:00Z,Copa Libertadores,LDU Quito vs Palmeiras-SP,Pre-Match +EV,Draw,1xBet,3.13,5.7,15.0,PENDING,0.0
 367134d3,LATE_STEAM,2026-09-16T22:00:00Z,Copa Sudamericana,Clube Atlético Mineiro vs Santos,Pre-Match +EV,Clube Atlético Mineiro,1xBet,1.84,3.4,15.0,PENDING,0.0
 33e864cd,LATE_STEAM,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Draw,Smarkets,4.0,3.1,15.0,PENDING,0.0
@@ -163,11 +163,11 @@ ed5410f3,HALFTIME_LIVE,2026-09-16T16:45:00Z,UEFA Europa League,FC Ararat-Armenia
 a292ec69,CORE_EV,2026-09-18T19:00:00Z,EPL,Brentford vs Chelsea,Pre-Match +EV,Brentford,Unibet (SE),2.9,5.1,15.0,PENDING,0.0
 e9d1c976,CORE_EV,2026-09-18T19:00:00Z,La Liga - Spain,Espanyol vs Elche CF,Pre-Match +EV,Draw,Betfred (UK),3.75,7.8,15.0,PENDING,0.0
 a89c459e,CORE_EV,2026-09-18T19:00:00Z,Championship,Bristol City vs Watford,Pre-Match +EV,Bristol City,LeoVegas (SE),1.92,3.8,15.0,PENDING,0.0
-8f6f94f6,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Halftime In-Play,Benfica,Suprabets,1.88,5.6,15.0,PENDING,0.0
-955a2522,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Halftime In-Play,Sunderland,LeoVegas,1.8,8.4,15.0,PENDING,0.0
-8665df1d,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Halftime In-Play,Anderlecht,Suprabets,23.0,19.0,15.0,PENDING,0.0
-ff3eb669,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Halftime In-Play,NK Celje,Matchbook,150.0,25.0,15.0,PENDING,0.0
-d8e523ac,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Halftime In-Play,Dinamo Zagreb,Suprabets,2.4,13.2,15.0,PENDING,0.0
-9edb0c2b,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Halftime In-Play,Jagiellonia Białystok,Suprabets,9.5,135.7,15.0,PENDING,0.0
-6b137b75,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Halftime In-Play,Rennes,Betfair,1.94,16.2,15.0,PENDING,0.0
+8f6f94f6,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,AC Milan vs Benfica,Halftime In-Play,Benfica,Suprabets,1.88,5.6,15.0,WON,13.2
+955a2522,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Sunderland vs AZ Alkmaar,Halftime In-Play,Sunderland,LeoVegas,1.8,8.4,15.0,WON,12.0
+8665df1d,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Anderlecht vs Lyon,Halftime In-Play,Anderlecht,Suprabets,23.0,19.0,15.0,LOST,-15.0
+ff3eb669,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Bayer Leverkusen vs NK Celje,Halftime In-Play,NK Celje,Matchbook,150.0,25.0,15.0,LOST,-15.0
+d8e523ac,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Sheva vs Dinamo Zagreb,Halftime In-Play,Dinamo Zagreb,Suprabets,2.4,13.2,15.0,LOST,-15.0
+9edb0c2b,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Halftime In-Play,Jagiellonia Białystok,Suprabets,9.5,135.7,15.0,LOST,-15.0
+6b137b75,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Halftime In-Play,Rennes,Betfair,1.94,16.2,15.0,LOST,-15.0
 51f1803a,CORE_EV,2026-09-18T21:00:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Pre-Match +EV,Defensa y Justicia,Unibet (SE),2.85,4.4,15.0,PENDING,0.0
