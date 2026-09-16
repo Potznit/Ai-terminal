@@ -31,6 +31,18 @@ def load_data():
             return pd.DataFrame(columns=SCHEMA_COLUMNS)
     return pd.DataFrame(columns=SCHEMA_COLUMNS)
 
+def highlight_status_row(row):
+    status = str(row.get("Status", "")).upper()
+    if status == "WON":
+        return ["color: #10b981; font-weight: 600;"] * len(row)  # Bright Green
+    elif status == "LOST":
+        return ["color: #ef4444; font-weight: 600;"] * len(row)  # Clean Red
+    elif status == "PENDING":
+        return ["color: #ffffff;"] * len(row)                   # Crisp White
+    elif status == "PUSH":
+        return ["color: #94a3b8;"] * len(row)                   # Soft Gray
+    return [""] * len(row)
+
 st.title("⚡ Autonomous AI Multi-Horizon Betting Terminal")
 
 df = load_data()
@@ -82,4 +94,5 @@ if df.empty:
 else:
     display_df = df.copy()
     display_df = display_df.sort_values(by="Kickoff_UTC", ascending=False)
-    st.dataframe(display_df, use_container_width=True, hide_index=True)
+    styled_df = display_df.style.apply(highlight_status_row, axis=1)
+    st.dataframe(styled_df, use_container_width=True, hide_index=True)
