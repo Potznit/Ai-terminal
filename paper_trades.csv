@@ -160,3 +160,6 @@ ed5410f3,HALFTIME_LIVE,2026-09-16T16:45:00Z,UEFA Europa League,FC Ararat-Armenia
 1bc2c5fa,CORE_EV,2026-09-18T18:30:00Z,Bundesliga - Germany,Bayern Munich vs Union Berlin,Pre-Match +EV,Union Berlin,1xBet,38.0,48.8,15.0,PENDING,0.0
 7205564b,CORE_EV,2026-09-18T18:45:00Z,Serie A - Italy,Monza vs Sassuolo,Pre-Match +EV,Monza,Smarkets,3.25,5.2,15.0,PENDING,0.0
 805cce28,CORE_EV,2026-09-18T18:45:00Z,Ligue 1 - France,AS Monaco vs RC Lens,Pre-Match +EV,RC Lens,Betfair,3.65,3.7,15.0,PENDING,0.0
+a292ec69,CORE_EV,2026-09-18T19:00:00Z,EPL,Brentford vs Chelsea,Pre-Match +EV,Brentford,Unibet (SE),2.9,5.1,15.0,PENDING,0.0
+e9d1c976,CORE_EV,2026-09-18T19:00:00Z,La Liga - Spain,Espanyol vs Elche CF,Pre-Match +EV,Draw,Betfred (UK),3.75,7.8,15.0,PENDING,0.0
+a89c459e,CORE_EV,2026-09-18T19:00:00Z,Championship,Bristol City vs Watford,Pre-Match +EV,Bristol City,LeoVegas (SE),1.92,3.8,15.0,PENDING,0.0
