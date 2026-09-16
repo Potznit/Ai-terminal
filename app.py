@@ -1,10 +1,14 @@
 import os
+import io
+import time
+import requests
 import pandas as pd
 import streamlit as st
 
 st.set_page_config(page_title="AI Terminal", page_icon="⚡", layout="wide")
 
-CSV_PATH = "paper_trades.csv"
+GITHUB_CSV_URL = "https://raw.githubusercontent.com/Potznit/Ai-terminal/main/paper_trades.csv"
+LOCAL_CSV_PATH = "paper_trades.csv"
 
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
@@ -20,27 +24,43 @@ MODELS = [
 ]
 
 def load_data():
-    if os.path.exists(CSV_PATH):
+    # 1. Attempt to fetch latest live ledger directly from GitHub
+    try:
+        url_with_cache_buster = f"{GITHUB_CSV_URL}?t={int(time.time())}"
+        headers = {"Cache-Control": "no-cache", "Pragma": "no-cache"}
+        res = requests.get(url_with_cache_buster, headers=headers, timeout=5)
+        if res.status_code == 200 and len(res.text.strip()) > 0:
+            df = pd.read_csv(io.StringIO(res.text))
+            for col in SCHEMA_COLUMNS:
+                if col not in df.columns:
+                    df[col] = 0.0 if col in ["Odds", "Edge_Pct", "Stake", "P_L"] else ""
+            return df
+    except Exception:
+        pass
+
+    # 2. Fallback to local copy if network fetch fails
+    if os.path.exists(LOCAL_CSV_PATH):
         try:
-            df = pd.read_csv(CSV_PATH)
+            df = pd.read_csv(LOCAL_CSV_PATH)
             for col in SCHEMA_COLUMNS:
                 if col not in df.columns:
                     df[col] = 0.0 if col in ["Odds", "Edge_Pct", "Stake", "P_L"] else ""
             return df
         except Exception:
             return pd.DataFrame(columns=SCHEMA_COLUMNS)
+
     return pd.DataFrame(columns=SCHEMA_COLUMNS)
 
 def highlight_status_row(row):
     status = str(row.get("Status", "")).upper()
     if status == "WON":
-        return ["color: #10b981; font-weight: 600;"] * len(row)  # Bright Green
+        return ["color: #10b981; font-weight: 600;"] * len(row)  # Green
     elif status == "LOST":
-        return ["color: #ef4444; font-weight: 600;"] * len(row)  # Clean Red
+        return ["color: #ef4444; font-weight: 600;"] * len(row)  # Red
     elif status == "PENDING":
-        return ["color: #ffffff;"] * len(row)                   # Crisp White
+        return ["color: #ffffff;"] * len(row)                   # White
     elif status == "PUSH":
-        return ["color: #94a3b8;"] * len(row)                   # Soft Gray
+        return ["color: #94a3b8;"] * len(row)                   # Gray
     return [""] * len(row)
 
 st.title("⚡ Autonomous AI Multi-Horizon Betting Terminal")
@@ -82,7 +102,7 @@ st.dataframe(pd.DataFrame(leaderboard_data), use_container_width=True, hide_inde
 
 col1, col2 = st.columns([1, 4])
 with col1:
-    if st.button("🔄 Refresh Data"):
+    if st.button("🔄 Refresh Live Data"):
         st.cache_data.clear()
         st.rerun()
 
