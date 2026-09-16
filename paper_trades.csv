@@ -1,38 +1,38 @@
 ID,Model_Tag,Kickoff_UTC,League,Matchup,Market,Pick,Bookmaker,Odds,Edge_Pct,Stake,Status,P_L
 52ae8d13,LATE_STEAM,2026-09-15T16:00:00Z,Coppa Italia,Genoa vs Südtirol,Pre-Match +EV,Draw,Coral,4.2,3.4,15.0,PENDING,0.0
-2bb3c87b,LATE_STEAM,2026-09-15T16:00:00Z,Ekstraklasa - Poland,Raków Częstochowa vs Zagłębie Lubin,Pre-Match +EV,Raków Częstochowa,Smarkets,1.93,3.8,15.0,PENDING,0.0
-10f14cb7,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,FC Würzburger Kickers vs Alemannia Aachen,Pre-Match +EV,FC Würzburger Kickers,Tipico,3.7,8.5,15.0,PENDING,0.0
-080dddef,LATE_STEAM,2026-09-15T17:00:00Z,La Liga - Spain,Rayo Vallecano vs Espanyol,Pre-Match +EV,Draw,Betano (UK),3.5,3.2,15.0,PENDING,0.0
-50df226f,LATE_STEAM,2026-09-15T17:00:00Z,Swiss Superleague,Grasshopper Zürich vs FC Sion,Pre-Match +EV,Draw,Coolbet,4.2,7.4,15.0,PENDING,0.0
-ac1a0ee2,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,SV Meppen vs FC Viktoria Köln 1904,Pre-Match +EV,SV Meppen,Tipico,2.9,3.9,15.0,PENDING,0.0
-3107b45c,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,Jahn Regensburg vs Fortuna Düsseldorf,Pre-Match +EV,Jahn Regensburg,Tipico,3.1,3.3,15.0,PENDING,0.0
-37ab3c02,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,Landskrona BoIS vs GIF Sundsvall,Pre-Match +EV,GIF Sundsvall,1xBet,7.95,7.0,15.0,PENDING,0.0
-7c19d8b3,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,IFK Värnamo vs Östers IF,Pre-Match +EV,IFK Värnamo,Unibet (NL),1.93,3.8,15.0,PENDING,0.0
-10be4781,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,IK Brage vs Sandvikens IF,Pre-Match +EV,IK Brage,1xBet,2.9,6.6,15.0,PENDING,0.0
-4ca313d7,LATE_STEAM,2026-09-15T18:00:00Z,Dutch Eredivisie,Ajax vs Willem II,Pre-Match +EV,Willem II,Unibet (UK),19.0,3.5,15.0,PENDING,0.0
-a4cbe3d9,LATE_STEAM,2026-09-15T18:00:00Z,La Liga - Spain,Alavés vs Valencia,Pre-Match +EV,Alavés,1xBet,1.74,3.6,15.0,PENDING,0.0
-5a7f3a8d,LATE_STEAM,2026-09-15T18:30:00Z,EFL Cup,Peterborough United vs Barnsley,Pre-Match +EV,Barnsley,Betfair,3.05,5.5,15.0,PENDING,0.0
-e85651d9,LATE_STEAM,2026-09-15T18:30:00Z,Ekstraklasa - Poland,Korona Kielce vs Górnik Zabrze,Pre-Match +EV,Draw,Coolbet,3.4,5.3,15.0,PENDING,0.0
-838e9481,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Motherwell vs Aberdeen,Pre-Match +EV,Draw,Smarkets,4.0,3.9,15.0,PENDING,0.0
-89c47db3,LATE_STEAM,2026-09-15T18:45:00Z,Championship,Bristol City vs Lincoln City,Pre-Match +EV,Draw,LeoVegas (SE),3.75,5.9,15.0,PENDING,0.0
-501e3b63,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Falkirk F.C. vs Hearts,Pre-Match +EV,Falkirk F.C.,Smarkets,3.95,6.5,15.0,PENDING,0.0
-fd442eba,LATE_STEAM,2026-09-15T18:45:00Z,EFL Cup,West Ham United vs Fulham,Pre-Match +EV,Fulham,Betfair,2.9,3.6,15.0,PENDING,0.0
-b380fa03,LATE_STEAM,2026-09-15T17:00:01Z,3. Liga - Germany,SG Sonnenhof Großaspach vs SC Verl,Halftime In-Play,SG Sonnenhof Großaspach,Tipico,5.0,18.8,15.0,PENDING,0.0
-29c7f8d3,LATE_STEAM,2026-09-15T17:00:02Z,3. Liga - Germany,MSV Duisburg vs TSV Havelse,Halftime In-Play,MSV Duisburg,Tipico,2.55,63.5,15.0,PENDING,0.0
-276c015c,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Hibernian vs Kilmarnock,Pre-Match +EV,Kilmarnock,Smarkets,7.6,6.9,15.0,PENDING,0.0
-e6e27a1f,LATE_STEAM,2026-09-15T18:45:00Z,Championship,Middlesbrough vs Millwall,Pre-Match +EV,Middlesbrough,LeoVegas (SE),1.5,4.9,15.0,PENDING,0.0
-4a9177e3,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Ipswich Town vs Arsenal,Pre-Match +EV,Ipswich Town,Betfair Sportsbook,8.5,15.5,15.0,PENDING,0.0
-d6c22da2,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Reading vs Brentford,Pre-Match +EV,Brentford,Betfair,1.25,3.3,15.0,PENDING,0.0
+2bb3c87b,LATE_STEAM,2026-09-15T16:00:00Z,Ekstraklasa - Poland,Raków Częstochowa vs Zagłębie Lubin,Pre-Match +EV,Raków Częstochowa,Smarkets,1.93,3.8,15.0,LOST,-15.0
+10f14cb7,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,FC Würzburger Kickers vs Alemannia Aachen,Pre-Match +EV,FC Würzburger Kickers,Tipico,3.7,8.5,15.0,WON,40.5
+080dddef,LATE_STEAM,2026-09-15T17:00:00Z,La Liga - Spain,Rayo Vallecano vs Espanyol,Pre-Match +EV,Draw,Betano (UK),3.5,3.2,15.0,LOST,-15.0
+50df226f,LATE_STEAM,2026-09-15T17:00:00Z,Swiss Superleague,Grasshopper Zürich vs FC Sion,Pre-Match +EV,Draw,Coolbet,4.2,7.4,15.0,LOST,-15.0
+ac1a0ee2,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,SV Meppen vs FC Viktoria Köln 1904,Pre-Match +EV,SV Meppen,Tipico,2.9,3.9,15.0,LOST,-15.0
+3107b45c,LATE_STEAM,2026-09-15T17:00:00Z,3. Liga - Germany,Jahn Regensburg vs Fortuna Düsseldorf,Pre-Match +EV,Jahn Regensburg,Tipico,3.1,3.3,15.0,LOST,-15.0
+37ab3c02,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,Landskrona BoIS vs GIF Sundsvall,Pre-Match +EV,GIF Sundsvall,1xBet,7.95,7.0,15.0,LOST,-15.0
+7c19d8b3,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,IFK Värnamo vs Östers IF,Pre-Match +EV,IFK Värnamo,Unibet (NL),1.93,3.8,15.0,LOST,-15.0
+10be4781,LATE_STEAM,2026-09-15T17:00:00Z,Superettan - Sweden,IK Brage vs Sandvikens IF,Pre-Match +EV,IK Brage,1xBet,2.9,6.6,15.0,LOST,-15.0
+4ca313d7,LATE_STEAM,2026-09-15T18:00:00Z,Dutch Eredivisie,Ajax vs Willem II,Pre-Match +EV,Willem II,Unibet (UK),19.0,3.5,15.0,LOST,-15.0
+a4cbe3d9,LATE_STEAM,2026-09-15T18:00:00Z,La Liga - Spain,Alavés vs Valencia,Pre-Match +EV,Alavés,1xBet,1.74,3.6,15.0,LOST,-15.0
+5a7f3a8d,LATE_STEAM,2026-09-15T18:30:00Z,EFL Cup,Peterborough United vs Barnsley,Pre-Match +EV,Barnsley,Betfair,3.05,5.5,15.0,LOST,-15.0
+e85651d9,LATE_STEAM,2026-09-15T18:30:00Z,Ekstraklasa - Poland,Korona Kielce vs Górnik Zabrze,Pre-Match +EV,Draw,Coolbet,3.4,5.3,15.0,LOST,-15.0
+838e9481,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Motherwell vs Aberdeen,Pre-Match +EV,Draw,Smarkets,4.0,3.9,15.0,LOST,-15.0
+89c47db3,LATE_STEAM,2026-09-15T18:45:00Z,Championship,Bristol City vs Lincoln City,Pre-Match +EV,Draw,LeoVegas (SE),3.75,5.9,15.0,LOST,-15.0
+501e3b63,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Falkirk F.C. vs Hearts,Pre-Match +EV,Falkirk F.C.,Smarkets,3.95,6.5,15.0,WON,44.25
+fd442eba,LATE_STEAM,2026-09-15T18:45:00Z,EFL Cup,West Ham United vs Fulham,Pre-Match +EV,Fulham,Betfair,2.9,3.6,15.0,WON,28.5
+b380fa03,LATE_STEAM,2026-09-15T17:00:01Z,3. Liga - Germany,SG Sonnenhof Großaspach vs SC Verl,Halftime In-Play,SG Sonnenhof Großaspach,Tipico,5.0,18.8,15.0,LOST,-15.0
+29c7f8d3,LATE_STEAM,2026-09-15T17:00:02Z,3. Liga - Germany,MSV Duisburg vs TSV Havelse,Halftime In-Play,MSV Duisburg,Tipico,2.55,63.5,15.0,WON,23.25
+276c015c,LATE_STEAM,2026-09-15T18:45:00Z,Premiership - Scotland,Hibernian vs Kilmarnock,Pre-Match +EV,Kilmarnock,Smarkets,7.6,6.9,15.0,WON,99.0
+e6e27a1f,LATE_STEAM,2026-09-15T18:45:00Z,Championship,Middlesbrough vs Millwall,Pre-Match +EV,Middlesbrough,LeoVegas (SE),1.5,4.9,15.0,LOST,-15.0
+4a9177e3,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Ipswich Town vs Arsenal,Pre-Match +EV,Ipswich Town,Betfair Sportsbook,8.5,15.5,15.0,LOST,-15.0
+d6c22da2,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Reading vs Brentford,Pre-Match +EV,Brentford,Betfair,1.25,3.3,15.0,WON,3.75
 89c0d284,LATE_STEAM,2026-09-15T19:00:00Z,Coppa Italia,Fiorentina vs Pisa,Pre-Match +EV,Pisa,Betfair,9.2,5.1,15.0,PENDING,0.0
-a6c61c5a,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Liverpool vs Tottenham Hotspur,Pre-Match +EV,Draw,Betfair,3.85,3.8,15.0,PENDING,0.0
-730c8e5e,LATE_STEAM,2026-09-15T19:30:00Z,La Liga - Spain,Elche CF vs Real Madrid,Pre-Match +EV,Elche CF,Betfair,14.5,11.5,15.0,PENDING,0.0
-14f213be,LATE_STEAM,2026-09-15T22:00:00Z,Copa Libertadores,Platense vs Fluminense-RJ,Pre-Match +EV,Draw,1xBet,3.0,4.9,15.0,PENDING,0.0
-df821eb4,LATE_STEAM,2026-09-15T22:00:00Z,Copa Sudamericana,Vasco da Gama vs Independiente Santa Fe,Pre-Match +EV,Independiente Santa Fe,1xBet,10.0,8.5,15.0,PENDING,0.0
-4bd830ef,LATE_STEAM,2026-09-15T22:30:00Z,Brazil Série B,Londrina vs Ponte Preta,Pre-Match +EV,Ponte Preta,Smarkets,11.0,18.7,15.0,PENDING,0.0
-dd7b31f1,LATE_STEAM,2026-09-15T22:30:00Z,Brazil Série B,Nautico PE vs Operario PR,Pre-Match +EV,Nautico PE,Smarkets,1.93,4.9,15.0,PENDING,0.0
-e07c91f2,LATE_STEAM,2026-09-16T00:00:00Z,Brazil Série B,Clube de Regatas Brasil vs Sport Recife,Pre-Match +EV,Clube de Regatas Brasil,Smarkets,1.94,3.2,15.0,PENDING,0.0
-bdb5a46e,LATE_STEAM,2026-09-16T00:30:00Z,Copa Sudamericana,Sao Paulo vs Boca Juniors,Pre-Match +EV,Draw,1xBet,3.21,4.6,15.0,PENDING,0.0
-d463a345,LATE_STEAM,2026-09-16T01:00:00Z,Liga MX,Puebla vs Toluca,Pre-Match +EV,Puebla,Betfair,5.8,4.3,15.0,PENDING,0.0
+a6c61c5a,LATE_STEAM,2026-09-15T19:00:00Z,EFL Cup,Liverpool vs Tottenham Hotspur,Pre-Match +EV,Draw,Betfair,3.85,3.8,15.0,LOST,-15.0
+730c8e5e,LATE_STEAM,2026-09-15T19:30:00Z,La Liga - Spain,Elche CF vs Real Madrid,Pre-Match +EV,Elche CF,Betfair,14.5,11.5,15.0,LOST,-15.0
+14f213be,LATE_STEAM,2026-09-15T22:00:00Z,Copa Libertadores,Platense vs Fluminense-RJ,Pre-Match +EV,Draw,1xBet,3.0,4.9,15.0,LOST,-15.0
+df821eb4,LATE_STEAM,2026-09-15T22:00:00Z,Copa Sudamericana,Vasco da Gama vs Independiente Santa Fe,Pre-Match +EV,Independiente Santa Fe,1xBet,10.0,8.5,15.0,LOST,-15.0
+4bd830ef,LATE_STEAM,2026-09-15T22:30:00Z,Brazil Série B,Londrina vs Ponte Preta,Pre-Match +EV,Ponte Preta,Smarkets,11.0,18.7,15.0,LOST,-15.0
+dd7b31f1,LATE_STEAM,2026-09-15T22:30:00Z,Brazil Série B,Nautico PE vs Operario PR,Pre-Match +EV,Nautico PE,Smarkets,1.93,4.9,15.0,LOST,-15.0
+e07c91f2,LATE_STEAM,2026-09-16T00:00:00Z,Brazil Série B,Clube de Regatas Brasil vs Sport Recife,Pre-Match +EV,Clube de Regatas Brasil,Smarkets,1.94,3.2,15.0,WON,14.1
+bdb5a46e,LATE_STEAM,2026-09-16T00:30:00Z,Copa Sudamericana,Sao Paulo vs Boca Juniors,Pre-Match +EV,Draw,1xBet,3.21,4.6,15.0,WON,33.15
+d463a345,LATE_STEAM,2026-09-16T01:00:00Z,Liga MX,Puebla vs Toluca,Pre-Match +EV,Puebla,Betfair,5.8,4.3,15.0,LOST,-15.0
 b47d1c31,CORE_EV,2026-09-16T15:30:00Z,Premier League - Russia,Spartak Moscow vs FC Fakel Voronezh,Pre-Match +EV,FC Fakel Voronezh,Marathon Bet,9.4,4.8,15.0,PENDING,0.0
 07e03420,CORE_EV,2026-09-16T15:30:00Z,Premier League - Russia,Rodina Moscow vs Rubin Kazan,Pre-Match +EV,Draw,1xBet,3.35,3.7,15.0,PENDING,0.0
 7cb7540e,CORE_EV,2026-09-16T16:45:00Z,UEFA Europa League,Omonoia FC vs Celta Vigo,Pre-Match +EV,Celta Vigo,Smarkets,2.12,3.9,15.0,PENDING,0.0
