@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 logger = logging.getLogger("QuantWorker")
 
 CSV_PATH = "paper_trades.csv"
+STARTING_BANKROLL = 1000.0
 
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
@@ -86,6 +87,31 @@ def sync_csv_to_github():
     except Exception as e:
         logger.error(f"GitHub sync failed: {e}")
 
+def get_model_available_bank(model_tag: str, starting_capital: float = STARTING_BANKROLL) -> float:
+    """Calculates available liquid cash in the bank = Starting Capital + Settled P/L - Active Staked"""
+    if not os.path.exists(CSV_PATH):
+        return starting_capital
+    try:
+        df = pd.read_csv(CSV_PATH)
+        if df.empty or "Model_Tag" not in df.columns or "Status" not in df.columns:
+            return starting_capital
+
+        m_trades = df[df["Model_Tag"] == model_tag]
+        if m_trades.empty:
+            return starting_capital
+
+        settled = m_trades[m_trades["Status"].isin(["WON", "LOST", "PUSH"])]
+        pending = m_trades[m_trades["Status"] == "PENDING"]
+
+        net_settled_pl = float(settled["P_L"].sum()) if not settled.empty else 0.0
+        active_staked = float(pending["Stake"].sum()) if not pending.empty else 0.0
+
+        total_equity = starting_capital + net_settled_pl
+        available_cash = total_equity - active_staked
+        return available_cash
+    except Exception:
+        return starting_capital
+
 def has_existing_bet(matchup: str, model_tag: str) -> bool:
     if not os.path.exists(CSV_PATH):
         return False
@@ -128,6 +154,14 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
 
 def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag, bankroll=1000.0) -> bool:
     matchup = f"{fixture_data['home']} vs {fixture_data['away']}"
+
+    # Strict Bank Check: Model cannot bet more than it has in the bank
+    available_in_bank = get_model_available_bank(model_tag, bankroll)
+    target_stake = 15.00
+
+    if available_in_bank < target_stake:
+        logger.info(f"[{model_tag}] Out of liquid bank funds (Available: ${available_in_bank:.2f}). Waiting for settlements.")
+        return False
 
     if has_existing_bet(matchup, model_tag):
         return False
@@ -176,7 +210,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         return False
 
     pick = data.get("recommended_pick")
-    stake_amount = round(bankroll * data.get("kelly_stake_pct", 0.015), 2)
+    stake_amount = target_stake
 
     new_trade = {
         "ID": str(uuid.uuid4())[:8],
@@ -198,7 +232,8 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         df = pd.read_csv(CSV_PATH) if os.path.exists(CSV_PATH) else pd.DataFrame(columns=SCHEMA_COLUMNS)
         df = pd.concat([df, pd.DataFrame([new_trade])], ignore_index=True)
         df.to_csv(CSV_PATH, index=False)
-        logger.info(f"Logged [{model_tag}] bet: ${stake_amount} on {pick} ({matchup})")
+        remaining_bank = available_in_bank - stake_amount
+        logger.info(f"Logged [{model_tag}] bet: ${stake_amount} on {pick} ({matchup}) | Bank Remaining: ${remaining_bank:.2f}")
     except Exception as e:
         logger.error(f"Failed to record bet: {e}")
         return False
@@ -214,7 +249,8 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         f"🧠 <b>Tactical Read:</b>\n{data.get('tactical_analysis')}\n\n"
         f"🎯 <b>LOGGED POSITION:</b>\n"
         f"• Pick: <code>{pick}</code>\n"
-        f"• Stake: <b>${stake_amount}</b> (@ {data.get('odds')})"
+        f"• Stake: <b>${stake_amount}</b> (@ {data.get('odds')})\n"
+        f"• Bank Remaining: <b>${available_in_bank - stake_amount:.2f}</b>"
     )
 
     if bot_token and chat_id:
@@ -235,7 +271,7 @@ def auto_settle():
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     if not api_key:
-        logger.error("[auto_settle] ODDS_API_KEY is missing from environment variables.")
+        logger.error("[auto_settle] ODDS_API_KEY missing.")
         return
 
     if not os.path.exists(CSV_PATH):
@@ -249,18 +285,13 @@ def auto_settle():
         pending_mask = df["Status"] == "PENDING"
         pending_count = int(pending_mask.sum())
         if pending_count == 0:
-            logger.info("[auto_settle] No pending bets to settle.")
             return
-
-        logger.info(f"[auto_settle] Found {pending_count} pending bets. Querying sports list...")
 
         sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
         if sports_res.status_code != 200:
-            logger.error(f"[auto_settle] Sports call failed with code {sports_res.status_code}: {sports_res.text}")
             return
 
         soccer_leagues = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
-        logger.info(f"[auto_settle] Querying score results across {len(soccer_leagues)} soccer leagues...")
 
         completed_games = []
         for l_key in soccer_leagues:
@@ -277,7 +308,6 @@ def auto_settle():
                 pass
             time.sleep(0.08)
 
-        logger.info(f"[auto_settle] Retrieved {len(completed_games)} completed matches with scores.")
         if not completed_games:
             return
 
@@ -363,7 +393,7 @@ def auto_settle():
         if settled_count > 0:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info(f"[auto_settle] Successfully settled {settled_count} bets and synced paper_trades.csv to GitHub.")
+            logger.info(f"[auto_settle] Settled {settled_count} bets and synced to GitHub.")
 
     except Exception as e:
         logger.error(f"[auto_settle] Error: {e}")
@@ -377,7 +407,6 @@ def fetch_soccer_odds():
     if sports_res.status_code != 200:
         return []
 
-    # Scans all active soccer leagues worldwide
     soccer_keys = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
     all_odds = []
 
@@ -396,13 +425,11 @@ def fetch_soccer_odds():
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # 1. Resolve past matches across all soccer competitions
     auto_settle()
 
-    # 2. Evaluate all live and pre-match markets
-    bankroll = 1000.0
+    bankroll = STARTING_BANKROLL
     matches = fetch_soccer_odds()
-    logger.info(f"Loaded {len(matches)} real fixtures to evaluate across all leagues.")
+    logger.info(f"Loaded {len(matches)} fixtures across all leagues.")
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
@@ -421,6 +448,12 @@ def main():
         if not is_halftime and not is_future:
             continue
 
+        hours_to_kickoff = -minutes_since_kickoff / 60
+
+        # Lookahead cap: 6 days (144h)
+        if hours_to_kickoff > 144:
+            continue
+
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
         if "pinnacle" not in bookmakers:
             continue
@@ -433,7 +466,6 @@ def main():
         if not pinnacle_odds:
             continue
 
-        hours_to_kickoff = -minutes_since_kickoff / 60
         if is_halftime:
             assigned_tag = "HALFTIME_LIVE"
             state_label = "Halftime (In-Play)"
@@ -498,7 +530,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Global multi-league scanner & settlement resolver active.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Strict Bank Reserve checks active.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
