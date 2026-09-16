@@ -14,6 +14,24 @@ logger = logging.getLogger("QuantWorker")
 CSV_PATH = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
 
+TIER1_SOCCER_LEAGUES = [
+    "soccer_epl",
+    "soccer_spain_la_liga",
+    "soccer_italy_serie_a",
+    "soccer_germany_bundesliga",
+    "soccer_france_ligue_one",
+    "soccer_uefa_champs_league",
+    "soccer_uefa_europa_league",
+    "soccer_uefa_europa_conference_league",
+    "soccer_brazil_campeonato",
+    "soccer_argentina_primera_division",
+    "soccer_netherlands_eredivisie",
+    "soccer_portugal_primeira_liga",
+    "soccer_efl_champ",
+    "soccer_mexico_ligamx",
+    "soccer_usa_mls"
+]
+
 SCHEMA_COLUMNS = [
     "ID", "Model_Tag", "Kickoff_UTC", "League", "Matchup", 
     "Market", "Pick", "Bookmaker", "Odds", "Edge_Pct", 
@@ -21,6 +39,7 @@ SCHEMA_COLUMNS = [
 ]
 
 depleted_logged_this_cycle = set()
+last_settle_timestamp = 0
 
 def load_latest_csv_from_github():
     token = os.environ.get("GITHUB_TOKEN")
@@ -41,7 +60,7 @@ def load_latest_csv_from_github():
             csv_content = base64.b64decode(content_b64).decode("utf-8")
             with open(CSV_PATH, "w") as f:
                 f.write(csv_content)
-            logger.info("Successfully synced latest paper_trades.csv from GitHub.")
+            logger.info("Synced latest paper_trades.csv from GitHub.")
     except Exception as e:
         logger.error(f"Error fetching CSV from GitHub: {e}")
 
@@ -188,7 +207,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Live in-play discrepancy detected vs sharp benchmark.",
+      "tactical_analysis": "Discrepancy detected vs sharp benchmark.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -267,7 +286,15 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
 
     return True
 
-def auto_settle():
+def auto_settle_targeted(force=False):
+    """Hourly targeted settlement to avoid burning credits on scores."""
+    global last_settle_timestamp
+    now_ts = time.time()
+    
+    if not force and (now_ts - last_settle_timestamp < 3600):
+        return
+
+    last_settle_timestamp = now_ts
     api_key = os.environ.get("ODDS_API_KEY")
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
@@ -280,18 +307,14 @@ def auto_settle():
         if df.empty or "Status" not in df.columns:
             return
 
-        pending_mask = df["Status"] == "PENDING"
-        if int(pending_mask.sum()) == 0:
+        pending_df = df[df["Status"] == "PENDING"]
+        if pending_df.empty:
             return
 
-        sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
-        if sports_res.status_code != 200:
-            return
+        logger.info(f"[auto_settle] Checking settlements for {len(pending_df)} pending positions...")
 
-        soccer_leagues = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
         completed_games = []
-
-        for l_key in soccer_leagues:
+        for l_key in TIER1_SOCCER_LEAGUES:
             sc_url = f"https://api.the-odds-api.com/v4/sports/{l_key}/scores/?apiKey={api_key}&daysFrom=3"
             try:
                 res = requests.get(sc_url, timeout=8)
@@ -309,7 +332,7 @@ def auto_settle():
             return
 
         settled_count = 0
-        for idx in df[pending_mask].index:
+        for idx in pending_df.index:
             raw_matchup = str(df.at[idx, "Matchup"]).strip()
             pick = str(df.at[idx, "Pick"]).strip()
             stake = float(df.at[idx, "Stake"])
@@ -394,44 +417,55 @@ def auto_settle():
     except Exception as e:
         logger.error(f"[auto_settle] Error: {e}")
 
-def fetch_soccer_odds():
+def fetch_tier1_soccer_odds():
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
+        logger.error("[ODDS API] ODDS_API_KEY is not set.")
         return []
 
-    sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
-    if sports_res.status_code != 200:
+    probe = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
+    remaining = probe.headers.get("x-requests-remaining")
+    used = probe.headers.get("x-requests-used")
+    logger.info(f"[ODDS API QUOTA] Remaining: {remaining} | Used: {used}")
+
+    if probe.status_code != 200:
+        logger.error(f"[ODDS API ERROR] HTTP {probe.status_code}: {probe.text}")
         return []
 
-    soccer_keys = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
     all_odds = []
-
-    for skey in soccer_keys:
+    for skey in TIER1_SOCCER_LEAGUES:
         url = f"https://api.the-odds-api.com/v4/sports/{skey}/odds/?apiKey={api_key}&regions=eu,uk&markets=h2h&oddsFormat=decimal"
         try:
             res = requests.get(url, timeout=10)
             if res.status_code == 200:
                 all_odds.extend(res.json())
+            elif res.status_code in [401, 429]:
+                logger.error(f"[ODDS API LIMIT] HTTP {res.status_code} on {skey}: {res.text}")
+                break
         except Exception:
             pass
         time.sleep(0.08)
 
     return all_odds
 
-def main():
+def run_scan_cycle() -> int:
+    """Runs the audit and calculates the adaptive sleep duration (in seconds) based on match timing."""
     global depleted_logged_this_cycle
     depleted_logged_this_cycle = set()
 
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
-    auto_settle()
+    auto_settle_targeted()
 
     bankroll = STARTING_BANKROLL
-    matches = fetch_soccer_odds()
-    logger.info(f"Loaded {len(matches)} fixtures across all leagues.")
+    matches = fetch_tier1_soccer_odds()
+    logger.info(f"Loaded {len(matches)} fixtures across Tier-1 leagues.")
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
     halftime_matches_count = 0
+
+    has_live_game = False
+    min_minutes_to_next_kickoff = 999999
 
     for game in matches:
         commence_time_str = game.get("commence_time")
@@ -441,10 +475,18 @@ def main():
         commence_time = datetime.fromisoformat(commence_time_str.replace("Z", "+00:00"))
         minutes_since_kickoff = (now - commence_time).total_seconds() / 60
 
+        # Track upcoming and in-play states for dynamic sleeping
+        if 0 <= minutes_since_kickoff <= 115:
+            has_live_game = True
+
+        if minutes_since_kickoff < 0:
+            mins_until = -minutes_since_kickoff
+            if mins_until < min_minutes_to_next_kickoff:
+                min_minutes_to_next_kickoff = mins_until
+
         is_halftime = 45 <= minutes_since_kickoff <= 65
         is_future = minutes_since_kickoff < 0
 
-        # Skip games that already finished or are in regular 2nd half play
         if not is_halftime and not is_future:
             continue
 
@@ -455,16 +497,13 @@ def main():
 
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
 
-        # DIAGNOSTIC AUDIT: Log if any live match hits the Halftime interval
         if is_halftime:
             halftime_matches_count += 1
             has_pinny = "pinnacle" in bookmakers
-            logger.info(f"[HALFTIME AUDIT] Match in break: {game.get('home_team')} vs {game.get('away_team')} (Elapsed: ~{round(minutes_since_kickoff)}m) | Pinnacle live line: {has_pinny} | Available books: {len(bookmakers)}")
+            logger.info(f"[HALFTIME AUDIT] Match in break: {game.get('home_team')} vs {game.get('away_team')} (Elapsed: ~{round(minutes_since_kickoff)}m) | Pinnacle live: {has_pinny} | Books: {len(bookmakers)}")
 
-        # Locate sharp benchmark (Pinnacle or sharpest available bookmaker)
         sharp_key = "pinnacle" if "pinnacle" in bookmakers else None
         if not sharp_key and is_halftime:
-            # Fallback for live in-play when Pinnacle suspends: use Betfair Exchange or BetOnline
             for alt in ["betfair_ex_uk", "betfair_ex_eu", "betonlineag", "unibet_eu"]:
                 if alt in bookmakers:
                     sharp_key = alt
@@ -539,6 +578,24 @@ def main():
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
+    # Dynamic Sleeping Calculation
+    if has_live_game:
+        adaptive_sleep = 480  # 8 minutes if a match is actively in-play
+        logger.info("[ADAPTIVE SLEEP] Active in-play matches detected. Sleeping 8 minutes.")
+    elif min_minutes_to_next_kickoff <= 60:
+        adaptive_sleep = 600  # 10 minutes if kickoff is within the hour
+        logger.info(f"[ADAPTIVE SLEEP] Kickoff soon ({round(min_minutes_to_next_kickoff)}m). Sleeping 10 minutes.")
+    elif min_minutes_to_next_kickoff < 999999:
+        # Wake up 30 minutes before next kickoff, with a minimum of 15m and maximum cap of 75m
+        target_sleep = max(900, min((min_minutes_to_next_kickoff - 30) * 60, 4500))
+        adaptive_sleep = int(target_sleep)
+        logger.info(f"[ADAPTIVE SLEEP] Dead zone: next kickoff in {round(min_minutes_to_next_kickoff / 60, 1)}h. Sleeping {round(adaptive_sleep / 60)} minutes.")
+    else:
+        adaptive_sleep = 1800  # 30 min default fallback if no fixtures found
+        logger.info("[ADAPTIVE SLEEP] No fixtures found. Sleeping 30 minutes.")
+
+    return adaptive_sleep
+
 if __name__ == "__main__":
     logger.info("Starting Quant Worker Daemon...")
 
@@ -548,16 +605,19 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Halftime Diagnostic Logger Activated.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Dynamic Adaptive Scheduling active.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
             pass
 
+    auto_settle_targeted(force=True)
+
     while True:
         try:
-            main()
+            sleep_duration = run_scan_cycle()
         except Exception as e:
             logger.error(f"Error during scan cycle: {e}")
+            sleep_duration = 600
 
-        time.sleep(300)
+        time.sleep(sleep_duration)
