@@ -152,7 +152,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Lagged retail bookmaker line creates positive expectancy vs sharp consensus.",
+      "tactical_analysis": "Lagged retail line creates positive expectancy against Pinnacle baseline.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -235,7 +235,7 @@ def auto_settle():
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     if not api_key:
-        logger.error("[auto_settle] ODDS_API_KEY environment variable is missing!")
+        logger.error("[auto_settle] ODDS_API_KEY is missing from environment variables.")
         return
 
     if not os.path.exists(CSV_PATH):
@@ -254,16 +254,14 @@ def auto_settle():
 
         logger.info(f"[auto_settle] Found {pending_count} pending bets. Querying sports list...")
 
-        # 1. Grab all soccer sports from the API
         sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
         if sports_res.status_code != 200:
-            logger.error(f"[auto_settle] Sports call failed: {sports_res.status_code}")
+            logger.error(f"[auto_settle] Sports call failed with code {sports_res.status_code}: {sports_res.text}")
             return
 
         soccer_leagues = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
         logger.info(f"[auto_settle] Querying score results across {len(soccer_leagues)} soccer leagues...")
 
-        # 2. Collect completed matches
         completed_games = []
         for l_key in soccer_leagues:
             sc_url = f"https://api.the-odds-api.com/v4/sports/{l_key}/scores/?apiKey={api_key}&daysFrom=3"
@@ -277,9 +275,9 @@ def auto_settle():
                                 completed_games.append(ev)
             except Exception:
                 pass
-            time.sleep(0.1)
+            time.sleep(0.08)
 
-        logger.info(f"[auto_settle] Retrieved {len(completed_games)} completed matches.")
+        logger.info(f"[auto_settle] Retrieved {len(completed_games)} completed matches with scores.")
         if not completed_games:
             return
 
@@ -349,7 +347,7 @@ def auto_settle():
                     msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {raw_matchup}\nFinal: <b>{home_score} - {away_score}</b>\nLoss: <b>-${stake}</b>"
 
                 settled_count += 1
-                logger.info(f"Settled {raw_matchup} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
+                logger.info(f"[auto_settle] Settled {raw_matchup} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
 
                 if bot_token and chat_id:
                     try:
@@ -365,7 +363,7 @@ def auto_settle():
         if settled_count > 0:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info(f"Successfully settled {settled_count} bets and synced paper_trades.csv to GitHub.")
+            logger.info(f"[auto_settle] Successfully settled {settled_count} bets and synced paper_trades.csv to GitHub.")
 
     except Exception as e:
         logger.error(f"[auto_settle] Error: {e}")
@@ -379,10 +377,11 @@ def fetch_soccer_odds():
     if sports_res.status_code != 200:
         return []
 
+    # Scans all active soccer leagues worldwide
     soccer_keys = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
     all_odds = []
 
-    for skey in soccer_keys[:12]:
+    for skey in soccer_keys:
         url = f"https://api.the-odds-api.com/v4/sports/{skey}/odds/?apiKey={api_key}&regions=eu,uk&markets=h2h&oddsFormat=decimal"
         try:
             res = requests.get(url, timeout=10)
@@ -390,19 +389,20 @@ def fetch_soccer_odds():
                 all_odds.extend(res.json())
         except Exception:
             pass
-        time.sleep(0.1)
+        time.sleep(0.08)
 
     return all_odds
 
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
-    # 1. Run auto-settlement across all soccer leagues
+    # 1. Resolve past matches across all soccer competitions
     auto_settle()
 
+    # 2. Evaluate all live and pre-match markets
     bankroll = 1000.0
     matches = fetch_soccer_odds()
-    logger.info(f"Loaded {len(matches)} real fixtures to evaluate.")
+    logger.info(f"Loaded {len(matches)} real fixtures to evaluate across all leagues.")
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
@@ -498,7 +498,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Multi-league score settlement resolver activated.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Global multi-league scanner & settlement resolver active.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
@@ -510,4 +510,4 @@ if __name__ == "__main__":
         except Exception as e:
             logger.error(f"Error during scan cycle: {e}")
 
-        time.sleep(300) 
+        time.sleep(300)
