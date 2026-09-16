@@ -102,7 +102,7 @@ def has_existing_bet(matchup: str, model_tag: str) -> bool:
 
         existing = df[(match_series == m_clean) & (tag_series == tag_clean)]
         return not existing.empty
-    except Exception as e:
+    except Exception:
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
@@ -122,7 +122,7 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
             raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
             return json.loads(raw_text.strip())
     except Exception as e:
-        logger.error(f"Gemini API exception: {e}")
+        logger.error(f"Gemini API error: {e}")
 
     return None
 
@@ -152,7 +152,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Soft line divergence creates positive expectancy against sharp closing line.",
+      "tactical_analysis": "Lagged retail bookmaker line creates positive expectancy vs sharp consensus.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -224,8 +224,8 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
                 json={"chat_id": chat_id, "text": card_message, "parse_mode": "HTML"},
                 timeout=10
             )
-        except Exception as e:
-            logger.error(f"Telegram dispatch failed: {e}")
+        except Exception:
+            pass
 
     return True
 
@@ -234,7 +234,11 @@ def auto_settle():
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
-    if not api_key or not os.path.exists(CSV_PATH):
+    if not api_key:
+        logger.error("[auto_settle] ODDS_API_KEY environment variable is missing!")
+        return
+
+    if not os.path.exists(CSV_PATH):
         return
 
     try:
@@ -243,42 +247,43 @@ def auto_settle():
             return
 
         pending_mask = df["Status"] == "PENDING"
-        if not pending_mask.any():
+        pending_count = int(pending_mask.sum())
+        if pending_count == 0:
+            logger.info("[auto_settle] No pending bets to settle.")
             return
 
-        # 1. Discover all active soccer sport keys
-        sports_url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
-        sports_res = requests.get(sports_url, timeout=10)
-        
-        soccer_keys = []
-        if sports_res.status_code == 200:
-            for s in sports_res.json():
-                k = s.get("key", "")
-                if k.startswith("soccer_"):
-                    soccer_keys.append(k)
+        logger.info(f"[auto_settle] Found {pending_count} pending bets. Querying sports list...")
 
-        # Include upcoming as a fallback
-        soccer_keys = list(set(["upcoming"] + soccer_keys))
-        logger.info(f"[auto_settle] Scanning {len(soccer_keys)} leagues for completed match results...")
+        # 1. Grab all soccer sports from the API
+        sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
+        if sports_res.status_code != 200:
+            logger.error(f"[auto_settle] Sports call failed: {sports_res.status_code}")
+            return
 
-        # 2. Gather completed games across all soccer leagues
+        soccer_leagues = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
+        logger.info(f"[auto_settle] Querying score results across {len(soccer_leagues)} soccer leagues...")
+
+        # 2. Collect completed matches
         completed_games = []
-        for skey in soccer_keys:
-            sc_url = f"https://api.the-odds-api.com/v4/sports/{skey}/scores/?apiKey={api_key}&daysFrom=3"
-            res = requests.get(sc_url, timeout=10)
-            if res.status_code == 200:
-                data = res.json()
-                if isinstance(data, list):
-                    for g in data:
-                        if g.get("completed") and g.get("scores"):
-                            completed_games.append(g)
+        for l_key in soccer_leagues:
+            sc_url = f"https://api.the-odds-api.com/v4/sports/{l_key}/scores/?apiKey={api_key}&daysFrom=3"
+            try:
+                res = requests.get(sc_url, timeout=8)
+                if res.status_code == 200:
+                    events = res.json()
+                    if isinstance(events, list):
+                        for ev in events:
+                            if ev.get("completed") and ev.get("scores"):
+                                completed_games.append(ev)
+            except Exception:
+                pass
             time.sleep(0.1)
 
-        logger.info(f"[auto_settle] Total completed match results discovered: {len(completed_games)}")
+        logger.info(f"[auto_settle] Retrieved {len(completed_games)} completed matches.")
         if not completed_games:
             return
 
-        settled_any = False
+        settled_count = 0
 
         for idx in df[pending_mask].index:
             raw_matchup = str(df.at[idx, "Matchup"]).strip()
@@ -296,7 +301,6 @@ def auto_settle():
                 g_home = str(game.get("home_team", "")).lower()
                 g_away = str(game.get("away_team", "")).lower()
 
-                # Robust partial match for team names
                 match_found = (
                     (t_a in g_home or g_home in t_a or any(w in g_home for w in t_a.split() if len(w) > 3)) and
                     (t_b in g_away or g_away in t_b or any(w in g_away for w in t_b.split() if len(w) > 3))
@@ -344,7 +348,7 @@ def auto_settle():
                     df.at[idx, "P_L"] = -stake
                     msg = f"❌ <b>[{model_tag}] BET LOST</b>\n\n⚽ {raw_matchup}\nFinal: <b>{home_score} - {away_score}</b>\nLoss: <b>-${stake}</b>"
 
-                settled_any = True
+                settled_count += 1
                 logger.info(f"Settled {raw_matchup} -> {df.at[idx, 'Status']} (P/L: {df.at[idx, 'P_L']})")
 
                 if bot_token and chat_id:
@@ -358,35 +362,30 @@ def auto_settle():
                         pass
                 break
 
-        if settled_any:
+        if settled_count > 0:
             df.to_csv(CSV_PATH, index=False)
             sync_csv_to_github()
-            logger.info("Updated settled records pushed to GitHub.")
+            logger.info(f"Successfully settled {settled_count} bets and synced paper_trades.csv to GitHub.")
 
     except Exception as e:
-        logger.error(f"Settlement error: {e}")
+        logger.error(f"[auto_settle] Error: {e}")
 
 def fetch_soccer_odds():
     api_key = os.environ.get("ODDS_API_KEY")
     if not api_key:
         return []
-    
-    # Query active soccer sports dynamically
-    sports_url = f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}"
-    sports_res = requests.get(sports_url, timeout=10)
-    
-    soccer_keys = []
-    if sports_res.status_code == 200:
-        for s in sports_res.json():
-            k = s.get("key", "")
-            if k.startswith("soccer_"):
-                soccer_keys.append(k)
 
+    sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
+    if sports_res.status_code != 200:
+        return []
+
+    soccer_keys = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
     all_odds = []
-    for skey in soccer_keys:
+
+    for skey in soccer_keys[:12]:
         url = f"https://api.the-odds-api.com/v4/sports/{skey}/odds/?apiKey={api_key}&regions=eu,uk&markets=h2h&oddsFormat=decimal"
         try:
-            res = requests.get(url, timeout=12)
+            res = requests.get(url, timeout=10)
             if res.status_code == 200:
                 all_odds.extend(res.json())
         except Exception:
@@ -398,11 +397,12 @@ def fetch_soccer_odds():
 def main():
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
     
+    # 1. Run auto-settlement across all soccer leagues
     auto_settle()
 
     bankroll = 1000.0
     matches = fetch_soccer_odds()
-    logger.info(f"Loaded {len(matches)} fixtures across all soccer leagues.")
+    logger.info(f"Loaded {len(matches)} real fixtures to evaluate.")
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
