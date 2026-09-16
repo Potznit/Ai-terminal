@@ -20,7 +20,6 @@ SCHEMA_COLUMNS = [
     "Stake", "Status", "P_L"
 ]
 
-# Track which models have already warned about depleted bank this cycle
 depleted_logged_this_cycle = set()
 
 def load_latest_csv_from_github():
@@ -180,7 +179,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     Match: {matchup}
     State: {fixture_data.get('score')}
     Target Pick: {fixture_data['target_pick']}
-    Sharp Benchmark (Pinnacle): {live_odds.get('pinnacle')}
+    Sharp Benchmark: {live_odds.get('pinnacle')}
     Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
 
     Confirm if a genuine positive expectancy (+EV) edge exists. Return STRICT JSON only:
@@ -189,7 +188,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Lagged retail line creates positive expectancy against Pinnacle baseline.",
+      "tactical_analysis": "Live in-play discrepancy detected vs sharp benchmark.",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -205,7 +204,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
             "edge_pct": calculated_edge,
             "recommended_pick": fixture_data["target_pick"],
             "odds": retail,
-            "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Pinnacle baseline {sharp}.",
+            "tactical_analysis": f"Quantitative price divergence: Soft line {retail} vs Benchmark {sharp}.",
             "kelly_stake_pct": 0.015
         }
 
@@ -221,7 +220,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         "Kickoff_UTC": fixture_data.get("kickoff"),
         "League": fixture_data.get("league", "Global Soccer"),
         "Matchup": matchup,
-        "Market": "Halftime In-Play" if "Halftime" in str(fixture_data.get('score', '')) else "Pre-Match +EV",
+        "Market": "Halftime In-Play" if model_tag == "HALFTIME_LIVE" else "Pre-Match +EV",
         "Pick": pick,
         "Bookmaker": live_odds.get("bookmaker", "Retail Book"),
         "Odds": float(data.get("odds")),
@@ -247,7 +246,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         f"⏱ <b>State:</b> {fixture_data.get('score')}\n\n"
         f"📊 <b>Market Discrepancy:</b>\n"
         f"• Retail Outlier: <b>{data.get('odds')}</b> ({live_odds.get('bookmaker')})\n"
-        f"• Sharp Baseline: <b>{live_odds.get('pinnacle')}</b> (Pinnacle)\n"
+        f"• Sharp Baseline: <b>{live_odds.get('pinnacle')}</b>\n"
         f"• Calculated Edge: <b>+{data.get('edge_pct')}% EV</b>\n\n"
         f"🧠 <b>Tactical Read:</b>\n{data.get('tactical_analysis')}\n\n"
         f"🎯 <b>LOGGED POSITION:</b>\n"
@@ -273,11 +272,7 @@ def auto_settle():
     bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
-    if not api_key:
-        logger.error("[auto_settle] ODDS_API_KEY missing.")
-        return
-
-    if not os.path.exists(CSV_PATH):
+    if not api_key or not os.path.exists(CSV_PATH):
         return
 
     try:
@@ -286,8 +281,7 @@ def auto_settle():
             return
 
         pending_mask = df["Status"] == "PENDING"
-        pending_count = int(pending_mask.sum())
-        if pending_count == 0:
+        if int(pending_mask.sum()) == 0:
             return
 
         sports_res = requests.get(f"https://api.the-odds-api.com/v4/sports/?apiKey={api_key}", timeout=10)
@@ -295,8 +289,8 @@ def auto_settle():
             return
 
         soccer_leagues = [s["key"] for s in sports_res.json() if s.get("key", "").startswith("soccer_")]
-
         completed_games = []
+
         for l_key in soccer_leagues:
             sc_url = f"https://api.the-odds-api.com/v4/sports/{l_key}/scores/?apiKey={api_key}&daysFrom=3"
             try:
@@ -315,7 +309,6 @@ def auto_settle():
             return
 
         settled_count = 0
-
         for idx in df[pending_mask].index:
             raw_matchup = str(df.at[idx, "Matchup"]).strip()
             pick = str(df.at[idx, "Pick"]).strip()
@@ -430,7 +423,6 @@ def main():
     depleted_logged_this_cycle = set()
 
     logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
-    
     auto_settle()
 
     bankroll = STARTING_BANKROLL
@@ -439,6 +431,7 @@ def main():
 
     now = datetime.now(timezone.utc)
     new_bets_logged = False
+    halftime_matches_count = 0
 
     for game in matches:
         commence_time_str = game.get("commence_time")
@@ -451,30 +444,46 @@ def main():
         is_halftime = 45 <= minutes_since_kickoff <= 65
         is_future = minutes_since_kickoff < 0
 
+        # Skip games that already finished or are in regular 2nd half play
         if not is_halftime and not is_future:
             continue
 
         hours_to_kickoff = -minutes_since_kickoff / 60
 
-        # Enforce 6-day lookahead limit (144h)
         if hours_to_kickoff > 144:
             continue
 
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
-        if "pinnacle" not in bookmakers:
+
+        # DIAGNOSTIC AUDIT: Log if any live match hits the Halftime interval
+        if is_halftime:
+            halftime_matches_count += 1
+            has_pinny = "pinnacle" in bookmakers
+            logger.info(f"[HALFTIME AUDIT] Match in break: {game.get('home_team')} vs {game.get('away_team')} (Elapsed: ~{round(minutes_since_kickoff)}m) | Pinnacle live line: {has_pinny} | Available books: {len(bookmakers)}")
+
+        # Locate sharp benchmark (Pinnacle or sharpest available bookmaker)
+        sharp_key = "pinnacle" if "pinnacle" in bookmakers else None
+        if not sharp_key and is_halftime:
+            # Fallback for live in-play when Pinnacle suspends: use Betfair Exchange or BetOnline
+            for alt in ["betfair_ex_uk", "betfair_ex_eu", "betonlineag", "unibet_eu"]:
+                if alt in bookmakers:
+                    sharp_key = alt
+                    break
+
+        if not sharp_key:
             continue
 
-        pinnacle_odds = {}
-        for m in bookmakers["pinnacle"].get("markets", []):
+        sharp_odds = {}
+        for m in bookmakers[sharp_key].get("markets", []):
             if m["key"] == "h2h":
-                pinnacle_odds = {o["name"]: o["price"] for o in m["outcomes"]}
+                sharp_odds = {o["name"]: o["price"] for o in m["outcomes"]}
 
-        if not pinnacle_odds:
+        if not sharp_odds:
             continue
 
         if is_halftime:
             assigned_tag = "HALFTIME_LIVE"
-            state_label = "Halftime (In-Play)"
+            state_label = f"Halftime Break (~{round(minutes_since_kickoff)}m)"
         elif hours_to_kickoff > 48:
             assigned_tag = "EARLY_BIRD"
             state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
@@ -486,14 +495,14 @@ def main():
             state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
 
         for b_key, b_data in bookmakers.items():
-            if b_key == "pinnacle":
+            if b_key == sharp_key:
                 continue
             for m in b_data.get("markets", []):
                 if m["key"] == "h2h":
                     for outcome in m["outcomes"]:
                         target_side = outcome["name"]
                         retail_price = outcome["price"]
-                        sharp_price = pinnacle_odds.get(target_side)
+                        sharp_price = sharp_odds.get(target_side)
 
                         if sharp_price and retail_price > sharp_price:
                             edge = round(((retail_price / sharp_price) - 1.0) * 100, 1)
@@ -522,6 +531,9 @@ def main():
                                 if logged:
                                     new_bets_logged = True
 
+    if halftime_matches_count == 0:
+        logger.info("[HALFTIME AUDIT] No matches currently in the 45-65 min halftime window.")
+
     if new_bets_logged:
         sync_csv_to_github()
 
@@ -536,7 +548,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Bank management active.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Halftime Diagnostic Logger Activated.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
