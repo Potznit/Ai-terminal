@@ -198,3 +198,7 @@ c762e540,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC
 5c57dc08,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Pre-Match +EV,Draw,Winamax (DE),4.1,4.6,15.0,PENDING,0.0
 bcd91f9e,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,FSV Mainz 05,Betfair,2.4,5.7,15.0,PENDING,0.0
 82cdb6f6,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Pre-Match +EV,Draw,Coolbet,4.2,4.7,15.0,PENDING,0.0
+b1348b90,CORE_EV,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pre-Match +EV,Arsenal,Betfred (UK),1.73,3.0,15.0,PENDING,0.0
+4c70e409,CORE_EV,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Pre-Match +EV,Everton,Betfair,1.84,3.4,15.0,PENDING,0.0
+392c5b84,CORE_EV,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Pre-Match +EV,Hull City,Betfred (UK),5.5,3.6,15.0,PENDING,0.0
+0bf6a794,CORE_EV,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.7,6.7,15.0,PENDING,0.0
