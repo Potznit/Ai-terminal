@@ -655,5 +655,5 @@ if __name__ == "__main__":
         except Exception as e:
             logger.error(f"Error during scan cycle: {e}")
             sleep_duration = 600
-
+ 
         time.sleep(sleep_duration)
