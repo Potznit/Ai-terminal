@@ -187,3 +187,8 @@ b4c28dcd,LATE_STEAM,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,P
 3ad8ef61,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Juventus vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,Paddy Power,15.0,9.2,15.0,PENDING,0.0
 7c721cd9,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Pre-Match +EV,Torreense,Betfair,5.4,6.3,15.0,PENDING,0.0
 58d82f33,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Pre-Match +EV,Viktoria Plzeň,Smarkets,2.64,3.1,15.0,PENDING,0.0
+16b226cf,CORE_EV,2026-09-19T11:30:00Z,EPL,Tottenham Hotspur vs Aston Villa,Pre-Match +EV,Aston Villa,Betfair,3.9,4.8,15.0,PENDING,0.0
+e908c51f,CORE_EV,2026-09-19T12:00:00Z,La Liga - Spain,CA Osasuna vs Rayo Vallecano,Pre-Match +EV,Rayo Vallecano,Smarkets,3.2,3.6,15.0,PENDING,0.0
+1539dd30,CORE_EV,2026-09-19T11:30:00Z,Championship,Cardiff City vs Charlton Athletic,Pre-Match +EV,Charlton Athletic,Grosvenor,4.35,3.1,15.0,PENDING,0.0
+f18324d6,CORE_EV,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham United,Pre-Match +EV,Draw,LeoVegas,3.85,3.2,15.0,PENDING,0.0
+05229580,CORE_EV,2026-09-19T11:30:00Z,Championship,Stoke City vs Sheffield United,Pre-Match +EV,Stoke City,LeoVegas (SE),2.63,6.5,15.0,PENDING,0.0
