@@ -213,3 +213,9 @@ e3590680,CORE_EV,2026-09-19T16:30:00Z,La Liga - Spain,Celta Vigo vs Real Racing 
 c5458a66,CORE_EV,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Pre-Match +EV,Draw,Winamax (DE),3.85,3.8,15.0,PENDING,0.0
 a71b0ac2,CORE_EV,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,Betfair,2.08,3.5,15.0,PENDING,0.0
 1ac42c36,CORE_EV,2026-09-19T18:45:00Z,Ligue 1 - France,Angers vs Troyes,Pre-Match +EV,Troyes,Betfair,3.5,4.8,15.0,PENDING,0.0
+a86093fb,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Halftime In-Play,Draw,Suprabets,3.45,12.7,15.0,PENDING,0.0
+d5e99b2b,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Halftime In-Play,Real Sociedad,Matchbook,55.0,10.0,15.0,PENDING,0.0
+1fb282f1,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Halftime In-Play,Ferencváros TC,Suprabets,2.45,14.5,15.0,PENDING,0.0
+67ab9e80,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Halftime In-Play,Crystal Palace,LeoVegas,1.05,4.0,15.0,PENDING,0.0
+95d21622,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Halftime In-Play,Lillestrom,Paddy Power,4.75,7.7,15.0,PENDING,0.0
+10193829,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Halftime In-Play,Viktoria Plzeň,Smarkets,28.01,247.5,15.0,PENDING,0.0
