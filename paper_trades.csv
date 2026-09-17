@@ -22,7 +22,7 @@ a2dffdd5,EARLY_BIRD,2026-09-19T14:00:00Z,Belgium First Div,Leuven vs RAAL La Lou
 99f83434,EARLY_BIRD,2026-09-20T14:00:00Z,Belgium First Div,Sint Truiden vs Westerlo,Pre-Match +EV,Sint Truiden,Grosvenor,1.73,3.6,15.0,PENDING,0.0
 9c220347,EARLY_BIRD,2026-09-20T16:30:00Z,Belgium First Div,Club Brugge vs Genk,Pre-Match +EV,Club Brugge,Grosvenor,1.53,3.4,15.0,PENDING,0.0
 71c3125f,EARLY_BIRD,2026-09-20T17:15:00Z,Belgium First Div,KV Kortrijk vs SK Beveren,Pre-Match +EV,SK Beveren,Grosvenor,2.7,5.5,15.0,PENDING,0.0
-ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Botafogo,Smarkets,1.77,4.1,15.0,PENDING,0.0
+ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Botafogo,Smarkets,1.77,4.1,15.0,WON,11.55
 468818c8,EARLY_BIRD,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,GTbets,2.65,3.9,15.0,PENDING,0.0
 06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,PENDING,0.0
 106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,PENDING,0.0
@@ -149,7 +149,7 @@ a4b7a2aa,LATE_STEAM,2026-09-16T19:30:00Z,La Liga - Spain,Levante vs Athletic Bil
 efbe44d9,LATE_STEAM,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,37.0,31.7,15.0,LOST,-15.0
 9fa6b552,LATE_STEAM,2026-09-16T22:00:00Z,Copa Libertadores,LDU Quito vs Palmeiras-SP,Pre-Match +EV,Draw,1xBet,3.13,5.7,15.0,PENDING,0.0
 367134d3,LATE_STEAM,2026-09-16T22:00:00Z,Copa Sudamericana,Clube Atlético Mineiro vs Santos,Pre-Match +EV,Clube Atlético Mineiro,1xBet,1.84,3.4,15.0,PENDING,0.0
-33e864cd,LATE_STEAM,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Draw,Smarkets,4.0,3.1,15.0,PENDING,0.0
+33e864cd,LATE_STEAM,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Draw,Smarkets,4.0,3.1,15.0,LOST,-15.0
 e6ce7308,CORE_EV,2026-09-18T11:35:00Z,Super League - China,Zhejiang vs Wuhan Three Towns,Pre-Match +EV,Zhejiang,BetOnline.ag,1.92,3.8,15.0,PENDING,0.0
 017fe21e,LATE_STEAM,2026-09-17T00:30:00Z,Copa Libertadores,Corinthians-SP vs Estudiantes La Plata,Pre-Match +EV,Draw,1xBet,3.01,3.4,15.0,PENDING,0.0
 21631c17,HALFTIME_LIVE,2026-09-16T16:45:00Z,UEFA Europa League,Omonoia FC vs Celta Vigo,Halftime In-Play,Draw,Suprabets,2.5,8.2,15.0,LOST,-15.0
@@ -171,6 +171,6 @@ d8e523ac,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Shev
 9edb0c2b,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs Jagiellonia Białystok,Halftime In-Play,Jagiellonia Białystok,Suprabets,9.5,135.7,15.0,LOST,-15.0
 6b137b75,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Halftime In-Play,Rennes,Betfair,1.94,16.2,15.0,LOST,-15.0
 51f1803a,CORE_EV,2026-09-18T21:00:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Pre-Match +EV,Defensa y Justicia,Unibet (SE),2.85,4.4,15.0,PENDING,0.0
-864e8a6b,HALFTIME_LIVE,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Halftime In-Play,Draw,Coolbet,2.75,5.8,15.0,PENDING,0.0
+864e8a6b,HALFTIME_LIVE,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Halftime In-Play,Draw,Coolbet,2.75,5.8,15.0,LOST,-15.0
 5072173c,CORE_EV,2026-09-18T23:30:00Z,MLS,New York City FC vs New York Red Bulls,Pre-Match +EV,New York Red Bulls,LeoVegas (SE),4.3,5.9,15.0,PENDING,0.0
 7ef2e929,CORE_EV,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Racing Club,Smarkets,1.7,3.7,15.0,PENDING,0.0
