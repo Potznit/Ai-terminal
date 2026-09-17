@@ -95,7 +95,7 @@ b89ef84f,CORE_EV,2026-09-16T17:00:00Z,La Liga - Spain,Atlético Madrid vs CA Osa
 b9f7b9da,CORE_EV,2026-09-16T19:30:00Z,La Liga - Spain,Levante vs Athletic Bilbao,Pre-Match +EV,Athletic Bilbao,1xBet,2.19,3.8,15.0,PENDING,0.0
 fd5f1b94,CORE_EV,2026-09-16T19:30:00Z,La Liga - Spain,Barcelona vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,1xBet,36.0,39.3,15.0,LOST,-15.0
 48cfae6c,CORE_EV,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Pre-Match +EV,Draw,1xBet,3.86,4.6,15.0,LOST,-15.0
-d2e26d39,CORE_EV,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,Pre-Match +EV,Málaga,1xBet,3.77,4.1,15.0,PENDING,0.0
+d2e26d39,CORE_EV,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,Pre-Match +EV,Málaga,1xBet,3.77,4.1,15.0,LOST,-15.0
 d0df2759,CORE_EV,2026-09-16T17:00:00Z,Allsvenskan - Sweden,AIK vs Mjällby AIF,Pre-Match +EV,AIK,Unibet (SE),2.38,7.2,15.0,PENDING,0.0
 f0303afa,CORE_EV,2026-09-16T17:00:00Z,Swiss Superleague,FC Lugano vs FC St Gallen,Pre-Match +EV,FC St Gallen,Betfair,3.25,5.2,15.0,PENDING,0.0
 510cf658,CORE_EV,2026-09-16T17:00:00Z,Swiss Superleague,FC Thun vs Servette,Pre-Match +EV,Draw,Smarkets,3.95,4.8,15.0,PENDING,0.0
@@ -110,13 +110,13 @@ d25ba571,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,Olympiakos Piraeus vs J
 9de9e79a,CORE_EV,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Pre-Match +EV,Rennes,Betfair,1.96,3.2,15.0,LOST,-15.0
 c4b564e3,CORE_EV,2026-09-17T16:45:00Z,UEFA Europa League,OFI Crete vs TSG Hoffenheim,Pre-Match +EV,OFI Crete,Smarkets,8.0,6.5,15.0,WON,105.0
 33efd24d,CORE_EV,2026-09-17T16:45:00Z,UEFA Europa League,PFC Levski Sofia vs Salzburg,Pre-Match +EV,PFC Levski Sofia,Smarkets,3.2,6.3,15.0,LOST,-15.0
-fc136bb6,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Pre-Match +EV,Besiktas JK,Smarkets,1.83,5.2,15.0,PENDING,0.0
-98a01138,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Pre-Match +EV,Bournemouth,Smarkets,2.48,4.6,15.0,PENDING,0.0
-6c5f167e,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Pre-Match +EV,Ferencváros TC,1xBet,4.51,3.0,15.0,PENDING,0.0
-9b826ac4,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Pre-Match +EV,Lech Poznań,Smarkets,8.0,13.2,15.0,PENDING,0.0
-c06d842b,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Juventus vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,Betfred (UK),12.0,3.8,15.0,PENDING,0.0
-9c238fe2,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Pre-Match +EV,Torreense,Paddy Power,6.0,5.6,15.0,PENDING,0.0
-0a2d5754,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Pre-Match +EV,Union Saint-Gilloise,Smarkets,2.6,4.0,15.0,PENDING,0.0
+fc136bb6,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Pre-Match +EV,Besiktas JK,Smarkets,1.83,5.2,15.0,WON,12.45
+98a01138,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Pre-Match +EV,Bournemouth,Smarkets,2.48,4.6,15.0,WON,22.2
+6c5f167e,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Pre-Match +EV,Ferencváros TC,1xBet,4.51,3.0,15.0,WON,52.65
+9b826ac4,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Pre-Match +EV,Lech Poznań,Smarkets,8.0,13.2,15.0,LOST,-15.0
+c06d842b,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Juventus vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,Betfred (UK),12.0,3.8,15.0,LOST,-15.0
+9c238fe2,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Pre-Match +EV,Torreense,Paddy Power,6.0,5.6,15.0,WON,75.0
+0a2d5754,CORE_EV,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Pre-Match +EV,Union Saint-Gilloise,Smarkets,2.6,4.0,15.0,WON,24.0
 677f1b1f,EARLY_BIRD,2026-09-19T11:30:00Z,League 2,Walsall vs Port Vale,Pre-Match +EV,Draw,Betfred (UK),3.4,8.3,15.0,PENDING,0.0
 a3603583,EARLY_BIRD,2026-09-19T14:00:00Z,League 2,Accrington Stanley vs Newport County,Pre-Match +EV,Draw,Betfred (UK),3.6,3.2,15.0,PENDING,0.0
 b5dc336f,EARLY_BIRD,2026-09-19T14:00:00Z,League 2,Barnet vs Fleetwood Town,Pre-Match +EV,Barnet,LiveScore Bet,1.78,4.7,15.0,PENDING,0.0
@@ -179,14 +179,14 @@ bc428dbc,CORE_EV,2026-09-19T03:00:00Z,Liga MX,FC Juárez vs Tigres,Pre-Match +EV
 46fe5c59,LATE_STEAM,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Pre-Match +EV,Getafe,1xBet,5.94,3.5,15.0,LOST,-15.0
 6126171f,LATE_STEAM,2026-09-17T16:45:00Z,UEFA Europa League,OFI Crete vs TSG Hoffenheim,Pre-Match +EV,OFI Crete,Smarkets,8.8,8.1,15.0,WON,117.0
 d6cb527a,LATE_STEAM,2026-09-17T16:45:00Z,UEFA Europa League,PFC Levski Sofia vs Salzburg,Pre-Match +EV,Salzburg,Smarkets,2.26,3.2,15.0,WON,18.9
-b4c28dcd,LATE_STEAM,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,Pre-Match +EV,Villarreal,Betfred (UK),2.0,3.1,15.0,PENDING,0.0
-11c5fef7,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Pre-Match +EV,Besiktas JK,Smarkets,1.87,3.3,15.0,PENDING,0.0
-1d603bce,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Pre-Match +EV,Bournemouth,Smarkets,2.38,3.0,15.0,PENDING,0.0
-1cc7610f,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Pre-Match +EV,Ferencváros TC,Smarkets,4.7,5.6,15.0,PENDING,0.0
-5916a8e5,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Pre-Match +EV,Lech Poznań,Smarkets,8.4,11.9,15.0,PENDING,0.0
-3ad8ef61,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Juventus vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,Paddy Power,15.0,9.2,15.0,PENDING,0.0
-7c721cd9,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Pre-Match +EV,Torreense,Betfair,5.4,6.3,15.0,PENDING,0.0
-58d82f33,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Pre-Match +EV,Viktoria Plzeň,Smarkets,2.64,3.1,15.0,PENDING,0.0
+b4c28dcd,LATE_STEAM,2026-09-17T19:30:00Z,La Liga - Spain,Málaga vs Villarreal,Pre-Match +EV,Villarreal,Betfred (UK),2.0,3.1,15.0,WON,15.0
+11c5fef7,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Pre-Match +EV,Besiktas JK,Smarkets,1.87,3.3,15.0,WON,13.05
+1d603bce,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Pre-Match +EV,Bournemouth,Smarkets,2.38,3.0,15.0,WON,20.7
+1cc7610f,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Pre-Match +EV,Ferencváros TC,Smarkets,4.7,5.6,15.0,WON,55.5
+5916a8e5,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Pre-Match +EV,Lech Poznań,Smarkets,8.4,11.9,15.0,LOST,-15.0
+3ad8ef61,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Juventus vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,Paddy Power,15.0,9.2,15.0,LOST,-15.0
+7c721cd9,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Pre-Match +EV,Torreense,Betfair,5.4,6.3,15.0,WON,66.0
+58d82f33,LATE_STEAM,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Pre-Match +EV,Viktoria Plzeň,Smarkets,2.64,3.1,15.0,LOST,-15.0
 16b226cf,CORE_EV,2026-09-19T11:30:00Z,EPL,Tottenham Hotspur vs Aston Villa,Pre-Match +EV,Aston Villa,Betfair,3.9,4.8,15.0,PENDING,0.0
 e908c51f,CORE_EV,2026-09-19T12:00:00Z,La Liga - Spain,CA Osasuna vs Rayo Vallecano,Pre-Match +EV,Rayo Vallecano,Smarkets,3.2,3.6,15.0,PENDING,0.0
 1539dd30,CORE_EV,2026-09-19T11:30:00Z,Championship,Cardiff City vs Charlton Athletic,Pre-Match +EV,Charlton Athletic,Grosvenor,4.35,3.1,15.0,PENDING,0.0
@@ -213,10 +213,10 @@ e3590680,CORE_EV,2026-09-19T16:30:00Z,La Liga - Spain,Celta Vigo vs Real Racing 
 c5458a66,CORE_EV,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Pre-Match +EV,Draw,Winamax (DE),3.85,3.8,15.0,PENDING,0.0
 a71b0ac2,CORE_EV,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,Betfair,2.08,3.5,15.0,PENDING,0.0
 1ac42c36,CORE_EV,2026-09-19T18:45:00Z,Ligue 1 - France,Angers vs Troyes,Pre-Match +EV,Troyes,Betfair,3.5,4.8,15.0,PENDING,0.0
-a86093fb,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Halftime In-Play,Draw,Suprabets,3.45,12.7,15.0,PENDING,0.0
-d5e99b2b,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Halftime In-Play,Real Sociedad,Matchbook,55.0,10.0,15.0,PENDING,0.0
-1fb282f1,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Halftime In-Play,Ferencváros TC,Suprabets,2.45,14.5,15.0,PENDING,0.0
-67ab9e80,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Halftime In-Play,Crystal Palace,LeoVegas,1.05,4.0,15.0,PENDING,0.0
-95d21622,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Halftime In-Play,Lillestrom,Paddy Power,4.75,7.7,15.0,PENDING,0.0
-10193829,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Halftime In-Play,Viktoria Plzeň,Smarkets,28.01,247.5,15.0,PENDING,0.0
-e37352c5,HALFTIME_LIVE,2026-09-17T19:29:00Z,La Liga - Spain,Málaga vs Villarreal,Halftime In-Play,Málaga,Coral,15.0,227.5,15.0,PENDING,0.0
+a86093fb,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Halftime In-Play,Draw,Suprabets,3.45,12.7,15.0,LOST,-15.0
+d5e99b2b,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Halftime In-Play,Real Sociedad,Matchbook,55.0,10.0,15.0,LOST,-15.0
+1fb282f1,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Celtic vs Ferencváros TC,Halftime In-Play,Ferencváros TC,Suprabets,2.45,14.5,15.0,WON,21.75
+67ab9e80,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Crystal Palace vs Lech Poznań,Halftime In-Play,Crystal Palace,LeoVegas,1.05,4.0,15.0,WON,0.75
+95d21622,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Lillestrom vs Torreense,Halftime In-Play,Lillestrom,Paddy Power,4.75,7.7,15.0,LOST,-15.0
+10193829,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Viktoria Plzeň vs Union Saint-Gilloise,Halftime In-Play,Viktoria Plzeň,Smarkets,28.01,247.5,15.0,LOST,-15.0
+e37352c5,HALFTIME_LIVE,2026-09-17T19:29:00Z,La Liga - Spain,Málaga vs Villarreal,Halftime In-Play,Málaga,Coral,15.0,227.5,15.0,LOST,-15.0
