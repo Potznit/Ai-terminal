@@ -151,6 +151,10 @@ def has_existing_bet(matchup: str, model_tag: str) -> bool:
         return False
 
 def query_gemini_ai(prompt: str, api_key: str) -> dict:
+    if not api_key:
+        logger.warning("[Gemini AI] No GEMINI_API_KEY set in environment variables.")
+        return None
+
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     payload = {
@@ -166,9 +170,36 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
         if res.status_code == 200:
             raw_text = res.json()["candidates"][0]["content"]["parts"][0]["text"]
             return json.loads(raw_text.strip())
+        else:
+            logger.error(f"[Gemini API Error] HTTP {res.status_code}: {res.text}")
     except Exception as e:
-        logger.error(f"Gemini API error: {e}")
+        logger.error(f"[Gemini API Exception] Failed to query: {e}")
 
+    return None
+
+def fetch_live_match_score(sport_key: str, home_team: str, away_team: str, api_key: str) -> str:
+    """Queries live match scores if fixture is in-play during halftime interval."""
+    if not api_key or not sport_key:
+        return None
+    try:
+        url = f"https://api.the-odds-api.com/v4/sports/{sport_key}/scores/?apiKey={api_key}&daysFrom=1"
+        res = requests.get(url, timeout=8)
+        if res.status_code == 200:
+            games = res.json()
+            h_low = home_team.lower()
+            a_low = away_team.lower()
+            for g in games:
+                gh = g.get("home_team", "").lower()
+                ga = g.get("away_team", "").lower()
+                if (h_low in gh or gh in h_low) and (a_low in ga or ga in a_low):
+                    scores = g.get("scores")
+                    if scores and len(scores) >= 2:
+                        hs = next((s["score"] for s in scores if s["name"] == g.get("home_team")), None)
+                        as_ = next((s["score"] for s in scores if s["name"] == g.get("away_team")), None)
+                        if hs is not None and as_ is not None:
+                            return f"{hs} - {as_}"
+    except Exception as e:
+        logger.debug(f"Live score lookup skipped: {e}")
     return None
 
 def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_tag, bankroll=1000.0) -> bool:
@@ -192,22 +223,24 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
 
     prompt = f"""
-    You are an elite sports quantitative analyst.
-    Evaluate market edge:
+    You are an elite sports quantitative trading analyst.
+    Evaluate the following soccer market discrepancy:
     Model Horizon: {model_tag}
-    Match: {matchup}
-    State: {fixture_data.get('score')}
+    Match: {matchup} ({fixture_data.get('league', 'Soccer')})
+    Current Match State: {fixture_data.get('score')}
     Target Pick: {fixture_data['target_pick']}
-    Sharp Benchmark: {live_odds.get('pinnacle')}
+    Sharp Benchmark (Pinnacle/Exchange): {live_odds.get('pinnacle')}
     Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
+    Calculated Edge: +{fixture_data.get('raw_edge')}% EV
 
-    Confirm if a genuine positive expectancy (+EV) edge exists. Return STRICT JSON only:
+    Provide a concise, highly analytical 2-sentence tactical breakdown explaining why this market gap offers positive expectancy.
+    Return STRICT JSON ONLY:
     {{
       "is_valid_ev": true,
       "edge_pct": {fixture_data.get('raw_edge')},
       "recommended_pick": "{fixture_data['target_pick']}",
       "odds": {live_odds.get('retail_odds')},
-      "tactical_analysis": "Discrepancy detected vs sharp benchmark.",
+      "tactical_analysis": "<Your 2-sentence tactical analysis here>",
       "kelly_stake_pct": 0.015
     }}
     """
@@ -466,6 +499,7 @@ def run_scan_cycle() -> int:
 
     has_live_game = False
     min_minutes_to_next_kickoff = 999999
+    odds_api_key = os.environ.get("ODDS_API_KEY")
 
     for game in matches:
         commence_time_str = game.get("commence_time")
@@ -475,7 +509,6 @@ def run_scan_cycle() -> int:
         commence_time = datetime.fromisoformat(commence_time_str.replace("Z", "+00:00"))
         minutes_since_kickoff = (now - commence_time).total_seconds() / 60
 
-        # Track upcoming and in-play states for dynamic sleeping
         if 0 <= minutes_since_kickoff <= 115:
             has_live_game = True
 
@@ -522,7 +555,12 @@ def run_scan_cycle() -> int:
 
         if is_halftime:
             assigned_tag = "HALFTIME_LIVE"
-            state_label = f"Halftime Break (~{round(minutes_since_kickoff)}m)"
+            sport_key = game.get("sport_key")
+            live_score = fetch_live_match_score(sport_key, game.get("home_team"), game.get("away_team"), odds_api_key)
+            if live_score:
+                state_label = f"Halftime Break ({live_score}, ~{round(minutes_since_kickoff)}m)"
+            else:
+                state_label = f"Halftime Break (~{round(minutes_since_kickoff)}m)"
         elif hours_to_kickoff > 48:
             assigned_tag = "EARLY_BIRD"
             state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
@@ -578,20 +616,18 @@ def run_scan_cycle() -> int:
 
     logger.info("--- [QUANT ENGINE] Scan Complete ---")
 
-    # Dynamic Sleeping Calculation
     if has_live_game:
-        adaptive_sleep = 480  # 8 minutes if a match is actively in-play
+        adaptive_sleep = 480
         logger.info("[ADAPTIVE SLEEP] Active in-play matches detected. Sleeping 8 minutes.")
     elif min_minutes_to_next_kickoff <= 60:
-        adaptive_sleep = 600  # 10 minutes if kickoff is within the hour
+        adaptive_sleep = 600
         logger.info(f"[ADAPTIVE SLEEP] Kickoff soon ({round(min_minutes_to_next_kickoff)}m). Sleeping 10 minutes.")
     elif min_minutes_to_next_kickoff < 999999:
-        # Wake up 30 minutes before next kickoff, with a minimum of 15m and maximum cap of 75m
         target_sleep = max(900, min((min_minutes_to_next_kickoff - 30) * 60, 4500))
         adaptive_sleep = int(target_sleep)
         logger.info(f"[ADAPTIVE SLEEP] Dead zone: next kickoff in {round(min_minutes_to_next_kickoff / 60, 1)}h. Sleeping {round(adaptive_sleep / 60)} minutes.")
     else:
-        adaptive_sleep = 1800  # 30 min default fallback if no fixtures found
+        adaptive_sleep = 1800
         logger.info("[ADAPTIVE SLEEP] No fixtures found. Sleeping 30 minutes.")
 
     return adaptive_sleep
