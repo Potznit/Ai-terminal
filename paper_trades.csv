@@ -205,3 +205,11 @@ b1348b90,CORE_EV,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pr
 87bc6158,HALFTIME_LIVE,2026-09-17T16:45:00Z,UEFA Europa League,OFI Crete vs TSG Hoffenheim,Halftime In-Play,TSG Hoffenheim,LeoVegas,2.08,3.5,15.0,LOST,-15.0
 8cc4aea3,HALFTIME_LIVE,2026-09-17T16:45:00Z,UEFA Europa League,PFC Levski Sofia vs Salzburg,Halftime In-Play,PFC Levski Sofia,Smarkets,11.0,201.4,15.0,LOST,-15.0
 9c92988f,HALFTIME_LIVE,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Halftime In-Play,Real Betis,Sky Bet,1.67,3.7,15.0,WON,10.05
+3eeef130,CORE_EV,2026-09-19T16:30:00Z,EPL,Nottingham Forest vs Coventry City,Pre-Match +EV,Coventry City,Betfair,6.0,8.1,15.0,PENDING,0.0
+e3590680,CORE_EV,2026-09-19T16:30:00Z,La Liga - Spain,Celta Vigo vs Real Racing Club de Santander,Pre-Match +EV,Real Racing Club de Santander,Smarkets,4.2,4.5,15.0,PENDING,0.0
+43abb2dc,CORE_EV,2026-09-19T19:00:00Z,La Liga - Spain,Sevilla vs Barcelona,Pre-Match +EV,Sevilla,Betsson,14.5,5.3,15.0,PENDING,0.0
+0d457899,CORE_EV,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Pre-Match +EV,Draw,Smarkets,3.6,4.0,15.0,PENDING,0.0
+5fa1a4bd,CORE_EV,2026-09-19T18:45:00Z,Serie A - Italy,Venezia vs Lazio,Pre-Match +EV,Lazio,Betfair,2.06,4.0,15.0,PENDING,0.0
+c5458a66,CORE_EV,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Pre-Match +EV,Draw,Winamax (DE),3.85,3.8,15.0,PENDING,0.0
+a71b0ac2,CORE_EV,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,Betfair,2.08,3.5,15.0,PENDING,0.0
+1ac42c36,CORE_EV,2026-09-19T18:45:00Z,Ligue 1 - France,Angers vs Troyes,Pre-Match +EV,Troyes,Betfair,3.5,4.8,15.0,PENDING,0.0
