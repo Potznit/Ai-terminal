@@ -155,7 +155,8 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
         logger.warning("[Gemini AI] No GEMINI_API_KEY set in environment variables.")
         return None
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    # Updated to active Gemini 3.6-flash endpoint
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -233,7 +234,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
     Calculated Edge: +{fixture_data.get('raw_edge')}% EV
 
-    Provide a concise, highly analytical 2-sentence tactical breakdown explaining why this market gap offers positive expectancy.
+    Provide a concise, highly analytical 2-sentence tactical breakdown explaining why this market gap offers positive expectancy given the game state.
     Return STRICT JSON ONLY:
     {{
       "is_valid_ev": true,
@@ -320,7 +321,6 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     return True
 
 def auto_settle_targeted(force=False):
-    """Hourly targeted settlement to avoid burning credits on scores."""
     global last_settle_timestamp
     now_ts = time.time()
     
@@ -482,7 +482,6 @@ def fetch_tier1_soccer_odds():
     return all_odds
 
 def run_scan_cycle() -> int:
-    """Runs the audit and calculates the adaptive sleep duration (in seconds) based on match timing."""
     global depleted_logged_this_cycle
     depleted_logged_this_cycle = set()
 
@@ -641,7 +640,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Dynamic Adaptive Scheduling active.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Gemini endpoint updated to 3.6-flash.", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
@@ -655,5 +654,5 @@ if __name__ == "__main__":
         except Exception as e:
             logger.error(f"Error during scan cycle: {e}")
             sleep_duration = 600
- 
+
         time.sleep(sleep_duration)
