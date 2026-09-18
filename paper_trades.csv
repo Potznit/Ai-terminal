@@ -260,3 +260,11 @@ ddd76b1c,HALFTIME_LIVE,2026-09-18T19:00:00Z,Championship,Bristol City vs Watford
 dbe97d18,CORE_EV,2026-09-20T13:00:00Z,EPL,Bournemouth vs Liverpool,Pre-Match +EV,Liverpool,Betfair,2.26,3.2,15.0,PENDING,0.0
 5d4ae27e,CORE_EV,2026-09-20T13:00:00Z,EPL,Leeds United vs Crystal Palace,Pre-Match +EV,Crystal Palace,Betfair,5.1,5.2,15.0,PENDING,0.0
 4d510727,CORE_EV,2026-09-20T13:00:00Z,EPL,Manchester City vs Sunderland,Pre-Match +EV,Sunderland,Betfred (UK),11.0,11.3,15.0,PENDING,0.0
+e6514273,CORE_EV,2026-09-20T15:30:00Z,EPL,Fulham vs Manchester United,Pre-Match +EV,Fulham,1xBet,3.63,3.7,15.0,PENDING,0.0
+2ca65527,CORE_EV,2026-09-20T12:00:00Z,La Liga - Spain,Getafe vs Málaga,Pre-Match +EV,Getafe,Smarkets,2.14,4.4,15.0,PENDING,0.0
+f57e018f,CORE_EV,2026-09-20T14:15:00Z,La Liga - Spain,Atlético Madrid vs Real Madrid,Pre-Match +EV,Atlético Madrid,Smarkets,3.75,3.6,15.0,PENDING,0.0
+fc5fc368,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Smarkets,3.75,6.5,15.0,PENDING,0.0
+430e334f,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.1,15.0,PENDING,0.0
+6c3ced5b,HALFTIME_LIVE,2026-09-18T20:59:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Halftime In-Play,Central Córdoba,BoyleSports,12.0,4.4,15.0,PENDING,0.0
+01d2bc48,EARLY_BIRD,2026-09-21T00:00:00Z,Liga MX,Pachuca vs Tijuana,Pre-Match +EV,Pachuca,Unibet (SE),1.77,4.7,15.0,PENDING,0.0
+8fa86250,EARLY_BIRD,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,9.6,15.0,PENDING,0.0
