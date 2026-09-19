@@ -211,7 +211,7 @@ e3590680,CORE_EV,2026-09-19T16:30:00Z,La Liga - Spain,Celta Vigo vs Real Racing 
 0d457899,CORE_EV,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Pre-Match +EV,Draw,Smarkets,3.6,4.0,15.0,PENDING,0.0
 5fa1a4bd,CORE_EV,2026-09-19T18:45:00Z,Serie A - Italy,Venezia vs Lazio,Pre-Match +EV,Lazio,Betfair,2.06,4.0,15.0,PENDING,0.0
 c5458a66,CORE_EV,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Pre-Match +EV,Draw,Winamax (DE),3.85,3.8,15.0,PENDING,0.0
-a71b0ac2,CORE_EV,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,Betfair,2.08,3.5,15.0,PENDING,0.0
+a71b0ac2,CORE_EV,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,Betfair,2.08,3.5,15.0,WON,16.2
 1ac42c36,CORE_EV,2026-09-19T18:45:00Z,Ligue 1 - France,Angers vs Troyes,Pre-Match +EV,Troyes,Betfair,3.5,4.8,15.0,PENDING,0.0
 a86093fb,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Besiktas JK vs Marseille,Halftime In-Play,Draw,Suprabets,3.45,12.7,15.0,LOST,-15.0
 d5e99b2b,HALFTIME_LIVE,2026-09-17T19:00:00Z,UEFA Europa League,Real Sociedad vs Bournemouth,Halftime In-Play,Real Sociedad,Matchbook,55.0,10.0,15.0,LOST,-15.0
@@ -304,7 +304,7 @@ c5ee1e9a,LATE_STEAM,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cam
 add310d8,CORE_EV,2026-09-20T13:30:00Z,Bundesliga - Germany,Bayer Leverkusen vs RB Leipzig,Pre-Match +EV,RB Leipzig,Betfair,3.6,5.9,15.0,PENDING,0.0
 456bf184,CORE_EV,2026-09-20T15:30:00Z,Bundesliga - Germany,FC Schalke 04 vs Elversberg,Pre-Match +EV,Draw,888sport,3.75,3.6,15.0,PENDING,0.0
 c2edb03e,CORE_EV,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Nordic Bet,4.65,4.0,15.0,PENDING,0.0
-9edaa94a,LATE_STEAM,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,1xBet,2.06,3.0,15.0,PENDING,0.0
+9edaa94a,LATE_STEAM,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,1xBet,2.06,3.0,15.0,WON,15.9
 de227809,HALFTIME_LIVE,2026-09-19T03:04:00Z,Liga MX,FC Juárez vs Tigres,Halftime In-Play,FC Juárez,Unibet (NL),5.0,5.5,15.0,WON,60.0
 87c733aa,LATE_STEAM,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Pre-Match +EV,Draw,Betfred (UK),3.6,3.2,15.0,PENDING,0.0
 d227e5d6,LATE_STEAM,2026-09-19T16:30:00Z,EPL,Nottingham Forest vs Coventry City,Pre-Match +EV,Draw,Unibet (UK),4.2,4.0,15.0,PENDING,0.0
@@ -376,7 +376,7 @@ deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,
 1b6d5df4,CORE_EV,2026-09-20T14:45:00Z,Dutch Eredivisie,NEC Nijmegen vs Go Ahead Eagles,Pre-Match +EV,Draw,Smarkets,4.6,8.7,15.0,PENDING,0.0
 28915d96,CORE_EV,2026-09-20T14:30:00Z,Primeira Liga - Portugal,CF Estrela vs Académico de Viseu,Pre-Match +EV,Draw,Paddy Power,3.4,3.7,15.0,PENDING,0.0
 7604e286,CORE_EV,2026-09-20T14:30:00Z,Primeira Liga - Portugal,Vitória SC vs Moreirense FC,Pre-Match +EV,Moreirense FC,Casumo,6.5,5.2,15.0,PENDING,0.0
-2491a21a,HALFTIME_LIVE,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Halftime In-Play,Draw,Coolbet,6.5,6.2,15.0,PENDING,0.0
+2491a21a,HALFTIME_LIVE,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Halftime In-Play,Draw,Coolbet,6.5,6.2,15.0,LOST,-15.0
 57093075,LATE_STEAM,2026-09-20T00:00:00Z,Brazil Série A,Sao Paulo vs Internacional,Pre-Match +EV,Internacional,Smarkets,4.8,4.3,15.0,PENDING,0.0
 3b506016,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Braga,Betfair,2.2,4.8,15.0,PENDING,0.0
 7a60e65f,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Casumo,4.9,3.2,15.0,PENDING,0.0
