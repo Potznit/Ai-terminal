@@ -391,3 +391,6 @@ b0593ff0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Minnesota United FC vs LA Galaxy,Pr
 2046b359,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Sporting Kansas City vs Philadelphia Union,Pre-Match +EV,Sporting Kansas City,Smarkets,5.8,3.8,15.0,PENDING,0.0
 45e184ab,LATE_STEAM,2026-09-20T00:30:00Z,MLS,St. Louis City SC vs Toronto FC,Pre-Match +EV,Toronto FC,LeoVegas (SE),5.2,6.6,15.0,PENDING,0.0
 28019626,HALFTIME_LIVE,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Halftime In-Play,AS Roma,Smarkets,1.22,3.4,15.0,PENDING,0.0
+63701d6c,HALFTIME_LIVE,2026-09-19T16:30:00Z,EPL,Nottingham Forest vs Coventry City,Halftime In-Play,Coventry City,Unibet (UK),6.0,8.3,15.0,PENDING,0.0
+2e0ceec2,HALFTIME_LIVE,2026-09-19T16:32:00Z,La Liga - Spain,Celta Vigo vs Real Racing Club de Santander,Halftime In-Play,Real Racing Club de Santander,Matchbook,55.0,1212.6,15.0,PENDING,0.0
+d6e29839,HALFTIME_LIVE,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Halftime In-Play,Draw,Coolbet,3.05,5.2,15.0,PENDING,0.0
