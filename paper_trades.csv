@@ -1,6 +1,6 @@
 ID,Model_Tag,Kickoff_UTC,League,Matchup,Market,Pick,Bookmaker,Odds,Edge_Pct,Stake,Status,P_L
 7cec7455,EARLY_BIRD,2026-09-18T21:00:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Pre-Match +EV,Defensa y Justicia,Unibet (SE),2.85,4.4,15.0,LOST,-15.0
-f341d89c,EARLY_BIRD,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Sarmiento de Junin,Smarkets,5.9,7.3,15.0,PENDING,0.0
+f341d89c,EARLY_BIRD,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Sarmiento de Junin,Smarkets,5.9,7.3,15.0,LOST,-15.0
 d39ec575,EARLY_BIRD,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia La Plata vs Banfield,Pre-Match +EV,Banfield,Betsson,4.65,3.6,15.0,PENDING,0.0
 a4f6b6f3,EARLY_BIRD,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Deportivo Riestra,Pre-Match +EV,Gimnasia Mendoza,Unibet (SE),2.38,6.7,15.0,PENDING,0.0
 a77df902,EARLY_BIRD,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,PENDING,0.0
@@ -172,8 +172,8 @@ d8e523ac,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,Hapoel Be'er Shev
 6b137b75,HALFTIME_LIVE,2026-09-16T19:00:00Z,UEFA Europa League,SK Sturm Graz vs Rennes,Halftime In-Play,Rennes,Betfair,1.94,16.2,15.0,LOST,-15.0
 51f1803a,CORE_EV,2026-09-18T21:00:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Pre-Match +EV,Defensa y Justicia,Unibet (SE),2.85,4.4,15.0,LOST,-15.0
 864e8a6b,HALFTIME_LIVE,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Halftime In-Play,Draw,Coolbet,2.75,5.8,15.0,LOST,-15.0
-5072173c,CORE_EV,2026-09-18T23:30:00Z,MLS,New York City FC vs New York Red Bulls,Pre-Match +EV,New York Red Bulls,LeoVegas (SE),4.3,5.9,15.0,PENDING,0.0
-7ef2e929,CORE_EV,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Racing Club,Smarkets,1.7,3.7,15.0,PENDING,0.0
+5072173c,CORE_EV,2026-09-18T23:30:00Z,MLS,New York City FC vs New York Red Bulls,Pre-Match +EV,New York Red Bulls,LeoVegas (SE),4.3,5.9,15.0,WON,49.5
+7ef2e929,CORE_EV,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Racing Club,Smarkets,1.7,3.7,15.0,WON,10.5
 dd73f8ec,CORE_EV,2026-09-19T01:00:00Z,Liga MX,Puebla vs Atlante FC,Pre-Match +EV,Draw,GTbets,3.59,3.2,15.0,PENDING,0.0
 bc428dbc,CORE_EV,2026-09-19T03:00:00Z,Liga MX,FC Juárez vs Tigres,Pre-Match +EV,Tigres,BetOnline.ag,1.84,4.5,15.0,PENDING,0.0
 46fe5c59,LATE_STEAM,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Pre-Match +EV,Getafe,1xBet,5.94,3.5,15.0,LOST,-15.0
@@ -246,8 +246,8 @@ f3819821,LATE_STEAM,2026-09-18T18:30:00Z,Bundesliga - Germany,Bayern Munich vs U
 6e2eda10,LATE_STEAM,2026-09-18T18:45:00Z,Ligue 1 - France,AS Monaco vs RC Lens,Pre-Match +EV,RC Lens,Unibet (FR),3.6,4.3,15.0,LOST,-15.0
 1aa15525,LATE_STEAM,2026-09-18T19:00:00Z,Championship,Bristol City vs Watford,Pre-Match +EV,Bristol City,LeoVegas (SE),1.85,3.4,15.0,WON,12.75
 724443e3,LATE_STEAM,2026-09-18T21:00:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Pre-Match +EV,Central Córdoba,Smarkets,2.94,3.2,15.0,LOST,-15.0
-6b88e37d,LATE_STEAM,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Sarmiento de Junin,Smarkets,5.7,7.3,15.0,PENDING,0.0
-adf93b53,LATE_STEAM,2026-09-18T23:30:00Z,MLS,New York City FC vs New York Red Bulls,Pre-Match +EV,New York City FC,Smarkets,1.87,5.1,15.0,PENDING,0.0
+6b88e37d,LATE_STEAM,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Pre-Match +EV,Sarmiento de Junin,Smarkets,5.7,7.3,15.0,LOST,-15.0
+adf93b53,LATE_STEAM,2026-09-18T23:30:00Z,MLS,New York City FC vs New York Red Bulls,Pre-Match +EV,New York City FC,Smarkets,1.87,5.1,15.0,LOST,-15.0
 3041456c,LATE_STEAM,2026-09-19T01:00:00Z,Liga MX,Puebla vs Atlante FC,Pre-Match +EV,Puebla,Smarkets,2.38,3.0,15.0,PENDING,0.0
 ed59c64b,LATE_STEAM,2026-09-19T03:00:00Z,Liga MX,FC Juárez vs Tigres,Pre-Match +EV,Draw,GTbets,3.75,3.9,15.0,PENDING,0.0
 dca750f9,HALFTIME_LIVE,2026-09-18T18:00:00Z,Dutch Eredivisie,Groningen vs FC Zwolle,Halftime In-Play,FC Zwolle,Unibet (UK),51.0,232.2,15.0,LOST,-15.0
@@ -273,10 +273,10 @@ fc5fc368,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Re
 56401662,LATE_STEAM,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham United,Pre-Match +EV,Millwall,Smarkets,4.6,3.4,15.0,PENDING,0.0
 78017565,LATE_STEAM,2026-09-19T11:30:00Z,Championship,Stoke City vs Sheffield United,Pre-Match +EV,Stoke City,LeoVegas (SE),2.5,5.5,15.0,PENDING,0.0
 b3c1ac01,LATE_STEAM,2026-09-19T12:00:00Z,La Liga - Spain,CA Osasuna vs Rayo Vallecano,Pre-Match +EV,CA Osasuna,Smarkets,2.72,5.4,15.0,PENDING,0.0
-2772c65d,HALFTIME_LIVE,2026-09-18T23:40:00Z,MLS,New York City FC vs New York Red Bulls,Halftime In-Play,New York City FC,Smarkets,2.12,3.4,15.0,PENDING,0.0
+2772c65d,HALFTIME_LIVE,2026-09-18T23:40:00Z,MLS,New York City FC vs New York Red Bulls,Halftime In-Play,New York City FC,Smarkets,2.12,3.4,15.0,LOST,-15.0
 c47cbe19,LATE_STEAM,2026-09-19T13:00:00Z,Serie A - Italy,Bologna vs Torino,Pre-Match +EV,Torino,Smarkets,4.3,5.4,15.0,PENDING,0.0
 1a1b7230,LATE_STEAM,2026-09-19T13:00:00Z,Serie A - Italy,Udinese vs Cagliari,Pre-Match +EV,Draw,1xBet,3.4,4.3,15.0,PENDING,0.0
-86300bd9,HALFTIME_LIVE,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Halftime In-Play,Racing Club,Smarkets,2.2,4.3,15.0,PENDING,0.0
+86300bd9,HALFTIME_LIVE,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Halftime In-Play,Racing Club,Smarkets,2.2,4.3,15.0,WON,18.0
 f9ef5e81,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC Köln,Pre-Match +EV,1. FC Köln,Betfair,2.6,4.4,15.0,PENDING,0.0
 4aac2f97,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Pre-Match +EV,Augsburg,Betfair,2.88,4.3,15.0,PENDING,0.0
 83bdfe82,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,Borussia Monchengladbach,Betfair,3.2,4.6,15.0,PENDING,0.0
