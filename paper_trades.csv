@@ -277,3 +277,7 @@ b3c1ac01,LATE_STEAM,2026-09-19T12:00:00Z,La Liga - Spain,CA Osasuna vs Rayo Vall
 c47cbe19,LATE_STEAM,2026-09-19T13:00:00Z,Serie A - Italy,Bologna vs Torino,Pre-Match +EV,Torino,Smarkets,4.3,5.4,15.0,PENDING,0.0
 1a1b7230,LATE_STEAM,2026-09-19T13:00:00Z,Serie A - Italy,Udinese vs Cagliari,Pre-Match +EV,Draw,1xBet,3.4,4.3,15.0,PENDING,0.0
 86300bd9,HALFTIME_LIVE,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Halftime In-Play,Racing Club,Smarkets,2.2,4.3,15.0,PENDING,0.0
+f9ef5e81,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC Köln,Pre-Match +EV,1. FC Köln,Betfair,2.6,4.4,15.0,PENDING,0.0
+4aac2f97,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Pre-Match +EV,Augsburg,Betfair,2.88,4.3,15.0,PENDING,0.0
+83bdfe82,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,Borussia Monchengladbach,Betfair,3.2,4.6,15.0,PENDING,0.0
+07e5b468,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Pre-Match +EV,Eintracht Frankfurt,Betfair,2.56,4.9,15.0,PENDING,0.0
