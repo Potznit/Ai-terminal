@@ -356,3 +356,12 @@ c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Ma
 9f03b876,CORE_EV,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,PENDING,0.0
 c5f7e8ce,CORE_EV,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Ladbrokes,8.0,6.7,15.0,PENDING,0.0
 6eedb573,CORE_EV,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,3.85,4.1,15.0,PENDING,0.0
+e6776939,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Halftime In-Play,Arsenal,Winamax (DE),9.5,151.3,15.0,PENDING,0.0
+56e585dd,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Halftime In-Play,Ipswich Town,Unibet (UK),15.0,13.6,15.0,PENDING,0.0
+dbc2d1c7,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Halftime In-Play,Draw,Betclic (FR),20.0,17.6,15.0,PENDING,0.0
+2152cb73,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Halftime In-Play,Birmingham City,LeoVegas,9.0,5.0,15.0,PENDING,0.0
+b00ca792,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Halftime In-Play,Draw,Grosvenor,2.6,5.7,15.0,PENDING,0.0
+8715bb68,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Halftime In-Play,Lincoln City,Smarkets,1.47,3.5,15.0,PENDING,0.0
+a9dbd569,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Burnley vs Derby County,Halftime In-Play,Draw,Unibet (SE),4.5,5.6,15.0,PENDING,0.0
+84ed8959,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Queens Park Rangers vs Preston North End,Halftime In-Play,Queens Park Rangers,Sky Bet,46.0,15.0,15.0,PENDING,0.0
+fe25c064,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Wrexham AFC vs Southampton,Halftime In-Play,Draw,Unibet (SE),3.5,4.2,15.0,PENDING,0.0
