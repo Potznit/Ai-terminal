@@ -307,3 +307,6 @@ c2edb03e,CORE_EV,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG H
 9edaa94a,LATE_STEAM,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Pre-Match +EV,Paris FC,1xBet,2.06,3.0,15.0,PENDING,0.0
 de227809,HALFTIME_LIVE,2026-09-19T03:04:00Z,Liga MX,FC Juárez vs Tigres,Halftime In-Play,FC Juárez,Unibet (NL),5.0,5.5,15.0,PENDING,0.0
 87c733aa,LATE_STEAM,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Pre-Match +EV,Draw,Betfred (UK),3.6,3.2,15.0,PENDING,0.0
+d227e5d6,LATE_STEAM,2026-09-19T16:30:00Z,EPL,Nottingham Forest vs Coventry City,Pre-Match +EV,Draw,Unibet (UK),4.2,4.0,15.0,PENDING,0.0
+a9a09851,LATE_STEAM,2026-09-19T16:30:00Z,La Liga - Spain,Celta Vigo vs Real Racing Club de Santander,Pre-Match +EV,Celta Vigo,Matchbook,1.88,3.3,15.0,PENDING,0.0
+18dc007a,LATE_STEAM,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Pre-Match +EV,Draw,Winamax (DE),4.0,5.8,15.0,PENDING,0.0
