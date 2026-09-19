@@ -51,12 +51,12 @@ c38af522,EARLY_BIRD,2026-09-20T16:00:00Z,Denmark Superliga,Viborg FF vs FC Nords
 a652e757,EARLY_BIRD,2026-09-19T11:30:00Z,Championship,Cardiff City vs Charlton Athletic,Pre-Match +EV,Cardiff City,Grosvenor,1.73,3.0,15.0,WON,10.95
 fa249604,EARLY_BIRD,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham United,Pre-Match +EV,Draw,Unibet (NL),3.85,3.2,15.0,WON,42.75
 743748a3,EARLY_BIRD,2026-09-19T11:30:00Z,Championship,Stoke City vs Sheffield United,Pre-Match +EV,Stoke City,LeoVegas (SE),2.7,4.7,15.0,WON,25.5
-4b329e04,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,LeoVegas (SE),3.05,3.4,15.0,PENDING,0.0
-8cf3c967,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Portsmouth,Casumo,2.14,3.9,15.0,PENDING,0.0
-bf908349,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Derby County,LeoVegas (SE),4.5,4.7,15.0,PENDING,0.0
+4b329e04,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,LeoVegas (SE),3.05,3.4,15.0,LOST,-15.0
+8cf3c967,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Portsmouth,Casumo,2.14,3.9,15.0,LOST,-15.0
+bf908349,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Derby County,LeoVegas (SE),4.5,4.7,15.0,LOST,-15.0
 11798c46,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Lincoln City,Smarkets,2.92,3.5,15.0,WON,28.8
-4666067d,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.0,15.0,PENDING,0.0
-8d97ff0f,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Wrexham AFC,LeoVegas (SE),3.1,5.1,15.0,PENDING,0.0
+4666067d,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.0,15.0,LOST,-15.0
+8d97ff0f,EARLY_BIRD,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Wrexham AFC,LeoVegas (SE),3.1,5.1,15.0,WON,31.5
 9ccae913,EARLY_BIRD,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betsson,4.67,4.2,15.0,PENDING,0.0
 2e293f78,EARLY_BIRD,2026-09-20T12:30:00Z,Championship,Norwich City vs Bolton Wanderers,Pre-Match +EV,Bolton Wanderers,Betsson,5.85,8.1,15.0,PENDING,0.0
 cb82efa9,CORE_EV,2026-09-16T18:45:00Z,EFL Cup,Everton vs Wolverhampton Wanderers,Pre-Match +EV,Draw,Winamax (DE),4.5,3.0,15.0,PENDING,0.0
@@ -196,12 +196,12 @@ f18324d6,CORE_EV,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham United,P
 860e17f7,CORE_EV,2026-09-19T13:00:00Z,Serie A - Italy,Udinese vs Cagliari,Pre-Match +EV,Draw,1xBet,3.4,3.3,15.0,LOST,-15.0
 c762e540,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC Köln,Pre-Match +EV,Hamburger SV,Coolbet,2.85,3.3,15.0,WON,27.75
 5c57dc08,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Pre-Match +EV,Draw,Winamax (DE),4.1,4.6,15.0,LOST,-15.0
-bcd91f9e,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,FSV Mainz 05,Betfair,2.4,5.7,15.0,PENDING,0.0
+bcd91f9e,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,FSV Mainz 05,Betfair,2.4,5.7,15.0,WON,21.0
 82cdb6f6,CORE_EV,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Pre-Match +EV,Draw,Coolbet,4.2,4.7,15.0,WON,48.0
-b1348b90,CORE_EV,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pre-Match +EV,Arsenal,Betfred (UK),1.73,3.0,15.0,PENDING,0.0
-4c70e409,CORE_EV,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Pre-Match +EV,Everton,Betfair,1.84,3.4,15.0,PENDING,0.0
-392c5b84,CORE_EV,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Pre-Match +EV,Hull City,Betfred (UK),5.5,3.6,15.0,PENDING,0.0
-0bf6a794,CORE_EV,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.7,6.7,15.0,PENDING,0.0
+b1348b90,CORE_EV,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pre-Match +EV,Arsenal,Betfred (UK),1.73,3.0,15.0,LOST,-15.0
+4c70e409,CORE_EV,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Pre-Match +EV,Everton,Betfair,1.84,3.4,15.0,WON,12.6
+392c5b84,CORE_EV,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Pre-Match +EV,Hull City,Betfred (UK),5.5,3.6,15.0,LOST,-15.0
+0bf6a794,CORE_EV,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.7,6.7,15.0,LOST,-15.0
 87bc6158,HALFTIME_LIVE,2026-09-17T16:45:00Z,UEFA Europa League,OFI Crete vs TSG Hoffenheim,Halftime In-Play,TSG Hoffenheim,LeoVegas,2.08,3.5,15.0,LOST,-15.0
 8cc4aea3,HALFTIME_LIVE,2026-09-17T16:45:00Z,UEFA Europa League,PFC Levski Sofia vs Salzburg,Halftime In-Play,PFC Levski Sofia,Smarkets,11.0,201.4,15.0,LOST,-15.0
 9c92988f,HALFTIME_LIVE,2026-09-17T17:00:00Z,La Liga - Spain,Real Betis vs Getafe,Halftime In-Play,Real Betis,Sky Bet,1.67,3.7,15.0,WON,10.05
@@ -228,16 +228,16 @@ e37352c5,HALFTIME_LIVE,2026-09-17T19:29:00Z,La Liga - Spain,Málaga vs Villarrea
 d9aa1118,CORE_EV,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia La Plata vs Banfield,Pre-Match +EV,Banfield,Betsson,4.65,3.6,15.0,PENDING,0.0
 dbc08c78,CORE_EV,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Deportivo Riestra,Pre-Match +EV,Deportivo Riestra,Nordic Bet,3.7,5.1,15.0,PENDING,0.0
 0ab33883,CORE_EV,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Pre-Match +EV,Atlético Huracán,Betsson,7.8,7.3,15.0,PENDING,0.0
-a7052e27,CORE_EV,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,1xBet,4.02,3.3,15.0,PENDING,0.0
+a7052e27,CORE_EV,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,1xBet,4.02,3.3,15.0,LOST,-15.0
 31c6d025,CORE_EV,2026-09-19T16:45:00Z,Dutch Eredivisie,Sparta Rotterdam vs Heerenveen,Pre-Match +EV,Sparta Rotterdam,Smarkets,2.68,8.5,15.0,PENDING,0.0
 7d42edab,CORE_EV,2026-09-19T18:00:00Z,Dutch Eredivisie,Ajax vs Excelsior,Pre-Match +EV,Ajax,Nordic Bet,1.27,5.0,15.0,PENDING,0.0
 2950060c,CORE_EV,2026-09-19T19:00:00Z,Dutch Eredivisie,Willem II vs Fortuna Sittard,Pre-Match +EV,Fortuna Sittard,Unibet (NL),2.75,6.2,15.0,PENDING,0.0
-0b0db475,CORE_EV,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Pre-Match +EV,Gil Vicente,LiveScore Bet,2.02,4.1,15.0,PENDING,0.0
-dc2ae026,CORE_EV,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Pre-Match +EV,Nacional,Betfair,3.8,3.0,15.0,PENDING,0.0
+0b0db475,CORE_EV,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Pre-Match +EV,Gil Vicente,LiveScore Bet,2.02,4.1,15.0,LOST,-15.0
+dc2ae026,CORE_EV,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Pre-Match +EV,Nacional,Betfair,3.8,3.0,15.0,LOST,-15.0
 493f1046,CORE_EV,2026-09-19T17:00:00Z,Primeira Liga - Portugal,Alverca vs Rio Ave FC,Pre-Match +EV,Alverca,Virgin Bet,2.0,4.2,15.0,PENDING,0.0
-e0e227e9,CORE_EV,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,LeoVegas (SE),3.05,3.7,15.0,PENDING,0.0
-46751ed8,CORE_EV,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Portsmouth,Casumo,2.14,3.9,15.0,PENDING,0.0
-84a86bf8,CORE_EV,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Derby County,LeoVegas (SE),4.5,4.7,15.0,PENDING,0.0
+e0e227e9,CORE_EV,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,LeoVegas (SE),3.05,3.7,15.0,LOST,-15.0
+46751ed8,CORE_EV,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Portsmouth,Casumo,2.14,3.9,15.0,LOST,-15.0
+84a86bf8,CORE_EV,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Derby County,LeoVegas (SE),4.5,4.7,15.0,LOST,-15.0
 2a0c22ae,LATE_STEAM,2026-09-18T18:00:00Z,Dutch Eredivisie,Groningen vs FC Zwolle,Pre-Match +EV,Draw,Codere (IT),4.6,5.5,15.0,LOST,-15.0
 3b0bf921,LATE_STEAM,2026-09-18T19:00:00Z,EPL,Brentford vs Chelsea,Pre-Match +EV,Chelsea,Betfair,2.56,4.1,15.0,LOST,-15.0
 a7dc6494,LATE_STEAM,2026-09-18T19:00:00Z,La Liga - Spain,Espanyol vs Elche CF,Pre-Match +EV,Elche CF,Smarkets,4.8,5.7,15.0,WON,57.0
@@ -279,28 +279,28 @@ c47cbe19,LATE_STEAM,2026-09-19T13:00:00Z,Serie A - Italy,Bologna vs Torino,Pre-M
 86300bd9,HALFTIME_LIVE,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Club vs Sarmiento de Junin,Halftime In-Play,Racing Club,Smarkets,2.2,4.3,15.0,WON,18.0
 f9ef5e81,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC Köln,Pre-Match +EV,1. FC Köln,Betfair,2.6,4.4,15.0,LOST,-15.0
 4aac2f97,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Pre-Match +EV,Augsburg,Betfair,2.88,4.3,15.0,LOST,-15.0
-83bdfe82,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,Borussia Monchengladbach,Betfair,3.2,4.6,15.0,PENDING,0.0
+83bdfe82,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Pre-Match +EV,Borussia Monchengladbach,Betfair,3.2,4.6,15.0,LOST,-15.0
 07e5b468,LATE_STEAM,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Pre-Match +EV,Eintracht Frankfurt,Betfair,2.56,4.9,15.0,LOST,-15.0
 427f3551,HALFTIME_LIVE,2026-09-19T01:01:00Z,Liga MX,Puebla vs Atlante FC,Halftime In-Play,Puebla,Grosvenor,6.75,129.6,15.0,LOST,-15.0
-da090ead,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pre-Match +EV,Draw,1xBet,4.21,5.2,15.0,PENDING,0.0
-e31ac5ca,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Pre-Match +EV,Everton,Betfair,1.89,3.8,15.0,PENDING,0.0
-b06de40f,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Pre-Match +EV,Hull City,Betfred (UK),5.5,6.2,15.0,PENDING,0.0
-0bfbf6cf,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,Grosvenor,2.88,4.0,15.0,PENDING,0.0
-bbb59b8f,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Blackburn Rovers,LeoVegas (SE),3.55,4.4,15.0,PENDING,0.0
-14840aea,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Draw,Sky Bet,4.0,3.4,15.0,PENDING,0.0
-b8740b05,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Swansea City,LeoVegas (SE),2.5,3.7,15.0,PENDING,0.0
-cc8dc321,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.2,15.0,PENDING,0.0
-a3c1ae8a,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Southampton,LeoVegas,2.38,4.4,15.0,PENDING,0.0
+da090ead,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Pre-Match +EV,Draw,1xBet,4.21,5.2,15.0,LOST,-15.0
+e31ac5ca,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Pre-Match +EV,Everton,Betfair,1.89,3.8,15.0,WON,13.35
+b06de40f,LATE_STEAM,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Pre-Match +EV,Hull City,Betfred (UK),5.5,6.2,15.0,LOST,-15.0
+0bfbf6cf,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Pre-Match +EV,Birmingham City,Grosvenor,2.88,4.0,15.0,LOST,-15.0
+bbb59b8f,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Pre-Match +EV,Blackburn Rovers,LeoVegas (SE),3.55,4.4,15.0,LOST,-15.0
+14840aea,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Burnley vs Derby County,Pre-Match +EV,Draw,Sky Bet,4.0,3.4,15.0,WON,45.0
+b8740b05,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Swansea City,LeoVegas (SE),2.5,3.7,15.0,WON,22.5
+cc8dc321,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.2,15.0,LOST,-15.0
+a3c1ae8a,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Southampton,LeoVegas,2.38,4.4,15.0,LOST,-15.0
 14de5240,CORE_EV,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Valencia,Smarkets,2.82,3.7,15.0,PENDING,0.0
 df0c9b78,CORE_EV,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Pre-Match +EV,Fiorentina,Betfair,3.4,3.0,15.0,PENDING,0.0
 6ea80daf,CORE_EV,2026-09-20T13:00:00Z,Serie A - Italy,Frosinone vs Como,Pre-Match +EV,Draw,Unibet (UK),4.75,4.9,15.0,PENDING,0.0
 250e1b40,CORE_EV,2026-09-20T13:00:00Z,Serie A - Italy,Parma vs Genoa,Pre-Match +EV,Genoa,Smarkets,2.62,3.1,15.0,PENDING,0.0
 d74aec9b,CORE_EV,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC,Pre-Match +EV,Juventus,1xBet,1.74,3.0,15.0,PENDING,0.0
 38d61d40,CORE_EV,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,10.7,15.0,PENDING,0.0
-6164f14e,LATE_STEAM,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.9,8.1,15.0,PENDING,0.0
-c5ee1e9a,LATE_STEAM,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,Unibet (NL),4.3,8.0,15.0,PENDING,0.0
-0f49f162,LATE_STEAM,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Pre-Match +EV,CS Maritimo,Betfair,4.5,6.1,15.0,PENDING,0.0
-2018ce95,LATE_STEAM,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Pre-Match +EV,Draw,Sky Bet,3.5,5.7,15.0,PENDING,0.0
+6164f14e,LATE_STEAM,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.9,8.1,15.0,LOST,-15.0
+c5ee1e9a,LATE_STEAM,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,Unibet (NL),4.3,8.0,15.0,LOST,-15.0
+0f49f162,LATE_STEAM,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Pre-Match +EV,CS Maritimo,Betfair,4.5,6.1,15.0,LOST,-15.0
+2018ce95,LATE_STEAM,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Pre-Match +EV,Draw,Sky Bet,3.5,5.7,15.0,LOST,-15.0
 add310d8,CORE_EV,2026-09-20T13:30:00Z,Bundesliga - Germany,Bayer Leverkusen vs RB Leipzig,Pre-Match +EV,RB Leipzig,Betfair,3.6,5.9,15.0,PENDING,0.0
 456bf184,CORE_EV,2026-09-20T15:30:00Z,Bundesliga - Germany,FC Schalke 04 vs Elversberg,Pre-Match +EV,Draw,888sport,3.75,3.6,15.0,PENDING,0.0
 c2edb03e,CORE_EV,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Nordic Bet,4.65,4.0,15.0,PENDING,0.0
@@ -341,7 +341,7 @@ a9736afc,HALFTIME_LIVE,2026-09-19T13:00:00Z,Serie A - Italy,Bologna vs Torino,Ha
 7c2b59ce,HALFTIME_LIVE,2026-09-19T13:00:00Z,Serie A - Italy,Udinese vs Cagliari,Halftime In-Play,Cagliari,Paddy Power,4.2,4.5,15.0,WON,48.0
 6c350f0f,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Hamburger SV vs 1. FC Köln,Halftime In-Play,1. FC Köln,Unibet (UK),5.5,120.9,15.0,LOST,-15.0
 a33b67eb,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen vs Augsburg,Halftime In-Play,Werder Bremen,Coolbet,5.75,7.3,15.0,WON,71.25
-0a9a6e2d,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Halftime In-Play,Borussia Monchengladbach,Tipico,9.0,139.4,15.0,PENDING,0.0
+0a9a6e2d,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Halftime In-Play,Borussia Monchengladbach,Tipico,9.0,139.4,15.0,LOST,-15.0
 999d330c,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Halftime In-Play,Draw,Coolbet,3.75,3.0,15.0,WON,41.25
 db89d28a,CORE_EV,2026-09-20T13:00:00Z,Ligue 1 - France,Auxerre vs Brest,Pre-Match +EV,Draw,1xBet,3.72,5.7,15.0,PENDING,0.0
 514005eb,CORE_EV,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,Betfair,8.0,7.0,15.0,PENDING,0.0
@@ -356,19 +356,19 @@ c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Ma
 9f03b876,CORE_EV,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,PENDING,0.0
 c5f7e8ce,CORE_EV,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Ladbrokes,8.0,6.7,15.0,PENDING,0.0
 6eedb573,CORE_EV,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,3.85,4.1,15.0,PENDING,0.0
-e6776939,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Halftime In-Play,Arsenal,Winamax (DE),9.5,151.3,15.0,PENDING,0.0
-56e585dd,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Halftime In-Play,Ipswich Town,Unibet (UK),15.0,13.6,15.0,PENDING,0.0
-dbc2d1c7,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Halftime In-Play,Draw,Betclic (FR),20.0,17.6,15.0,PENDING,0.0
-2152cb73,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Halftime In-Play,Birmingham City,LeoVegas,9.0,5.0,15.0,PENDING,0.0
-b00ca792,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Halftime In-Play,Draw,Grosvenor,2.6,5.7,15.0,PENDING,0.0
-8715bb68,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Halftime In-Play,Lincoln City,Smarkets,1.47,3.5,15.0,PENDING,0.0
-a9dbd569,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Burnley vs Derby County,Halftime In-Play,Draw,Unibet (SE),4.5,5.6,15.0,PENDING,0.0
-84ed8959,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Queens Park Rangers vs Preston North End,Halftime In-Play,Queens Park Rangers,Sky Bet,46.0,15.0,15.0,PENDING,0.0
-fe25c064,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Wrexham AFC vs Southampton,Halftime In-Play,Draw,Unibet (SE),3.5,4.2,15.0,PENDING,0.0
-534b5884,HALFTIME_LIVE,2026-09-19T14:16:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Halftime In-Play,Alavés,Unibet (UK),8.0,11.7,15.0,PENDING,0.0
-1eb2ebf2,HALFTIME_LIVE,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Halftime In-Play,ADO Den Haag,Betclic (FR),4.0,82.6,15.0,PENDING,0.0
-41de4d36,HALFTIME_LIVE,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Halftime In-Play,Draw,Betsson,4.85,3.2,15.0,PENDING,0.0
-a6c19914,HALFTIME_LIVE,2026-09-19T14:31:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Halftime In-Play,Nacional,Sky Bet,201.0,11.7,15.0,PENDING,0.0
+e6776939,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Halftime In-Play,Arsenal,Winamax (DE),9.5,151.3,15.0,LOST,-15.0
+56e585dd,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Halftime In-Play,Ipswich Town,Unibet (UK),15.0,13.6,15.0,LOST,-15.0
+dbc2d1c7,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Newcastle United vs Hull City,Halftime In-Play,Draw,Betclic (FR),20.0,17.6,15.0,LOST,-15.0
+2152cb73,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Birmingham City vs Middlesbrough,Halftime In-Play,Birmingham City,LeoVegas,9.0,5.0,15.0,LOST,-15.0
+b00ca792,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Rovers,Halftime In-Play,Draw,Grosvenor,2.6,5.7,15.0,WON,24.0
+8715bb68,HALFTIME_LIVE,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Halftime In-Play,Lincoln City,Smarkets,1.47,3.5,15.0,LOST,-15.0
+a9dbd569,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Burnley vs Derby County,Halftime In-Play,Draw,Unibet (SE),4.5,5.6,15.0,WON,52.5
+84ed8959,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Queens Park Rangers vs Preston North End,Halftime In-Play,Queens Park Rangers,Sky Bet,46.0,15.0,15.0,LOST,-15.0
+fe25c064,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Wrexham AFC vs Southampton,Halftime In-Play,Draw,Unibet (SE),3.5,4.2,15.0,LOST,-15.0
+534b5884,HALFTIME_LIVE,2026-09-19T14:16:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Halftime In-Play,Alavés,Unibet (UK),8.0,11.7,15.0,LOST,-15.0
+1eb2ebf2,HALFTIME_LIVE,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Halftime In-Play,ADO Den Haag,Betclic (FR),4.0,82.6,15.0,LOST,-15.0
+41de4d36,HALFTIME_LIVE,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Halftime In-Play,Draw,Betsson,4.85,3.2,15.0,WON,57.75
+a6c19914,HALFTIME_LIVE,2026-09-19T14:31:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Halftime In-Play,Nacional,Sky Bet,201.0,11.7,15.0,LOST,-15.0
 d0d1f2a6,CORE_EV,2026-09-20T15:15:00Z,Ligue 1 - France,Nice vs Lille,Pre-Match +EV,Lille,Betfair,2.12,3.4,15.0,PENDING,0.0
 d9d195f5,CORE_EV,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,9.5,15.0,PENDING,0.0
 deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,Pre-Match +EV,SC Telstar,1xBet,10.7,7.0,15.0,PENDING,0.0
