@@ -478,3 +478,9 @@ fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,P
 747a1e33,LATE_STEAM,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Smarkets,4.6,3.6,15.0,PENDING,0.0
 f33350fd,LATE_STEAM,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Draw,Smarkets,3.25,4.2,15.0,PENDING,0.0
 df1c1452,CORE_EV,2026-09-21T00:00:00Z,Liga MX,Toluca vs Santos Laguna,Pre-Match +EV,Santos Laguna,Unibet (SE),10.0,11.6,15.0,PENDING,0.0
+6d1dbcc8,LATE_STEAM,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Real Sociedad,Smarkets,2.7,3.4,15.0,PENDING,0.0
+89a36817,LATE_STEAM,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,8.6,15.0,PENDING,0.0
+ef4f8e78,LATE_STEAM,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,1xBet,6.76,7.8,15.0,PENDING,0.0
+64952b2f,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Fluminense,Smarkets,3.95,4.2,15.0,PENDING,0.0
+3c5961f3,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Vitoria,Matchbook,3.2,3.6,15.0,PENDING,0.0
+ed776562,LATE_STEAM,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Matchbook,3.0,3.4,15.0,PENDING,0.0
