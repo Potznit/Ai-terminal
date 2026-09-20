@@ -23,7 +23,7 @@ a2dffdd5,EARLY_BIRD,2026-09-19T14:00:00Z,Belgium First Div,Leuven vs RAAL La Lou
 9c220347,EARLY_BIRD,2026-09-20T16:30:00Z,Belgium First Div,Club Brugge vs Genk,Pre-Match +EV,Club Brugge,Grosvenor,1.53,3.4,15.0,PENDING,0.0
 71c3125f,EARLY_BIRD,2026-09-20T17:15:00Z,Belgium First Div,KV Kortrijk vs SK Beveren,Pre-Match +EV,SK Beveren,Grosvenor,2.7,5.5,15.0,PENDING,0.0
 ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Botafogo,Smarkets,1.77,4.1,15.0,WON,11.55
-468818c8,EARLY_BIRD,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,GTbets,2.65,3.9,15.0,PENDING,0.0
+468818c8,EARLY_BIRD,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,GTbets,2.65,3.9,15.0,WON,24.75
 06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,PENDING,0.0
 106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,PENDING,0.0
 9553395a,EARLY_BIRD,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,1xBet,8.55,4.3,15.0,PENDING,0.0
@@ -224,10 +224,10 @@ e37352c5,HALFTIME_LIVE,2026-09-17T19:29:00Z,La Liga - Spain,Málaga vs Villarrea
 43ed3834,CORE_EV,2026-09-19T18:45:00Z,Ligue 1 - France,Le Mans FC vs Lorient,Pre-Match +EV,Le Mans FC,Betfair,2.8,3.3,15.0,WON,27.0
 615a4bf5,CORE_EV,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs Chapecoense,Pre-Match +EV,Atletico Mineiro,1xBet,1.46,3.5,15.0,LOST,-15.0
 03b23765,CORE_EV,2026-09-19T20:00:00Z,Brazil Série A,Mirassol vs Botafogo,Pre-Match +EV,Mirassol,GTbets,2.29,4.6,15.0,WON,19.35
-361e5dc1,CORE_EV,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,BetOnline.ag,2.56,3.6,15.0,PENDING,0.0
+361e5dc1,CORE_EV,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,BetOnline.ag,2.56,3.6,15.0,WON,23.4
 d9aa1118,CORE_EV,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia La Plata vs Banfield,Pre-Match +EV,Banfield,Betsson,4.65,3.6,15.0,LOST,-15.0
 dbc08c78,CORE_EV,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Deportivo Riestra,Pre-Match +EV,Deportivo Riestra,Nordic Bet,3.7,5.1,15.0,LOST,-15.0
-0ab33883,CORE_EV,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Pre-Match +EV,Atlético Huracán,Betsson,7.8,7.3,15.0,PENDING,0.0
+0ab33883,CORE_EV,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Pre-Match +EV,Atlético Huracán,Betsson,7.8,7.3,15.0,WON,102.0
 a7052e27,CORE_EV,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,1xBet,4.02,3.3,15.0,LOST,-15.0
 31c6d025,CORE_EV,2026-09-19T16:45:00Z,Dutch Eredivisie,Sparta Rotterdam vs Heerenveen,Pre-Match +EV,Sparta Rotterdam,Smarkets,2.68,8.5,15.0,LOST,-15.0
 7d42edab,CORE_EV,2026-09-19T18:00:00Z,Dutch Eredivisie,Ajax vs Excelsior,Pre-Match +EV,Ajax,Nordic Bet,1.27,5.0,15.0,LOST,-15.0
@@ -324,8 +324,8 @@ a69e85a6,LATE_STEAM,2026-09-19T18:45:00Z,Ligue 1 - France,Lyon vs Rennes,Pre-Mat
 5d7f03b8,LATE_STEAM,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs Chapecoense,Pre-Match +EV,Draw,Matchbook,5.3,5.6,15.0,WON,64.5
 1f56cb35,LATE_STEAM,2026-09-19T19:00:00Z,Dutch Eredivisie,Willem II vs Fortuna Sittard,Pre-Match +EV,Draw,Coolbet,3.85,3.5,15.0,LOST,-15.0
 3c5284b4,LATE_STEAM,2026-09-19T19:30:00Z,Primeira Liga - Portugal,Sporting Lisbon vs Arouca,Pre-Match +EV,Arouca,Coolbet,15.0,10.5,15.0,LOST,-15.0
-32805a84,LATE_STEAM,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Remo,Matchbook,3.05,3.7,15.0,PENDING,0.0
-5b1a2739,LATE_STEAM,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Pre-Match +EV,Atlético Huracán,Betfair,8.4,11.4,15.0,PENDING,0.0
+32805a84,LATE_STEAM,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Remo,Matchbook,3.05,3.7,15.0,LOST,-15.0
+5b1a2739,LATE_STEAM,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Pre-Match +EV,Atlético Huracán,Betfair,8.4,11.4,15.0,WON,111.0
 cc12d9f4,LATE_STEAM,2026-09-19T23:00:00Z,Liga MX,Atlas vs Pumas,Pre-Match +EV,Draw,Paddy Power,3.3,4.4,15.0,PENDING,0.0
 8322d7b0,LATE_STEAM,2026-09-19T23:00:00Z,Liga MX,Atlético San Luis vs Necaxa,Pre-Match +EV,Atlético San Luis,GTbets,2.29,4.6,15.0,PENDING,0.0
 b4762fbf,LATE_STEAM,2026-09-19T23:30:00Z,Brazil Série A,Vasco da Gama vs Coritiba,Pre-Match +EV,Coritiba,Smarkets,8.0,10.2,15.0,PENDING,0.0
@@ -422,10 +422,10 @@ b44d860c,HALFTIME_LIVE,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs 
 65f974e2,HALFTIME_LIVE,2026-09-19T19:45:00Z,Primera División - Argentina,Union Santa Fe vs Independiente,Halftime In-Play,Independiente,Winamax (FR),12.0,166.7,15.0,WON,165.0
 b3eb55d7,HALFTIME_LIVE,2026-09-19T20:00:00Z,Brazil Série A,Mirassol vs Botafogo,Halftime In-Play,Botafogo,Winamax (FR),29.0,228.4,15.0,LOST,-15.0
 6130d4bd,CORE_EV,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Independiente Rivadavia,Unibet (SE),2.5,4.6,15.0,PENDING,0.0
-ccc3b3ff,HALFTIME_LIVE,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Halftime In-Play,Santos,Winamax (DE),2.85,3.6,15.0,PENDING,0.0
+ccc3b3ff,HALFTIME_LIVE,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Halftime In-Play,Santos,Winamax (DE),2.85,3.6,15.0,WON,27.75
 03d0beac,LATE_STEAM,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,8.7,15.0,PENDING,0.0
 f4043523,LATE_STEAM,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Pre-Match +EV,Fiorentina,Tipico,3.3,3.1,15.0,PENDING,0.0
-0a666891,HALFTIME_LIVE,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Halftime In-Play,River Plate,LeoVegas (SE),3.7,4.5,15.0,PENDING,0.0
+0a666891,HALFTIME_LIVE,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Halftime In-Play,River Plate,LeoVegas (SE),3.7,4.5,15.0,LOST,-15.0
 8c7183d0,LATE_STEAM,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Ladbrokes,4.4,3.3,15.0,PENDING,0.0
 be3cd6cd,HALFTIME_LIVE,2026-09-19T23:00:00Z,Liga MX,Atlas vs Pumas,Halftime In-Play,Atlas,Coolbet,5.5,10.0,15.0,PENDING,0.0
 e894a8f9,HALFTIME_LIVE,2026-09-19T23:00:00Z,Liga MX,Atlético San Luis vs Necaxa,Halftime In-Play,Necaxa,Casumo,3.3,3.8,15.0,PENDING,0.0
