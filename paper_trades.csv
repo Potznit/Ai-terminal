@@ -263,8 +263,8 @@ dbe97d18,CORE_EV,2026-09-20T13:00:00Z,EPL,Bournemouth vs Liverpool,Pre-Match +EV
 e6514273,CORE_EV,2026-09-20T15:30:00Z,EPL,Fulham vs Manchester United,Pre-Match +EV,Fulham,1xBet,3.63,3.7,15.0,LOST,-15.0
 2ca65527,CORE_EV,2026-09-20T12:00:00Z,La Liga - Spain,Getafe vs Málaga,Pre-Match +EV,Getafe,Smarkets,2.14,4.4,15.0,WON,17.1
 f57e018f,CORE_EV,2026-09-20T14:15:00Z,La Liga - Spain,Atlético Madrid vs Real Madrid,Pre-Match +EV,Atlético Madrid,Smarkets,3.75,3.6,15.0,WON,41.25
-fc5fc368,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Smarkets,3.75,6.5,15.0,PENDING,0.0
-430e334f,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.1,15.0,PENDING,0.0
+fc5fc368,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Smarkets,3.75,6.5,15.0,LOST,-15.0
+430e334f,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.1,15.0,LOST,-15.0
 6c3ced5b,HALFTIME_LIVE,2026-09-18T20:59:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Halftime In-Play,Central Córdoba,BoyleSports,12.0,4.4,15.0,LOST,-15.0
 01d2bc48,EARLY_BIRD,2026-09-21T00:00:00Z,Liga MX,Pachuca vs Tijuana,Pre-Match +EV,Pachuca,Unibet (SE),1.77,4.7,15.0,PENDING,0.0
 8fa86250,EARLY_BIRD,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,9.6,15.0,PENDING,0.0
@@ -378,8 +378,8 @@ deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,
 7604e286,CORE_EV,2026-09-20T14:30:00Z,Primeira Liga - Portugal,Vitória SC vs Moreirense FC,Pre-Match +EV,Moreirense FC,Casumo,6.5,5.2,15.0,LOST,-15.0
 2491a21a,HALFTIME_LIVE,2026-09-19T15:15:00Z,Ligue 1 - France,Paris FC vs Strasbourg,Halftime In-Play,Draw,Coolbet,6.5,6.2,15.0,LOST,-15.0
 57093075,LATE_STEAM,2026-09-20T00:00:00Z,Brazil Série A,Sao Paulo vs Internacional,Pre-Match +EV,Internacional,Smarkets,4.8,4.3,15.0,LOST,-15.0
-3b506016,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Braga,Betfair,2.2,4.8,15.0,PENDING,0.0
-7a60e65f,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Casumo,4.9,3.2,15.0,PENDING,0.0
+3b506016,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Braga,Betfair,2.2,4.8,15.0,LOST,-15.0
+7a60e65f,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Casumo,4.9,3.2,15.0,WON,58.5
 8490683c,CORE_EV,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Smarkets,2.82,5.2,15.0,PENDING,0.0
 e7c6cdc9,CORE_EV,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betfair,4.7,5.4,15.0,LOST,-15.0
 d400accb,LATE_STEAM,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Pre-Match +EV,Monterrey,Coolbet,2.32,3.6,15.0,WON,19.8
@@ -471,10 +471,10 @@ c3b81bbf,LATE_STEAM,2026-09-20T15:30:00Z,Bundesliga - Germany,FC Schalke 04 vs E
 a60da674,LATE_STEAM,2026-09-20T15:15:00Z,Ligue 1 - France,Nice vs Lille,Pre-Match +EV,Nice,Betfair,3.9,3.7,15.0,WON,43.5
 b5d46d54,LATE_STEAM,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC,Pre-Match +EV,Draw,1xBet,3.94,3.7,15.0,LOST,-15.0
 09cd931b,HALFTIME_LIVE,2026-09-20T03:24:00Z,Liga MX,América vs Guadalajara,Halftime In-Play,América,Virgin Bet,20.0,214.5,15.0,LOST,-15.0
-84368321,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Matchbook,3.8,4.1,15.0,PENDING,0.0
-fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.6,15.0,PENDING,0.0
-9671977a,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Draw,Sky Bet,3.3,4.1,15.0,PENDING,0.0
-8b54ff11,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Betfair,5.0,3.5,15.0,PENDING,0.0
+84368321,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Matchbook,3.8,4.1,15.0,LOST,-15.0
+fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.6,15.0,LOST,-15.0
+9671977a,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Draw,Sky Bet,3.3,4.1,15.0,WON,34.5
+8b54ff11,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Betfair,5.0,3.5,15.0,WON,60.0
 747a1e33,LATE_STEAM,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Smarkets,4.6,3.6,15.0,PENDING,0.0
 f33350fd,LATE_STEAM,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Draw,Smarkets,3.25,4.2,15.0,PENDING,0.0
 df1c1452,CORE_EV,2026-09-21T00:00:00Z,Liga MX,Toluca vs Santos Laguna,Pre-Match +EV,Santos Laguna,Unibet (SE),10.0,11.6,15.0,PENDING,0.0
@@ -515,9 +515,9 @@ bbde3dc6,HALFTIME_LIVE,2026-09-20T14:32:00Z,Primeira Liga - Portugal,Vitória SC
 b96054a9,HALFTIME_LIVE,2026-09-20T15:30:00Z,EPL,Fulham vs Manchester United,Halftime In-Play,Fulham,Betfair,4.3,11.1,15.0,LOST,-15.0
 0b4bd3a2,HALFTIME_LIVE,2026-09-20T15:30:00Z,Bundesliga - Germany,FC Schalke 04 vs Elversberg,Halftime In-Play,FC Schalke 04,Coolbet,2.35,5.4,15.0,LOST,-15.0
 f56d585c,HALFTIME_LIVE,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC,Halftime In-Play,Atalanta BC,Unibet (UK),14.0,11.3,15.0,LOST,-15.0
-5678b11c,HALFTIME_LIVE,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Halftime In-Play,Levante,Smarkets,8.4,25.0,15.0,PENDING,0.0
-8ee213f7,HALFTIME_LIVE,2026-09-20T16:31:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Halftime In-Play,Deportivo La Coruña,Bet Victor,5.0,12.1,15.0,PENDING,0.0
-db55ca5a,HALFTIME_LIVE,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Halftime In-Play,Braga,Betfair,2.96,10.9,15.0,PENDING,0.0
-bf3b4381,HALFTIME_LIVE,2026-09-20T17:01:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Halftime In-Play,Estoril,Betfair,2.44,9.4,15.0,PENDING,0.0
+5678b11c,HALFTIME_LIVE,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Halftime In-Play,Levante,Smarkets,8.4,25.0,15.0,LOST,-15.0
+8ee213f7,HALFTIME_LIVE,2026-09-20T16:31:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Halftime In-Play,Deportivo La Coruña,Bet Victor,5.0,12.1,15.0,LOST,-15.0
+db55ca5a,HALFTIME_LIVE,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Halftime In-Play,Braga,Betfair,2.96,10.9,15.0,LOST,-15.0
+bf3b4381,HALFTIME_LIVE,2026-09-20T17:01:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Halftime In-Play,Estoril,Betfair,2.44,9.4,15.0,LOST,-15.0
 191e6df8,HALFTIME_LIVE,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Halftime In-Play,Draw,Betclic (FR),4.8,41.2,15.0,PENDING,0.0
 74bcac0d,HALFTIME_LIVE,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Halftime In-Play,San Lorenzo,Smarkets,16.5,10.1,15.0,PENDING,0.0
