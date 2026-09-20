@@ -475,3 +475,6 @@ b5d46d54,LATE_STEAM,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC
 fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.6,15.0,PENDING,0.0
 9671977a,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Draw,Sky Bet,3.3,4.1,15.0,PENDING,0.0
 8b54ff11,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Betfair,5.0,3.5,15.0,PENDING,0.0
+747a1e33,LATE_STEAM,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Smarkets,4.6,3.6,15.0,PENDING,0.0
+f33350fd,LATE_STEAM,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Draw,Smarkets,3.25,4.2,15.0,PENDING,0.0
+df1c1452,CORE_EV,2026-09-21T00:00:00Z,Liga MX,Toluca vs Santos Laguna,Pre-Match +EV,Santos Laguna,Unibet (SE),10.0,11.6,15.0,PENDING,0.0
