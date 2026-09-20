@@ -370,7 +370,7 @@ fe25c064,HALFTIME_LIVE,2026-09-19T14:01:00Z,Championship,Wrexham AFC vs Southamp
 41de4d36,HALFTIME_LIVE,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Halftime In-Play,Draw,Betsson,4.85,3.2,15.0,WON,57.75
 a6c19914,HALFTIME_LIVE,2026-09-19T14:31:00Z,Primeira Liga - Portugal,Nacional vs Famalicão,Halftime In-Play,Nacional,Sky Bet,201.0,11.7,15.0,LOST,-15.0
 d0d1f2a6,CORE_EV,2026-09-20T15:15:00Z,Ligue 1 - France,Nice vs Lille,Pre-Match +EV,Lille,Betfair,2.12,3.4,15.0,PENDING,0.0
-d9d195f5,CORE_EV,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,9.5,15.0,PENDING,0.0
+d9d195f5,CORE_EV,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,9.5,15.0,LOST,-15.0
 deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,Pre-Match +EV,SC Telstar,1xBet,10.7,7.0,15.0,PENDING,0.0
 6b91924e,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,FC Twente Enschede vs PSV Eindhoven,Pre-Match +EV,FC Twente Enschede,Smarkets,3.05,4.8,15.0,PENDING,0.0
 1b6d5df4,CORE_EV,2026-09-20T14:45:00Z,Dutch Eredivisie,NEC Nijmegen vs Go Ahead Eagles,Pre-Match +EV,Draw,Smarkets,4.6,8.7,15.0,PENDING,0.0
@@ -423,7 +423,7 @@ b44d860c,HALFTIME_LIVE,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs 
 b3eb55d7,HALFTIME_LIVE,2026-09-19T20:00:00Z,Brazil Série A,Mirassol vs Botafogo,Halftime In-Play,Botafogo,Winamax (FR),29.0,228.4,15.0,LOST,-15.0
 6130d4bd,CORE_EV,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Independiente Rivadavia,Unibet (SE),2.5,4.6,15.0,PENDING,0.0
 ccc3b3ff,HALFTIME_LIVE,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Halftime In-Play,Santos,Winamax (DE),2.85,3.6,15.0,WON,27.75
-03d0beac,LATE_STEAM,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,8.7,15.0,PENDING,0.0
+03d0beac,LATE_STEAM,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,8.7,15.0,LOST,-15.0
 f4043523,LATE_STEAM,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Pre-Match +EV,Fiorentina,Tipico,3.3,3.1,15.0,PENDING,0.0
 0a666891,HALFTIME_LIVE,2026-09-19T22:00:00Z,Primera División - Argentina,River Plate vs Atlético Huracán,Halftime In-Play,River Plate,LeoVegas (SE),3.7,4.5,15.0,LOST,-15.0
 8c7183d0,LATE_STEAM,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Ladbrokes,4.4,3.3,15.0,PENDING,0.0
