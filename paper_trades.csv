@@ -382,14 +382,14 @@ deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,
 7a60e65f,CORE_EV,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Pre-Match +EV,Casa Pia,Casumo,4.9,3.2,15.0,PENDING,0.0
 8490683c,CORE_EV,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Smarkets,2.82,5.2,15.0,PENDING,0.0
 e7c6cdc9,CORE_EV,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betfair,4.7,5.4,15.0,PENDING,0.0
-d400accb,LATE_STEAM,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Pre-Match +EV,Monterrey,Coolbet,2.32,3.6,15.0,PENDING,0.0
+d400accb,LATE_STEAM,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Pre-Match +EV,Monterrey,Coolbet,2.32,3.6,15.0,WON,19.8
 cadbd121,LATE_STEAM,2026-09-20T03:15:00Z,Liga MX,América vs Guadalajara,Pre-Match +EV,América,Casumo,2.6,4.4,15.0,PENDING,0.0
 174a52d4,LATE_STEAM,2026-09-19T23:30:00Z,MLS,New England Revolution vs Orlando City SC,Pre-Match +EV,New England Revolution,LeoVegas (SE),1.82,4.0,15.0,WON,12.3
-0ad08af0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,FC Dallas vs Austin FC,Pre-Match +EV,Austin FC,LeoVegas (SE),4.7,4.4,15.0,PENDING,0.0
-5b867e6f,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Houston Dynamo vs FC Cincinnati,Pre-Match +EV,Houston Dynamo,Smarkets,1.96,4.3,15.0,PENDING,0.0
-b0593ff0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Minnesota United FC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Casumo,4.7,5.6,15.0,PENDING,0.0
-2046b359,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Sporting Kansas City vs Philadelphia Union,Pre-Match +EV,Sporting Kansas City,Smarkets,5.8,3.8,15.0,PENDING,0.0
-45e184ab,LATE_STEAM,2026-09-20T00:30:00Z,MLS,St. Louis City SC vs Toronto FC,Pre-Match +EV,Toronto FC,LeoVegas (SE),5.2,6.6,15.0,PENDING,0.0
+0ad08af0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,FC Dallas vs Austin FC,Pre-Match +EV,Austin FC,LeoVegas (SE),4.7,4.4,15.0,LOST,-15.0
+5b867e6f,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Houston Dynamo vs FC Cincinnati,Pre-Match +EV,Houston Dynamo,Smarkets,1.96,4.3,15.0,LOST,-15.0
+b0593ff0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Minnesota United FC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Casumo,4.7,5.6,15.0,WON,55.5
+2046b359,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Sporting Kansas City vs Philadelphia Union,Pre-Match +EV,Sporting Kansas City,Smarkets,5.8,3.8,15.0,LOST,-15.0
+45e184ab,LATE_STEAM,2026-09-20T00:30:00Z,MLS,St. Louis City SC vs Toronto FC,Pre-Match +EV,Toronto FC,LeoVegas (SE),5.2,6.6,15.0,LOST,-15.0
 28019626,HALFTIME_LIVE,2026-09-19T16:00:00Z,Serie A - Italy,AS Roma vs Inter Milan,Halftime In-Play,AS Roma,Smarkets,1.22,3.4,15.0,LOST,-15.0
 63701d6c,HALFTIME_LIVE,2026-09-19T16:30:00Z,EPL,Nottingham Forest vs Coventry City,Halftime In-Play,Coventry City,Unibet (UK),6.0,8.3,15.0,WON,75.0
 2e0ceec2,HALFTIME_LIVE,2026-09-19T16:32:00Z,La Liga - Spain,Celta Vigo vs Real Racing Club de Santander,Halftime In-Play,Real Racing Club de Santander,Matchbook,55.0,1212.6,15.0,LOST,-15.0
@@ -397,7 +397,7 @@ d6e29839,HALFTIME_LIVE,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart v
 37c0d550,HALFTIME_LIVE,2026-09-19T16:45:00Z,Dutch Eredivisie,Sparta Rotterdam vs Heerenveen,Halftime In-Play,Sparta Rotterdam,Unibet (UK),21.0,4.2,15.0,LOST,-15.0
 4c143644,CORE_EV,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Aldosivi Mar del Plata,Betfair,3.3,4.1,15.0,PENDING,0.0
 bd75d999,CORE_EV,2026-09-20T12:30:00Z,Championship,Norwich City vs Bolton Wanderers,Pre-Match +EV,Bolton Wanderers,Betsson,6.3,4.1,15.0,PENDING,0.0
-9cadf2b8,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Nashville SC vs Chicago Fire,Pre-Match +EV,Chicago Fire,Smarkets,4.1,3.3,15.0,PENDING,0.0
+9cadf2b8,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Nashville SC vs Chicago Fire,Pre-Match +EV,Chicago Fire,Smarkets,4.1,3.3,15.0,LOST,-15.0
 207a09d9,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Colorado Rapids vs Seattle Sounders FC,Pre-Match +EV,Colorado Rapids,LeoVegas (SE),1.97,3.1,15.0,PENDING,0.0
 b6b77e0c,EARLY_BIRD,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,3.85,6.9,15.0,PENDING,0.0
 35e23ba3,HALFTIME_LIVE,2026-09-19T17:03:00Z,Primeira Liga - Portugal,Alverca vs Rio Ave FC,Halftime In-Play,Rio Ave FC,Winamax (DE),16.0,4.0,15.0,LOST,-15.0
@@ -449,17 +449,17 @@ d9cc7072,LATE_STEAM,2026-09-20T13:00:00Z,EPL,Bournemouth vs Liverpool,Pre-Match 
 2558aa28,HALFTIME_LIVE,2026-09-20T00:15:00Z,Primera División - Argentina,Instituto de Córdoba vs Talleres,Halftime In-Play,Talleres,Winamax (FR),8.5,62.8,15.0,LOST,-15.0
 80507a96,LATE_STEAM,2026-09-20T13:30:00Z,Bundesliga - Germany,Bayer Leverkusen vs RB Leipzig,Pre-Match +EV,RB Leipzig,Betfair,3.55,6.6,15.0,PENDING,0.0
 0f897ae0,EARLY_BIRD,2026-09-26T01:00:00Z,Liga MX,Atlante FC vs Monterrey,Pre-Match +EV,Monterrey,Unibet (NL),2.05,9.0,15.0,PENDING,0.0
-85f3cd8f,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,FC Dallas vs Austin FC,Halftime In-Play,FC Dallas,LiveScore Bet,1.95,5.4,15.0,PENDING,0.0
-ee7938e1,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Houston Dynamo vs FC Cincinnati,Halftime In-Play,FC Cincinnati,Unibet (NL),7.5,131.5,15.0,PENDING,0.0
-8750059c,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Minnesota United FC vs LA Galaxy,Halftime In-Play,LA Galaxy,Casumo,10.5,9.4,15.0,PENDING,0.0
-99e41aa2,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Sporting Kansas City vs Philadelphia Union,Halftime In-Play,Philadelphia Union,Casumo,19.0,10.7,15.0,PENDING,0.0
-88df0d3c,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,St. Louis City SC vs Toronto FC,Halftime In-Play,Toronto FC,LiveScore Bet,11.0,155.8,15.0,PENDING,0.0
-fbaa780e,HALFTIME_LIVE,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Halftime In-Play,Cruz Azul,Unibet (NL),6.1,6.3,15.0,PENDING,0.0
+85f3cd8f,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,FC Dallas vs Austin FC,Halftime In-Play,FC Dallas,LiveScore Bet,1.95,5.4,15.0,LOST,-15.0
+ee7938e1,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Houston Dynamo vs FC Cincinnati,Halftime In-Play,FC Cincinnati,Unibet (NL),7.5,131.5,15.0,LOST,-15.0
+8750059c,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Minnesota United FC vs LA Galaxy,Halftime In-Play,LA Galaxy,Casumo,10.5,9.4,15.0,WON,142.5
+99e41aa2,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Sporting Kansas City vs Philadelphia Union,Halftime In-Play,Philadelphia Union,Casumo,19.0,10.7,15.0,WON,270.0
+88df0d3c,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,St. Louis City SC vs Toronto FC,Halftime In-Play,Toronto FC,LiveScore Bet,11.0,155.8,15.0,LOST,-15.0
+fbaa780e,HALFTIME_LIVE,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Halftime In-Play,Cruz Azul,Unibet (NL),6.1,6.3,15.0,LOST,-15.0
 202f2965,LATE_STEAM,2026-09-20T14:00:00Z,Brazil Série A,Grêmio vs Palmeiras,Pre-Match +EV,Grêmio,Smarkets,4.4,4.0,15.0,PENDING,0.0
 6af7df15,EARLY_BIRD,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,Unibet (SE),3.8,10.1,15.0,PENDING,0.0
 1144adf6,LATE_STEAM,2026-09-20T14:15:00Z,La Liga - Spain,Atlético Madrid vs Real Madrid,Pre-Match +EV,Draw,Betfred (UK),4.0,3.1,15.0,PENDING,0.0
 2d1537f5,CORE_EV,2026-09-21T02:10:00Z,Liga MX,Querétaro vs León,Pre-Match +EV,Querétaro,Coolbet,2.6,4.4,15.0,PENDING,0.0
-abf2d73f,HALFTIME_LIVE,2026-09-20T01:40:00Z,MLS,Nashville SC vs Chicago Fire,Halftime In-Play,Chicago Fire,Smarkets,13.5,22.1,15.0,PENDING,0.0
+abf2d73f,HALFTIME_LIVE,2026-09-20T01:40:00Z,MLS,Nashville SC vs Chicago Fire,Halftime In-Play,Chicago Fire,Smarkets,13.5,22.1,15.0,LOST,-15.0
 f84ea557,LATE_STEAM,2026-09-20T14:30:00Z,Primeira Liga - Portugal,CF Estrela vs Académico de Viseu,Pre-Match +EV,Draw,Sky Bet,3.6,8.4,15.0,PENDING,0.0
 9d0485e6,LATE_STEAM,2026-09-20T14:30:00Z,Primeira Liga - Portugal,Vitória SC vs Moreirense FC,Pre-Match +EV,Moreirense FC,Betfair,7.4,9.3,15.0,PENDING,0.0
 1162dc3d,HALFTIME_LIVE,2026-09-20T01:45:00Z,MLS,Real Salt Lake vs Vancouver Whitecaps FC,Halftime In-Play,Real Salt Lake,Matchbook,44.0,4.8,15.0,PENDING,0.0
