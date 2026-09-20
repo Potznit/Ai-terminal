@@ -26,7 +26,7 @@ ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Ma
 468818c8,EARLY_BIRD,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,GTbets,2.65,3.9,15.0,WON,24.75
 06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,LOST,-15.0
 106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,LOST,-15.0
-9553395a,EARLY_BIRD,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,1xBet,8.55,4.3,15.0,PENDING,0.0
+9553395a,EARLY_BIRD,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,1xBet,8.55,4.3,15.0,LOST,-15.0
 78456ab2,EARLY_BIRD,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Draw,Coolbet,3.6,3.7,15.0,PENDING,0.0
 3d6d93f7,EARLY_BIRD,2026-09-18T22:30:00Z,Brazil Série B,Vila Nova vs América Mineiro,Pre-Match +EV,Vila Nova,Unibet (NL),1.55,4.7,15.0,PENDING,0.0
 a6259094,EARLY_BIRD,2026-09-18T23:30:00Z,Brazil Série B,Ceará vs Grêmio Novorizontino,Pre-Match +EV,Grêmio Novorizontino,Casumo,2.55,3.7,15.0,PENDING,0.0
@@ -349,7 +349,7 @@ db89d28a,CORE_EV,2026-09-20T13:00:00Z,Ligue 1 - France,Auxerre vs Brest,Pre-Matc
 545b9aa8,CORE_EV,2026-09-20T14:00:00Z,Brazil Série A,Grêmio vs Palmeiras,Pre-Match +EV,Grêmio,Matchbook,4.4,4.5,15.0,LOST,-15.0
 2eb207a2,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Corinthians,Matchbook,2.26,4.6,15.0,LOST,-15.0
 c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,3.3,15.0,LOST,-15.0
-7834548a,CORE_EV,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Flamengo,Betsson,1.39,3.0,15.0,PENDING,0.0
+7834548a,CORE_EV,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Flamengo,Betsson,1.39,3.0,15.0,WON,5.85
 56c06519,LATE_STEAM,2026-09-20T00:15:00Z,Primera División - Argentina,Instituto de Córdoba vs Talleres,Pre-Match +EV,Talleres,Smarkets,5.0,5.3,15.0,LOST,-15.0
 1b6ba9df,CORE_EV,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Boca Juniors,Codere (IT),2.13,4.4,15.0,WON,16.95
 7d7b39d1,CORE_EV,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Pre-Match +EV,Argentinos Juniors,Smarkets,3.55,3.8,15.0,LOST,-15.0
@@ -485,7 +485,7 @@ ef4f8e78,LATE_STEAM,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Sai
 3c5961f3,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Vitoria,Matchbook,3.2,3.6,15.0,LOST,-15.0
 ed776562,LATE_STEAM,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Matchbook,3.0,3.4,15.0,WON,30.0
 54118023,LATE_STEAM,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Pre-Match +EV,Argentinos Juniors,Smarkets,3.7,3.1,15.0,LOST,-15.0
-651c3ec6,LATE_STEAM,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Smarkets,9.6,6.9,15.0,PENDING,0.0
+651c3ec6,LATE_STEAM,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Smarkets,9.6,6.9,15.0,LOST,-15.0
 1dfe56ad,LATE_STEAM,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Unibet (SE),9.0,3.8,15.0,PENDING,0.0
 799bdb31,LATE_STEAM,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.28,3.6,15.0,PENDING,0.0
 7024b089,LATE_STEAM,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,6.1,9.3,15.0,PENDING,0.0
