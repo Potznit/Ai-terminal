@@ -383,7 +383,7 @@ deb6c364,CORE_EV,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,
 8490683c,CORE_EV,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Smarkets,2.82,5.2,15.0,PENDING,0.0
 e7c6cdc9,CORE_EV,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betfair,4.7,5.4,15.0,PENDING,0.0
 d400accb,LATE_STEAM,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Pre-Match +EV,Monterrey,Coolbet,2.32,3.6,15.0,WON,19.8
-cadbd121,LATE_STEAM,2026-09-20T03:15:00Z,Liga MX,América vs Guadalajara,Pre-Match +EV,América,Casumo,2.6,4.4,15.0,PENDING,0.0
+cadbd121,LATE_STEAM,2026-09-20T03:15:00Z,Liga MX,América vs Guadalajara,Pre-Match +EV,América,Casumo,2.6,4.4,15.0,LOST,-15.0
 174a52d4,LATE_STEAM,2026-09-19T23:30:00Z,MLS,New England Revolution vs Orlando City SC,Pre-Match +EV,New England Revolution,LeoVegas (SE),1.82,4.0,15.0,WON,12.3
 0ad08af0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,FC Dallas vs Austin FC,Pre-Match +EV,Austin FC,LeoVegas (SE),4.7,4.4,15.0,LOST,-15.0
 5b867e6f,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Houston Dynamo vs FC Cincinnati,Pre-Match +EV,Houston Dynamo,Smarkets,1.96,4.3,15.0,LOST,-15.0
@@ -470,7 +470,7 @@ f84ea557,LATE_STEAM,2026-09-20T14:30:00Z,Primeira Liga - Portugal,CF Estrela vs 
 c3b81bbf,LATE_STEAM,2026-09-20T15:30:00Z,Bundesliga - Germany,FC Schalke 04 vs Elversberg,Pre-Match +EV,Draw,888sport,3.8,4.7,15.0,PENDING,0.0
 a60da674,LATE_STEAM,2026-09-20T15:15:00Z,Ligue 1 - France,Nice vs Lille,Pre-Match +EV,Nice,Betfair,3.9,3.7,15.0,PENDING,0.0
 b5d46d54,LATE_STEAM,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC,Pre-Match +EV,Draw,1xBet,3.94,3.7,15.0,PENDING,0.0
-09cd931b,HALFTIME_LIVE,2026-09-20T03:24:00Z,Liga MX,América vs Guadalajara,Halftime In-Play,América,Virgin Bet,20.0,214.5,15.0,PENDING,0.0
+09cd931b,HALFTIME_LIVE,2026-09-20T03:24:00Z,Liga MX,América vs Guadalajara,Halftime In-Play,América,Virgin Bet,20.0,214.5,15.0,LOST,-15.0
 84368321,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Real Betis,Pre-Match +EV,Deportivo La Coruña,Matchbook,3.8,4.1,15.0,PENDING,0.0
 fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.6,15.0,PENDING,0.0
 9671977a,LATE_STEAM,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara vs Braga,Pre-Match +EV,Draw,Sky Bet,3.3,4.1,15.0,PENDING,0.0
