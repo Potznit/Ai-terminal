@@ -155,7 +155,6 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
         logger.warning("[Gemini AI] No GEMINI_API_KEY set in environment variables.")
         return None
 
-    # Updated to active Gemini 3.6-flash endpoint
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     payload = {
@@ -179,7 +178,6 @@ def query_gemini_ai(prompt: str, api_key: str) -> dict:
     return None
 
 def fetch_live_match_score(sport_key: str, home_team: str, away_team: str, api_key: str) -> str:
-    """Queries live match scores if fixture is in-play during halftime interval."""
     if not api_key or not sport_key:
         return None
     try:
@@ -230,11 +228,11 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
     Match: {matchup} ({fixture_data.get('league', 'Soccer')})
     Current Match State: {fixture_data.get('score')}
     Target Pick: {fixture_data['target_pick']}
-    Sharp Benchmark (Pinnacle/Exchange): {live_odds.get('pinnacle')}
+    Sharp Benchmark: {live_odds.get('pinnacle')}
     Retail Outlier ({live_odds.get('bookmaker')}): {live_odds.get('retail_odds')}
     Calculated Edge: +{fixture_data.get('raw_edge')}% EV
 
-    Provide a concise, highly analytical 2-sentence tactical breakdown explaining why this market gap offers positive expectancy given the game state.
+    Provide a concise, 2-sentence tactical breakdown explaining why this market gap offers positive expectancy given the game state.
     Return STRICT JSON ONLY:
     {{
       "is_valid_ev": true,
@@ -253,7 +251,7 @@ def evaluate_and_log_discrepancy(fixture_data, live_odds, pre_match_odds, model_
         retail = live_odds.get("retail_odds")
         calculated_edge = round(((retail / sharp) - 1.0) * 100, 1)
         data = {
-            "is_valid_ev": calculated_edge >= 3.0,
+            "is_valid_ev": calculated_edge >= 5.0,
             "edge_pct": calculated_edge,
             "recommended_pick": fixture_data["target_pick"],
             "odds": retail,
@@ -485,7 +483,7 @@ def run_scan_cycle() -> int:
     global depleted_logged_this_cycle
     depleted_logged_this_cycle = set()
 
-    logger.info("--- [QUANT ENGINE] Running Multi-Horizon Audit ---")
+    logger.info("--- [QUANT ENGINE] Running High-Alpha Audit (CORE_EV & HALFTIME_LIVE) ---")
     auto_settle_targeted()
 
     bankroll = STARTING_BANKROLL
@@ -517,14 +515,11 @@ def run_scan_cycle() -> int:
                 min_minutes_to_next_kickoff = mins_until
 
         is_halftime = 45 <= minutes_since_kickoff <= 65
-        is_future = minutes_since_kickoff < 0
-
-        if not is_halftime and not is_future:
-            continue
-
         hours_to_kickoff = -minutes_since_kickoff / 60
+        is_core_window = 12.0 <= hours_to_kickoff <= 48.0
 
-        if hours_to_kickoff > 144:
+        # Strict horizon filtering: Only HALFTIME_LIVE and CORE_EV are evaluated
+        if not is_halftime and not is_core_window:
             continue
 
         bookmakers = {b["key"]: b for b in game.get("bookmakers", [])}
@@ -556,18 +551,9 @@ def run_scan_cycle() -> int:
             assigned_tag = "HALFTIME_LIVE"
             sport_key = game.get("sport_key")
             live_score = fetch_live_match_score(sport_key, game.get("home_team"), game.get("away_team"), odds_api_key)
-            if live_score:
-                state_label = f"Halftime Break ({live_score}, ~{round(minutes_since_kickoff)}m)"
-            else:
-                state_label = f"Halftime Break (~{round(minutes_since_kickoff)}m)"
-        elif hours_to_kickoff > 48:
-            assigned_tag = "EARLY_BIRD"
-            state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
-        elif hours_to_kickoff > 12:
-            assigned_tag = "CORE_EV"
-            state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
+            state_label = f"Halftime Break ({live_score}, ~{round(minutes_since_kickoff)}m)" if live_score else f"Halftime Break (~{round(minutes_since_kickoff)}m)"
         else:
-            assigned_tag = "LATE_STEAM"
+            assigned_tag = "CORE_EV"
             state_label = f"Pre-Match ({round(hours_to_kickoff)}h to KO)"
 
         for b_key, b_data in bookmakers.items():
@@ -583,7 +569,8 @@ def run_scan_cycle() -> int:
                         if sharp_price and retail_price > sharp_price:
                             edge = round(((retail_price / sharp_price) - 1.0) * 100, 1)
                             
-                            if edge >= 3.0:
+                            # Alpha Zone Filters: Edge >= 5.0% and <= 50.0%, Odds <= 25.0
+                            if (5.0 <= edge <= 50.0) and (retail_price <= 25.0):
                                 fixture_data = {
                                     "home": game.get("home_team"),
                                     "away": game.get("away_team"),
@@ -640,7 +627,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: Gemini endpoint updated to 3.6-flash.", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: High-Alpha mode active (CORE_EV & HALFTIME_LIVE only, Edge ≥ 5.0%).", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
