@@ -24,8 +24,8 @@ a2dffdd5,EARLY_BIRD,2026-09-19T14:00:00Z,Belgium First Div,Leuven vs RAAL La Lou
 71c3125f,EARLY_BIRD,2026-09-20T17:15:00Z,Belgium First Div,KV Kortrijk vs SK Beveren,Pre-Match +EV,SK Beveren,Grosvenor,2.7,5.5,15.0,PENDING,0.0
 ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Match +EV,Botafogo,Smarkets,1.77,4.1,15.0,WON,11.55
 468818c8,EARLY_BIRD,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Pre-Match +EV,Santos,GTbets,2.65,3.9,15.0,WON,24.75
-06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,PENDING,0.0
-106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,PENDING,0.0
+06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,LOST,-15.0
+106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,LOST,-15.0
 9553395a,EARLY_BIRD,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,1xBet,8.55,4.3,15.0,PENDING,0.0
 78456ab2,EARLY_BIRD,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Draw,Coolbet,3.6,3.7,15.0,PENDING,0.0
 3d6d93f7,EARLY_BIRD,2026-09-18T22:30:00Z,Brazil Série B,Vila Nova vs América Mineiro,Pre-Match +EV,Vila Nova,Unibet (NL),1.55,4.7,15.0,PENDING,0.0
@@ -291,12 +291,12 @@ bbb59b8f,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Portsmouth vs Blackburn Ro
 b8740b05,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Lincoln City vs Swansea City,Pre-Match +EV,Swansea City,LeoVegas (SE),2.5,3.7,15.0,WON,22.5
 cc8dc321,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Queens Park Rangers vs Preston North End,Pre-Match +EV,Preston North End,Virgin Bet,4.8,6.2,15.0,LOST,-15.0
 a3c1ae8a,LATE_STEAM,2026-09-19T14:00:00Z,Championship,Wrexham AFC vs Southampton,Pre-Match +EV,Southampton,LeoVegas,2.38,4.4,15.0,LOST,-15.0
-14de5240,CORE_EV,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Valencia,Smarkets,2.82,3.7,15.0,PENDING,0.0
+14de5240,CORE_EV,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Valencia,Smarkets,2.82,3.7,15.0,LOST,-15.0
 df0c9b78,CORE_EV,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Pre-Match +EV,Fiorentina,Betfair,3.4,3.0,15.0,LOST,-15.0
 6ea80daf,CORE_EV,2026-09-20T13:00:00Z,Serie A - Italy,Frosinone vs Como,Pre-Match +EV,Draw,Unibet (UK),4.75,4.9,15.0,LOST,-15.0
 250e1b40,CORE_EV,2026-09-20T13:00:00Z,Serie A - Italy,Parma vs Genoa,Pre-Match +EV,Genoa,Smarkets,2.62,3.1,15.0,LOST,-15.0
 d74aec9b,CORE_EV,2026-09-20T16:00:00Z,Serie A - Italy,Juventus vs Atalanta BC,Pre-Match +EV,Juventus,1xBet,1.74,3.0,15.0,WON,11.1
-38d61d40,CORE_EV,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,10.7,15.0,PENDING,0.0
+38d61d40,CORE_EV,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,10.7,15.0,LOST,-15.0
 6164f14e,LATE_STEAM,2026-09-19T14:15:00Z,La Liga - Spain,Athletic Bilbao vs Alavés,Pre-Match +EV,Alavés,Smarkets,5.9,8.1,15.0,LOST,-15.0
 c5ee1e9a,LATE_STEAM,2026-09-19T14:30:00Z,Dutch Eredivisie,ADO Den Haag vs SC Cambuur,Pre-Match +EV,SC Cambuur,Unibet (NL),4.3,8.0,15.0,LOST,-15.0
 0f49f162,LATE_STEAM,2026-09-19T14:30:00Z,Primeira Liga - Portugal,Gil Vicente vs CS Maritimo,Pre-Match +EV,CS Maritimo,Betfair,4.5,6.1,15.0,LOST,-15.0
@@ -344,11 +344,11 @@ a33b67eb,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Werder Bremen v
 0a9a6e2d,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Borussia Monchengladbach vs FSV Mainz 05,Halftime In-Play,Borussia Monchengladbach,Tipico,9.0,139.4,15.0,LOST,-15.0
 999d330c,HALFTIME_LIVE,2026-09-19T13:30:00Z,Bundesliga - Germany,Eintracht Frankfurt vs SC Freiburg,Halftime In-Play,Draw,Coolbet,3.75,3.0,15.0,WON,41.25
 db89d28a,CORE_EV,2026-09-20T13:00:00Z,Ligue 1 - France,Auxerre vs Brest,Pre-Match +EV,Draw,1xBet,3.72,5.7,15.0,LOST,-15.0
-514005eb,CORE_EV,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,Betfair,8.0,7.0,15.0,PENDING,0.0
+514005eb,CORE_EV,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,Betfair,8.0,7.0,15.0,LOST,-15.0
 6eab2e1b,LATE_STEAM,2026-09-19T20:00:00Z,Brazil Série A,Mirassol vs Botafogo,Pre-Match +EV,Botafogo,Matchbook,3.7,3.4,15.0,LOST,-15.0
 545b9aa8,CORE_EV,2026-09-20T14:00:00Z,Brazil Série A,Grêmio vs Palmeiras,Pre-Match +EV,Grêmio,Matchbook,4.4,4.5,15.0,LOST,-15.0
-2eb207a2,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Corinthians,Matchbook,2.26,4.6,15.0,PENDING,0.0
-c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,3.3,15.0,PENDING,0.0
+2eb207a2,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Corinthians,Matchbook,2.26,4.6,15.0,LOST,-15.0
+c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,3.3,15.0,LOST,-15.0
 7834548a,CORE_EV,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Flamengo,Betsson,1.39,3.0,15.0,PENDING,0.0
 56c06519,LATE_STEAM,2026-09-20T00:15:00Z,Primera División - Argentina,Instituto de Córdoba vs Talleres,Pre-Match +EV,Talleres,Smarkets,5.0,5.3,15.0,LOST,-15.0
 1b6ba9df,CORE_EV,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Boca Juniors,Codere (IT),2.13,4.4,15.0,WON,16.95
@@ -478,11 +478,11 @@ fe814635,LATE_STEAM,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,P
 747a1e33,LATE_STEAM,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Pre-Match +EV,SC Paderborn,Smarkets,4.6,3.6,15.0,WON,54.0
 f33350fd,LATE_STEAM,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Draw,Smarkets,3.25,4.2,15.0,LOST,-15.0
 df1c1452,CORE_EV,2026-09-21T00:00:00Z,Liga MX,Toluca vs Santos Laguna,Pre-Match +EV,Santos Laguna,Unibet (SE),10.0,11.6,15.0,PENDING,0.0
-6d1dbcc8,LATE_STEAM,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Real Sociedad,Smarkets,2.7,3.4,15.0,PENDING,0.0
-89a36817,LATE_STEAM,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,8.6,15.0,PENDING,0.0
-ef4f8e78,LATE_STEAM,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,1xBet,6.76,7.8,15.0,PENDING,0.0
-64952b2f,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Fluminense,Smarkets,3.95,4.2,15.0,PENDING,0.0
-3c5961f3,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Vitoria,Matchbook,3.2,3.6,15.0,PENDING,0.0
+6d1dbcc8,LATE_STEAM,2026-09-20T19:00:00Z,La Liga - Spain,Valencia vs Real Sociedad,Pre-Match +EV,Real Sociedad,Smarkets,2.7,3.4,15.0,WON,25.5
+89a36817,LATE_STEAM,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Pre-Match +EV,Lecce,1xBet,12.7,8.6,15.0,LOST,-15.0
+ef4f8e78,LATE_STEAM,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Pre-Match +EV,Marseille,1xBet,6.76,7.8,15.0,LOST,-15.0
+64952b2f,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Fluminense,Smarkets,3.95,4.2,15.0,WON,44.25
+3c5961f3,LATE_STEAM,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Vitoria,Matchbook,3.2,3.6,15.0,LOST,-15.0
 ed776562,LATE_STEAM,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Matchbook,3.0,3.4,15.0,PENDING,0.0
 54118023,LATE_STEAM,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Pre-Match +EV,Argentinos Juniors,Smarkets,3.7,3.1,15.0,PENDING,0.0
 651c3ec6,LATE_STEAM,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Smarkets,9.6,6.9,15.0,PENDING,0.0
@@ -521,11 +521,11 @@ db55ca5a,HALFTIME_LIVE,2026-09-20T17:00:00Z,Primeira Liga - Portugal,Santa Clara
 bf3b4381,HALFTIME_LIVE,2026-09-20T17:01:00Z,Primeira Liga - Portugal,Estoril vs Casa Pia,Halftime In-Play,Estoril,Betfair,2.44,9.4,15.0,LOST,-15.0
 191e6df8,HALFTIME_LIVE,2026-09-20T17:30:00Z,Bundesliga - Germany,SC Paderborn vs TSG Hoffenheim,Halftime In-Play,Draw,Betclic (FR),4.8,41.2,15.0,LOST,-15.0
 74bcac0d,HALFTIME_LIVE,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Halftime In-Play,San Lorenzo,Smarkets,16.5,10.1,15.0,LOST,-15.0
-e2ebdb1e,HALFTIME_LIVE,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Halftime In-Play,Draw,Betfair,12.0,9.1,15.0,PENDING,0.0
-62285863,HALFTIME_LIVE,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Halftime In-Play,Paris Saint Germain,Sky Bet,1.62,7.3,15.0,PENDING,0.0
-5fa6e926,HALFTIME_LIVE,2026-09-20T19:02:00Z,La Liga - Spain,Valencia vs Real Sociedad,Halftime In-Play,Valencia,Smarkets,10.0,9.9,15.0,PENDING,0.0
-5f845ea6,HALFTIME_LIVE,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Halftime In-Play,Draw,Coolbet,3.4,5.3,15.0,PENDING,0.0
-3c77b8d3,HALFTIME_LIVE,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Halftime In-Play,Draw,888sport,3.5,22.8,15.0,PENDING,0.0
+e2ebdb1e,HALFTIME_LIVE,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Halftime In-Play,Draw,Betfair,12.0,9.1,15.0,LOST,-15.0
+62285863,HALFTIME_LIVE,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Saint Germain,Halftime In-Play,Paris Saint Germain,Sky Bet,1.62,7.3,15.0,WON,9.3
+5fa6e926,HALFTIME_LIVE,2026-09-20T19:02:00Z,La Liga - Spain,Valencia vs Real Sociedad,Halftime In-Play,Valencia,Smarkets,10.0,9.9,15.0,LOST,-15.0
+5f845ea6,HALFTIME_LIVE,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Halftime In-Play,Draw,Coolbet,3.4,5.3,15.0,LOST,-15.0
+3c77b8d3,HALFTIME_LIVE,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Halftime In-Play,Draw,888sport,3.5,22.8,15.0,LOST,-15.0
 9ee0c870,HALFTIME_LIVE,2026-09-20T19:31:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Halftime In-Play,Benfica,Unibet (UK),20.0,11.1,15.0,PENDING,0.0
 8e19c24b,HALFTIME_LIVE,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Halftime In-Play,Platense,Winamax (FR),7.75,8.2,15.0,PENDING,0.0
 3ca2e20d,HALFTIME_LIVE,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Halftime In-Play,Argentinos Juniors,Smarkets,12.0,8.4,15.0,PENDING,0.0
