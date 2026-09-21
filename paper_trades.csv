@@ -6,7 +6,7 @@ a4f6b6f3,EARLY_BIRD,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia 
 a77df902,EARLY_BIRD,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,WON,45.0
 17dc40ab,EARLY_BIRD,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,7.95,5.6,15.0,LOST,-15.0
 b94c5c6d,EARLY_BIRD,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Unibet (SE),3.75,4.2,15.0,LOST,-15.0
-28b6a632,EARLY_BIRD,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Virgin Bet,2.6,3.6,15.0,PENDING,0.0
+28b6a632,EARLY_BIRD,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Virgin Bet,2.6,3.6,15.0,LOST,-15.0
 ce876829,EARLY_BIRD,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Barracas Central,Virgin Bet,3.35,3.7,15.0,PENDING,0.0
 da902040,EARLY_BIRD,2026-09-18T17:30:00Z,Austrian Football Bundesliga,Rapid Wien vs WSG Tirol,Pre-Match +EV,Rapid Wien,Betfair,1.42,3.6,15.0,PENDING,0.0
 0bce910b,EARLY_BIRD,2026-09-19T15:00:00Z,Austrian Football Bundesliga,Austria Lustenau vs Rheindorf Altach,Pre-Match +EV,Austria Lustenau,Tipico,3.1,3.0,15.0,PENDING,0.0
@@ -395,7 +395,7 @@ b0593ff0,LATE_STEAM,2026-09-20T00:30:00Z,MLS,Minnesota United FC vs LA Galaxy,Pr
 2e0ceec2,HALFTIME_LIVE,2026-09-19T16:32:00Z,La Liga - Spain,Celta Vigo vs Real Racing Club de Santander,Halftime In-Play,Real Racing Club de Santander,Matchbook,55.0,1212.6,15.0,LOST,-15.0
 d6e29839,HALFTIME_LIVE,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart vs Borussia Dortmund,Halftime In-Play,Draw,Coolbet,3.05,5.2,15.0,LOST,-15.0
 37c0d550,HALFTIME_LIVE,2026-09-19T16:45:00Z,Dutch Eredivisie,Sparta Rotterdam vs Heerenveen,Halftime In-Play,Sparta Rotterdam,Unibet (UK),21.0,4.2,15.0,LOST,-15.0
-4c143644,CORE_EV,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Aldosivi Mar del Plata,Betfair,3.3,4.1,15.0,PENDING,0.0
+4c143644,CORE_EV,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Aldosivi Mar del Plata,Betfair,3.3,4.1,15.0,WON,34.5
 bd75d999,CORE_EV,2026-09-20T12:30:00Z,Championship,Norwich City vs Bolton Wanderers,Pre-Match +EV,Bolton Wanderers,Betsson,6.3,4.1,15.0,WON,79.5
 9cadf2b8,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Nashville SC vs Chicago Fire,Pre-Match +EV,Chicago Fire,Smarkets,4.1,3.3,15.0,LOST,-15.0
 207a09d9,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Colorado Rapids vs Seattle Sounders FC,Pre-Match +EV,Colorado Rapids,LeoVegas (SE),1.97,3.1,15.0,LOST,-15.0
@@ -536,4 +536,4 @@ e2ebdb1e,HALFTIME_LIVE,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Ha
 f64bfd5e,HALFTIME_LIVE,2026-09-21T00:02:00Z,Liga MX,Pachuca vs Tijuana,Halftime In-Play,Draw,Unibet (SE),5.1,5.4,15.0,WON,61.5
 5d9f6d30,HALFTIME_LIVE,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Halftime In-Play,CA Tigre BA,Paddy Power,19.0,7.2,15.0,LOST,-15.0
 05ba116e,HALFTIME_LIVE,2026-09-21T02:11:00Z,Liga MX,Querétaro vs León,Halftime In-Play,Querétaro,Smarkets,2.76,8.2,15.0,LOST,-15.0
-e0dec57a,HALFTIME_LIVE,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Halftime In-Play,Aldosivi Mar del Plata,Winamax (DE),3.9,5.4,15.0,PENDING,0.0
+e0dec57a,HALFTIME_LIVE,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Halftime In-Play,Aldosivi Mar del Plata,Winamax (DE),3.9,5.4,15.0,WON,43.5
