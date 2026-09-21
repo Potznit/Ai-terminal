@@ -267,7 +267,7 @@ fc5fc368,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Deportivo La Coruña vs Re
 430e334f,CORE_EV,2026-09-20T16:30:00Z,La Liga - Spain,Villarreal vs Levante,Pre-Match +EV,Levante,Smarkets,6.2,5.1,15.0,LOST,-15.0
 6c3ced5b,HALFTIME_LIVE,2026-09-18T20:59:00Z,Primera División - Argentina,Central Córdoba vs Defensa y Justicia,Halftime In-Play,Central Córdoba,BoyleSports,12.0,4.4,15.0,LOST,-15.0
 01d2bc48,EARLY_BIRD,2026-09-21T00:00:00Z,Liga MX,Pachuca vs Tijuana,Pre-Match +EV,Pachuca,Unibet (SE),1.77,4.7,15.0,PENDING,0.0
-8fa86250,EARLY_BIRD,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,9.6,15.0,PENDING,0.0
+8fa86250,EARLY_BIRD,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,9.6,15.0,LOST,-15.0
 33f36e78,LATE_STEAM,2026-09-19T11:30:00Z,EPL,Tottenham Hotspur vs Aston Villa,Pre-Match +EV,Draw,1xBet,3.68,3.4,15.0,LOST,-15.0
 989081f6,LATE_STEAM,2026-09-19T11:30:00Z,Championship,Cardiff City vs Charlton Athletic,Pre-Match +EV,Charlton Athletic,Grosvenor,4.25,3.2,15.0,LOST,-15.0
 56401662,LATE_STEAM,2026-09-19T11:30:00Z,Championship,Millwall vs West Ham United,Pre-Match +EV,Millwall,Smarkets,4.6,3.4,15.0,LOST,-15.0
@@ -406,7 +406,7 @@ aaa79c49,HALFTIME_LIVE,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnas
 fea53e73,HALFTIME_LIVE,2026-09-19T18:00:00Z,Dutch Eredivisie,Ajax vs Excelsior,Halftime In-Play,Ajax,888sport,1.36,7.9,15.0,LOST,-15.0
 d6b4d3c9,CORE_EV,2026-09-21T00:00:00Z,Liga MX,Pachuca vs Tijuana,Pre-Match +EV,Tijuana,Coolbet,4.3,3.6,15.0,PENDING,0.0
 a54240c6,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Real Salt Lake vs Vancouver Whitecaps FC,Pre-Match +EV,Draw,Smarkets,4.3,3.1,15.0,LOST,-15.0
-a88a903c,CORE_EV,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,6.1,15.0,PENDING,0.0
+a88a903c,CORE_EV,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,5.6,6.1,15.0,LOST,-15.0
 5dfee1af,LATE_STEAM,2026-09-19T19:45:00Z,Primera División - Argentina,Union Santa Fe vs Independiente,Pre-Match +EV,Union Santa Fe,Smarkets,2.56,3.6,15.0,LOST,-15.0
 a42ca65e,LATE_STEAM,2026-09-20T02:30:00Z,MLS,Portland Timbers vs Atlanta United FC,Pre-Match +EV,Atlanta United FC,Smarkets,3.6,3.2,15.0,WON,39.0
 ce5d5a6d,HALFTIME_LIVE,2026-09-19T18:45:00Z,Serie A - Italy,Venezia vs Lazio,Halftime In-Play,Venezia,Unibet (UK),4.0,5.0,15.0,LOST,-15.0
@@ -488,7 +488,7 @@ ed776562,LATE_STEAM,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Be
 651c3ec6,LATE_STEAM,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Smarkets,9.6,6.9,15.0,LOST,-15.0
 1dfe56ad,LATE_STEAM,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Unibet (SE),9.0,3.8,15.0,LOST,-15.0
 799bdb31,LATE_STEAM,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.28,3.6,15.0,WON,19.2
-7024b089,LATE_STEAM,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,6.1,9.3,15.0,PENDING,0.0
+7024b089,LATE_STEAM,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,6.1,9.3,15.0,LOST,-15.0
 5626fc1f,HALFTIME_LIVE,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Halftime In-Play,Fiorentina,Unibet (UK),8.5,8.6,15.0,LOST,-15.0
 aa70c98d,HALFTIME_LIVE,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Halftime In-Play,West Bromwich Albion,Unibet (UK),5.5,7.8,15.0,LOST,-15.0
 2f91170c,LATE_STEAM,2026-09-21T00:00:00Z,Liga MX,Pachuca vs Tijuana,Pre-Match +EV,Tijuana,Coolbet,4.55,9.1,15.0,PENDING,0.0
@@ -531,7 +531,7 @@ e2ebdb1e,HALFTIME_LIVE,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Ha
 3ca2e20d,HALFTIME_LIVE,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Halftime In-Play,Argentinos Juniors,Smarkets,12.0,8.4,15.0,LOST,-15.0
 1ed2a98f,HALFTIME_LIVE,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Halftime In-Play,Belgrano de Cordoba,Ladbrokes,2.05,6.2,15.0,WON,15.75
 01c75ac8,HALFTIME_LIVE,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Halftime In-Play,Atletico Paranaense,Smarkets,2.78,10.3,15.0,WON,26.7
-11f6c796,HALFTIME_LIVE,2026-09-20T23:13:00Z,MLS,Inter Miami CF vs San Diego FC,Halftime In-Play,San Diego FC,Casumo,7.0,5.1,15.0,PENDING,0.0
+11f6c796,HALFTIME_LIVE,2026-09-20T23:13:00Z,MLS,Inter Miami CF vs San Diego FC,Halftime In-Play,San Diego FC,Casumo,7.0,5.1,15.0,LOST,-15.0
 38ef9094,HALFTIME_LIVE,2026-09-21T00:00:00Z,Liga MX,Toluca vs Santos Laguna,Halftime In-Play,Toluca,Tipico,1.07,5.9,15.0,PENDING,0.0
 f64bfd5e,HALFTIME_LIVE,2026-09-21T00:02:00Z,Liga MX,Pachuca vs Tijuana,Halftime In-Play,Draw,Unibet (SE),5.1,5.4,15.0,PENDING,0.0
 5d9f6d30,HALFTIME_LIVE,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Halftime In-Play,CA Tigre BA,Paddy Power,19.0,7.2,15.0,PENDING,0.0
