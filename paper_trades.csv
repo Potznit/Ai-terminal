@@ -4,7 +4,7 @@ f341d89c,EARLY_BIRD,2026-09-19T00:15:00Z,Primera División - Argentina,Racing Cl
 d39ec575,EARLY_BIRD,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia La Plata vs Banfield,Pre-Match +EV,Banfield,Betsson,4.65,3.6,15.0,LOST,-15.0
 a4f6b6f3,EARLY_BIRD,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Deportivo Riestra,Pre-Match +EV,Gimnasia Mendoza,Unibet (SE),2.38,6.7,15.0,LOST,-15.0
 a77df902,EARLY_BIRD,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,WON,45.0
-17dc40ab,EARLY_BIRD,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,7.95,5.6,15.0,PENDING,0.0
+17dc40ab,EARLY_BIRD,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,7.95,5.6,15.0,LOST,-15.0
 b94c5c6d,EARLY_BIRD,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Unibet (SE),3.75,4.2,15.0,PENDING,0.0
 28b6a632,EARLY_BIRD,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Virgin Bet,2.6,3.6,15.0,PENDING,0.0
 ce876829,EARLY_BIRD,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Barracas Central,Virgin Bet,3.35,3.7,15.0,PENDING,0.0
@@ -27,7 +27,7 @@ ee169ea0,CORE_EV,2026-09-16T22:30:00Z,Brazil Série A,Botafogo vs Grêmio,Pre-Ma
 06d65bf8,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Corinthians vs Fluminense,Pre-Match +EV,Draw,Coolbet,3.25,3.2,15.0,LOST,-15.0
 106f4102,EARLY_BIRD,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Match +EV,Draw,Coolbet,3.4,4.3,15.0,LOST,-15.0
 9553395a,EARLY_BIRD,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,1xBet,8.55,4.3,15.0,LOST,-15.0
-78456ab2,EARLY_BIRD,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Draw,Coolbet,3.6,3.7,15.0,PENDING,0.0
+78456ab2,EARLY_BIRD,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Draw,Coolbet,3.6,3.7,15.0,LOST,-15.0
 3d6d93f7,EARLY_BIRD,2026-09-18T22:30:00Z,Brazil Série B,Vila Nova vs América Mineiro,Pre-Match +EV,Vila Nova,Unibet (NL),1.55,4.7,15.0,PENDING,0.0
 a6259094,EARLY_BIRD,2026-09-18T23:30:00Z,Brazil Série B,Ceará vs Grêmio Novorizontino,Pre-Match +EV,Grêmio Novorizontino,Casumo,2.55,3.7,15.0,PENDING,0.0
 11f08c66,EARLY_BIRD,2026-09-19T19:30:00Z,Brazil Série B,Sport Recife vs Juventude,Pre-Match +EV,Juventude,Casumo,3.45,3.3,15.0,PENDING,0.0
@@ -354,7 +354,7 @@ c68236d3,CORE_EV,2026-09-20T19:00:00Z,Brazil Série A,Vitoria vs Cruzeiro,Pre-Ma
 1b6ba9df,CORE_EV,2026-09-20T17:45:00Z,Primera División - Argentina,San Lorenzo vs Boca Juniors,Pre-Match +EV,Boca Juniors,Codere (IT),2.13,4.4,15.0,WON,16.95
 7d7b39d1,CORE_EV,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Pre-Match +EV,Argentinos Juniors,Smarkets,3.55,3.8,15.0,LOST,-15.0
 9f03b876,CORE_EV,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Pre-Match +EV,Newells Old Boys,Unibet (SE),4.0,5.5,15.0,WON,45.0
-c5f7e8ce,CORE_EV,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Ladbrokes,8.0,6.7,15.0,PENDING,0.0
+c5f7e8ce,CORE_EV,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Ladbrokes,8.0,6.7,15.0,LOST,-15.0
 6eedb573,CORE_EV,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,3.85,4.1,15.0,PENDING,0.0
 e6776939,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Brighton and Hove Albion vs Arsenal,Halftime In-Play,Arsenal,Winamax (DE),9.5,151.3,15.0,LOST,-15.0
 56e585dd,HALFTIME_LIVE,2026-09-19T14:00:00Z,EPL,Everton vs Ipswich Town,Halftime In-Play,Ipswich Town,Unibet (UK),15.0,13.6,15.0,LOST,-15.0
@@ -414,7 +414,7 @@ ce5d5a6d,HALFTIME_LIVE,2026-09-19T18:45:00Z,Serie A - Italy,Venezia vs Lazio,Hal
 b74636d2,HALFTIME_LIVE,2026-09-19T18:45:00Z,Ligue 1 - France,Toulouse vs Le Havre,Halftime In-Play,Draw,Coolbet,2.88,7.5,15.0,LOST,-15.0
 b2c39089,HALFTIME_LIVE,2026-09-19T18:45:00Z,Ligue 1 - France,Le Mans FC vs Lorient,Halftime In-Play,Draw,Coolbet,4.0,3.6,15.0,LOST,-15.0
 308193d7,HALFTIME_LIVE,2026-09-19T18:45:00Z,Ligue 1 - France,Lyon vs Rennes,Halftime In-Play,Rennes,Coolbet,20.0,852.4,15.0,LOST,-15.0
-93012d86,CORE_EV,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.22,3.3,15.0,PENDING,0.0
+93012d86,CORE_EV,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.22,3.3,15.0,WON,18.3
 c019aaf5,HALFTIME_LIVE,2026-09-19T19:01:00Z,La Liga - Spain,Sevilla vs Barcelona,Halftime In-Play,Draw,Unibet (UK),4.0,4.2,15.0,LOST,-15.0
 b44d860c,HALFTIME_LIVE,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs Chapecoense,Halftime In-Play,Chapecoense,MyBookie.ag,6.5,157.9,15.0,LOST,-15.0
 9d2184a8,HALFTIME_LIVE,2026-09-19T19:00:00Z,Dutch Eredivisie,Willem II vs Fortuna Sittard,Halftime In-Play,Willem II,Smarkets,3.1,5.8,15.0,LOST,-15.0
@@ -486,8 +486,8 @@ ef4f8e78,LATE_STEAM,2026-09-20T18:45:00Z,Ligue 1 - France,Marseille vs Paris Sai
 ed776562,LATE_STEAM,2026-09-20T19:30:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Pre-Match +EV,FC Porto,Matchbook,3.0,3.4,15.0,WON,30.0
 54118023,LATE_STEAM,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Pre-Match +EV,Argentinos Juniors,Smarkets,3.7,3.1,15.0,LOST,-15.0
 651c3ec6,LATE_STEAM,2026-09-20T21:30:00Z,Brazil Série A,Flamengo vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Smarkets,9.6,6.9,15.0,LOST,-15.0
-1dfe56ad,LATE_STEAM,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Unibet (SE),9.0,3.8,15.0,PENDING,0.0
-799bdb31,LATE_STEAM,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.28,3.6,15.0,PENDING,0.0
+1dfe56ad,LATE_STEAM,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,Unibet (SE),9.0,3.8,15.0,LOST,-15.0
+799bdb31,LATE_STEAM,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Pre-Match +EV,Atletico Paranaense,Matchbook,2.28,3.6,15.0,WON,19.2
 7024b089,LATE_STEAM,2026-09-20T23:00:00Z,MLS,Inter Miami CF vs San Diego FC,Pre-Match +EV,San Diego FC,Casumo,6.1,9.3,15.0,PENDING,0.0
 5626fc1f,HALFTIME_LIVE,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Halftime In-Play,Fiorentina,Unibet (UK),8.5,8.6,15.0,LOST,-15.0
 aa70c98d,HALFTIME_LIVE,2026-09-20T11:00:00Z,Championship,Wolverhampton Wanderers vs West Bromwich Albion,Halftime In-Play,West Bromwich Albion,Unibet (UK),5.5,7.8,15.0,LOST,-15.0
@@ -529,6 +529,6 @@ e2ebdb1e,HALFTIME_LIVE,2026-09-20T18:45:00Z,Serie A - Italy,AC Milan vs Lecce,Ha
 9ee0c870,HALFTIME_LIVE,2026-09-20T19:31:00Z,Primeira Liga - Portugal,FC Porto vs Benfica,Halftime In-Play,Benfica,Unibet (UK),20.0,11.1,15.0,LOST,-15.0
 8e19c24b,HALFTIME_LIVE,2026-09-20T20:00:00Z,Primera División - Argentina,Platense vs Newells Old Boys,Halftime In-Play,Platense,Winamax (FR),7.75,8.2,15.0,LOST,-15.0
 3ca2e20d,HALFTIME_LIVE,2026-09-20T20:00:00Z,Primera División - Argentina,Rosario Central vs Argentinos Juniors,Halftime In-Play,Argentinos Juniors,Smarkets,12.0,8.4,15.0,LOST,-15.0
-1ed2a98f,HALFTIME_LIVE,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Halftime In-Play,Belgrano de Cordoba,Ladbrokes,2.05,6.2,15.0,PENDING,0.0
-01c75ac8,HALFTIME_LIVE,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Halftime In-Play,Atletico Paranaense,Smarkets,2.78,10.3,15.0,PENDING,0.0
+1ed2a98f,HALFTIME_LIVE,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Halftime In-Play,Belgrano de Cordoba,Ladbrokes,2.05,6.2,15.0,WON,15.75
+01c75ac8,HALFTIME_LIVE,2026-09-20T22:30:00Z,Brazil Série A,Atletico Paranaense vs Bahia,Halftime In-Play,Atletico Paranaense,Smarkets,2.78,10.3,15.0,WON,26.7
 11f6c796,HALFTIME_LIVE,2026-09-20T23:13:00Z,MLS,Inter Miami CF vs San Diego FC,Halftime In-Play,San Diego FC,Casumo,7.0,5.1,15.0,PENDING,0.0
