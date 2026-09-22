@@ -7,7 +7,7 @@ a77df902,EARLY_BIRD,2026-09-20T20:00:00Z,Primera División - Argentina,Platense 
 17dc40ab,EARLY_BIRD,2026-09-20T22:15:00Z,Primera División - Argentina,Belgrano de Cordoba vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,7.95,5.6,15.0,LOST,-15.0
 b94c5c6d,EARLY_BIRD,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Unibet (SE),3.75,4.2,15.0,LOST,-15.0
 28b6a632,EARLY_BIRD,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Virgin Bet,2.6,3.6,15.0,LOST,-15.0
-ce876829,EARLY_BIRD,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Barracas Central,Virgin Bet,3.35,3.7,15.0,PENDING,0.0
+ce876829,EARLY_BIRD,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Barracas Central,Virgin Bet,3.35,3.7,15.0,LOST,-15.0
 da902040,EARLY_BIRD,2026-09-18T17:30:00Z,Austrian Football Bundesliga,Rapid Wien vs WSG Tirol,Pre-Match +EV,Rapid Wien,Betfair,1.42,3.6,15.0,PENDING,0.0
 0bce910b,EARLY_BIRD,2026-09-19T15:00:00Z,Austrian Football Bundesliga,Austria Lustenau vs Rheindorf Altach,Pre-Match +EV,Austria Lustenau,Tipico,3.1,3.0,15.0,PENDING,0.0
 a5ea6a3e,EARLY_BIRD,2026-09-19T17:30:00Z,Austrian Football Bundesliga,Grazer AK vs Austria Wien,Pre-Match +EV,Grazer AK,Tipico,2.55,3.7,15.0,PENDING,0.0
@@ -421,7 +421,7 @@ b44d860c,HALFTIME_LIVE,2026-09-19T19:00:00Z,Brazil Série A,Atletico Mineiro vs 
 7cc6c144,HALFTIME_LIVE,2026-09-19T19:32:00Z,Primeira Liga - Portugal,Sporting Lisbon vs Arouca,Halftime In-Play,Draw,Sky Bet,34.0,6.2,15.0,WON,495.0
 65f974e2,HALFTIME_LIVE,2026-09-19T19:45:00Z,Primera División - Argentina,Union Santa Fe vs Independiente,Halftime In-Play,Independiente,Winamax (FR),12.0,166.7,15.0,WON,165.0
 b3eb55d7,HALFTIME_LIVE,2026-09-19T20:00:00Z,Brazil Série A,Mirassol vs Botafogo,Halftime In-Play,Botafogo,Winamax (FR),29.0,228.4,15.0,LOST,-15.0
-6130d4bd,CORE_EV,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Independiente Rivadavia,Unibet (SE),2.5,4.6,15.0,PENDING,0.0
+6130d4bd,CORE_EV,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Pre-Match +EV,Independiente Rivadavia,Unibet (SE),2.5,4.6,15.0,WON,22.5
 ccc3b3ff,HALFTIME_LIVE,2026-09-19T21:30:00Z,Brazil Série A,Remo vs Santos,Halftime In-Play,Santos,Winamax (DE),2.85,3.6,15.0,WON,27.75
 03d0beac,LATE_STEAM,2026-09-20T10:15:00Z,Dutch Eredivisie,Feyenoord vs FC Utrecht,Pre-Match +EV,FC Utrecht,1xBet,10.0,8.7,15.0,LOST,-15.0
 f4043523,LATE_STEAM,2026-09-20T10:30:00Z,Serie A - Italy,Fiorentina vs Napoli,Pre-Match +EV,Fiorentina,Tipico,3.3,3.1,15.0,LOST,-15.0
@@ -537,4 +537,4 @@ f64bfd5e,HALFTIME_LIVE,2026-09-21T00:02:00Z,Liga MX,Pachuca vs Tijuana,Halftime 
 5d9f6d30,HALFTIME_LIVE,2026-09-21T00:30:00Z,Primera División - Argentina,Velez Sarsfield BA vs CA Tigre BA,Halftime In-Play,CA Tigre BA,Paddy Power,19.0,7.2,15.0,LOST,-15.0
 05ba116e,HALFTIME_LIVE,2026-09-21T02:11:00Z,Liga MX,Querétaro vs León,Halftime In-Play,Querétaro,Smarkets,2.76,8.2,15.0,LOST,-15.0
 e0dec57a,HALFTIME_LIVE,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Halftime In-Play,Aldosivi Mar del Plata,Winamax (DE),3.9,5.4,15.0,WON,43.5
-f3461b2a,HALFTIME_LIVE,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Halftime In-Play,Barracas Central,Paddy Power,17.0,9.5,15.0,PENDING,0.0
+f3461b2a,HALFTIME_LIVE,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Halftime In-Play,Barracas Central,Paddy Power,17.0,9.5,15.0,LOST,-15.0
