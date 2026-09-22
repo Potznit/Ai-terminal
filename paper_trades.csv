@@ -399,7 +399,7 @@ d6e29839,HALFTIME_LIVE,2026-09-19T16:30:00Z,Bundesliga - Germany,VfB Stuttgart v
 bd75d999,CORE_EV,2026-09-20T12:30:00Z,Championship,Norwich City vs Bolton Wanderers,Pre-Match +EV,Bolton Wanderers,Betsson,6.3,4.1,15.0,WON,79.5
 9cadf2b8,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Nashville SC vs Chicago Fire,Pre-Match +EV,Chicago Fire,Smarkets,4.1,3.3,15.0,LOST,-15.0
 207a09d9,LATE_STEAM,2026-09-20T01:30:00Z,MLS,Colorado Rapids vs Seattle Sounders FC,Pre-Match +EV,Colorado Rapids,LeoVegas (SE),1.97,3.1,15.0,LOST,-15.0
-b6b77e0c,EARLY_BIRD,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,3.85,6.9,15.0,PENDING,0.0
+b6b77e0c,EARLY_BIRD,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,3.85,6.9,15.0,LOST,-15.0
 35e23ba3,HALFTIME_LIVE,2026-09-19T17:03:00Z,Primeira Liga - Portugal,Alverca vs Rio Ave FC,Halftime In-Play,Rio Ave FC,Winamax (DE),16.0,4.0,15.0,LOST,-15.0
 561389ee,HALFTIME_LIVE,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia La Plata vs Banfield,Halftime In-Play,Gimnasia La Plata,Betclic (FR),1.88,54.1,15.0,LOST,-15.0
 aaa79c49,HALFTIME_LIVE,2026-09-19T17:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Deportivo Riestra,Halftime In-Play,Deportivo Riestra,Nordic Bet,3.9,3.4,15.0,LOST,-15.0
@@ -431,7 +431,7 @@ be3cd6cd,HALFTIME_LIVE,2026-09-19T23:00:00Z,Liga MX,Atlas vs Pumas,Halftime In-P
 e894a8f9,HALFTIME_LIVE,2026-09-19T23:00:00Z,Liga MX,Atlético San Luis vs Necaxa,Halftime In-Play,Necaxa,Casumo,3.3,3.8,15.0,LOST,-15.0
 d96173bc,LATE_STEAM,2026-09-20T12:00:00Z,La Liga - Spain,Getafe vs Málaga,Pre-Match +EV,Getafe,Smarkets,2.14,3.9,15.0,WON,17.1
 7f2294e8,HALFTIME_LIVE,2026-09-19T23:30:00Z,Brazil Série A,Vasco da Gama vs Coritiba,Halftime In-Play,Coritiba,Winamax (FR),120.0,605.9,15.0,LOST,-15.0
-765f813a,CORE_EV,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Pre-Match +EV,Lanus,Betfair,2.26,3.2,15.0,PENDING,0.0
+765f813a,CORE_EV,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Pre-Match +EV,Lanus,Betfair,2.26,3.2,15.0,WON,18.9
 92b74e9b,LATE_STEAM,2026-09-20T12:30:00Z,Dutch Eredivisie,AZ Alkmaar vs SC Telstar,Pre-Match +EV,SC Telstar,1xBet,11.1,9.9,15.0,LOST,-15.0
 221a260a,LATE_STEAM,2026-09-20T12:30:00Z,Dutch Eredivisie,FC Twente Enschede vs PSV Eindhoven,Pre-Match +EV,FC Twente Enschede,Smarkets,3.05,3.0,15.0,WON,30.75
 ff55bbcd,LATE_STEAM,2026-09-20T12:30:00Z,Championship,Norwich City vs Bolton Wanderers,Pre-Match +EV,Bolton Wanderers,Betsson,6.4,5.4,15.0,WON,81.0
@@ -538,5 +538,5 @@ f64bfd5e,HALFTIME_LIVE,2026-09-21T00:02:00Z,Liga MX,Pachuca vs Tijuana,Halftime 
 05ba116e,HALFTIME_LIVE,2026-09-21T02:11:00Z,Liga MX,Querétaro vs León,Halftime In-Play,Querétaro,Smarkets,2.76,8.2,15.0,LOST,-15.0
 e0dec57a,HALFTIME_LIVE,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Halftime In-Play,Aldosivi Mar del Plata,Winamax (DE),3.9,5.4,15.0,WON,43.5
 f3461b2a,HALFTIME_LIVE,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Halftime In-Play,Barracas Central,Paddy Power,17.0,9.5,15.0,LOST,-15.0
-30834285,HALFTIME_LIVE,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Halftime In-Play,Estudiantes,Smarkets,9.4,6.2,15.0,PENDING,0.0
+30834285,HALFTIME_LIVE,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Halftime In-Play,Estudiantes,Smarkets,9.4,6.2,15.0,LOST,-15.0
 918ba660,CORE_EV,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,LeoVegas (SE),3.9,6.3,15.0,PENDING,0.0
