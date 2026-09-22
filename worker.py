@@ -14,6 +14,18 @@ logger = logging.getLogger("QuantWorker")
 CSV_PATH = "paper_trades.csv"
 STARTING_BANKROLL = 1000.0
 
+# Casas de apostas que operam ou são acessíveis para jogadores no Brasil
+BRAZIL_ALLOWED_BOOKMAKERS = [
+    "betfair_ex_eu",   # Betfair Exchange (Europa/Global)
+    "betfair_ex_uk",   # Betfair Exchange
+    "betfair_sb_uk",   # Betfair Sportsbook
+    "betsson",         # Betsson
+    "coolbet",         # Coolbet
+    "onexbet",         # 1xBet
+    "betonlineag",     # BetOnline (aceita BR/Crypto)
+    "suprabets"        # Suprabets
+]
+
 TIER1_SOCCER_LEAGUES = [
     "soccer_epl",
     "soccer_spain_la_liga",
@@ -483,7 +495,7 @@ def run_scan_cycle() -> int:
     global depleted_logged_this_cycle
     depleted_logged_this_cycle = set()
 
-    logger.info("--- [QUANT ENGINE] Running High-Alpha Audit (CORE_EV & HALFTIME_LIVE) ---")
+    logger.info("--- [QUANT ENGINE] Running High-Alpha Audit (CORE_EV & HALFTIME_LIVE - Brazil Filter) ---")
     auto_settle_targeted()
 
     bankroll = STARTING_BANKROLL
@@ -518,7 +530,6 @@ def run_scan_cycle() -> int:
         hours_to_kickoff = -minutes_since_kickoff / 60
         is_core_window = 12.0 <= hours_to_kickoff <= 48.0
 
-        # Strict horizon filtering: Only HALFTIME_LIVE and CORE_EV are evaluated
         if not is_halftime and not is_core_window:
             continue
 
@@ -531,7 +542,7 @@ def run_scan_cycle() -> int:
 
         sharp_key = "pinnacle" if "pinnacle" in bookmakers else None
         if not sharp_key and is_halftime:
-            for alt in ["betfair_ex_uk", "betfair_ex_eu", "betonlineag", "unibet_eu"]:
+            for alt in ["betfair_ex_uk", "betfair_ex_eu", "betonlineag"]:
                 if alt in bookmakers:
                     sharp_key = alt
                     break
@@ -559,6 +570,11 @@ def run_scan_cycle() -> int:
         for b_key, b_data in bookmakers.items():
             if b_key == sharp_key:
                 continue
+
+            # Filtro exclusivo de casas com operação e acesso no Brasil
+            if b_key not in BRAZIL_ALLOWED_BOOKMAKERS:
+                continue
+
             for m in b_data.get("markets", []):
                 if m["key"] == "h2h":
                     for outcome in m["outcomes"]:
@@ -569,7 +585,7 @@ def run_scan_cycle() -> int:
                         if sharp_price and retail_price > sharp_price:
                             edge = round(((retail_price / sharp_price) - 1.0) * 100, 1)
                             
-                            # Alpha Zone Filters: Edge >= 5.0% and <= 50.0%, Odds <= 25.0
+                            # Filtros Alpha: Edge entre 5% e 50%, Odds até 25.0
                             if (5.0 <= edge <= 50.0) and (retail_price <= 25.0):
                                 fixture_data = {
                                     "home": game.get("home_team"),
@@ -627,7 +643,7 @@ if __name__ == "__main__":
         try:
             requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: High-Alpha mode active (CORE_EV & HALFTIME_LIVE only, Edge ≥ 5.0%).", "parse_mode": "HTML"},
+                json={"chat_id": chat_id, "text": "🟢 <b>Quant Engine Online</b>: High-Alpha Brasil ativo (CORE_EV & HALFTIME_LIVE, Casas BR, Edge ≥ 5.0%).", "parse_mode": "HTML"},
                 timeout=10
             )
         except Exception:
