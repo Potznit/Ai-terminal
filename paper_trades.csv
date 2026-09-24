@@ -456,7 +456,7 @@ ee7938e1,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,Houston Dynamo vs FC Cincinnati,
 88df0d3c,HALFTIME_LIVE,2026-09-20T00:40:00Z,MLS,St. Louis City SC vs Toronto FC,Halftime In-Play,Toronto FC,LiveScore Bet,11.0,155.8,15.0,LOST,-15.0
 fbaa780e,HALFTIME_LIVE,2026-09-20T01:10:00Z,Liga MX,Monterrey vs Cruz Azul,Halftime In-Play,Cruz Azul,Unibet (NL),6.1,6.3,15.0,LOST,-15.0
 202f2965,LATE_STEAM,2026-09-20T14:00:00Z,Brazil Série A,Grêmio vs Palmeiras,Pre-Match +EV,Grêmio,Smarkets,4.4,4.0,15.0,LOST,-15.0
-6af7df15,EARLY_BIRD,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,Unibet (SE),3.8,10.1,15.0,PENDING,0.0
+6af7df15,EARLY_BIRD,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,Unibet (SE),3.8,10.1,15.0,LOST,-15.0
 1144adf6,LATE_STEAM,2026-09-20T14:15:00Z,La Liga - Spain,Atlético Madrid vs Real Madrid,Pre-Match +EV,Draw,Betfred (UK),4.0,3.1,15.0,LOST,-15.0
 2d1537f5,CORE_EV,2026-09-21T02:10:00Z,Liga MX,Querétaro vs León,Pre-Match +EV,Querétaro,Coolbet,2.6,4.4,15.0,LOST,-15.0
 abf2d73f,HALFTIME_LIVE,2026-09-20T01:40:00Z,MLS,Nashville SC vs Chicago Fire,Halftime In-Play,Chicago Fire,Smarkets,13.5,22.1,15.0,LOST,-15.0
@@ -539,5 +539,5 @@ f64bfd5e,HALFTIME_LIVE,2026-09-21T00:02:00Z,Liga MX,Pachuca vs Tijuana,Halftime 
 e0dec57a,HALFTIME_LIVE,2026-09-21T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Atlético Tucuman,Halftime In-Play,Aldosivi Mar del Plata,Winamax (DE),3.9,5.4,15.0,WON,43.5
 f3461b2a,HALFTIME_LIVE,2026-09-21T22:00:00Z,Primera División - Argentina,Barracas Central vs Independiente Rivadavia,Halftime In-Play,Barracas Central,Paddy Power,17.0,9.5,15.0,LOST,-15.0
 30834285,HALFTIME_LIVE,2026-09-22T00:15:00Z,Primera División - Argentina,Lanus vs Estudiantes,Halftime In-Play,Estudiantes,Smarkets,9.4,6.2,15.0,LOST,-15.0
-918ba660,CORE_EV,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,LeoVegas (SE),3.9,6.3,15.0,PENDING,0.0
-4b7832a8,HALFTIME_LIVE,2026-09-24T01:40:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Halftime In-Play,Real Salt Lake,Betfair,4.8,5.7,15.0,PENDING,0.0
+918ba660,CORE_EV,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,LeoVegas (SE),3.9,6.3,15.0,LOST,-15.0
+4b7832a8,HALFTIME_LIVE,2026-09-24T01:40:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Halftime In-Play,Real Salt Lake,Betfair,4.8,5.7,15.0,LOST,-15.0
