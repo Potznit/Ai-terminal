@@ -542,7 +542,7 @@ f3461b2a,HALFTIME_LIVE,2026-09-21T22:00:00Z,Primera División - Argentina,Barrac
 918ba660,CORE_EV,2026-09-24T01:30:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,LeoVegas (SE),3.9,6.3,15.0,LOST,-15.0
 4b7832a8,HALFTIME_LIVE,2026-09-24T01:40:00Z,MLS,Seattle Sounders FC vs Real Salt Lake,Halftime In-Play,Real Salt Lake,Betfair,4.8,5.7,15.0,LOST,-15.0
 28239239,CORE_EV,2026-09-26T01:00:00Z,Liga MX,Atlante FC vs Monterrey,Pre-Match +EV,Atlante FC,BetOnline.ag,3.66,5.2,15.0,WON,39.9
-c798e444,CORE_EV,2026-09-26T03:00:00Z,Liga MX,Tijuana vs Atlas,Pre-Match +EV,Draw,Coolbet,3.6,5.0,15.0,PENDING,0.0
+c798e444,CORE_EV,2026-09-26T03:00:00Z,Liga MX,Tijuana vs Atlas,Pre-Match +EV,Draw,Coolbet,3.6,5.0,15.0,LOST,-15.0
 57f45ff4,CORE_EV,2026-09-26T22:50:00Z,Liga MX,Cruz Azul vs Toluca,Pre-Match +EV,Draw,Coolbet,3.6,10.8,15.0,PENDING,0.0
 2c7fc96f,CORE_EV,2026-09-26T23:07:00Z,Liga MX,Guadalajara vs Querétaro,Pre-Match +EV,Querétaro,Coolbet,7.75,8.8,15.0,PENDING,0.0
 e71340c1,CORE_EV,2026-09-26T23:30:00Z,MLS,CF Montreal vs FC Cincinnati,Pre-Match +EV,Draw,Betfair,4.1,7.0,15.0,PENDING,0.0
@@ -560,4 +560,4 @@ d08c514e,CORE_EV,2026-09-27T00:30:00Z,MLS,FC Dallas vs Los Angeles FC,Pre-Match 
 e113d0d1,CORE_EV,2026-09-27T23:00:00Z,MLS,Columbus Crew SC vs Inter Miami CF,Pre-Match +EV,Draw,Betfair,4.3,5.7,15.0,PENDING,0.0
 bd13a923,CORE_EV,2026-09-28T01:00:00Z,Liga MX,León vs FC Juárez,Pre-Match +EV,FC Juárez,Betfair,5.6,5.9,15.0,PENDING,0.0
 084f4280,HALFTIME_LIVE,2026-09-26T01:00:00Z,Liga MX,Atlante FC vs Monterrey,Halftime In-Play,Monterrey,Coolbet,3.14,5.7,15.0,LOST,-15.0
-7d5d53b7,HALFTIME_LIVE,2026-09-26T03:00:00Z,Liga MX,Tijuana vs Atlas,Halftime In-Play,Draw,Coolbet,4.33,46.3,15.0,PENDING,0.0
+7d5d53b7,HALFTIME_LIVE,2026-09-26T03:00:00Z,Liga MX,Tijuana vs Atlas,Halftime In-Play,Draw,Coolbet,4.33,46.3,15.0,LOST,-15.0
