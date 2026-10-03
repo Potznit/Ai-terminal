@@ -589,7 +589,7 @@ c0233587,HALFTIME_LIVE,2026-09-27T17:59:00Z,Liga MX,Pumas vs Atlético San Luis,
 1bfbbdd7,HALFTIME_LIVE,2026-09-30T23:30:00Z,MLS,New York Red Bulls vs St. Louis City SC,Halftime In-Play,Draw,Coolbet,5.0,10.6,15.0,LOST,-15.0
 b9fbf606,CORE_EV,2026-10-03T00:30:00Z,Primera División - Argentina,Boca Juniors vs Union Santa Fe,Pre-Match +EV,Union Santa Fe,Betsson,6.3,5.7,15.0,LOST,-15.0
 9f97a357,CORE_EV,2026-10-03T00:30:00Z,Primera División - Argentina,Independiente Rivadavia vs Gimnasia La Plata,Pre-Match +EV,Gimnasia La Plata,Betfair,4.6,5.7,15.0,LOST,-15.0
-257073bc,CORE_EV,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Pre-Match +EV,Barracas Central,Betfair,5.0,6.8,15.0,PENDING,0.0
+257073bc,CORE_EV,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Pre-Match +EV,Barracas Central,Betfair,5.0,6.8,15.0,WON,60.0
 a0b7d57e,HALFTIME_LIVE,2026-10-02T01:30:00Z,MLS,Seattle Sounders FC vs Sporting Kansas City,Halftime In-Play,Sporting Kansas City,Betfair,4.9,14.0,15.0,LOST,-15.0
 0d20588b,CORE_EV,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Betfair,3.7,5.1,15.0,PENDING,0.0
 bdc21249,CORE_EV,2026-10-03T17:45:00Z,Primera División - Argentina,Defensa y Justicia vs San Lorenzo,Pre-Match +EV,San Lorenzo,BetOnline.ag,4.37,5.0,15.0,LOST,-15.0
@@ -600,8 +600,8 @@ c3b9372e,HALFTIME_LIVE,2026-10-02T23:02:00Z,Brazil Série A,Sao Paulo vs Santos,
 c6d073ac,HALFTIME_LIVE,2026-10-03T00:30:00Z,Primera División - Argentina,Independiente Rivadavia vs Gimnasia La Plata,Halftime In-Play,Gimnasia La Plata,Betsson,14.0,6.8,15.0,LOST,-15.0
 c8b602b0,CORE_EV,2026-10-05T00:30:00Z,Primera División - Argentina,Estudiantes de Río Cuarto vs Racing Club,Pre-Match +EV,Estudiantes de Río Cuarto,Betfair,4.6,7.2,15.0,PENDING,0.0
 799c05f6,CORE_EV,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,7.1,15.0,PENDING,0.0
-741d4659,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Newells Old Boys vs Lanus,Halftime In-Play,Lanus,Betfair,3.45,7.1,15.0,PENDING,0.0
-ccfa3c5a,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Halftime In-Play,Barracas Central,Betfair Sportsbook,23.0,8.7,15.0,PENDING,0.0
+741d4659,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Newells Old Boys vs Lanus,Halftime In-Play,Lanus,Betfair,3.45,7.1,15.0,LOST,-15.0
+ccfa3c5a,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Halftime In-Play,Barracas Central,Betfair Sportsbook,23.0,8.7,15.0,WON,330.0
 cdc3c43f,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Pre-Match +EV,Gimnasia Mendoza,Betfair,5.6,10.2,15.0,PENDING,0.0
 3d953b3d,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Pre-Match +EV,Platense,Betsson,4.9,5.8,15.0,PENDING,0.0
 dc16cebe,HALFTIME_LIVE,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Halftime In-Play,Draw,Coolbet,4.5,6.4,15.0,PENDING,0.0
