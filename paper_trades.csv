@@ -591,7 +591,7 @@ b9fbf606,CORE_EV,2026-10-03T00:30:00Z,Primera División - Argentina,Boca Juniors
 9f97a357,CORE_EV,2026-10-03T00:30:00Z,Primera División - Argentina,Independiente Rivadavia vs Gimnasia La Plata,Pre-Match +EV,Gimnasia La Plata,Betfair,4.6,5.7,15.0,LOST,-15.0
 257073bc,CORE_EV,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Pre-Match +EV,Barracas Central,Betfair,5.0,6.8,15.0,WON,60.0
 a0b7d57e,HALFTIME_LIVE,2026-10-02T01:30:00Z,MLS,Seattle Sounders FC vs Sporting Kansas City,Halftime In-Play,Sporting Kansas City,Betfair,4.9,14.0,15.0,LOST,-15.0
-0d20588b,CORE_EV,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Betfair,3.7,5.1,15.0,PENDING,0.0
+0d20588b,CORE_EV,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Betfair,3.7,5.1,15.0,LOST,-15.0
 bdc21249,CORE_EV,2026-10-03T17:45:00Z,Primera División - Argentina,Defensa y Justicia vs San Lorenzo,Pre-Match +EV,San Lorenzo,BetOnline.ag,4.37,5.0,15.0,LOST,-15.0
 7b27b341,CORE_EV,2026-10-04T17:45:00Z,Primera División - Argentina,Atlético Huracán vs Aldosivi Mar del Plata,Pre-Match +EV,Aldosivi Mar del Plata,1xBet,5.82,9.6,15.0,PENDING,0.0
 192f92ed,CORE_EV,2026-10-04T22:15:00Z,Primera División - Argentina,Argentinos Juniors vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,5.2,7.4,15.0,PENDING,0.0
@@ -604,4 +604,4 @@ c8b602b0,CORE_EV,2026-10-05T00:30:00Z,Primera División - Argentina,Estudiantes 
 ccfa3c5a,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Halftime In-Play,Barracas Central,Betfair Sportsbook,23.0,8.7,15.0,WON,330.0
 cdc3c43f,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Pre-Match +EV,Gimnasia Mendoza,Betfair,5.6,10.2,15.0,PENDING,0.0
 3d953b3d,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Pre-Match +EV,Platense,Betsson,4.9,5.8,15.0,PENDING,0.0
-dc16cebe,HALFTIME_LIVE,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Halftime In-Play,Draw,Coolbet,4.5,6.4,15.0,PENDING,0.0
+dc16cebe,HALFTIME_LIVE,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Halftime In-Play,Draw,Coolbet,4.5,6.4,15.0,LOST,-15.0
