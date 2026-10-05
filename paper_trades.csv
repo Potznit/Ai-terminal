@@ -594,7 +594,7 @@ a0b7d57e,HALFTIME_LIVE,2026-10-02T01:30:00Z,MLS,Seattle Sounders FC vs Sporting 
 0d20588b,CORE_EV,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Pre-Match +EV,Bragantino-SP,Betfair,3.7,5.1,15.0,LOST,-15.0
 bdc21249,CORE_EV,2026-10-03T17:45:00Z,Primera División - Argentina,Defensa y Justicia vs San Lorenzo,Pre-Match +EV,San Lorenzo,BetOnline.ag,4.37,5.0,15.0,LOST,-15.0
 7b27b341,CORE_EV,2026-10-04T17:45:00Z,Primera División - Argentina,Atlético Huracán vs Aldosivi Mar del Plata,Pre-Match +EV,Aldosivi Mar del Plata,1xBet,5.82,9.6,15.0,LOST,-15.0
-192f92ed,CORE_EV,2026-10-04T22:15:00Z,Primera División - Argentina,Argentinos Juniors vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,5.2,7.4,15.0,PENDING,0.0
+192f92ed,CORE_EV,2026-10-04T22:15:00Z,Primera División - Argentina,Argentinos Juniors vs CA Tigre BA,Pre-Match +EV,CA Tigre BA,Betfair,5.2,7.4,15.0,LOST,-15.0
 561d0e80,HALFTIME_LIVE,2026-10-02T22:15:00Z,Primera División - Argentina,Independiente vs Instituto de Córdoba,Halftime In-Play,Independiente,Betfair,7.6,16.7,15.0,LOST,-15.0
 c3b9372e,HALFTIME_LIVE,2026-10-02T23:02:00Z,Brazil Série A,Sao Paulo vs Santos,Halftime In-Play,Draw,Coolbet,2.63,10.5,15.0,LOST,-15.0
 c6d073ac,HALFTIME_LIVE,2026-10-03T00:30:00Z,Primera División - Argentina,Independiente Rivadavia vs Gimnasia La Plata,Halftime In-Play,Gimnasia La Plata,Betsson,14.0,6.8,15.0,LOST,-15.0
