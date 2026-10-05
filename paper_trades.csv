@@ -599,7 +599,7 @@ bdc21249,CORE_EV,2026-10-03T17:45:00Z,Primera División - Argentina,Defensa y Ju
 c3b9372e,HALFTIME_LIVE,2026-10-02T23:02:00Z,Brazil Série A,Sao Paulo vs Santos,Halftime In-Play,Draw,Coolbet,2.63,10.5,15.0,LOST,-15.0
 c6d073ac,HALFTIME_LIVE,2026-10-03T00:30:00Z,Primera División - Argentina,Independiente Rivadavia vs Gimnasia La Plata,Halftime In-Play,Gimnasia La Plata,Betsson,14.0,6.8,15.0,LOST,-15.0
 c8b602b0,CORE_EV,2026-10-05T00:30:00Z,Primera División - Argentina,Estudiantes de Río Cuarto vs Racing Club,Pre-Match +EV,Estudiantes de Río Cuarto,Betfair,4.6,7.2,15.0,LOST,-15.0
-799c05f6,CORE_EV,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,7.1,15.0,PENDING,0.0
+799c05f6,CORE_EV,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,7.1,15.0,WON,34.5
 741d4659,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Newells Old Boys vs Lanus,Halftime In-Play,Lanus,Betfair,3.45,7.1,15.0,LOST,-15.0
 ccfa3c5a,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Halftime In-Play,Barracas Central,Betfair Sportsbook,23.0,8.7,15.0,WON,330.0
 cdc3c43f,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Pre-Match +EV,Gimnasia Mendoza,Betfair,5.6,10.2,15.0,PENDING,0.0
@@ -610,4 +610,4 @@ b455d122,HALFTIME_LIVE,2026-10-04T20:00:00Z,Primera División - Argentina,Taller
 b40bebd7,CORE_EV,2026-10-07T00:30:00Z,MLS,Chicago Fire vs Vancouver Whitecaps FC,Pre-Match +EV,Chicago Fire,1xBet,2.92,6.2,15.0,PENDING,0.0
 2d8bb8c0,HALFTIME_LIVE,2026-10-05T00:30:00Z,Primera División - Argentina,Estudiantes de Río Cuarto vs Racing Club,Halftime In-Play,Draw,Betsson,21.0,7.7,15.0,LOST,-15.0
 37105ccf,CORE_EV,2026-10-06T00:15:00Z,Primera División - Argentina,Banfield vs Rosario Central,Pre-Match +EV,Banfield,Betfair,4.6,7.2,15.0,PENDING,0.0
-02da7d87,HALFTIME_LIVE,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Halftime In-Play,Deportivo Riestra,Betfair,2.7,6.7,15.0,PENDING,0.0
+02da7d87,HALFTIME_LIVE,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Halftime In-Play,Deportivo Riestra,Betfair,2.7,6.7,15.0,LOST,-15.0
