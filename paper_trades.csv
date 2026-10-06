@@ -602,8 +602,8 @@ c8b602b0,CORE_EV,2026-10-05T00:30:00Z,Primera División - Argentina,Estudiantes 
 799c05f6,CORE_EV,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,7.1,15.0,WON,34.5
 741d4659,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Newells Old Boys vs Lanus,Halftime In-Play,Lanus,Betfair,3.45,7.1,15.0,LOST,-15.0
 ccfa3c5a,HALFTIME_LIVE,2026-10-03T20:00:00Z,Primera División - Argentina,Atlético Tucuman vs Barracas Central,Halftime In-Play,Barracas Central,Betfair Sportsbook,23.0,8.7,15.0,WON,330.0
-cdc3c43f,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Pre-Match +EV,Gimnasia Mendoza,Betfair,5.6,10.2,15.0,PENDING,0.0
-3d953b3d,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Pre-Match +EV,Platense,Betsson,4.9,5.8,15.0,PENDING,0.0
+cdc3c43f,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Pre-Match +EV,Gimnasia Mendoza,Betfair,5.6,10.2,15.0,LOST,-15.0
+3d953b3d,CORE_EV,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Pre-Match +EV,Platense,Betsson,4.9,5.8,15.0,LOST,-15.0
 dc16cebe,HALFTIME_LIVE,2026-10-03T21:30:00Z,Brazil Série A,Atletico Mineiro vs Bragantino-SP,Halftime In-Play,Draw,Coolbet,4.5,6.4,15.0,LOST,-15.0
 c0a4d57d,HALFTIME_LIVE,2026-10-04T17:45:00Z,Primera División - Argentina,Atlético Huracán vs Aldosivi Mar del Plata,Halftime In-Play,Draw,Betfair,6.8,18.3,15.0,LOST,-15.0
 b455d122,HALFTIME_LIVE,2026-10-04T20:00:00Z,Primera División - Argentina,Talleres vs Belgrano de Cordoba,Halftime In-Play,Draw,Betfair,2.22,5.2,15.0,LOST,-15.0
@@ -613,6 +613,6 @@ b40bebd7,CORE_EV,2026-10-07T00:30:00Z,MLS,Chicago Fire vs Vancouver Whitecaps FC
 02da7d87,HALFTIME_LIVE,2026-10-05T19:45:00Z,Primera División - Argentina,Deportivo Riestra vs Central Córdoba,Halftime In-Play,Deportivo Riestra,Betfair,2.7,6.7,15.0,LOST,-15.0
 3fe3605c,CORE_EV,2026-10-07T22:30:00Z,Brazil Série A,Remo vs Grêmio,Pre-Match +EV,Grêmio,BetOnline.ag,3.13,5.0,15.0,PENDING,0.0
 697b9c0d,CORE_EV,2026-10-07T22:30:00Z,Brazil Série A,Bragantino-SP vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.5,5.4,15.0,PENDING,0.0
-c4a54b16,HALFTIME_LIVE,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Halftime In-Play,Estudiantes,Betfair,2.44,7.0,15.0,PENDING,0.0
-411bddf3,HALFTIME_LIVE,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Halftime In-Play,Velez Sarsfield BA,Betsson,2.7,15.9,15.0,PENDING,0.0
+c4a54b16,HALFTIME_LIVE,2026-10-05T22:00:00Z,Primera División - Argentina,Estudiantes vs Gimnasia Mendoza,Halftime In-Play,Estudiantes,Betfair,2.44,7.0,15.0,WON,21.6
+411bddf3,HALFTIME_LIVE,2026-10-05T22:00:00Z,Primera División - Argentina,Velez Sarsfield BA vs Platense,Halftime In-Play,Velez Sarsfield BA,Betsson,2.7,15.9,15.0,LOST,-15.0
 66463a1e,CORE_EV,2026-10-07T23:00:00Z,Brazil Série A,Vitoria vs Chapecoense,Pre-Match +EV,Chapecoense,Betfair,5.3,5.2,15.0,PENDING,0.0
