@@ -691,3 +691,5 @@ f4853175,CORE_EV,2026-10-11T00:00:00Z,Brazil Série A,Sao Paulo vs Vitoria,Pre-M
 b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV,Draw,Betfair,3.7,6.9,15.0,PENDING,0.0
 d5043fab,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Palmeiras vs Bahia,Halftime In-Play,Bahia,Coolbet,22.0,8.0,15.0,LOST,-15.0
 fee28e88,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coritiba,Halftime In-Play,Draw,Coolbet,7.5,7.3,15.0,LOST,-15.0
+2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,PENDING,0.0
+a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +EV,Draw,Betfair Sportsbook,3.8,7.6,15.0,PENDING,0.0
