@@ -719,3 +719,4 @@ e677dcd7,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,FC Zwolle vs SC Cambuur,P
 e8d2590f,CORE_EV,2026-10-11T10:30:00Z,Serie A - Italy,Como vs AS Roma,Pre-Match +EV,AS Roma,Betfair,2.8,5.7,15.0,PENDING,0.0
 a5ab1373,CORE_EV,2026-10-11T16:00:00Z,Serie A - Italy,Sassuolo vs AC Milan,Pre-Match +EV,Sassuolo,Betfair,4.6,6.7,15.0,PENDING,0.0
 0f4cd2ec,CORE_EV,2026-10-11T17:45:00Z,Primera División - Argentina,San Lorenzo vs Deportivo Riestra,Pre-Match +EV,Draw,Betfair Sportsbook,2.88,5.1,15.0,PENDING,0.0
+e6e183f3,HALFTIME_LIVE,2026-10-09T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Sarmiento de Junin,Halftime In-Play,Aldosivi Mar del Plata,Betfair,3.45,16.6,15.0,PENDING,0.0
