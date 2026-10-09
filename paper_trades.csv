@@ -628,7 +628,7 @@ e90e6354,CORE_EV,2026-10-09T18:30:00Z,Bundesliga - Germany,Borussia Dortmund vs 
 7d03f44a,CORE_EV,2026-10-09T18:00:00Z,Dutch Eredivisie,PSV Eindhoven vs Heerenveen,Pre-Match +EV,Heerenveen,Coolbet,10.0,19.9,15.0,LOST,-15.0
 7e833e08,CORE_EV,2026-10-09T19:15:00Z,Primeira Liga - Portugal,Braga vs Sporting Lisbon,Pre-Match +EV,Sporting Lisbon,Betfair,2.18,5.8,15.0,WON,17.7
 74e760ae,CORE_EV,2026-10-09T19:00:00Z,Championship,West Ham United vs Queens Park Rangers,Pre-Match +EV,Queens Park Rangers,Betfair,6.4,12.1,15.0,LOST,-15.0
-73b73f4d,CORE_EV,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Betfair,4.7,8.5,15.0,PENDING,0.0
+73b73f4d,CORE_EV,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Betfair,4.7,8.5,15.0,LOST,-15.0
 ce1c19de,CORE_EV,2026-10-09T17:45:00Z,Primeira Liga - Portugal,Moreirense FC vs Gil Vicente,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,5.1,15.0,LOST,-15.0
 fcbd2ddf,CORE_EV,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Pre-Match +EV,Instituto de Córdoba,Betfair,3.2,9.2,15.0,PENDING,0.0
 12d50e04,HALFTIME_LIVE,2026-10-07T22:30:00Z,Brazil Série A,Bragantino-SP vs Mirassol,Halftime In-Play,Bragantino-SP,Betsson,1.38,6.2,15.0,LOST,-15.0
@@ -738,7 +738,7 @@ cdf0353b,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Palmeiras vs Corinthians,P
 14e054a3,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Flamengo vs Fluminense,Pre-Match +EV,Fluminense,Betfair,7.8,7.6,15.0,PENDING,0.0
 d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-Match +EV,Paris FC,1xBet,2.36,6.3,15.0,PENDING,0.0
 55b44963,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Grêmio vs Internacional,Pre-Match +EV,Grêmio,1xBet,3.1,5.4,15.0,PENDING,0.0
-8bba30e7,HALFTIME_LIVE,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Halftime In-Play,Atlético Tucuman,Betfair,4.6,7.0,15.0,PENDING,0.0
+8bba30e7,HALFTIME_LIVE,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Halftime In-Play,Atlético Tucuman,Betfair,4.6,7.0,15.0,LOST,-15.0
 c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,PENDING,0.0
 4d7a5974,CORE_EV,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Coolbet,5.25,8.9,15.0,PENDING,0.0
 bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Halftime In-Play,Boca Juniors,Betfair,3.0,8.3,15.0,PENDING,0.0
