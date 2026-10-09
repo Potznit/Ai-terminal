@@ -619,7 +619,7 @@ c4a54b16,HALFTIME_LIVE,2026-10-05T22:00:00Z,Primera División - Argentina,Estudi
 74f4d05f,HALFTIME_LIVE,2026-10-06T00:15:00Z,Primera División - Argentina,Banfield vs Rosario Central,Halftime In-Play,Rosario Central,Betfair,7.6,12.3,15.0,LOST,-15.0
 678a5be6,CORE_EV,2026-10-07T23:30:00Z,Brazil Série A,Botafogo vs Vasco da Gama,Pre-Match +EV,Draw,Coolbet,3.75,5.9,15.0,LOST,-15.0
 d532adc7,CORE_EV,2026-10-07T22:30:00Z,Brazil Série A,Internacional vs Corinthians,Pre-Match +EV,Corinthians,1xBet,3.46,6.1,15.0,LOST,-15.0
-92f451ff,CORE_EV,2026-10-08T23:00:00Z,Brazil Série A,Atletico Paranaense vs Atletico Mineiro,Pre-Match +EV,Draw,Coolbet,3.4,6.2,15.0,PENDING,0.0
+92f451ff,CORE_EV,2026-10-08T23:00:00Z,Brazil Série A,Atletico Paranaense vs Atletico Mineiro,Pre-Match +EV,Draw,Coolbet,3.4,6.2,15.0,WON,36.0
 681a6258,CORE_EV,2026-10-08T00:30:00Z,Brazil Série A,Cruzeiro vs Sao Paulo,Pre-Match +EV,Sao Paulo,Betfair,4.5,7.7,15.0,LOST,-15.0
 3f231c94,CORE_EV,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coritiba,Pre-Match +EV,Coritiba,Coolbet,7.0,6.4,15.0,PENDING,0.0
 9b58f425,HALFTIME_LIVE,2026-10-07T00:30:00Z,MLS,Chicago Fire vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,5.0,8.2,15.0,LOST,-15.0
@@ -685,7 +685,7 @@ f0e4fce0,CORE_EV,2026-10-10T23:30:00Z,MLS,Atlanta United FC vs FC Cincinnati,Pre
 1a9d2357,CORE_EV,2026-10-10T23:30:00Z,MLS,Charlotte FC vs FC Dallas,Pre-Match +EV,FC Dallas,1xBet,2.96,7.2,15.0,PENDING,0.0
 f0fe6ace,CORE_EV,2026-10-10T23:30:00Z,MLS,Inter Miami CF vs D.C. United,Pre-Match +EV,D.C. United,Coolbet,7.25,13.6,15.0,PENDING,0.0
 b07f06f2,CORE_EV,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,Coolbet,6.75,10.8,15.0,PENDING,0.0
-8445016e,HALFTIME_LIVE,2026-10-08T23:00:00Z,Brazil Série A,Atletico Paranaense vs Atletico Mineiro,Halftime In-Play,Atletico Mineiro,Coolbet,4.33,6.9,15.0,PENDING,0.0
+8445016e,HALFTIME_LIVE,2026-10-08T23:00:00Z,Brazil Série A,Atletico Paranaense vs Atletico Mineiro,Halftime In-Play,Atletico Mineiro,Coolbet,4.33,6.9,15.0,LOST,-15.0
 f4853175,CORE_EV,2026-10-11T00:00:00Z,Brazil Série A,Sao Paulo vs Vitoria,Pre-Match +EV,Vitoria,1xBet,5.77,7.9,15.0,PENDING,0.0
 6680f028,CORE_EV,2026-10-11T00:30:00Z,Primera División - Argentina,River Plate vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,19.0,17.4,15.0,PENDING,0.0
 b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV,Draw,Betfair,3.7,6.9,15.0,PENDING,0.0
