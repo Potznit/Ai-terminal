@@ -660,7 +660,7 @@ a553b04a,CORE_EV,2026-10-10T14:00:00Z,Championship,Derby County vs Wrexham AFC,P
 44ccb08f,CORE_EV,2026-10-10T14:00:00Z,Championship,Preston North End vs Millwall,Pre-Match +EV,Preston North End,Betfair,3.0,5.6,15.0,LOST,-15.0
 ef9c4861,CORE_EV,2026-10-10T16:00:00Z,Serie A - Italy,Inter Milan vs Parma,Pre-Match +EV,Parma,Betsson,22.0,24.7,15.0,PENDING,0.0
 fb8c738e,CORE_EV,2026-10-10T13:30:00Z,Bundesliga - Germany,SC Paderborn vs VfB Stuttgart,Pre-Match +EV,SC Paderborn,Betfair,5.2,5.3,15.0,LOST,-15.0
-c54ff231,CORE_EV,2026-10-10T15:15:00Z,Ligue 1 - France,Lille vs Le Havre,Pre-Match +EV,Le Havre,1xBet,7.49,10.3,15.0,PENDING,0.0
+c54ff231,CORE_EV,2026-10-10T15:15:00Z,Ligue 1 - France,Lille vs Le Havre,Pre-Match +EV,Le Havre,1xBet,7.49,10.3,15.0,LOST,-15.0
 1d922e02,CORE_EV,2026-10-10T16:30:00Z,EPL,Manchester United vs Tottenham Hotspur,Pre-Match +EV,Tottenham Hotspur,Betfair,4.8,7.9,15.0,PENDING,0.0
 a11fe7f5,CORE_EV,2026-10-10T16:30:00Z,La Liga - Spain,Barcelona vs Getafe,Pre-Match +EV,Getafe,Coolbet,25.0,6.9,15.0,PENDING,0.0
 aa0d745f,CORE_EV,2026-10-10T16:30:00Z,Bundesliga - Germany,RB Leipzig vs Eintracht Frankfurt,Pre-Match +EV,Eintracht Frankfurt,1xBet,5.29,8.0,15.0,PENDING,0.0
@@ -772,7 +772,7 @@ b7fb5bae,HALFTIME_LIVE,2026-10-10T14:00:00Z,Championship,Preston North End vs Mi
 38642761,HALFTIME_LIVE,2026-10-10T14:00:00Z,Championship,Blackburn Rovers vs Cardiff City,Halftime In-Play,Draw,Betfair,10.5,12.4,15.0,LOST,-15.0
 386d5b14,HALFTIME_LIVE,2026-10-10T14:15:00Z,La Liga - Spain,Alavés vs Atlético Madrid,Halftime In-Play,Alavés,Betfair,19.0,5.1,15.0,LOST,-15.0
 7ce5228e,HALFTIME_LIVE,2026-10-10T14:30:00Z,Dutch Eredivisie,Go Ahead Eagles vs Sparta Rotterdam,Halftime In-Play,Go Ahead Eagles,Coolbet,3.8,5.0,15.0,LOST,-15.0
-4d35c21c,HALFTIME_LIVE,2026-10-10T15:14:00Z,Ligue 1 - France,Lille vs Le Havre,Halftime In-Play,Draw,Coolbet,5.0,12.6,15.0,PENDING,0.0
+4d35c21c,HALFTIME_LIVE,2026-10-10T15:14:00Z,Ligue 1 - France,Lille vs Le Havre,Halftime In-Play,Draw,Coolbet,5.0,12.6,15.0,LOST,-15.0
 6d5e4253,CORE_EV,2026-10-12T16:30:00Z,Serie A - Italy,Atalanta BC vs Venezia,Pre-Match +EV,Draw,Betfair,4.4,5.0,15.0,PENDING,0.0
 20676f45,CORE_EV,2026-10-11T23:10:00Z,Liga MX,Pachuca vs Necaxa,Pre-Match +EV,Necaxa,Betfair,4.8,5.5,15.0,PENDING,0.0
 0a45d431,HALFTIME_LIVE,2026-10-10T16:30:00Z,EPL,Manchester United vs Tottenham Hotspur,Halftime In-Play,Manchester United,Betfair,2.36,7.8,15.0,PENDING,0.0
