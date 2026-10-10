@@ -691,7 +691,7 @@ f4853175,CORE_EV,2026-10-11T00:00:00Z,Brazil Série A,Sao Paulo vs Vitoria,Pre-M
 b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV,Draw,Betfair,3.7,6.9,15.0,PENDING,0.0
 d5043fab,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Palmeiras vs Bahia,Halftime In-Play,Bahia,Coolbet,22.0,8.0,15.0,LOST,-15.0
 fee28e88,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coritiba,Halftime In-Play,Draw,Coolbet,7.5,7.3,15.0,LOST,-15.0
-2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,PENDING,0.0
+2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,LOST,-15.0
 a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +EV,Draw,Betfair Sportsbook,3.8,7.6,15.0,PENDING,0.0
 776a3499,CORE_EV,2026-10-10T14:00:00Z,Championship,Bolton Wanderers vs Stoke City,Pre-Match +EV,Draw,Betfair,3.5,5.4,15.0,LOST,-15.0
 b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,PENDING,0.0
@@ -795,5 +795,5 @@ d635cedd,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico 
 bf4615b0,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Halftime In-Play,Santa Clara,Betfair Sportsbook,3.0,8.3,15.0,WON,30.0
 ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Halftime In-Play,Central Córdoba,Betfair,3.2,8.5,15.0,LOST,-15.0
 15951a3d,CORE_EV,2026-10-12T00:30:00Z,Primera División - Argentina,Talleres vs Independiente,Pre-Match +EV,Talleres,Betfair,2.32,5.0,15.0,PENDING,0.0
-83d8f3af,HALFTIME_LIVE,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Halftime In-Play,Draw,Betfair,3.6,9.4,15.0,PENDING,0.0
+83d8f3af,HALFTIME_LIVE,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Halftime In-Play,Draw,Betfair,3.6,9.4,15.0,WON,39.0
 bbecf223,CORE_EV,2026-10-12T22:30:00Z,Brazil Série A,Chapecoense vs Atletico Paranaense,Pre-Match +EV,Atletico Paranaense,BetOnline.ag,2.07,5.6,15.0,PENDING,0.0
