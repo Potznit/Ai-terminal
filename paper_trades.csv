@@ -630,7 +630,7 @@ e90e6354,CORE_EV,2026-10-09T18:30:00Z,Bundesliga - Germany,Borussia Dortmund vs 
 74e760ae,CORE_EV,2026-10-09T19:00:00Z,Championship,West Ham United vs Queens Park Rangers,Pre-Match +EV,Queens Park Rangers,Betfair,6.4,12.1,15.0,LOST,-15.0
 73b73f4d,CORE_EV,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Pre-Match +EV,Atlético Tucuman,Betfair,4.7,8.5,15.0,LOST,-15.0
 ce1c19de,CORE_EV,2026-10-09T17:45:00Z,Primeira Liga - Portugal,Moreirense FC vs Gil Vicente,Pre-Match +EV,Draw,Betfair Sportsbook,3.3,5.1,15.0,LOST,-15.0
-fcbd2ddf,CORE_EV,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Pre-Match +EV,Instituto de Córdoba,Betfair,3.2,9.2,15.0,PENDING,0.0
+fcbd2ddf,CORE_EV,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Pre-Match +EV,Instituto de Córdoba,Betfair,3.2,9.2,15.0,LOST,-15.0
 12d50e04,HALFTIME_LIVE,2026-10-07T22:30:00Z,Brazil Série A,Bragantino-SP vs Mirassol,Halftime In-Play,Bragantino-SP,Betsson,1.38,6.2,15.0,LOST,-15.0
 dd0f2c1a,HALFTIME_LIVE,2026-10-07T22:30:00Z,Brazil Série A,Internacional vs Corinthians,Halftime In-Play,Internacional,Betfair,1.59,5.3,15.0,WON,8.85
 69229fd7,HALFTIME_LIVE,2026-10-07T22:30:00Z,Brazil Série A,Remo vs Grêmio,Halftime In-Play,Grêmio,Coolbet,4.33,13.6,15.0,LOST,-15.0
@@ -741,5 +741,5 @@ d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-M
 8bba30e7,HALFTIME_LIVE,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Halftime In-Play,Atlético Tucuman,Betfair,4.6,7.0,15.0,LOST,-15.0
 c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,PENDING,0.0
 4d7a5974,CORE_EV,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Coolbet,5.25,8.9,15.0,PENDING,0.0
-bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Halftime In-Play,Boca Juniors,Betfair,3.0,8.3,15.0,PENDING,0.0
+bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Halftime In-Play,Boca Juniors,Betfair,3.0,8.3,15.0,LOST,-15.0
 27ee39d5,CORE_EV,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,2.7,5.5,15.0,PENDING,0.0
