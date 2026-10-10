@@ -653,7 +653,7 @@ c1e72f3f,CORE_EV,2026-10-10T14:00:00Z,EPL,Chelsea vs Bournemouth,Pre-Match +EV,D
 9cb912e2,CORE_EV,2026-10-10T14:00:00Z,EPL,Sunderland vs Brighton and Hove Albion,Pre-Match +EV,Sunderland,Betfair,3.25,6.2,15.0,LOST,-15.0
 bd00a9c2,CORE_EV,2026-10-10T14:15:00Z,La Liga - Spain,Alavés vs Atlético Madrid,Pre-Match +EV,Alavés,Betfair,4.7,7.1,15.0,LOST,-15.0
 6d4f0fe4,CORE_EV,2026-10-10T14:30:00Z,Dutch Eredivisie,Go Ahead Eagles vs Sparta Rotterdam,Pre-Match +EV,Draw,Coolbet,4.3,6.7,15.0,WON,49.5
-38de7ae3,CORE_EV,2026-10-10T14:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Pre-Match +EV,Casa Pia,Betfair,4.8,5.0,15.0,PENDING,0.0
+38de7ae3,CORE_EV,2026-10-10T14:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Pre-Match +EV,Casa Pia,Betfair,4.8,5.0,15.0,LOST,-15.0
 9927fe89,CORE_EV,2026-10-10T11:30:00Z,Championship,Charlton Athletic vs Bristol City,Pre-Match +EV,Bristol City,Betfair,2.4,5.3,15.0,LOST,-15.0
 a553b04a,CORE_EV,2026-10-10T14:00:00Z,Championship,Derby County vs Wrexham AFC,Pre-Match +EV,Wrexham AFC,Betfair,2.68,5.1,15.0,LOST,-15.0
 3f9c174d,CORE_EV,2026-10-10T14:00:00Z,Championship,Middlesbrough vs Wolverhampton Wanderers,Pre-Match +EV,Draw,Betfair,3.95,8.8,15.0,LOST,-15.0
@@ -674,9 +674,9 @@ ed35d42d,CORE_EV,2026-10-10T13:30:00Z,Bundesliga - Germany,Union Berlin vs Elver
 584bf4f4,CORE_EV,2026-10-10T18:00:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Pre-Match +EV,Fortuna Sittard,1xBet,6.61,8.4,15.0,LOST,-15.0
 953c7857,CORE_EV,2026-10-10T14:00:00Z,Championship,Sheffield United vs Lincoln City,Pre-Match +EV,Sheffield United,Betfair,2.22,5.2,15.0,WON,18.3
 2a4e9e4e,CORE_EV,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Pre-Match +EV,Chicago Fire,Coolbet,1.9,5.0,15.0,WON,13.5
-b484a5f6,CORE_EV,2026-10-10T19:00:00Z,La Liga - Spain,Real Madrid vs Villarreal,Pre-Match +EV,Villarreal,1xBet,7.8,14.4,15.0,PENDING,0.0
+b484a5f6,CORE_EV,2026-10-10T19:00:00Z,La Liga - Spain,Real Madrid vs Villarreal,Pre-Match +EV,Villarreal,1xBet,7.8,14.4,15.0,LOST,-15.0
 d11f06eb,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Pre-Match +EV,Toulouse,1xBet,5.44,5.0,15.0,LOST,-15.0
-2d1f8415,CORE_EV,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,1xBet,8.8,19.1,15.0,PENDING,0.0
+2d1f8415,CORE_EV,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,1xBet,8.8,19.1,15.0,LOST,-15.0
 137fe5c1,CORE_EV,2026-10-10T14:00:00Z,Championship,Blackburn Rovers vs Cardiff City,Pre-Match +EV,Cardiff City,Betfair,2.6,5.7,15.0,LOST,-15.0
 91485683,CORE_EV,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Pre-Match +EV,Banfield,BetOnline.ag,5.47,5.4,15.0,PENDING,0.0
 6f8a1e60,CORE_EV,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Pre-Match +EV,Draw,Betfair Sportsbook,3.5,9.4,15.0,PENDING,0.0
@@ -697,7 +697,7 @@ a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +E
 b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,PENDING,0.0
 b9362874,CORE_EV,2026-10-10T23:30:00Z,MLS,New England Revolution vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.84,8.5,15.0,PENDING,0.0
 10cb160b,CORE_EV,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Pre-Match +EV,Austin FC,Betfair,3.95,5.1,15.0,PENDING,0.0
-89faaa74,CORE_EV,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Pre-Match +EV,Estoril,Betfair,3.35,7.0,15.0,PENDING,0.0
+89faaa74,CORE_EV,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Pre-Match +EV,Estoril,Betfair,3.35,7.0,15.0,LOST,-15.0
 e510f703,CORE_EV,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Pre-Match +EV,Draw,Betfair,3.8,5.6,15.0,PENDING,0.0
 cb78aff3,CORE_EV,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Willem II,Pre-Match +EV,Willem II,Betfair,6.4,8.7,15.0,PENDING,0.0
 bbd3ff42,CORE_EV,2026-10-11T11:00:00Z,Championship,Southampton vs Portsmouth,Pre-Match +EV,Portsmouth,Betfair,5.6,10.0,15.0,PENDING,0.0
@@ -742,7 +742,7 @@ d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-M
 c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,PENDING,0.0
 4d7a5974,CORE_EV,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Coolbet,5.25,8.9,15.0,PENDING,0.0
 bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Halftime In-Play,Boca Juniors,Betfair,3.0,8.3,15.0,LOST,-15.0
-27ee39d5,CORE_EV,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,2.7,5.5,15.0,PENDING,0.0
+27ee39d5,CORE_EV,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,2.7,5.5,15.0,LOST,-15.0
 3221908c,HALFTIME_LIVE,2026-10-10T00:45:00Z,Primera División - Argentina,Union Santa Fe vs Defensa y Justicia,Halftime In-Play,Draw,Betfair,9.0,10.0,15.0,LOST,-15.0
 9fa5b1e8,HALFTIME_LIVE,2026-10-10T01:00:00Z,Liga MX,Puebla vs León,Halftime In-Play,Puebla,Coolbet,7.0,5.3,15.0,LOST,-15.0
 d8eaa66f,CORE_EV,2026-10-11T19:30:00Z,Primeira Liga - Portugal,Arouca vs CF Estrela,Pre-Match +EV,Arouca,Coolbet,2.12,5.5,15.0,PENDING,0.0
@@ -788,11 +788,11 @@ a761ddbf,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Paris Saint Germain
 dc203cfe,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Halftime In-Play,Paris FC,Coolbet,2.5,7.3,15.0,LOST,-15.0
 80cdbff4,HALFTIME_LIVE,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Halftime In-Play,Atlético Huracán,Betfair,9.0,23.6,15.0,LOST,-15.0
 484eeb12,HALFTIME_LIVE,2026-10-10T18:47:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Halftime In-Play,Draw,Betfair,15.0,6.7,15.0,WON,210.0
-ec441227,HALFTIME_LIVE,2026-10-10T19:03:00Z,La Liga - Spain,Real Madrid vs Villarreal,Halftime In-Play,Villarreal,Coolbet,7.5,6.1,15.0,PENDING,0.0
-5c4da0ed,HALFTIME_LIVE,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Halftime In-Play,Draw,Coolbet,4.0,6.4,15.0,PENDING,0.0
+ec441227,HALFTIME_LIVE,2026-10-10T19:03:00Z,La Liga - Spain,Real Madrid vs Villarreal,Halftime In-Play,Villarreal,Coolbet,7.5,6.1,15.0,LOST,-15.0
+5c4da0ed,HALFTIME_LIVE,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Halftime In-Play,Draw,Coolbet,4.0,6.4,15.0,WON,45.0
 2747a492,CORE_EV,2026-10-12T19:00:00Z,La Liga - Spain,Levante vs Sevilla,Pre-Match +EV,Levante,Betfair,2.92,5.4,15.0,PENDING,0.0
-d635cedd,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Halftime In-Play,Académico de Viseu,Betfair,1.48,5.0,15.0,PENDING,0.0
-bf4615b0,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Halftime In-Play,Santa Clara,Betfair Sportsbook,3.0,8.3,15.0,PENDING,0.0
-ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Halftime In-Play,Central Córdoba,Betfair,3.2,8.5,15.0,PENDING,0.0
+d635cedd,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Halftime In-Play,Académico de Viseu,Betfair,1.48,5.0,15.0,WON,7.2
+bf4615b0,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Halftime In-Play,Santa Clara,Betfair Sportsbook,3.0,8.3,15.0,WON,30.0
+ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Halftime In-Play,Central Córdoba,Betfair,3.2,8.5,15.0,LOST,-15.0
 15951a3d,CORE_EV,2026-10-12T00:30:00Z,Primera División - Argentina,Talleres vs Independiente,Pre-Match +EV,Talleres,Betfair,2.32,5.0,15.0,PENDING,0.0
 83d8f3af,HALFTIME_LIVE,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Halftime In-Play,Draw,Betfair,3.6,9.4,15.0,PENDING,0.0
