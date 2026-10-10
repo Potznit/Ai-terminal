@@ -750,3 +750,7 @@ d8eaa66f,CORE_EV,2026-10-11T19:30:00Z,Primeira Liga - Portugal,Arouca vs CF Estr
 fb80a4c5,CORE_EV,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Pre-Match +EV,Barracas Central,Betfair,3.25,5.2,15.0,PENDING,0.0
 a7b1fa84,CORE_EV,2026-10-10T23:30:00Z,MLS,New York Red Bulls vs San Diego FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,PENDING,0.0
 6b7d3f44,CORE_EV,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Pre-Match +EV,Elche CF,Betfair,2.94,5.0,15.0,PENDING,0.0
+31650a29,HALFTIME_LIVE,2026-10-10T11:30:00Z,EPL,Arsenal vs Leeds United,Halftime In-Play,Arsenal,Betfair,1.83,7.0,15.0,PENDING,0.0
+94b47a09,HALFTIME_LIVE,2026-10-10T11:30:00Z,Championship,West Bromwich Albion vs Birmingham City,Halftime In-Play,West Bromwich Albion,Betfair,10.0,11.1,15.0,PENDING,0.0
+b8f82908,HALFTIME_LIVE,2026-10-10T11:30:00Z,Championship,Charlton Athletic vs Bristol City,Halftime In-Play,Charlton Athletic,Betfair,4.0,6.7,15.0,PENDING,0.0
+8d0798f0,HALFTIME_LIVE,2026-10-10T11:30:00Z,Championship,Swansea City vs Norwich City,Halftime In-Play,Swansea City,Betfair,7.2,5.4,15.0,PENDING,0.0
