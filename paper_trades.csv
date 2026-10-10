@@ -668,14 +668,14 @@ aa0d745f,CORE_EV,2026-10-10T16:30:00Z,Bundesliga - Germany,RB Leipzig vs Eintrac
 ebc1631c,CORE_EV,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Pre-Match +EV,CS Maritimo,Betsson,9.7,11.1,15.0,LOST,-15.0
 06531c39,CORE_EV,2026-10-10T14:00:00Z,Championship,Watford vs Burnley,Pre-Match +EV,Burnley,Betfair,2.44,5.6,15.0,WON,21.6
 facceb6e,CORE_EV,2026-10-10T14:00:00Z,EPL,Aston Villa vs Brentford,Pre-Match +EV,Brentford,1xBet,2.9,11.1,15.0,LOST,-15.0
-804f2bd9,CORE_EV,2026-10-10T18:45:00Z,Serie A - Italy,Napoli vs Frosinone,Pre-Match +EV,Frosinone,1xBet,6.85,10.0,15.0,PENDING,0.0
+804f2bd9,CORE_EV,2026-10-10T18:45:00Z,Serie A - Italy,Napoli vs Frosinone,Pre-Match +EV,Frosinone,1xBet,6.85,10.0,15.0,LOST,-15.0
 ed35d42d,CORE_EV,2026-10-10T13:30:00Z,Bundesliga - Germany,Union Berlin vs Elversberg,Pre-Match +EV,Elversberg,Betfair,3.0,5.3,15.0,LOST,-15.0
-9d82dc1e,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Paris Saint Germain vs Le Mans FC,Pre-Match +EV,Draw,1xBet,16.5,19.0,15.0,PENDING,0.0
-584bf4f4,CORE_EV,2026-10-10T18:00:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Pre-Match +EV,Fortuna Sittard,1xBet,6.61,8.4,15.0,PENDING,0.0
+9d82dc1e,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Paris Saint Germain vs Le Mans FC,Pre-Match +EV,Draw,1xBet,16.5,19.0,15.0,LOST,-15.0
+584bf4f4,CORE_EV,2026-10-10T18:00:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Pre-Match +EV,Fortuna Sittard,1xBet,6.61,8.4,15.0,LOST,-15.0
 953c7857,CORE_EV,2026-10-10T14:00:00Z,Championship,Sheffield United vs Lincoln City,Pre-Match +EV,Sheffield United,Betfair,2.22,5.2,15.0,WON,18.3
-2a4e9e4e,CORE_EV,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Pre-Match +EV,Chicago Fire,Coolbet,1.9,5.0,15.0,PENDING,0.0
+2a4e9e4e,CORE_EV,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Pre-Match +EV,Chicago Fire,Coolbet,1.9,5.0,15.0,WON,13.5
 b484a5f6,CORE_EV,2026-10-10T19:00:00Z,La Liga - Spain,Real Madrid vs Villarreal,Pre-Match +EV,Villarreal,1xBet,7.8,14.4,15.0,PENDING,0.0
-d11f06eb,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Pre-Match +EV,Toulouse,1xBet,5.44,5.0,15.0,PENDING,0.0
+d11f06eb,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Pre-Match +EV,Toulouse,1xBet,5.44,5.0,15.0,LOST,-15.0
 2d1f8415,CORE_EV,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,1xBet,8.8,19.1,15.0,PENDING,0.0
 137fe5c1,CORE_EV,2026-10-10T14:00:00Z,Championship,Blackburn Rovers vs Cardiff City,Pre-Match +EV,Cardiff City,Betfair,2.6,5.7,15.0,LOST,-15.0
 91485683,CORE_EV,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Pre-Match +EV,Banfield,BetOnline.ag,5.47,5.4,15.0,PENDING,0.0
@@ -736,7 +736,7 @@ f5444e1b,HALFTIME_LIVE,2026-10-09T19:15:00Z,Primeira Liga - Portugal,Braga vs Sp
 d8ff208e,CORE_EV,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Earthquakes,Pre-Match +EV,San Jose Earthquakes,Betfair,3.9,5.7,15.0,PENDING,0.0
 cdf0353b,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Palmeiras vs Corinthians,Pre-Match +EV,Draw,1xBet,3.9,5.7,15.0,PENDING,0.0
 14e054a3,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Flamengo vs Fluminense,Pre-Match +EV,Fluminense,Betfair,7.8,7.6,15.0,PENDING,0.0
-d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-Match +EV,Paris FC,1xBet,2.36,6.3,15.0,PENDING,0.0
+d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-Match +EV,Paris FC,1xBet,2.36,6.3,15.0,LOST,-15.0
 55b44963,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Grêmio vs Internacional,Pre-Match +EV,Grêmio,1xBet,3.1,5.4,15.0,PENDING,0.0
 8bba30e7,HALFTIME_LIVE,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Halftime In-Play,Atlético Tucuman,Betfair,4.6,7.0,15.0,LOST,-15.0
 c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,PENDING,0.0
@@ -747,7 +747,7 @@ bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instit
 9fa5b1e8,HALFTIME_LIVE,2026-10-10T01:00:00Z,Liga MX,Puebla vs León,Halftime In-Play,Puebla,Coolbet,7.0,5.3,15.0,LOST,-15.0
 d8eaa66f,CORE_EV,2026-10-11T19:30:00Z,Primeira Liga - Portugal,Arouca vs CF Estrela,Pre-Match +EV,Arouca,Coolbet,2.12,5.5,15.0,PENDING,0.0
 49fb9425,HALFTIME_LIVE,2026-10-10T03:00:00Z,Liga MX,Tigres vs Toluca,Halftime In-Play,Toluca,Betsson,5.8,27.2,15.0,LOST,-15.0
-fb80a4c5,CORE_EV,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Pre-Match +EV,Barracas Central,Betfair,3.25,5.2,15.0,PENDING,0.0
+fb80a4c5,CORE_EV,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Pre-Match +EV,Barracas Central,Betfair,3.25,5.2,15.0,WON,33.75
 a7b1fa84,CORE_EV,2026-10-10T23:30:00Z,MLS,New York Red Bulls vs San Diego FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,PENDING,0.0
 6b7d3f44,CORE_EV,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Pre-Match +EV,Elche CF,Betfair,2.94,5.0,15.0,PENDING,0.0
 31650a29,HALFTIME_LIVE,2026-10-10T11:30:00Z,EPL,Arsenal vs Leeds United,Halftime In-Play,Arsenal,Betfair,1.83,7.0,15.0,WON,12.45
@@ -780,14 +780,14 @@ b7fb5bae,HALFTIME_LIVE,2026-10-10T14:00:00Z,Championship,Preston North End vs Mi
 4f2a0f51,HALFTIME_LIVE,2026-10-10T16:45:00Z,Dutch Eredivisie,Feyenoord vs AZ Alkmaar,Halftime In-Play,AZ Alkmaar,Betfair,12.0,8.5,15.0,LOST,-15.0
 0680c7d5,HALFTIME_LIVE,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Halftime In-Play,Draw,Betsson,3.3,14.2,15.0,LOST,-15.0
 cb8744fe,HALFTIME_LIVE,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Halftime In-Play,Toronto FC,Betfair,2.18,6.3,15.0,WON,17.7
-ef74a55a,HALFTIME_LIVE,2026-10-10T18:04:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Halftime In-Play,Fortuna Sittard,Betfair,6.8,6.9,15.0,PENDING,0.0
+ef74a55a,HALFTIME_LIVE,2026-10-10T18:04:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Halftime In-Play,Fortuna Sittard,Betfair,6.8,6.9,15.0,LOST,-15.0
 e0089acb,CORE_EV,2026-10-12T19:15:00Z,Primeira Liga - Portugal,Famalicão vs Alverca,Pre-Match +EV,Draw,Coolbet,3.5,6.1,15.0,PENDING,0.0
-14ceb0f4,HALFTIME_LIVE,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Halftime In-Play,Chicago Fire,Coolbet,3.75,6.8,15.0,PENDING,0.0
-b7503f4b,HALFTIME_LIVE,2026-10-10T18:45:00Z,Serie A - Italy,Napoli vs Frosinone,Halftime In-Play,Draw,Betfair,16.5,11.3,15.0,PENDING,0.0
-a761ddbf,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Paris Saint Germain vs Le Mans FC,Halftime In-Play,Draw,Betfair,10.5,13.0,15.0,PENDING,0.0
-dc203cfe,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Halftime In-Play,Paris FC,Coolbet,2.5,7.3,15.0,PENDING,0.0
-80cdbff4,HALFTIME_LIVE,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Halftime In-Play,Atlético Huracán,Betfair,9.0,23.6,15.0,PENDING,0.0
-484eeb12,HALFTIME_LIVE,2026-10-10T18:47:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Halftime In-Play,Draw,Betfair,15.0,6.7,15.0,PENDING,0.0
+14ceb0f4,HALFTIME_LIVE,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Halftime In-Play,Chicago Fire,Coolbet,3.75,6.8,15.0,WON,41.25
+b7503f4b,HALFTIME_LIVE,2026-10-10T18:45:00Z,Serie A - Italy,Napoli vs Frosinone,Halftime In-Play,Draw,Betfair,16.5,11.3,15.0,LOST,-15.0
+a761ddbf,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Paris Saint Germain vs Le Mans FC,Halftime In-Play,Draw,Betfair,10.5,13.0,15.0,LOST,-15.0
+dc203cfe,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Halftime In-Play,Paris FC,Coolbet,2.5,7.3,15.0,LOST,-15.0
+80cdbff4,HALFTIME_LIVE,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Halftime In-Play,Atlético Huracán,Betfair,9.0,23.6,15.0,LOST,-15.0
+484eeb12,HALFTIME_LIVE,2026-10-10T18:47:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Halftime In-Play,Draw,Betfair,15.0,6.7,15.0,WON,210.0
 ec441227,HALFTIME_LIVE,2026-10-10T19:03:00Z,La Liga - Spain,Real Madrid vs Villarreal,Halftime In-Play,Villarreal,Coolbet,7.5,6.1,15.0,PENDING,0.0
 5c4da0ed,HALFTIME_LIVE,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Halftime In-Play,Draw,Coolbet,4.0,6.4,15.0,PENDING,0.0
 2747a492,CORE_EV,2026-10-12T19:00:00Z,La Liga - Spain,Levante vs Sevilla,Pre-Match +EV,Levante,Betfair,2.92,5.4,15.0,PENDING,0.0
