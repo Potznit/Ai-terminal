@@ -665,7 +665,7 @@ c54ff231,CORE_EV,2026-10-10T15:15:00Z,Ligue 1 - France,Lille vs Le Havre,Pre-Mat
 a11fe7f5,CORE_EV,2026-10-10T16:30:00Z,La Liga - Spain,Barcelona vs Getafe,Pre-Match +EV,Getafe,Coolbet,25.0,6.9,15.0,LOST,-15.0
 aa0d745f,CORE_EV,2026-10-10T16:30:00Z,Bundesliga - Germany,RB Leipzig vs Eintracht Frankfurt,Pre-Match +EV,Eintracht Frankfurt,1xBet,5.29,8.0,15.0,LOST,-15.0
 4afa64bd,CORE_EV,2026-10-10T16:45:00Z,Dutch Eredivisie,Feyenoord vs AZ Alkmaar,Pre-Match +EV,Draw,Coolbet,4.2,11.7,15.0,LOST,-15.0
-ebc1631c,CORE_EV,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Pre-Match +EV,CS Maritimo,Betsson,9.7,11.1,15.0,PENDING,0.0
+ebc1631c,CORE_EV,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Pre-Match +EV,CS Maritimo,Betsson,9.7,11.1,15.0,LOST,-15.0
 06531c39,CORE_EV,2026-10-10T14:00:00Z,Championship,Watford vs Burnley,Pre-Match +EV,Burnley,Betfair,2.44,5.6,15.0,WON,21.6
 facceb6e,CORE_EV,2026-10-10T14:00:00Z,EPL,Aston Villa vs Brentford,Pre-Match +EV,Brentford,1xBet,2.9,11.1,15.0,LOST,-15.0
 804f2bd9,CORE_EV,2026-10-10T18:45:00Z,Serie A - Italy,Napoli vs Frosinone,Pre-Match +EV,Frosinone,1xBet,6.85,10.0,15.0,PENDING,0.0
@@ -680,7 +680,7 @@ d11f06eb,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Pre
 137fe5c1,CORE_EV,2026-10-10T14:00:00Z,Championship,Blackburn Rovers vs Cardiff City,Pre-Match +EV,Cardiff City,Betfair,2.6,5.7,15.0,LOST,-15.0
 91485683,CORE_EV,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Pre-Match +EV,Banfield,BetOnline.ag,5.47,5.4,15.0,PENDING,0.0
 6f8a1e60,CORE_EV,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Pre-Match +EV,Draw,Betfair Sportsbook,3.5,9.4,15.0,PENDING,0.0
-d9931ca2,CORE_EV,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Pre-Match +EV,CF Montreal,Betfair,3.8,5.6,15.0,PENDING,0.0
+d9931ca2,CORE_EV,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Pre-Match +EV,CF Montreal,Betfair,3.8,5.6,15.0,LOST,-15.0
 f0e4fce0,CORE_EV,2026-10-10T23:30:00Z,MLS,Atlanta United FC vs FC Cincinnati,Pre-Match +EV,Draw,Betfair,4.1,6.2,15.0,PENDING,0.0
 1a9d2357,CORE_EV,2026-10-10T23:30:00Z,MLS,Charlotte FC vs FC Dallas,Pre-Match +EV,FC Dallas,1xBet,2.96,7.2,15.0,PENDING,0.0
 f0fe6ace,CORE_EV,2026-10-10T23:30:00Z,MLS,Inter Miami CF vs D.C. United,Pre-Match +EV,D.C. United,Coolbet,7.25,13.6,15.0,PENDING,0.0
@@ -778,8 +778,8 @@ b7fb5bae,HALFTIME_LIVE,2026-10-10T14:00:00Z,Championship,Preston North End vs Mi
 0a45d431,HALFTIME_LIVE,2026-10-10T16:30:00Z,EPL,Manchester United vs Tottenham Hotspur,Halftime In-Play,Manchester United,Betfair,2.36,7.8,15.0,LOST,-15.0
 6adfc30a,CORE_EV,2026-10-12T01:15:00Z,Liga MX,Pumas vs Cruz Azul,Pre-Match +EV,Draw,Betfair,3.9,6.3,15.0,PENDING,0.0
 4f2a0f51,HALFTIME_LIVE,2026-10-10T16:45:00Z,Dutch Eredivisie,Feyenoord vs AZ Alkmaar,Halftime In-Play,AZ Alkmaar,Betfair,12.0,8.5,15.0,LOST,-15.0
-0680c7d5,HALFTIME_LIVE,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Halftime In-Play,Draw,Betsson,3.3,14.2,15.0,PENDING,0.0
-cb8744fe,HALFTIME_LIVE,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Halftime In-Play,Toronto FC,Betfair,2.18,6.3,15.0,PENDING,0.0
+0680c7d5,HALFTIME_LIVE,2026-10-10T17:00:00Z,Primeira Liga - Portugal,CS Maritimo vs FC Porto,Halftime In-Play,Draw,Betsson,3.3,14.2,15.0,LOST,-15.0
+cb8744fe,HALFTIME_LIVE,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Halftime In-Play,Toronto FC,Betfair,2.18,6.3,15.0,WON,17.7
 ef74a55a,HALFTIME_LIVE,2026-10-10T18:04:00Z,Dutch Eredivisie,Fortuna Sittard vs FC Twente Enschede,Halftime In-Play,Fortuna Sittard,Betfair,6.8,6.9,15.0,PENDING,0.0
 e0089acb,CORE_EV,2026-10-12T19:15:00Z,Primeira Liga - Portugal,Famalicão vs Alverca,Pre-Match +EV,Draw,Coolbet,3.5,6.1,15.0,PENDING,0.0
 14ceb0f4,HALFTIME_LIVE,2026-10-10T18:30:00Z,MLS,Chicago Fire vs New York City FC,Halftime In-Play,Chicago Fire,Coolbet,3.75,6.8,15.0,PENDING,0.0
