@@ -692,7 +692,7 @@ b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV
 d5043fab,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Palmeiras vs Bahia,Halftime In-Play,Bahia,Coolbet,22.0,8.0,15.0,LOST,-15.0
 fee28e88,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coritiba,Halftime In-Play,Draw,Coolbet,7.5,7.3,15.0,LOST,-15.0
 2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,LOST,-15.0
-a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +EV,Draw,Betfair Sportsbook,3.8,7.6,15.0,PENDING,0.0
+a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +EV,Draw,Betfair Sportsbook,3.8,7.6,15.0,WON,42.0
 776a3499,CORE_EV,2026-10-10T14:00:00Z,Championship,Bolton Wanderers vs Stoke City,Pre-Match +EV,Draw,Betfair,3.5,5.4,15.0,LOST,-15.0
 b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,WON,38.25
 b9362874,CORE_EV,2026-10-10T23:30:00Z,MLS,New England Revolution vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.84,8.5,15.0,WON,42.6
@@ -815,7 +815,7 @@ ea5bf103,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt 
 298b6f44,HALFTIME_LIVE,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Halftime In-Play,Atlas,Betfair Sportsbook,4.0,5.8,15.0,LOST,-15.0
 16dacf25,CORE_EV,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Pre-Match +EV,Coventry City,1xBet,3.45,7.1,15.0,PENDING,0.0
 f31dba86,HALFTIME_LIVE,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Earthquakes,Halftime In-Play,Draw,Coolbet,4.5,42.0,15.0,WON,52.5
-4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,PENDING,0.0
-d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halftime In-Play,América,Betfair,3.85,6.1,15.0,PENDING,0.0
+4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,LOST,-15.0
+d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halftime In-Play,América,Betfair,3.85,6.1,15.0,LOST,-15.0
 1a746205,CORE_EV,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Pre-Match +EV,Racing Club,1xBet,2.42,5.7,15.0,PENDING,0.0
 017a2b90,CORE_EV,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Pre-Match +EV,Real Racing Club de Santander,1xBet,2.42,7.6,15.0,PENDING,0.0
