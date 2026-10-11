@@ -678,8 +678,8 @@ b484a5f6,CORE_EV,2026-10-10T19:00:00Z,La Liga - Spain,Real Madrid vs Villarreal,
 d11f06eb,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Pre-Match +EV,Toulouse,1xBet,5.44,5.0,15.0,LOST,-15.0
 2d1f8415,CORE_EV,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Pre-Match +EV,NEC Nijmegen,1xBet,8.8,19.1,15.0,LOST,-15.0
 137fe5c1,CORE_EV,2026-10-10T14:00:00Z,Championship,Blackburn Rovers vs Cardiff City,Pre-Match +EV,Cardiff City,Betfair,2.6,5.7,15.0,LOST,-15.0
-91485683,CORE_EV,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Pre-Match +EV,Banfield,BetOnline.ag,5.47,5.4,15.0,PENDING,0.0
-6f8a1e60,CORE_EV,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Pre-Match +EV,Draw,Betfair Sportsbook,3.5,9.4,15.0,PENDING,0.0
+91485683,CORE_EV,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Pre-Match +EV,Banfield,BetOnline.ag,5.47,5.4,15.0,WON,67.05
+6f8a1e60,CORE_EV,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Pre-Match +EV,Draw,Betfair Sportsbook,3.5,9.4,15.0,LOST,-15.0
 d9931ca2,CORE_EV,2026-10-10T17:00:00Z,MLS,Toronto FC vs CF Montreal,Pre-Match +EV,CF Montreal,Betfair,3.8,5.6,15.0,LOST,-15.0
 f0e4fce0,CORE_EV,2026-10-10T23:30:00Z,MLS,Atlanta United FC vs FC Cincinnati,Pre-Match +EV,Draw,Betfair,4.1,6.2,15.0,PENDING,0.0
 1a9d2357,CORE_EV,2026-10-10T23:30:00Z,MLS,Charlotte FC vs FC Dallas,Pre-Match +EV,FC Dallas,1xBet,2.96,7.2,15.0,PENDING,0.0
@@ -694,7 +694,7 @@ fee28e88,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coriti
 2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,LOST,-15.0
 a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +EV,Draw,Betfair Sportsbook,3.8,7.6,15.0,PENDING,0.0
 776a3499,CORE_EV,2026-10-10T14:00:00Z,Championship,Bolton Wanderers vs Stoke City,Pre-Match +EV,Draw,Betfair,3.5,5.4,15.0,LOST,-15.0
-b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,PENDING,0.0
+b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,WON,38.25
 b9362874,CORE_EV,2026-10-10T23:30:00Z,MLS,New England Revolution vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.84,8.5,15.0,PENDING,0.0
 10cb160b,CORE_EV,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Pre-Match +EV,Austin FC,Betfair,3.95,5.1,15.0,PENDING,0.0
 89faaa74,CORE_EV,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Pre-Match +EV,Estoril,Betfair,3.35,7.0,15.0,LOST,-15.0
@@ -797,10 +797,10 @@ ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Centra
 15951a3d,CORE_EV,2026-10-12T00:30:00Z,Primera División - Argentina,Talleres vs Independiente,Pre-Match +EV,Talleres,Betfair,2.32,5.0,15.0,PENDING,0.0
 83d8f3af,HALFTIME_LIVE,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Halftime In-Play,Draw,Betfair,3.6,9.4,15.0,WON,39.0
 bbecf223,CORE_EV,2026-10-12T22:30:00Z,Brazil Série A,Chapecoense vs Atletico Paranaense,Pre-Match +EV,Atletico Paranaense,BetOnline.ag,2.07,5.6,15.0,PENDING,0.0
-72e17a9b,HALFTIME_LIVE,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Halftime In-Play,Draw,Betfair,3.1,5.1,15.0,PENDING,0.0
+72e17a9b,HALFTIME_LIVE,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Halftime In-Play,Draw,Betfair,3.1,5.1,15.0,LOST,-15.0
 06d7819a,CORE_EV,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Pre-Match +EV,Atlético San Luis,Coolbet,2.05,5.1,15.0,PENDING,0.0
-d5215e87,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Halftime In-Play,Atlante FC,Coolbet,10.0,20.0,15.0,PENDING,0.0
-3a57e815,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Halftime In-Play,FC Juárez,Betfair,10.5,21.0,15.0,PENDING,0.0
+d5215e87,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Halftime In-Play,Atlante FC,Coolbet,10.0,20.0,15.0,LOST,-15.0
+3a57e815,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Halftime In-Play,FC Juárez,Betfair,10.5,21.0,15.0,LOST,-15.0
 32e4cdc9,CORE_EV,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Pre-Match +EV,Cruzeiro,BetOnline.ag,3.23,5.6,15.0,PENDING,0.0
 47711807,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Atlanta United FC vs FC Cincinnati,Halftime In-Play,Atlanta United FC,Betfair,2.5,10.1,15.0,PENDING,0.0
 93908b53,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Charlotte FC vs FC Dallas,Halftime In-Play,Draw,Betfair,3.95,10.6,15.0,PENDING,0.0
