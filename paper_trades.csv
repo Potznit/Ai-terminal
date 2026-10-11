@@ -708,11 +708,11 @@ f924f191,CORE_EV,2026-10-10T14:00:00Z,EPL,Ipswich Town vs Fulham,Pre-Match +EV,I
 bdc34093,CORE_EV,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Pre-Match +EV,Draw,1xBet,4.15,10.1,15.0,LOST,-15.0
 7242182a,CORE_EV,2026-10-11T13:00:00Z,Ligue 1 - France,Nice vs Strasbourg,Pre-Match +EV,Strasbourg,1xBet,3.07,5.1,15.0,LOST,-15.0
 f07742a9,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Pre-Match +EV,Draw,Coolbet,4.0,7.8,15.0,WON,45.0
-fec3cc0c,CORE_EV,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Pre-Match +EV,Groningen,Betfair,2.7,5.5,15.0,PENDING,0.0
+fec3cc0c,CORE_EV,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Pre-Match +EV,Groningen,Betfair,2.7,5.5,15.0,WON,25.5
 5b1a61a1,CORE_EV,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Pre-Match +EV,Draw,Coolbet,3.4,6.9,15.0,LOST,-15.0
 13958892,CORE_EV,2026-10-10T23:30:00Z,MLS,Orlando City SC vs Columbus Crew SC,Pre-Match +EV,Orlando City SC,Coolbet,2.1,5.0,15.0,WON,16.5
-de1b5130,CORE_EV,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Pre-Match +EV,FC Schalke 04,Betfair,6.0,6.6,15.0,PENDING,0.0
-6ed42662,CORE_EV,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Pre-Match +EV,Auxerre,1xBet,6.88,8.2,15.0,PENDING,0.0
+de1b5130,CORE_EV,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Pre-Match +EV,FC Schalke 04,Betfair,6.0,6.6,15.0,LOST,-15.0
+6ed42662,CORE_EV,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Pre-Match +EV,Auxerre,1xBet,6.88,8.2,15.0,LOST,-15.0
 e677dcd7,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,FC Zwolle vs SC Cambuur,Pre-Match +EV,SC Cambuur,1xBet,3.75,5.6,15.0,WON,41.25
 816947b2,CORE_EV,2026-10-11T16:30:00Z,La Liga - Spain,Real Betis vs CA Osasuna,Pre-Match +EV,Real Betis,1xBet,1.6,5.3,15.0,PENDING,0.0
 8be89630,CORE_EV,2026-10-11T17:00:00Z,Primeira Liga - Portugal,Benfica vs Vitória SC,Pre-Match +EV,Vitória SC,Coolbet,13.0,11.0,15.0,PENDING,0.0
@@ -834,10 +834,10 @@ bb35b229,HALFTIME_LIVE,2026-10-11T13:00:00Z,EPL,Crystal Palace vs Nottingham For
 419ccb20,HALFTIME_LIVE,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Halftime In-Play,1. FC Köln,Betfair,2.8,6.1,15.0,WON,27.0
 6243e180,HALFTIME_LIVE,2026-10-11T14:17:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Halftime In-Play,Draw,Betfair,15.5,15.1,15.0,LOST,-15.0
 e2b8d5c6,HALFTIME_LIVE,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Halftime In-Play,Nacional,Coolbet,4.33,9.1,15.0,LOST,-15.0
-05e8e575,HALFTIME_LIVE,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Halftime In-Play,Excelsior,Coolbet,7.5,8.7,15.0,PENDING,0.0
-67f70050,HALFTIME_LIVE,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Halftime In-Play,Rennes,Coolbet,1.8,5.3,15.0,PENDING,0.0
-fa8879a9,HALFTIME_LIVE,2026-10-11T15:30:00Z,EPL,Liverpool vs Manchester City,Halftime In-Play,Liverpool,Betfair,4.5,8.7,15.0,PENDING,0.0
-161dff2a,HALFTIME_LIVE,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Halftime In-Play,SC Freiburg,Coolbet,2.05,14.5,15.0,PENDING,0.0
+05e8e575,HALFTIME_LIVE,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Halftime In-Play,Excelsior,Coolbet,7.5,8.7,15.0,LOST,-15.0
+67f70050,HALFTIME_LIVE,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Halftime In-Play,Rennes,Coolbet,1.8,5.3,15.0,WON,12.0
+fa8879a9,HALFTIME_LIVE,2026-10-11T15:30:00Z,EPL,Liverpool vs Manchester City,Halftime In-Play,Liverpool,Betfair,4.5,8.7,15.0,LOST,-15.0
+161dff2a,HALFTIME_LIVE,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Halftime In-Play,SC Freiburg,Coolbet,2.05,14.5,15.0,WON,15.75
 19948626,HALFTIME_LIVE,2026-10-11T16:00:00Z,Serie A - Italy,Sassuolo vs AC Milan,Halftime In-Play,Sassuolo,Betfair,4.4,8.9,15.0,PENDING,0.0
 71ee1bf0,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,RC Lens vs Sporting Lisbon,Pre-Match +EV,RC Lens,1xBet,2.62,5.2,15.0,PENDING,0.0
 4f32fbe6,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,Sabah FK vs Slavia Praha,Pre-Match +EV,Sabah FK,1xBet,3.74,8.1,15.0,PENDING,0.0
