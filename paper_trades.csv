@@ -707,7 +707,7 @@ f924f191,CORE_EV,2026-10-10T14:00:00Z,EPL,Ipswich Town vs Fulham,Pre-Match +EV,I
 335fb10b,CORE_EV,2026-10-11T13:00:00Z,Serie A - Italy,Lazio vs Monza,Pre-Match +EV,Monza,1xBet,6.18,8.6,15.0,PENDING,0.0
 bdc34093,CORE_EV,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Pre-Match +EV,Draw,1xBet,4.15,10.1,15.0,PENDING,0.0
 7242182a,CORE_EV,2026-10-11T13:00:00Z,Ligue 1 - France,Nice vs Strasbourg,Pre-Match +EV,Strasbourg,1xBet,3.07,5.1,15.0,PENDING,0.0
-f07742a9,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Pre-Match +EV,Draw,Coolbet,4.0,7.8,15.0,PENDING,0.0
+f07742a9,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Pre-Match +EV,Draw,Coolbet,4.0,7.8,15.0,WON,45.0
 fec3cc0c,CORE_EV,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Pre-Match +EV,Groningen,Betfair,2.7,5.5,15.0,PENDING,0.0
 5b1a61a1,CORE_EV,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Pre-Match +EV,Draw,Coolbet,3.4,6.9,15.0,PENDING,0.0
 13958892,CORE_EV,2026-10-10T23:30:00Z,MLS,Orlando City SC vs Columbus Crew SC,Pre-Match +EV,Orlando City SC,Coolbet,2.1,5.0,15.0,WON,16.5
@@ -749,7 +749,7 @@ d8eaa66f,CORE_EV,2026-10-11T19:30:00Z,Primeira Liga - Portugal,Arouca vs CF Estr
 49fb9425,HALFTIME_LIVE,2026-10-10T03:00:00Z,Liga MX,Tigres vs Toluca,Halftime In-Play,Toluca,Betsson,5.8,27.2,15.0,LOST,-15.0
 fb80a4c5,CORE_EV,2026-10-10T18:45:00Z,Primera División - Argentina,Barracas Central vs Atlético Huracán,Pre-Match +EV,Barracas Central,Betfair,3.25,5.2,15.0,WON,33.75
 a7b1fa84,CORE_EV,2026-10-10T23:30:00Z,MLS,New York Red Bulls vs San Diego FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,LOST,-15.0
-6b7d3f44,CORE_EV,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Pre-Match +EV,Elche CF,Betfair,2.94,5.0,15.0,PENDING,0.0
+6b7d3f44,CORE_EV,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Pre-Match +EV,Elche CF,Betfair,2.94,5.0,15.0,LOST,-15.0
 31650a29,HALFTIME_LIVE,2026-10-10T11:30:00Z,EPL,Arsenal vs Leeds United,Halftime In-Play,Arsenal,Betfair,1.83,7.0,15.0,WON,12.45
 94b47a09,HALFTIME_LIVE,2026-10-10T11:30:00Z,Championship,West Bromwich Albion vs Birmingham City,Halftime In-Play,West Bromwich Albion,Betfair,10.0,11.1,15.0,LOST,-15.0
 b8f82908,HALFTIME_LIVE,2026-10-10T11:30:00Z,Championship,Charlton Athletic vs Bristol City,Halftime In-Play,Charlton Athletic,Betfair,4.0,6.7,15.0,LOST,-15.0
@@ -824,9 +824,9 @@ c50980cc,HALFTIME_LIVE,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Wille
 990413d8,HALFTIME_LIVE,2026-10-11T10:30:00Z,Serie A - Italy,Como vs AS Roma,Halftime In-Play,AS Roma,Betfair,2.98,6.8,15.0,LOST,-15.0
 51ba5fca,CORE_EV,2026-10-12T18:45:00Z,Serie A - Italy,Torino vs Udinese,Pre-Match +EV,Torino,Betfair,2.5,5.9,15.0,PENDING,0.0
 77ea58a9,HALFTIME_LIVE,2026-10-11T11:00:00Z,Championship,Southampton vs Portsmouth,Halftime In-Play,Southampton,Betfair,1.78,41.3,15.0,WON,11.7
-5a720395,HALFTIME_LIVE,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Halftime In-Play,Celta Vigo,Coolbet,3.0,11.5,15.0,PENDING,0.0
+5a720395,HALFTIME_LIVE,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Halftime In-Play,Celta Vigo,Coolbet,3.0,11.5,15.0,LOST,-15.0
 58c21300,HALFTIME_LIVE,2026-10-11T12:30:00Z,Dutch Eredivisie,FC Zwolle vs SC Cambuur,Halftime In-Play,FC Zwolle,Coolbet,2.3,9.0,15.0,PENDING,0.0
-c75a5345,HALFTIME_LIVE,2026-10-11T12:31:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Halftime In-Play,SC Telstar,Coolbet,1.6,15.1,15.0,PENDING,0.0
+c75a5345,HALFTIME_LIVE,2026-10-11T12:31:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Halftime In-Play,SC Telstar,Coolbet,1.6,15.1,15.0,LOST,-15.0
 cf7e98de,HALFTIME_LIVE,2026-10-11T13:00:00Z,EPL,Hull City vs Everton,Halftime In-Play,Everton,Betfair,2.32,5.0,15.0,PENDING,0.0
 396e46cd,HALFTIME_LIVE,2026-10-11T13:00:00Z,Serie A - Italy,Lecce vs Bologna,Halftime In-Play,Lecce,Betfair,12.5,20.8,15.0,PENDING,0.0
 5b865171,HALFTIME_LIVE,2026-10-11T13:00:00Z,Ligue 1 - France,Nice vs Strasbourg,Halftime In-Play,Draw,Coolbet,3.6,23.3,15.0,PENDING,0.0
