@@ -687,8 +687,8 @@ f0fe6ace,CORE_EV,2026-10-10T23:30:00Z,MLS,Inter Miami CF vs D.C. United,Pre-Matc
 b07f06f2,CORE_EV,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt Lake,Pre-Match +EV,Real Salt Lake,Coolbet,6.75,10.8,15.0,LOST,-15.0
 8445016e,HALFTIME_LIVE,2026-10-08T23:00:00Z,Brazil Série A,Atletico Paranaense vs Atletico Mineiro,Halftime In-Play,Atletico Mineiro,Coolbet,4.33,6.9,15.0,LOST,-15.0
 f4853175,CORE_EV,2026-10-11T00:00:00Z,Brazil Série A,Sao Paulo vs Vitoria,Pre-Match +EV,Vitoria,1xBet,5.77,7.9,15.0,LOST,-15.0
-6680f028,CORE_EV,2026-10-11T00:30:00Z,Primera División - Argentina,River Plate vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,19.0,17.4,15.0,PENDING,0.0
-b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV,Draw,Betfair,3.7,6.9,15.0,PENDING,0.0
+6680f028,CORE_EV,2026-10-11T00:30:00Z,Primera División - Argentina,River Plate vs Estudiantes de Río Cuarto,Pre-Match +EV,Estudiantes de Río Cuarto,1xBet,19.0,17.4,15.0,LOST,-15.0
+b7befb01,CORE_EV,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Pre-Match +EV,Draw,Betfair,3.7,6.9,15.0,WON,40.5
 d5043fab,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Palmeiras vs Bahia,Halftime In-Play,Bahia,Coolbet,22.0,8.0,15.0,LOST,-15.0
 fee28e88,HALFTIME_LIVE,2026-10-09T00:30:00Z,Brazil Série A,Fluminense vs Coritiba,Halftime In-Play,Draw,Coolbet,7.5,7.3,15.0,LOST,-15.0
 2eed955f,CORE_EV,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Pre-Match +EV,Remo,Coolbet,11.0,15.4,15.0,LOST,-15.0
@@ -696,9 +696,9 @@ a12c49c9,CORE_EV,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Pre-Match +E
 776a3499,CORE_EV,2026-10-10T14:00:00Z,Championship,Bolton Wanderers vs Stoke City,Pre-Match +EV,Draw,Betfair,3.5,5.4,15.0,LOST,-15.0
 b246a031,CORE_EV,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Pre-Match +EV,Draw,Betfair,3.55,5.0,15.0,WON,38.25
 b9362874,CORE_EV,2026-10-10T23:30:00Z,MLS,New England Revolution vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.84,8.5,15.0,WON,42.6
-10cb160b,CORE_EV,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Pre-Match +EV,Austin FC,Betfair,3.95,5.1,15.0,PENDING,0.0
+10cb160b,CORE_EV,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Pre-Match +EV,Austin FC,Betfair,3.95,5.1,15.0,LOST,-15.0
 89faaa74,CORE_EV,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Pre-Match +EV,Estoril,Betfair,3.35,7.0,15.0,LOST,-15.0
-e510f703,CORE_EV,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Pre-Match +EV,Draw,Betfair,3.8,5.6,15.0,PENDING,0.0
+e510f703,CORE_EV,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Pre-Match +EV,Draw,Betfair,3.8,5.6,15.0,WON,42.0
 cb78aff3,CORE_EV,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Willem II,Pre-Match +EV,Willem II,Betfair,6.4,8.7,15.0,PENDING,0.0
 bbd3ff42,CORE_EV,2026-10-11T11:00:00Z,Championship,Southampton vs Portsmouth,Pre-Match +EV,Portsmouth,Betfair,5.6,10.0,15.0,PENDING,0.0
 f924f191,CORE_EV,2026-10-10T14:00:00Z,EPL,Ipswich Town vs Fulham,Pre-Match +EV,Ipswich Town,1xBet,2.9,6.6,15.0,WON,28.5
@@ -809,10 +809,10 @@ e38c23fe,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Inter Miami CF vs D.C. United,Ha
 566a0e6d,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,New England Revolution vs Seattle Sounders FC,Halftime In-Play,New England Revolution,Betfair,5.2,13.3,15.0,LOST,-15.0
 ea5bf103,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt Lake,Halftime In-Play,Real Salt Lake,Betfair,25.0,6.1,15.0,LOST,-15.0
 0fd09842,HALFTIME_LIVE,2026-10-11T00:00:00Z,Brazil Série A,Sao Paulo vs Vitoria,Halftime In-Play,Draw,Coolbet,2.88,7.9,15.0,LOST,-15.0
-3b95e02d,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Halftime In-Play,Austin FC,Betfair,17.5,17.1,15.0,PENDING,0.0
-83ebac49,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Halftime In-Play,Minnesota United FC,Betfair,5.7,5.2,15.0,PENDING,0.0
-25ff2a8c,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Sporting Kansas City vs Portland Timbers,Halftime In-Play,Portland Timbers,Betfair,1.57,5.4,15.0,PENDING,0.0
-298b6f44,HALFTIME_LIVE,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Halftime In-Play,Atlas,Betfair Sportsbook,4.0,5.8,15.0,PENDING,0.0
+3b95e02d,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Austin FC vs Nashville SC,Halftime In-Play,Austin FC,Betfair,17.5,17.1,15.0,LOST,-15.0
+83ebac49,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Halftime In-Play,Minnesota United FC,Betfair,5.7,5.2,15.0,LOST,-15.0
+25ff2a8c,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Sporting Kansas City vs Portland Timbers,Halftime In-Play,Portland Timbers,Betfair,1.57,5.4,15.0,LOST,-15.0
+298b6f44,HALFTIME_LIVE,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Halftime In-Play,Atlas,Betfair Sportsbook,4.0,5.8,15.0,LOST,-15.0
 16dacf25,CORE_EV,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Pre-Match +EV,Coventry City,1xBet,3.45,7.1,15.0,PENDING,0.0
 f31dba86,HALFTIME_LIVE,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Earthquakes,Halftime In-Play,Draw,Coolbet,4.5,42.0,15.0,PENDING,0.0
 4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,PENDING,0.0
