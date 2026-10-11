@@ -705,11 +705,11 @@ f924f191,CORE_EV,2026-10-10T14:00:00Z,EPL,Ipswich Town vs Fulham,Pre-Match +EV,I
 37bba967,CORE_EV,2026-10-11T13:00:00Z,EPL,Crystal Palace vs Nottingham Forest,Pre-Match +EV,Nottingham Forest,Betfair,2.78,6.1,15.0,LOST,-15.0
 8f52f7ba,CORE_EV,2026-10-11T13:00:00Z,Serie A - Italy,Lecce vs Bologna,Pre-Match +EV,Draw,1xBet,3.44,5.2,15.0,LOST,-15.0
 335fb10b,CORE_EV,2026-10-11T13:00:00Z,Serie A - Italy,Lazio vs Monza,Pre-Match +EV,Monza,1xBet,6.18,8.6,15.0,LOST,-15.0
-bdc34093,CORE_EV,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Pre-Match +EV,Draw,1xBet,4.15,10.1,15.0,PENDING,0.0
+bdc34093,CORE_EV,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Pre-Match +EV,Draw,1xBet,4.15,10.1,15.0,LOST,-15.0
 7242182a,CORE_EV,2026-10-11T13:00:00Z,Ligue 1 - France,Nice vs Strasbourg,Pre-Match +EV,Strasbourg,1xBet,3.07,5.1,15.0,LOST,-15.0
 f07742a9,CORE_EV,2026-10-11T12:30:00Z,Dutch Eredivisie,SC Telstar vs ADO Den Haag,Pre-Match +EV,Draw,Coolbet,4.0,7.8,15.0,WON,45.0
 fec3cc0c,CORE_EV,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Pre-Match +EV,Groningen,Betfair,2.7,5.5,15.0,PENDING,0.0
-5b1a61a1,CORE_EV,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Pre-Match +EV,Draw,Coolbet,3.4,6.9,15.0,PENDING,0.0
+5b1a61a1,CORE_EV,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Pre-Match +EV,Draw,Coolbet,3.4,6.9,15.0,LOST,-15.0
 13958892,CORE_EV,2026-10-10T23:30:00Z,MLS,Orlando City SC vs Columbus Crew SC,Pre-Match +EV,Orlando City SC,Coolbet,2.1,5.0,15.0,WON,16.5
 de1b5130,CORE_EV,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Pre-Match +EV,FC Schalke 04,Betfair,6.0,6.6,15.0,PENDING,0.0
 6ed42662,CORE_EV,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Pre-Match +EV,Auxerre,1xBet,6.88,8.2,15.0,PENDING,0.0
@@ -721,7 +721,7 @@ a5ab1373,CORE_EV,2026-10-11T16:00:00Z,Serie A - Italy,Sassuolo vs AC Milan,Pre-M
 0f4cd2ec,CORE_EV,2026-10-11T17:45:00Z,Primera División - Argentina,San Lorenzo vs Deportivo Riestra,Pre-Match +EV,Draw,Betfair Sportsbook,2.88,5.1,15.0,PENDING,0.0
 e6e183f3,HALFTIME_LIVE,2026-10-09T17:30:00Z,Primera División - Argentina,Aldosivi Mar del Plata vs Sarmiento de Junin,Halftime In-Play,Aldosivi Mar del Plata,Betfair,3.45,16.6,15.0,LOST,-15.0
 d06e9dfc,HALFTIME_LIVE,2026-10-09T17:45:00Z,Primeira Liga - Portugal,Moreirense FC vs Gil Vicente,Halftime In-Play,Draw,Coolbet,2.3,7.5,15.0,LOST,-15.0
-a815140b,CORE_EV,2026-10-11T14:15:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Pre-Match +EV,Deportivo La Coruña,Betfair,6.2,5.6,15.0,PENDING,0.0
+a815140b,CORE_EV,2026-10-11T14:15:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Pre-Match +EV,Deportivo La Coruña,Betfair,6.2,5.6,15.0,LOST,-15.0
 50a400c5,CORE_EV,2026-10-11T13:00:00Z,EPL,Hull City vs Everton,Pre-Match +EV,Everton,Betfair,2.2,6.3,15.0,LOST,-15.0
 3f25ae89,CORE_EV,2026-10-11T18:45:00Z,Serie A - Italy,Cagliari vs Juventus,Pre-Match +EV,Cagliari,Betfair,7.0,8.9,15.0,PENDING,0.0
 398034a6,CORE_EV,2026-10-11T18:45:00Z,Ligue 1 - France,Troyes vs Marseille,Pre-Match +EV,Troyes,1xBet,4.03,6.6,15.0,PENDING,0.0
@@ -831,9 +831,9 @@ cf7e98de,HALFTIME_LIVE,2026-10-11T13:00:00Z,EPL,Hull City vs Everton,Halftime In
 396e46cd,HALFTIME_LIVE,2026-10-11T13:00:00Z,Serie A - Italy,Lecce vs Bologna,Halftime In-Play,Lecce,Betfair,12.5,20.8,15.0,LOST,-15.0
 5b865171,HALFTIME_LIVE,2026-10-11T13:00:00Z,Ligue 1 - France,Nice vs Strasbourg,Halftime In-Play,Draw,Coolbet,3.6,23.3,15.0,LOST,-15.0
 bb35b229,HALFTIME_LIVE,2026-10-11T13:00:00Z,EPL,Crystal Palace vs Nottingham Forest,Halftime In-Play,Draw,Betfair,3.55,42.6,15.0,LOST,-15.0
-419ccb20,HALFTIME_LIVE,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Halftime In-Play,1. FC Köln,Betfair,2.8,6.1,15.0,PENDING,0.0
-6243e180,HALFTIME_LIVE,2026-10-11T14:17:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Halftime In-Play,Draw,Betfair,15.5,15.1,15.0,PENDING,0.0
-e2b8d5c6,HALFTIME_LIVE,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Halftime In-Play,Nacional,Coolbet,4.33,9.1,15.0,PENDING,0.0
+419ccb20,HALFTIME_LIVE,2026-10-11T13:30:00Z,Bundesliga - Germany,1. FC Köln vs Borussia Monchengladbach,Halftime In-Play,1. FC Köln,Betfair,2.8,6.1,15.0,WON,27.0
+6243e180,HALFTIME_LIVE,2026-10-11T14:17:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Halftime In-Play,Draw,Betfair,15.5,15.1,15.0,LOST,-15.0
+e2b8d5c6,HALFTIME_LIVE,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC vs Nacional,Halftime In-Play,Nacional,Coolbet,4.33,9.1,15.0,LOST,-15.0
 05e8e575,HALFTIME_LIVE,2026-10-11T14:45:00Z,Dutch Eredivisie,Excelsior vs Groningen,Halftime In-Play,Excelsior,Coolbet,7.5,8.7,15.0,PENDING,0.0
 67f70050,HALFTIME_LIVE,2026-10-11T15:15:00Z,Ligue 1 - France,Rennes vs Auxerre,Halftime In-Play,Rennes,Coolbet,1.8,5.3,15.0,PENDING,0.0
 fa8879a9,HALFTIME_LIVE,2026-10-11T15:30:00Z,EPL,Liverpool vs Manchester City,Halftime In-Play,Liverpool,Betfair,4.5,8.7,15.0,PENDING,0.0
