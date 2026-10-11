@@ -723,8 +723,8 @@ e6e183f3,HALFTIME_LIVE,2026-10-09T17:30:00Z,Primera División - Argentina,Aldosi
 d06e9dfc,HALFTIME_LIVE,2026-10-09T17:45:00Z,Primeira Liga - Portugal,Moreirense FC vs Gil Vicente,Halftime In-Play,Draw,Coolbet,2.3,7.5,15.0,LOST,-15.0
 a815140b,CORE_EV,2026-10-11T14:15:00Z,La Liga - Spain,Real Sociedad vs Deportivo La Coruña,Pre-Match +EV,Deportivo La Coruña,Betfair,6.2,5.6,15.0,LOST,-15.0
 50a400c5,CORE_EV,2026-10-11T13:00:00Z,EPL,Hull City vs Everton,Pre-Match +EV,Everton,Betfair,2.2,6.3,15.0,LOST,-15.0
-3f25ae89,CORE_EV,2026-10-11T18:45:00Z,Serie A - Italy,Cagliari vs Juventus,Pre-Match +EV,Cagliari,Betfair,7.0,8.9,15.0,PENDING,0.0
-398034a6,CORE_EV,2026-10-11T18:45:00Z,Ligue 1 - France,Troyes vs Marseille,Pre-Match +EV,Troyes,1xBet,4.03,6.6,15.0,PENDING,0.0
+3f25ae89,CORE_EV,2026-10-11T18:45:00Z,Serie A - Italy,Cagliari vs Juventus,Pre-Match +EV,Cagliari,Betfair,7.0,8.9,15.0,LOST,-15.0
+398034a6,CORE_EV,2026-10-11T18:45:00Z,Ligue 1 - France,Troyes vs Marseille,Pre-Match +EV,Troyes,1xBet,4.03,6.6,15.0,LOST,-15.0
 b342801c,HALFTIME_LIVE,2026-10-09T18:00:00Z,Dutch Eredivisie,PSV Eindhoven vs Heerenveen,Halftime In-Play,Draw,Coolbet,7.0,13.3,15.0,LOST,-15.0
 697928b7,HALFTIME_LIVE,2026-10-09T18:30:00Z,Bundesliga - Germany,Borussia Dortmund vs Werder Bremen,Halftime In-Play,Werder Bremen,Coolbet,8.75,9.5,15.0,LOST,-15.0
 b8439fed,CORE_EV,2026-10-11T19:00:00Z,Brazil Série A,Atletico Mineiro vs Santos,Pre-Match +EV,Santos,Betfair Sportsbook,3.8,5.8,15.0,PENDING,0.0
@@ -818,7 +818,7 @@ f31dba86,HALFTIME_LIVE,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Eart
 4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,LOST,-15.0
 d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halftime In-Play,América,Betfair,3.85,6.1,15.0,LOST,-15.0
 1a746205,CORE_EV,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Pre-Match +EV,Racing Club,1xBet,2.42,5.7,15.0,PENDING,0.0
-017a2b90,CORE_EV,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Pre-Match +EV,Real Racing Club de Santander,1xBet,2.42,7.6,15.0,PENDING,0.0
+017a2b90,CORE_EV,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Pre-Match +EV,Real Racing Club de Santander,1xBet,2.42,7.6,15.0,LOST,-15.0
 0a4911d6,CORE_EV,2026-10-11T20:00:00Z,Primera División - Argentina,Platense vs Argentinos Juniors,Pre-Match +EV,Platense,Betfair,3.3,5.1,15.0,PENDING,0.0
 c50980cc,HALFTIME_LIVE,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Willem II,Halftime In-Play,Willem II,Coolbet,6.0,9.9,15.0,LOST,-15.0
 990413d8,HALFTIME_LIVE,2026-10-11T10:30:00Z,Serie A - Italy,Como vs AS Roma,Halftime In-Play,AS Roma,Betfair,2.98,6.8,15.0,LOST,-15.0
@@ -853,9 +853,9 @@ d76049bc,CORE_EV,2026-10-13T19:00:00Z,UEFA Champions League,Viking FK vs Bayern 
 a5b85a24,CORE_EV,2026-10-13T19:00:00Z,UEFA Champions League,Villarreal vs Napoli,Pre-Match +EV,Napoli,Betfair,3.45,6.5,15.0,PENDING,0.0
 d32c21e7,CORE_EV,2026-10-13T19:00:00Z,Championship,Birmingham City vs Preston North End,Pre-Match +EV,Preston North End,Betfair,5.7,10.9,15.0,PENDING,0.0
 f590022e,CORE_EV,2026-10-13T19:00:00Z,Championship,Stoke City vs Middlesbrough,Pre-Match +EV,Stoke City,Betfair,3.7,6.3,15.0,PENDING,0.0
-509f059f,HALFTIME_LIVE,2026-10-11T18:45:00Z,Serie A - Italy,Cagliari vs Juventus,Halftime In-Play,Juventus,Betfair,3.75,15.7,15.0,PENDING,0.0
-f8928cc9,HALFTIME_LIVE,2026-10-11T18:45:00Z,Ligue 1 - France,Troyes vs Marseille,Halftime In-Play,Marseille,Betfair,2.6,5.7,15.0,PENDING,0.0
-b0dcfed0,HALFTIME_LIVE,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Halftime In-Play,Real Racing Club de Santander,Betfair,2.44,7.5,15.0,PENDING,0.0
+509f059f,HALFTIME_LIVE,2026-10-11T18:45:00Z,Serie A - Italy,Cagliari vs Juventus,Halftime In-Play,Juventus,Betfair,3.75,15.7,15.0,LOST,-15.0
+f8928cc9,HALFTIME_LIVE,2026-10-11T18:45:00Z,Ligue 1 - France,Troyes vs Marseille,Halftime In-Play,Marseille,Betfair,2.6,5.7,15.0,WON,24.0
+b0dcfed0,HALFTIME_LIVE,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Halftime In-Play,Real Racing Club de Santander,Betfair,2.44,7.5,15.0,LOST,-15.0
 78a77e56,HALFTIME_LIVE,2026-10-11T19:00:00Z,Brazil Série A,Atletico Mineiro vs Santos,Halftime In-Play,Santos,Coolbet,3.75,12.3,15.0,PENDING,0.0
 78a4e487,CORE_EV,2026-10-13T19:00:00Z,UEFA Champions League,RB Leipzig vs PSV Eindhoven,Pre-Match +EV,PSV Eindhoven,Betfair,4.1,5.7,15.0,PENDING,0.0
 539f2276,HALFTIME_LIVE,2026-10-11T19:30:00Z,Primeira Liga - Portugal,Arouca vs CF Estrela,Halftime In-Play,Draw,Coolbet,4.0,7.2,15.0,PENDING,0.0
