@@ -790,7 +790,7 @@ dc203cfe,HALFTIME_LIVE,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC
 484eeb12,HALFTIME_LIVE,2026-10-10T18:47:00Z,Ligue 1 - France,AS Monaco vs Toulouse,Halftime In-Play,Draw,Betfair,15.0,6.7,15.0,WON,210.0
 ec441227,HALFTIME_LIVE,2026-10-10T19:03:00Z,La Liga - Spain,Real Madrid vs Villarreal,Halftime In-Play,Villarreal,Coolbet,7.5,6.1,15.0,LOST,-15.0
 5c4da0ed,HALFTIME_LIVE,2026-10-10T19:00:00Z,Dutch Eredivisie,Ajax vs NEC Nijmegen,Halftime In-Play,Draw,Coolbet,4.0,6.4,15.0,WON,45.0
-2747a492,CORE_EV,2026-10-12T19:00:00Z,La Liga - Spain,Levante vs Sevilla,Pre-Match +EV,Levante,Betfair,2.92,5.4,15.0,PENDING,0.0
+2747a492,CORE_EV,2026-10-12T19:00:00Z,La Liga - Spain,Levante vs Sevilla,Pre-Match +EV,Levante,Betfair,2.92,5.4,15.0,LOST,-15.0
 d635cedd,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Académico de Viseu vs Estoril,Halftime In-Play,Académico de Viseu,Betfair,1.48,5.0,15.0,WON,7.2
 bf4615b0,HALFTIME_LIVE,2026-10-10T19:30:00Z,Primeira Liga - Portugal,Casa Pia vs Santa Clara,Halftime In-Play,Santa Clara,Betfair Sportsbook,3.0,8.3,15.0,WON,30.0
 ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Halftime In-Play,Central Córdoba,Betfair,3.2,8.5,15.0,LOST,-15.0
@@ -813,7 +813,7 @@ ea5bf103,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt 
 83ebac49,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Minnesota United FC vs Houston Dynamo,Halftime In-Play,Minnesota United FC,Betfair,5.7,5.2,15.0,LOST,-15.0
 25ff2a8c,HALFTIME_LIVE,2026-10-11T00:30:00Z,MLS,Sporting Kansas City vs Portland Timbers,Halftime In-Play,Portland Timbers,Betfair,1.57,5.4,15.0,LOST,-15.0
 298b6f44,HALFTIME_LIVE,2026-10-11T01:00:00Z,Liga MX,Atlas vs Guadalajara,Halftime In-Play,Atlas,Betfair Sportsbook,4.0,5.8,15.0,LOST,-15.0
-16dacf25,CORE_EV,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Pre-Match +EV,Coventry City,1xBet,3.45,7.1,15.0,PENDING,0.0
+16dacf25,CORE_EV,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Pre-Match +EV,Coventry City,1xBet,3.45,7.1,15.0,WON,36.75
 f31dba86,HALFTIME_LIVE,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Earthquakes,Halftime In-Play,Draw,Coolbet,4.5,42.0,15.0,WON,52.5
 4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,LOST,-15.0
 d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halftime In-Play,América,Betfair,3.85,6.1,15.0,LOST,-15.0
@@ -822,7 +822,7 @@ d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halfti
 0a4911d6,CORE_EV,2026-10-11T20:00:00Z,Primera División - Argentina,Platense vs Argentinos Juniors,Pre-Match +EV,Platense,Betfair,3.3,5.1,15.0,LOST,-15.0
 c50980cc,HALFTIME_LIVE,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Willem II,Halftime In-Play,Willem II,Coolbet,6.0,9.9,15.0,LOST,-15.0
 990413d8,HALFTIME_LIVE,2026-10-11T10:30:00Z,Serie A - Italy,Como vs AS Roma,Halftime In-Play,AS Roma,Betfair,2.98,6.8,15.0,LOST,-15.0
-51ba5fca,CORE_EV,2026-10-12T18:45:00Z,Serie A - Italy,Torino vs Udinese,Pre-Match +EV,Torino,Betfair,2.5,5.9,15.0,PENDING,0.0
+51ba5fca,CORE_EV,2026-10-12T18:45:00Z,Serie A - Italy,Torino vs Udinese,Pre-Match +EV,Torino,Betfair,2.5,5.9,15.0,WON,22.5
 77ea58a9,HALFTIME_LIVE,2026-10-11T11:00:00Z,Championship,Southampton vs Portsmouth,Halftime In-Play,Southampton,Betfair,1.78,41.3,15.0,WON,11.7
 5a720395,HALFTIME_LIVE,2026-10-11T12:00:00Z,La Liga - Spain,Elche CF vs Celta Vigo,Halftime In-Play,Celta Vigo,Coolbet,3.0,11.5,15.0,LOST,-15.0
 58c21300,HALFTIME_LIVE,2026-10-11T12:30:00Z,Dutch Eredivisie,FC Zwolle vs SC Cambuur,Halftime In-Play,FC Zwolle,Coolbet,2.3,9.0,15.0,LOST,-15.0
@@ -882,11 +882,11 @@ c94cf829,HALFTIME_LIVE,2026-10-12T16:30:00Z,Serie A - Italy,Atalanta BC vs Venez
 93577030,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,Aston Villa vs Fenerbahce,Pre-Match +EV,Aston Villa,1xBet,1.74,5.5,15.0,PENDING,0.0
 668051a9,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,Real Betis vs Porto,Pre-Match +EV,Real Betis,1xBet,2.16,5.9,15.0,PENDING,0.0
 c7882496,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,ŠK Slovan Bratislava vs VfB Stuttgart,Pre-Match +EV,ŠK Slovan Bratislava,Betfair,11.0,9.9,15.0,PENDING,0.0
-c32d6e11,CORE_EV,2026-10-14T19:00:00Z,Championship,Lincoln City vs West Ham United,Pre-Match +EV,Lincoln City,1xBet,4.6,5.0,15.0,PENDING,0.0
-f770b21a,HALFTIME_LIVE,2026-10-12T18:46:00Z,Serie A - Italy,Torino vs Udinese,Halftime In-Play,Draw,Betfair,2.38,5.3,15.0,PENDING,0.0
-849b5967,HALFTIME_LIVE,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Halftime In-Play,Newcastle United,Betfair,4.0,5.0,15.0,PENDING,0.0
-1a986f90,HALFTIME_LIVE,2026-10-12T19:02:00Z,La Liga - Spain,Levante vs Sevilla,Halftime In-Play,Draw,Coolbet,4.33,12.2,15.0,PENDING,0.0
-1a4358ae,HALFTIME_LIVE,2026-10-12T19:00:00Z,Brazil Série A,Coritiba vs Botafogo,Halftime In-Play,Draw,Coolbet,3.0,8.3,15.0,PENDING,0.0
-a390940d,HALFTIME_LIVE,2026-10-12T19:00:00Z,Primera División - Argentina,Lanus vs Velez Sarsfield BA,Halftime In-Play,Lanus,Betfair,2.62,8.7,15.0,PENDING,0.0
+c32d6e11,CORE_EV,2026-10-14T19:00:00Z,Championship,Lincoln City vs West Ham United,Pre-Match +EV,Lincoln City,1xBet,4.6,5.0,15.0,LOST,-15.0
+f770b21a,HALFTIME_LIVE,2026-10-12T18:46:00Z,Serie A - Italy,Torino vs Udinese,Halftime In-Play,Draw,Betfair,2.38,5.3,15.0,LOST,-15.0
+849b5967,HALFTIME_LIVE,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Halftime In-Play,Newcastle United,Betfair,4.0,5.0,15.0,LOST,-15.0
+1a986f90,HALFTIME_LIVE,2026-10-12T19:02:00Z,La Liga - Spain,Levante vs Sevilla,Halftime In-Play,Draw,Coolbet,4.33,12.2,15.0,WON,49.95
+1a4358ae,HALFTIME_LIVE,2026-10-12T19:00:00Z,Brazil Série A,Coritiba vs Botafogo,Halftime In-Play,Draw,Coolbet,3.0,8.3,15.0,WON,30.0
+a390940d,HALFTIME_LIVE,2026-10-12T19:00:00Z,Primera División - Argentina,Lanus vs Velez Sarsfield BA,Halftime In-Play,Lanus,Betfair,2.62,8.7,15.0,WON,24.3
 1d61f7fb,HALFTIME_LIVE,2026-10-12T19:15:00Z,Primeira Liga - Portugal,Famalicão vs Alverca,Halftime In-Play,Draw,Coolbet,2.5,5.9,15.0,PENDING,0.0
 e31cdd11,CORE_EV,2026-10-14T18:45:00Z,Championship,Portsmouth vs Sheffield United,Pre-Match +EV,Sheffield United,Betfair,3.35,7.4,15.0,PENDING,0.0
