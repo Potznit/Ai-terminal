@@ -884,3 +884,7 @@ c94cf829,HALFTIME_LIVE,2026-10-12T16:30:00Z,Serie A - Italy,Atalanta BC vs Venez
 c7882496,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,ŠK Slovan Bratislava vs VfB Stuttgart,Pre-Match +EV,ŠK Slovan Bratislava,Betfair,11.0,9.9,15.0,PENDING,0.0
 c32d6e11,CORE_EV,2026-10-14T19:00:00Z,Championship,Lincoln City vs West Ham United,Pre-Match +EV,Lincoln City,1xBet,4.6,5.0,15.0,PENDING,0.0
 f770b21a,HALFTIME_LIVE,2026-10-12T18:46:00Z,Serie A - Italy,Torino vs Udinese,Halftime In-Play,Draw,Betfair,2.38,5.3,15.0,PENDING,0.0
+849b5967,HALFTIME_LIVE,2026-10-12T19:00:00Z,EPL,Coventry City vs Newcastle United,Halftime In-Play,Newcastle United,Betfair,4.0,5.0,15.0,PENDING,0.0
+1a986f90,HALFTIME_LIVE,2026-10-12T19:02:00Z,La Liga - Spain,Levante vs Sevilla,Halftime In-Play,Draw,Coolbet,4.33,12.2,15.0,PENDING,0.0
+1a4358ae,HALFTIME_LIVE,2026-10-12T19:00:00Z,Brazil Série A,Coritiba vs Botafogo,Halftime In-Play,Draw,Coolbet,3.0,8.3,15.0,PENDING,0.0
+a390940d,HALFTIME_LIVE,2026-10-12T19:00:00Z,Primera División - Argentina,Lanus vs Velez Sarsfield BA,Halftime In-Play,Lanus,Betfair,2.62,8.7,15.0,PENDING,0.0
