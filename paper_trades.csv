@@ -774,7 +774,7 @@ b7fb5bae,HALFTIME_LIVE,2026-10-10T14:00:00Z,Championship,Preston North End vs Mi
 7ce5228e,HALFTIME_LIVE,2026-10-10T14:30:00Z,Dutch Eredivisie,Go Ahead Eagles vs Sparta Rotterdam,Halftime In-Play,Go Ahead Eagles,Coolbet,3.8,5.0,15.0,LOST,-15.0
 4d35c21c,HALFTIME_LIVE,2026-10-10T15:14:00Z,Ligue 1 - France,Lille vs Le Havre,Halftime In-Play,Draw,Coolbet,5.0,12.6,15.0,LOST,-15.0
 6d5e4253,CORE_EV,2026-10-12T16:30:00Z,Serie A - Italy,Atalanta BC vs Venezia,Pre-Match +EV,Draw,Betfair,4.4,5.0,15.0,PENDING,0.0
-20676f45,CORE_EV,2026-10-11T23:10:00Z,Liga MX,Pachuca vs Necaxa,Pre-Match +EV,Necaxa,Betfair,4.8,5.5,15.0,PENDING,0.0
+20676f45,CORE_EV,2026-10-11T23:10:00Z,Liga MX,Pachuca vs Necaxa,Pre-Match +EV,Necaxa,Betfair,4.8,5.5,15.0,LOST,-15.0
 0a45d431,HALFTIME_LIVE,2026-10-10T16:30:00Z,EPL,Manchester United vs Tottenham Hotspur,Halftime In-Play,Manchester United,Betfair,2.36,7.8,15.0,LOST,-15.0
 6adfc30a,CORE_EV,2026-10-12T01:15:00Z,Liga MX,Pumas vs Cruz Azul,Pre-Match +EV,Draw,Betfair,3.9,6.3,15.0,PENDING,0.0
 4f2a0f51,HALFTIME_LIVE,2026-10-10T16:45:00Z,Dutch Eredivisie,Feyenoord vs AZ Alkmaar,Halftime In-Play,AZ Alkmaar,Betfair,12.0,8.5,15.0,LOST,-15.0
@@ -868,7 +868,7 @@ a90983cb,CORE_EV,2026-10-13T18:45:00Z,Championship,Cardiff City vs Watford,Pre-M
 93e19289,HALFTIME_LIVE,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Halftime In-Play,Draw,Betfair,3.3,19.6,15.0,LOST,-15.0
 70cd5904,HALFTIME_LIVE,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Halftime In-Play,Mirassol,Coolbet,16.0,10.3,15.0,LOST,-15.0
 3dbbe1ce,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Halftime In-Play,Atlético San Luis,Betsson,2.75,6.6,15.0,LOST,-15.0
-2ba283f1,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Pachuca vs Necaxa,Halftime In-Play,Pachuca,Betsson,3.3,8.9,15.0,PENDING,0.0
+2ba283f1,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Pachuca vs Necaxa,Halftime In-Play,Pachuca,Betsson,3.3,8.9,15.0,LOST,-15.0
 a0ca7ed5,HALFTIME_LIVE,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Halftime In-Play,Draw,Betfair Sportsbook,15.0,11.1,15.0,LOST,-15.0
 fb3f2660,CORE_EV,2026-10-13T18:45:00Z,Championship,Wrexham AFC vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betfair,3.3,6.5,15.0,PENDING,0.0
 7c5524aa,HALFTIME_LIVE,2026-10-12T00:30:00Z,Primera División - Argentina,Talleres vs Independiente,Halftime In-Play,Talleres,Betfair,3.0,6.4,15.0,PENDING,0.0
