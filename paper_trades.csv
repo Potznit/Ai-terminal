@@ -817,7 +817,7 @@ ea5bf103,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Philadelphia Union vs Real Salt 
 f31dba86,HALFTIME_LIVE,2026-10-11T01:30:00Z,MLS,Colorado Rapids vs San Jose Earthquakes,Halftime In-Play,Draw,Coolbet,4.5,42.0,15.0,WON,52.5
 4486b3c2,HALFTIME_LIVE,2026-10-11T02:30:00Z,MLS,Los Angeles FC vs Vancouver Whitecaps FC,Halftime In-Play,Vancouver Whitecaps FC,Betfair,8.0,11.4,15.0,LOST,-15.0
 d123e134,HALFTIME_LIVE,2026-10-11T03:10:00Z,Liga MX,América vs Monterrey,Halftime In-Play,América,Betfair,3.85,6.1,15.0,LOST,-15.0
-1a746205,CORE_EV,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Pre-Match +EV,Racing Club,1xBet,2.42,5.7,15.0,PENDING,0.0
+1a746205,CORE_EV,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Pre-Match +EV,Racing Club,1xBet,2.42,5.7,15.0,LOST,-15.0
 017a2b90,CORE_EV,2026-10-11T19:00:00Z,La Liga - Spain,Real Racing Club de Santander vs Valencia,Pre-Match +EV,Real Racing Club de Santander,1xBet,2.42,7.6,15.0,LOST,-15.0
 0a4911d6,CORE_EV,2026-10-11T20:00:00Z,Primera División - Argentina,Platense vs Argentinos Juniors,Pre-Match +EV,Platense,Betfair,3.3,5.1,15.0,LOST,-15.0
 c50980cc,HALFTIME_LIVE,2026-10-11T10:15:00Z,Dutch Eredivisie,FC Utrecht vs Willem II,Halftime In-Play,Willem II,Coolbet,6.0,9.9,15.0,LOST,-15.0
@@ -865,7 +865,7 @@ a90983cb,CORE_EV,2026-10-13T18:45:00Z,Championship,Cardiff City vs Watford,Pre-M
 44952089,CORE_EV,2026-10-13T19:00:00Z,UEFA Champions League,Atlético Madrid vs Manchester United,Pre-Match +EV,Atlético Madrid,Betfair,2.04,5.7,15.0,PENDING,0.0
 712bb289,HALFTIME_LIVE,2026-10-11T20:30:00Z,Brazil Série A,Flamengo vs Fluminense,Halftime In-Play,Flamengo,Betfair,1.93,7.8,15.0,WON,13.95
 9b713e85,HALFTIME_LIVE,2026-10-11T20:30:00Z,Brazil Série A,Grêmio vs Internacional,Halftime In-Play,Grêmio,Coolbet,8.5,6.2,15.0,LOST,-15.0
-93e19289,HALFTIME_LIVE,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Halftime In-Play,Draw,Betfair,3.3,19.6,15.0,PENDING,0.0
+93e19289,HALFTIME_LIVE,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Halftime In-Play,Draw,Betfair,3.3,19.6,15.0,LOST,-15.0
 70cd5904,HALFTIME_LIVE,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Halftime In-Play,Mirassol,Coolbet,16.0,10.3,15.0,PENDING,0.0
 3dbbe1ce,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Halftime In-Play,Atlético San Luis,Betsson,2.75,6.6,15.0,PENDING,0.0
 2ba283f1,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Pachuca vs Necaxa,Halftime In-Play,Pachuca,Betsson,3.3,8.9,15.0,PENDING,0.0
