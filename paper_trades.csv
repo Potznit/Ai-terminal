@@ -739,8 +739,8 @@ cdf0353b,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Palmeiras vs Corinthians,P
 d10789ef,CORE_EV,2026-10-10T18:45:00Z,Ligue 1 - France,Lorient vs Paris FC,Pre-Match +EV,Paris FC,1xBet,2.36,6.3,15.0,LOST,-15.0
 55b44963,CORE_EV,2026-10-11T20:30:00Z,Brazil Série A,Grêmio vs Internacional,Pre-Match +EV,Grêmio,1xBet,3.1,5.4,15.0,LOST,-15.0
 8bba30e7,HALFTIME_LIVE,2026-10-09T21:00:00Z,Primera División - Argentina,Gimnasia La Plata vs Atlético Tucuman,Halftime In-Play,Atlético Tucuman,Betfair,4.6,7.0,15.0,LOST,-15.0
-c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,PENDING,0.0
-4d7a5974,CORE_EV,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Coolbet,5.25,8.9,15.0,PENDING,0.0
+c936532b,CORE_EV,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Pre-Match +EV,Mirassol,Betfair,4.8,5.5,15.0,LOST,-15.0
+4d7a5974,CORE_EV,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Pre-Match +EV,LA Galaxy,Coolbet,5.25,8.9,15.0,LOST,-15.0
 bb7853fc,HALFTIME_LIVE,2026-10-09T22:30:00Z,Primera División - Argentina,Instituto de Córdoba vs Boca Juniors,Halftime In-Play,Boca Juniors,Betfair,3.0,8.3,15.0,LOST,-15.0
 27ee39d5,CORE_EV,2026-10-10T20:00:00Z,Primera División - Argentina,Central Córdoba vs Estudiantes,Pre-Match +EV,Estudiantes,Betfair,2.7,5.5,15.0,LOST,-15.0
 3221908c,HALFTIME_LIVE,2026-10-10T00:45:00Z,Primera División - Argentina,Union Santa Fe vs Defensa y Justicia,Halftime In-Play,Draw,Betfair,9.0,10.0,15.0,LOST,-15.0
@@ -798,7 +798,7 @@ ae80d828,HALFTIME_LIVE,2026-10-10T20:00:00Z,Primera División - Argentina,Centra
 83d8f3af,HALFTIME_LIVE,2026-10-10T21:00:00Z,Brazil Série A,Vasco da Gama vs Remo,Halftime In-Play,Draw,Betfair,3.6,9.4,15.0,WON,39.0
 bbecf223,CORE_EV,2026-10-12T22:30:00Z,Brazil Série A,Chapecoense vs Atletico Paranaense,Pre-Match +EV,Atletico Paranaense,BetOnline.ag,2.07,5.6,15.0,PENDING,0.0
 72e17a9b,HALFTIME_LIVE,2026-10-10T22:15:00Z,Primera División - Argentina,CA Tigre BA vs Banfield,Halftime In-Play,Draw,Betfair,3.1,5.1,15.0,LOST,-15.0
-06d7819a,CORE_EV,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Pre-Match +EV,Atlético San Luis,Coolbet,2.05,5.1,15.0,PENDING,0.0
+06d7819a,CORE_EV,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Pre-Match +EV,Atlético San Luis,Coolbet,2.05,5.1,15.0,LOST,-15.0
 d5215e87,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Halftime In-Play,Atlante FC,Coolbet,10.0,20.0,15.0,LOST,-15.0
 3a57e815,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Halftime In-Play,FC Juárez,Betfair,10.5,21.0,15.0,LOST,-15.0
 32e4cdc9,CORE_EV,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Pre-Match +EV,Cruzeiro,BetOnline.ag,3.23,5.6,15.0,PENDING,0.0
@@ -866,8 +866,8 @@ a90983cb,CORE_EV,2026-10-13T18:45:00Z,Championship,Cardiff City vs Watford,Pre-M
 712bb289,HALFTIME_LIVE,2026-10-11T20:30:00Z,Brazil Série A,Flamengo vs Fluminense,Halftime In-Play,Flamengo,Betfair,1.93,7.8,15.0,WON,13.95
 9b713e85,HALFTIME_LIVE,2026-10-11T20:30:00Z,Brazil Série A,Grêmio vs Internacional,Halftime In-Play,Grêmio,Coolbet,8.5,6.2,15.0,LOST,-15.0
 93e19289,HALFTIME_LIVE,2026-10-11T22:15:00Z,Primera División - Argentina,Racing Club vs Belgrano de Cordoba,Halftime In-Play,Draw,Betfair,3.3,19.6,15.0,LOST,-15.0
-70cd5904,HALFTIME_LIVE,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Halftime In-Play,Mirassol,Coolbet,16.0,10.3,15.0,PENDING,0.0
-3dbbe1ce,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Halftime In-Play,Atlético San Luis,Betsson,2.75,6.6,15.0,PENDING,0.0
+70cd5904,HALFTIME_LIVE,2026-10-11T22:30:00Z,Brazil Série A,Bahia vs Mirassol,Halftime In-Play,Mirassol,Coolbet,16.0,10.3,15.0,LOST,-15.0
+3dbbe1ce,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Halftime In-Play,Atlético San Luis,Betsson,2.75,6.6,15.0,LOST,-15.0
 2ba283f1,HALFTIME_LIVE,2026-10-11T23:00:00Z,Liga MX,Pachuca vs Necaxa,Halftime In-Play,Pachuca,Betsson,3.3,8.9,15.0,PENDING,0.0
-a0ca7ed5,HALFTIME_LIVE,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Halftime In-Play,Draw,Betfair Sportsbook,15.0,11.1,15.0,PENDING,0.0
+a0ca7ed5,HALFTIME_LIVE,2026-10-11T23:00:00Z,MLS,St. Louis City SC vs LA Galaxy,Halftime In-Play,Draw,Betfair Sportsbook,15.0,11.1,15.0,LOST,-15.0
 fb3f2660,CORE_EV,2026-10-13T18:45:00Z,Championship,Wrexham AFC vs West Bromwich Albion,Pre-Match +EV,West Bromwich Albion,Betfair,3.3,6.5,15.0,PENDING,0.0
