@@ -801,7 +801,7 @@ bbecf223,CORE_EV,2026-10-12T22:30:00Z,Brazil Série A,Chapecoense vs Atletico Pa
 06d7819a,CORE_EV,2026-10-11T23:00:00Z,Liga MX,Atlético San Luis vs Santos Laguna,Pre-Match +EV,Atlético San Luis,Coolbet,2.05,5.1,15.0,LOST,-15.0
 d5215e87,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,Querétaro vs Atlante FC,Halftime In-Play,Atlante FC,Coolbet,10.0,20.0,15.0,LOST,-15.0
 3a57e815,HALFTIME_LIVE,2026-10-10T23:00:00Z,Liga MX,FC Juárez vs Tijuana,Halftime In-Play,FC Juárez,Betfair,10.5,21.0,15.0,LOST,-15.0
-32e4cdc9,CORE_EV,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Pre-Match +EV,Cruzeiro,BetOnline.ag,3.23,5.6,15.0,PENDING,0.0
+32e4cdc9,CORE_EV,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Pre-Match +EV,Cruzeiro,BetOnline.ag,3.23,5.6,15.0,LOST,-15.0
 47711807,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Atlanta United FC vs FC Cincinnati,Halftime In-Play,Atlanta United FC,Betfair,2.5,10.1,15.0,LOST,-15.0
 93908b53,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Charlotte FC vs FC Dallas,Halftime In-Play,Draw,Betfair,3.95,10.6,15.0,LOST,-15.0
 ca4b75fd,HALFTIME_LIVE,2026-10-10T23:30:00Z,MLS,Orlando City SC vs Columbus Crew SC,Halftime In-Play,Draw,Coolbet,4.33,5.4,15.0,LOST,-15.0
@@ -901,5 +901,5 @@ a76f90cc,CORE_EV,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolutio
 b49a606e,CORE_EV,2026-10-15T00:30:00Z,MLS,Chicago Fire vs Philadelphia Union,Pre-Match +EV,Draw,1xBet,4.03,8.0,15.0,PENDING,0.0
 8d0a47a3,CORE_EV,2026-10-15T00:30:00Z,MLS,FC Dallas vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.65,9.0,15.0,PENDING,0.0
 812a8357,CORE_EV,2026-10-15T00:30:00Z,MLS,Nashville SC vs Sporting Kansas City,Pre-Match +EV,Sporting Kansas City,1xBet,11.1,15.1,15.0,PENDING,0.0
-c9634f17,HALFTIME_LIVE,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Halftime In-Play,Cruzeiro,Coolbet,20.0,5.3,15.0,PENDING,0.0
+c9634f17,HALFTIME_LIVE,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Halftime In-Play,Cruzeiro,Coolbet,20.0,5.3,15.0,LOST,-15.0
 0a9107af,CORE_EV,2026-10-15T01:30:00Z,MLS,Real Salt Lake vs San Jose Earthquakes,Pre-Match +EV,San Jose Earthquakes,1xBet,3.56,6.0,15.0,PENDING,0.0
