@@ -839,8 +839,8 @@ e2b8d5c6,HALFTIME_LIVE,2026-10-11T14:30:00Z,Primeira Liga - Portugal,Rio Ave FC 
 fa8879a9,HALFTIME_LIVE,2026-10-11T15:30:00Z,EPL,Liverpool vs Manchester City,Halftime In-Play,Liverpool,Betfair,4.5,8.7,15.0,LOST,-15.0
 161dff2a,HALFTIME_LIVE,2026-10-11T15:30:00Z,Bundesliga - Germany,SC Freiburg vs FC Schalke 04,Halftime In-Play,SC Freiburg,Coolbet,2.05,14.5,15.0,WON,15.75
 19948626,HALFTIME_LIVE,2026-10-11T16:00:00Z,Serie A - Italy,Sassuolo vs AC Milan,Halftime In-Play,Sassuolo,Betfair,4.4,8.9,15.0,LOST,-15.0
-71ee1bf0,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,RC Lens vs Sporting Lisbon,Pre-Match +EV,RC Lens,1xBet,2.62,5.2,15.0,PENDING,0.0
-4f32fbe6,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,Sabah FK vs Slavia Praha,Pre-Match +EV,Sabah FK,1xBet,3.74,8.1,15.0,PENDING,0.0
+71ee1bf0,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,RC Lens vs Sporting Lisbon,Pre-Match +EV,RC Lens,1xBet,2.62,5.2,15.0,LOST,-15.0
+4f32fbe6,CORE_EV,2026-10-13T16:45:00Z,UEFA Champions League,Sabah FK vs Slavia Praha,Pre-Match +EV,Sabah FK,1xBet,3.74,8.1,15.0,WON,41.1
 9959afcc,HALFTIME_LIVE,2026-10-11T16:30:00Z,La Liga - Spain,Real Betis vs CA Osasuna,Halftime In-Play,Draw,Betfair,24.0,35.8,15.0,LOST,-15.0
 0886fc5c,HALFTIME_LIVE,2026-10-11T17:45:00Z,Primera División - Argentina,San Lorenzo vs Deportivo Riestra,Halftime In-Play,Draw,Betfair,2.06,5.1,15.0,LOST,-15.0
 dad6f7e2,CORE_EV,2026-10-13T18:45:00Z,Championship,Bristol City vs Blackburn Rovers,Pre-Match +EV,Blackburn Rovers,Betfair,4.0,7.2,15.0,PENDING,0.0
@@ -926,5 +926,5 @@ d879877b,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa Conference League,FC Lugano vs
 fd3307ca,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa Conference League,Panathinaikos FC vs FK Borac Banja Luka,Pre-Match +EV,FK Borac Banja Luka,1xBet,12.7,27.0,15.0,PENDING,0.0
 9df1f8cb,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa Conference League,Universitatea Craiova vs Getafe,Pre-Match +EV,Universitatea Craiova,Betfair,3.4,7.6,15.0,PENDING,0.0
 b864b492,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa Conference League,Mjällby AIF vs Inter Club d'Escaldes,Pre-Match +EV,Inter Club d'Escaldes,1xBet,9.95,12.3,15.0,PENDING,0.0
-e951f89a,HALFTIME_LIVE,2026-10-13T16:45:00Z,UEFA Champions League,RC Lens vs Sporting Lisbon,Halftime In-Play,Sporting Lisbon,Betfair,1.87,6.2,15.0,PENDING,0.0
-7a200753,HALFTIME_LIVE,2026-10-13T16:45:00Z,UEFA Champions League,Sabah FK vs Slavia Praha,Halftime In-Play,Sabah FK,Betfair,5.0,7.8,15.0,PENDING,0.0
+e951f89a,HALFTIME_LIVE,2026-10-13T16:45:00Z,UEFA Champions League,RC Lens vs Sporting Lisbon,Halftime In-Play,Sporting Lisbon,Betfair,1.87,6.2,15.0,WON,13.05
+7a200753,HALFTIME_LIVE,2026-10-13T16:45:00Z,UEFA Champions League,Sabah FK vs Slavia Praha,Halftime In-Play,Sabah FK,Betfair,5.0,7.8,15.0,WON,60.0
