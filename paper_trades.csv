@@ -903,3 +903,7 @@ b49a606e,CORE_EV,2026-10-15T00:30:00Z,MLS,Chicago Fire vs Philadelphia Union,Pre
 812a8357,CORE_EV,2026-10-15T00:30:00Z,MLS,Nashville SC vs Sporting Kansas City,Pre-Match +EV,Sporting Kansas City,1xBet,11.1,15.1,15.0,PENDING,0.0
 c9634f17,HALFTIME_LIVE,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cruzeiro,Halftime In-Play,Cruzeiro,Coolbet,20.0,5.3,15.0,LOST,-15.0
 0a9107af,CORE_EV,2026-10-15T01:30:00Z,MLS,Real Salt Lake vs San Jose Earthquakes,Pre-Match +EV,San Jose Earthquakes,1xBet,3.56,6.0,15.0,PENDING,0.0
+1c6387d2,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,Bodø/Glimt vs Borussia Dortmund,Pre-Match +EV,Bodø/Glimt,Betfair,3.4,5.3,15.0,PENDING,0.0
+5bdc2e77,CORE_EV,2026-10-15T02:30:00Z,MLS,Los Angeles FC vs Austin FC,Pre-Match +EV,Austin FC,1xBet,6.78,6.9,15.0,PENDING,0.0
+06e9e85e,CORE_EV,2026-10-15T02:30:00Z,MLS,San Diego FC vs Houston Dynamo,Pre-Match +EV,Houston Dynamo,1xBet,3.23,6.6,15.0,PENDING,0.0
+294a05f3,CORE_EV,2026-10-15T02:30:00Z,MLS,LA Galaxy vs Portland Timbers,Pre-Match +EV,Draw,Coolbet,4.2,6.6,15.0,PENDING,0.0
