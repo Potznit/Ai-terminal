@@ -945,3 +945,16 @@ b18494b6,HALFTIME_LIVE,2026-10-13T19:00:00Z,UEFA Champions League,Villarreal vs 
 c821837d,HALFTIME_LIVE,2026-10-13T19:00:00Z,UEFA Champions League,RB Leipzig vs PSV Eindhoven,Halftime In-Play,Draw,Betfair,3.5,7.4,15.0,LOST,-15.0
 5c07883a,HALFTIME_LIVE,2026-10-13T19:00:00Z,Championship,Birmingham City vs Preston North End,Halftime In-Play,Draw,Betfair,19.0,24.5,15.0,LOST,-15.0
 ead74c8b,HALFTIME_LIVE,2026-10-13T19:00:00Z,Championship,Stoke City vs Middlesbrough,Halftime In-Play,Stoke City,Betfair,5.0,6.8,15.0,LOST,-15.0
+687a06e8,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Bournemouth vs SK Sturm Graz,Pre-Match +EV,SK Sturm Graz,Betfair,16.0,23.0,15.0,PENDING,0.0
+74eadba7,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Jagiellonia Białystok vs FC Ararat-Armenia,Pre-Match +EV,FC Ararat-Armenia,1xBet,7.7,8.1,15.0,PENDING,0.0
+853f54b8,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Ferencváros TC vs Viktoria Plzeň,Pre-Match +EV,Viktoria Plzeň,1xBet,3.79,7.4,15.0,PENDING,0.0
+08845b6a,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Marseille vs Olympiakos Piraeus,Pre-Match +EV,Olympiakos Piraeus,1xBet,3.17,6.7,15.0,PENDING,0.0
+ab764852,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,NEC Nijmegen vs PFC Levski Sofia,Pre-Match +EV,PFC Levski Sofia,Betsson,4.45,6.0,15.0,PENDING,0.0
+43d1980d,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Rennes vs OFI Crete,Pre-Match +EV,OFI Crete,1xBet,11.6,6.0,15.0,PENDING,0.0
+76d91331,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,Atalanta BC vs Pafos FC,Pre-Match +EV,Pafos FC,Coolbet,8.5,8.8,15.0,PENDING,0.0
+1d278817,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,FC Copenhagen vs SC Braga,Pre-Match +EV,Draw,Coolbet,3.5,11.5,15.0,PENDING,0.0
+23f8a25f,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,Sint Truiden vs FC Iberia 1999,Pre-Match +EV,FC Iberia 1999,1xBet,9.55,33.2,15.0,PENDING,0.0
+e438a2c1,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,FC Twente Enschede vs FC Thun,Pre-Match +EV,FC Thun,Coolbet,13.0,17.0,15.0,PENDING,0.0
+f9710792,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,SC Freiburg vs FK Jablonec,Pre-Match +EV,FK Jablonec,1xBet,11.4,30.0,15.0,PENDING,0.0
+f0635f6d,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,SK Brann vs Lincoln Red Imps FC,Pre-Match +EV,Lincoln Red Imps FC,Coolbet,17.5,23.4,15.0,PENDING,0.0
+ac5572fa,CORE_EV,2026-10-14T23:30:00Z,MLS,CF Montreal vs Atlanta United FC,Pre-Match +EV,Atlanta United FC,1xBet,3.0,5.6,15.0,PENDING,0.0
