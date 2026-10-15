@@ -894,10 +894,10 @@ fde2bdcc,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,Manchester City vs P
 283aa110,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,AS Roma vs Real Madrid,Pre-Match +EV,AS Roma,Betfair,3.85,5.2,15.0,LOST,-15.0
 547771d9,HALFTIME_LIVE,2026-10-12T21:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Newells Old Boys,Halftime In-Play,Gimnasia Mendoza,Betfair,3.4,8.3,15.0,WON,36.0
 c97b3463,CORE_EV,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Pre-Match +EV,Sarmiento de Junin,Betfair,5.6,5.1,15.0,LOST,-15.0
-69eeb5e5,CORE_EV,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,PENDING,0.0
-a76f90cc,CORE_EV,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolution,Pre-Match +EV,Draw,Coolbet,4.2,6.6,15.0,PENDING,0.0
-327e4245,CORE_EV,2026-10-14T23:30:00Z,MLS,Inter Miami CF vs New York City FC,Pre-Match +EV,New York City FC,Betsson,5.9,12.6,15.0,PENDING,0.0
-0fedd9ff,CORE_EV,2026-10-14T23:30:00Z,MLS,Toronto FC vs Orlando City SC,Pre-Match +EV,Draw,1xBet,4.0,7.2,15.0,PENDING,0.0
+69eeb5e5,CORE_EV,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,LOST,-15.0
+a76f90cc,CORE_EV,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolution,Pre-Match +EV,Draw,Coolbet,4.2,6.6,15.0,LOST,-15.0
+327e4245,CORE_EV,2026-10-14T23:30:00Z,MLS,Inter Miami CF vs New York City FC,Pre-Match +EV,New York City FC,Betsson,5.9,12.6,15.0,LOST,-15.0
+0fedd9ff,CORE_EV,2026-10-14T23:30:00Z,MLS,Toronto FC vs Orlando City SC,Pre-Match +EV,Draw,1xBet,4.0,7.2,15.0,WON,45.0
 b49a606e,CORE_EV,2026-10-15T00:30:00Z,MLS,Chicago Fire vs Philadelphia Union,Pre-Match +EV,Draw,1xBet,4.03,8.0,15.0,PENDING,0.0
 8d0a47a3,CORE_EV,2026-10-15T00:30:00Z,MLS,FC Dallas vs Seattle Sounders FC,Pre-Match +EV,Seattle Sounders FC,1xBet,3.65,9.0,15.0,PENDING,0.0
 812a8357,CORE_EV,2026-10-15T00:30:00Z,MLS,Nashville SC vs Sporting Kansas City,Pre-Match +EV,Sporting Kansas City,1xBet,11.1,15.1,15.0,PENDING,0.0
@@ -908,7 +908,7 @@ c9634f17,HALFTIME_LIVE,2026-10-13T00:00:00Z,Brazil Série A,Bragantino-SP vs Cru
 06e9e85e,CORE_EV,2026-10-15T02:30:00Z,MLS,San Diego FC vs Houston Dynamo,Pre-Match +EV,Houston Dynamo,1xBet,3.23,6.6,15.0,PENDING,0.0
 294a05f3,CORE_EV,2026-10-15T02:30:00Z,MLS,LA Galaxy vs Portland Timbers,Pre-Match +EV,Draw,Coolbet,4.2,6.6,15.0,PENDING,0.0
 a66655c0,CORE_EV,2026-10-15T01:30:00Z,MLS,Colorado Rapids vs Minnesota United FC,Pre-Match +EV,Draw,Betfair,3.85,5.5,15.0,PENDING,0.0
-5c4d8ccc,CORE_EV,2026-10-14T23:30:00Z,MLS,D.C. United vs New York Red Bulls,Pre-Match +EV,D.C. United,Betfair,1.99,5.9,15.0,PENDING,0.0
+5c4d8ccc,CORE_EV,2026-10-14T23:30:00Z,MLS,D.C. United vs New York Red Bulls,Pre-Match +EV,D.C. United,Betfair,1.99,5.9,15.0,WON,14.85
 a6ba747d,CORE_EV,2026-10-15T00:30:00Z,MLS,St. Louis City SC vs Vancouver Whitecaps FC,Pre-Match +EV,Vancouver Whitecaps FC,Betfair,2.9,5.5,15.0,PENDING,0.0
 de0126cd,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa League,Salzburg vs AC Milan,Pre-Match +EV,Salzburg,1xBet,4.36,5.8,15.0,PENDING,0.0
 36993453,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa League,AZ Alkmaar vs Hapoel Be'er Sheva,Pre-Match +EV,Hapoel Be'er Sheva,1xBet,9.6,7.9,15.0,PENDING,0.0
@@ -957,7 +957,7 @@ ab764852,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,NEC Nijmegen vs PFC Lev
 e438a2c1,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,FC Twente Enschede vs FC Thun,Pre-Match +EV,FC Thun,Coolbet,13.0,17.0,15.0,PENDING,0.0
 f9710792,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,SC Freiburg vs FK Jablonec,Pre-Match +EV,FK Jablonec,1xBet,11.4,30.0,15.0,PENDING,0.0
 f0635f6d,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,SK Brann vs Lincoln Red Imps FC,Pre-Match +EV,Lincoln Red Imps FC,Coolbet,17.5,23.4,15.0,PENDING,0.0
-ac5572fa,CORE_EV,2026-10-14T23:30:00Z,MLS,CF Montreal vs Atlanta United FC,Pre-Match +EV,Atlanta United FC,1xBet,3.0,5.6,15.0,PENDING,0.0
+ac5572fa,CORE_EV,2026-10-14T23:30:00Z,MLS,CF Montreal vs Atlanta United FC,Pre-Match +EV,Atlanta United FC,1xBet,3.0,5.6,15.0,WON,30.0
 867809cb,CORE_EV,2026-10-15T16:45:00Z,UEFA Europa League,NK Celje vs Omonoia FC,Pre-Match +EV,NK Celje,Betfair,2.62,5.2,15.0,PENDING,0.0
 9a9991ee,CORE_EV,2026-10-15T23:00:00Z,Primera División - Argentina,Atlético Huracán vs Gimnasia La Plata,Pre-Match +EV,Draw,Betfair,2.88,5.5,15.0,PENDING,0.0
 13c0d4a8,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa Conference League,Hearts vs FC Nordsjaelland,Pre-Match +EV,Draw,Betfair,4.0,5.5,15.0,PENDING,0.0
@@ -978,11 +978,11 @@ b993d29f,HALFTIME_LIVE,2026-10-14T19:00:00Z,UEFA Champions League,ŠK Slovan Bra
 099d659f,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Celta Vigo vs Juventus,Pre-Match +EV,Juventus,Betfair,2.3,6.0,15.0,PENDING,0.0
 6562e4e3,HALFTIME_LIVE,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Halftime In-Play,Draw,Betfair,3.1,7.3,15.0,WON,31.5
 9fffd879,CORE_EV,2026-10-16T23:00:00Z,Brazil Série A,Mirassol vs Internacional,Pre-Match +EV,Mirassol,BetOnline.ag,2.28,5.6,15.0,PENDING,0.0
-ac991965,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Halftime In-Play,Charlotte FC,Betfair,4.5,6.1,15.0,PENDING,0.0
-82861a0f,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,D.C. United vs New York Red Bulls,Halftime In-Play,D.C. United,Betfair,2.04,5.7,15.0,PENDING,0.0
-11dc2cb6,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolution,Halftime In-Play,New England Revolution,Betfair,3.05,12.1,15.0,PENDING,0.0
-420a78af,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Inter Miami CF vs New York City FC,Halftime In-Play,New York City FC,Betfair,13.5,16.2,15.0,PENDING,0.0
-990b42df,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Toronto FC vs Orlando City SC,Halftime In-Play,Orlando City SC,Coolbet,6.5,6.0,15.0,PENDING,0.0
+ac991965,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Halftime In-Play,Charlotte FC,Betfair,4.5,6.1,15.0,LOST,-15.0
+82861a0f,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,D.C. United vs New York Red Bulls,Halftime In-Play,D.C. United,Betfair,2.04,5.7,15.0,WON,15.6
+11dc2cb6,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolution,Halftime In-Play,New England Revolution,Betfair,3.05,12.1,15.0,WON,30.75
+420a78af,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Inter Miami CF vs New York City FC,Halftime In-Play,New York City FC,Betfair,13.5,16.2,15.0,LOST,-15.0
+990b42df,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Toronto FC vs Orlando City SC,Halftime In-Play,Orlando City SC,Coolbet,6.5,6.0,15.0,LOST,-15.0
 e9142523,CORE_EV,2026-10-17T00:30:00Z,Primera División - Argentina,Boca Juniors vs Talleres,Pre-Match +EV,Talleres,Betfair Sportsbook,5.5,6.6,15.0,PENDING,0.0
 26b56ade,HALFTIME_LIVE,2026-10-15T00:30:00Z,MLS,Chicago Fire vs Philadelphia Union,Halftime In-Play,Draw,Betfair,3.5,9.4,15.0,PENDING,0.0
 21ad1748,HALFTIME_LIVE,2026-10-15T00:30:00Z,MLS,FC Dallas vs Seattle Sounders FC,Halftime In-Play,Draw,Betfair,3.35,9.8,15.0,PENDING,0.0
