@@ -893,7 +893,7 @@ e31cdd11,CORE_EV,2026-10-14T18:45:00Z,Championship,Portsmouth vs Sheffield Unite
 fde2bdcc,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,Manchester City vs Paris Saint Germain,Pre-Match +EV,Paris Saint Germain,Betfair,3.2,6.7,15.0,WON,33.0
 283aa110,CORE_EV,2026-10-14T19:00:00Z,UEFA Champions League,AS Roma vs Real Madrid,Pre-Match +EV,AS Roma,Betfair,3.85,5.2,15.0,LOST,-15.0
 547771d9,HALFTIME_LIVE,2026-10-12T21:30:00Z,Primera División - Argentina,Gimnasia Mendoza vs Newells Old Boys,Halftime In-Play,Gimnasia Mendoza,Betfair,3.4,8.3,15.0,WON,36.0
-c97b3463,CORE_EV,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Pre-Match +EV,Sarmiento de Junin,Betfair,5.6,5.1,15.0,PENDING,0.0
+c97b3463,CORE_EV,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Pre-Match +EV,Sarmiento de Junin,Betfair,5.6,5.1,15.0,LOST,-15.0
 69eeb5e5,CORE_EV,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Pre-Match +EV,Draw,Betfair,4.1,5.1,15.0,PENDING,0.0
 a76f90cc,CORE_EV,2026-10-14T23:30:00Z,MLS,FC Cincinnati vs New England Revolution,Pre-Match +EV,Draw,Coolbet,4.2,6.6,15.0,PENDING,0.0
 327e4245,CORE_EV,2026-10-14T23:30:00Z,MLS,Inter Miami CF vs New York City FC,Pre-Match +EV,New York City FC,Betsson,5.9,12.6,15.0,PENDING,0.0
@@ -976,7 +976,7 @@ b993d29f,HALFTIME_LIVE,2026-10-14T19:00:00Z,UEFA Champions League,ŠK Slovan Bra
 5ae39e55,HALFTIME_LIVE,2026-10-14T19:00:00Z,UEFA Champions League,Shakhtar Donetsk vs AEK Athens,Halftime In-Play,Draw,Betfair,2.46,6.0,15.0,LOST,-15.0
 38c7ef38,CORE_EV,2026-10-16T19:00:00Z,Championship,Burnley vs Wolverhampton Wanderers,Pre-Match +EV,Wolverhampton Wanderers,Betfair,2.5,5.5,15.0,PENDING,0.0
 099d659f,CORE_EV,2026-10-15T19:00:00Z,UEFA Europa League,Celta Vigo vs Juventus,Pre-Match +EV,Juventus,Betfair,2.3,6.0,15.0,PENDING,0.0
-6562e4e3,HALFTIME_LIVE,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Halftime In-Play,Draw,Betfair,3.1,7.3,15.0,PENDING,0.0
+6562e4e3,HALFTIME_LIVE,2026-10-14T22:00:00Z,Primera División - Argentina,Sarmiento de Junin vs River Plate,Halftime In-Play,Draw,Betfair,3.1,7.3,15.0,WON,31.5
 9fffd879,CORE_EV,2026-10-16T23:00:00Z,Brazil Série A,Mirassol vs Internacional,Pre-Match +EV,Mirassol,BetOnline.ag,2.28,5.6,15.0,PENDING,0.0
 ac991965,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,Columbus Crew SC vs Charlotte FC,Halftime In-Play,Charlotte FC,Betfair,4.5,6.1,15.0,PENDING,0.0
 82861a0f,HALFTIME_LIVE,2026-10-14T23:30:00Z,MLS,D.C. United vs New York Red Bulls,Halftime In-Play,D.C. United,Betfair,2.04,5.7,15.0,PENDING,0.0
